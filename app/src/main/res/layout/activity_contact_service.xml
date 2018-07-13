@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+
+    <com.cocosh.shmstore.widget.view.ItemShowView
+        android:id="@+id/show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:nameText="我要退换货"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+    <TextView
+        android:id="@+id/content"
+        style="@style/text_nomal_min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/h100"
+        android:paddingLeft="@dimen/w50"
+        android:paddingRight="@dimen/w50"
+        android:paddingTop="@dimen/h100"
+        android:visibility="gone" />
+
+    <TextView
+        style="@style/text_nomal_min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h40"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/w50"
+        android:text="客服联系电话：400-966-1168" />
+
+    <TextView
+        style="@style/text_nomal_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/w50"
+        android:text="在线时间：09:00-18:00" />
+</LinearLayout>

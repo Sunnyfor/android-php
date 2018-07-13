@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTimeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h40"
+            android:text="2018-02-19 12:32"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w34" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginRight="@dimen/w35"
+            android:layout_marginTop="@dimen/h25"
+            android:background="@drawable/shape_rectangle_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitleImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginTop="@dimen/h48"
+                android:text="首媒扶贫活动将于3月15日启动"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
+
+            <TextView
+                android:id="@+id/tvDescImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginRight="@dimen/w60"
+                android:layout_marginTop="@dimen/h20"
+                android:ellipsize="end"
+                android:maxEms="80"
+                android:text="首媒扶贫活动将于3月15日启动。为响应国家号召，落 实十九大精神，脚踏实地，从基层干部做起..."
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w37" />
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h292"
+                android:layout_marginBottom="@dimen/h48"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginRight="@dimen/w60"
+                android:layout_marginTop="@dimen/h35"
+                android:background="@drawable/default_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

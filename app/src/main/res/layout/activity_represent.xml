@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cocosh.shmstore.enterpriseCertification.ui.RepresentActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h71">
+
+        <TextView
+            android:text="法人代表身份信息"
+            android:layout_marginLeft="@dimen/w58"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#878888"
+            android:textSize="@dimen/h34"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@id/rlTitle"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="姓名"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="性别"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="民族"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="证件类型"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="公民身份号码"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="住址"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="证件有效期"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/w58"
+            android:paddingRight="@dimen/w58"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143">
+
+            <TextView
+                android:text="签发机关"
+                android:layout_centerVertical="true"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="name"
+                android:textColor="#454545"
+                android:textSize="@dimen/h40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F7F7F7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:text="重新填写"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/red"
+        android:layout_marginBottom="@dimen/h36" />
+
+</RelativeLayout>

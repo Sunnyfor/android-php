@@ -1,0 +1,153 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'//kapt3插件
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "com.coco_sh.shmstore"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 20180525
+        versionName "2.0.0.500"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64" }
+        vectorDrawables.useSupportLibrary = true
+        renderscriptTargetApi 25
+        renderscriptSupportModeEnabled true
+    }
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //初始化lib目录
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+
+    //使用databinding
+    dataBinding {
+        enabled = true
+    }
+
+
+    signingConfigs {
+        release {
+            //密匙内容
+            storeFile file("../joln.jks")
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
+
+        debug {
+            storeFile file("../joln.jks")
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
+    }
+
+}
+
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(path: ':pingpp')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:design:25.4.0'
+    //kotlin支持库
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+    //databing支持库
+    kapt "com.android.databinding:compiler:3.0.1"
+    //RxJava库
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    //android版本的Rxjava 依赖Rxjava库
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //retrofit Okhttp封装库
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    //retrofit 的rxjava扩展库
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //google的JSON解析库
+    compile 'com.google.code.gson:gson:2.8.2'
+
+    //权限管理库
+    compile 'com.yanzhenjie:permission:1.1.2'
+    //方法数超过65536 解决办法
+    compile 'com.android.support:multidex:1.0.2'
+    //高效的Android数据持久化存储框架
+    compile 'xiaofei.library:android-data-storage:1.3.0'
+    //持久化存储排序
+    compile 'xiaofei.library:comparator-generator:1.1'
+    //支持圆角圆形的ImageView
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    /**
+     * rxbinding
+     */
+    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
+    //人脸识别
+    compile project(path: ':faceplatform-ui')
+    //公安系统
+    compile project(path: ':ocr_ui')
+    //图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    //七牛
+    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+
+    //vector5.0以下兼容库
+    compile 'com.android.support:support-vector-drawable:25.4.0'
+
+    /**
+     * leakCanary 内存检测工具
+     */
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4' // or 1.4-beta1
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4' // or 1.4-beta1
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4' // or 1.4-beta1
+    /**
+     * 时间选择器
+     */
+    compile 'com.contrarywind:Android-PickerView:4.1.2'
+
+    /**
+     * 侧滑 交换 recyclerview
+     */
+    //侧滑 拖拽recyclerView
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
+    compile 'cn.xiaoluo:update-manager:1.2.0' //版本更新lib
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

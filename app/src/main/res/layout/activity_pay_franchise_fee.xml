@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.coco_sh.shmstore.mine.author.service.PayFranchiseFeeActivity">
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h350"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_marginRight="@dimen/w20"
+            android:background="#EEEEEE">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h100"
+                android:text="需支付加盟费"
+                android:textColor="#585858"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/tv_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h20"
+                android:text="10000元"
+                android:textColor="#DD596E"
+                android:textSize="@dimen/h57" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_yellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h100"
+                    android:text="由于线上交易扣款金额受限，首媒为企业提供线下\n支付服务。汇款详情如下："
+                    android:textColor="#ECA56C"
+                    android:textSize="@dimen/h43" />
+
+                <TextView
+                    android:id="@+id/tv_black1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_yellow"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h100"
+                    android:text="1.户名:首媒管理咨询（北京）有限公司"
+                    android:textColor="#545454"
+                    android:textSize="@dimen/h40" />
+
+                <TextView
+                    android:id="@+id/tv_black2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_black1"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h20"
+                    android:text="2.账户：0200 3005 0910 0024 679"
+                    android:textColor="#545454"
+                    android:textSize="@dimen/h40" />
+
+                <TextView
+                    android:id="@+id/tv_black3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_black2"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h20"
+                    android:text="3.开户行：中国工商银行股份有限公司北京中关村支行"
+                    android:textColor="#545454"
+                    android:textSize="@dimen/h40" />
+
+                <TextView
+                    android:id="@+id/tv_black4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_black3"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h20"
+                    android:text="4.开户银行代码/开户行行号:1021 0000 9561"
+                    android:textColor="#545454"
+                    android:textSize="@dimen/h40" />
+
+                <TextView
+                    android:id="@+id/tv_black5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_black4"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h20"
+                    android:text="5.开户行地址：北京市海淀区龙显山路19号"
+                    android:textColor="#545454"
+                    android:textSize="@dimen/h40"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_red1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_black5"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h120"
+                    android:text="注意事项:"
+                    android:textColor="#DD5A6E"
+                    android:textSize="@dimen/h38" />
+
+                <TextView
+                    android:id="@+id/tv_red2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_red1"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="1.户名不能填写错误，错字或者错标点均会被银行退款;"
+                    android:textColor="#DD5A6E"
+                    android:textSize="@dimen/h38" />
+
+                <TextView
+                    android:id="@+id/tv_red3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_red2"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="2.汇款账户：必须为贵企业的对公账户;"
+                    android:textColor="#DD5A6E"
+                    android:textSize="@dimen/h38" />
+
+                <TextView
+                    android:id="@+id/tv_red4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_red3"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="3.资金到账后，首媒会给贵企业注册时使用的手机号码发"
+                    android:textColor="#DD5A6E"
+                    android:textSize="@dimen/h38" />
+
+                <TextView
+                    android:id="@+id/tv_red5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_red4"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="送资金到账通知，同时在首媒APP端会为您开通相关业务。"
+                    android:textColor="#DD5A6E"
+                    android:textSize="@dimen/h38" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:id="@+id/ll_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h35"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/btn_show"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/h150"
+                android:layout_marginLeft="@dimen/w30"
+                android:layout_weight="1"
+                android:background="@color/grayText"
+                android:text="查看信息"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h45" />
+
+            <Button
+                android:id="@+id/btn_input"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/h150"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_weight="1"
+                android:background="#D41F40"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h45" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h35"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_loading"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/h150"
+                android:layout_marginLeft="@dimen/w30"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_weight="1"
+                android:background="@color/grayText"
+                android:text="待付款"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h45" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

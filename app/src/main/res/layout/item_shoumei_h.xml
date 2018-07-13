@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="@dimen/w230"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/w129"
+            android:layout_height="@dimen/h129"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/default_content"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h30"
+            android:ellipsize="end"
+            android:maxEms="6"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w37" />
+
+        <TextView
+            android:id="@+id/tvFollow"
+            android:layout_width="@dimen/w144"
+            android:layout_height="@dimen/h58"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@drawable/shape_rectangle_round_red"
+            android:gravity="center"
+            android:text="+关注"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w34" />
+    </LinearLayout>
+
+</RelativeLayout>

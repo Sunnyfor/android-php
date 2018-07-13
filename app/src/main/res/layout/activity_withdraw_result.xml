@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w270"
+            android:layout_marginTop="@dimen/h164">
+
+            <ImageView
+                android:id="@+id/ivOne"
+                android:layout_width="@dimen/w65"
+                android:layout_height="@dimen/h65"
+                android:src="@drawable/success_logo" />
+
+            <TextView
+                android:id="@+id/tvOne"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/h50"
+                android:layout_toRightOf="@+id/ivOne"
+                android:text="发起提现申请"
+                android:textSize="@dimen/h46" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line_one"
+            android:layout_width="@dimen/w2"
+            android:layout_height="@dimen/h60"
+            android:layout_marginBottom="@dimen/h50"
+            android:layout_marginLeft="@dimen/w300"
+            android:layout_marginTop="@dimen/h50"
+            android:background="@color/red" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w270">
+
+            <ImageView
+                android:id="@+id/ivTwo"
+                android:layout_width="@dimen/w65"
+                android:layout_height="@dimen/h65"
+                android:layout_centerVertical="true"
+                android:src="@drawable/success_logo" />
+
+            <TextView
+                android:id="@+id/tvTwoIcon"
+                style="@style/text_nomal_min"
+                android:layout_width="@dimen/w65"
+                android:layout_height="@dimen/h65"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_btn_red"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/tvTwo"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/h50"
+                android:layout_toRightOf="@+id/ivTwo"
+                android:text="银行处理中"
+                android:textSize="@dimen/h46" />
+
+            <TextView
+                android:id="@+id/toTime"
+                style="@style/text_nomal_small"
+                android:layout_below="@+id/tvTwo"
+                android:layout_marginLeft="@dimen/h50"
+                android:layout_marginTop="@dimen/h10"
+                android:layout_toRightOf="@+id/ivTwo"
+                android:text="预计到账时间1221：122" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line_two"
+            android:layout_width="@dimen/w2"
+            android:layout_height="@dimen/h60"
+            android:layout_marginBottom="@dimen/h50"
+            android:layout_marginLeft="@dimen/w300"
+            android:layout_marginTop="@dimen/h50"
+            android:background="@color/grayText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w270">
+
+            <ImageView
+                android:id="@+id/ivThree"
+                android:layout_width="@dimen/w65"
+                android:layout_height="@dimen/h65"
+                android:src="@drawable/success_logo" />
+
+            <TextView
+                android:id="@+id/tvThreeIcon"
+                style="@style/text_nomal_min"
+                android:layout_width="@dimen/w65"
+                android:layout_height="@dimen/h65"
+                android:background="@drawable/shape_btn_grayline"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/tvThree"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/h50"
+                android:layout_toRightOf="@+id/ivThree"
+                android:text="到账成功"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/h46" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h250"
+            android:orientation="vertical">
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:nameText="提现金额"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/bankMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:nameText="手续费"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible"
+                app:nameText="到账银行卡"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:nameText="户名"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/bankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:nameText="开户银行"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:nameText="提现时间"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:nameText="流水号"></com.cocosh.shmstore.widget.view.ItemShowView>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

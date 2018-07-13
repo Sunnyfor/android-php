@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvDesc"
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginRight="@dimen/w300"
+            android:layout_marginTop="@dimen/w30"
+            android:text="我不是小朋友：加油，加油！加油，加 油！加油，加油！"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/tvDelete"
+            style="@style/text_nomal_min"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/w35"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@drawable/shape_rectangle_round"
+            android:paddingLeft="@dimen/h30"
+            android:paddingRight="@dimen/h30"
+            android:text="删除"
+            android:textColor="@color/red"
+            android:textSize="@dimen/h34" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvTime"
+        style="@style/text_nomal_small"
+        android:layout_marginBottom="@dimen/h20"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w126"
+        android:layout_marginTop="@dimen/w20"
+        android:text="2017-10-1 06:50"
+        android:textSize="@dimen/h34" />
+</LinearLayout>

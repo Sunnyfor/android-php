@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/text_nomal_min"
+        android:layout_marginBottom="@dimen/h36"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginTop="@dimen/h36"
+        android:paddingTop="@dimen/w10"
+        android:paddingBottom="@dimen/w10"
+        android:paddingLeft="@dimen/w30"
+        android:paddingRight="@dimen/w30"
+        android:text="家居" />
+</LinearLayout>
+

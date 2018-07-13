@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h537"
+        android:background="@color/red_color_nomal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h85"
+            android:text="红包金额"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h10"
+            android:singleLine="true"
+            android:text="0.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h158" />
+
+        <Button
+            android:id="@+id/btn_withdraw_money"
+            android:layout_width="@dimen/w310"
+            android:layout_height="@dimen/h110"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h20"
+            android:background="@drawable/shape_btn_redpackage"
+            android:text="转出至钱包"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rule"
+        style="@style/text_nomal_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w50"
+        android:layout_marginTop="@dimen/h30"
+        android:text="注：红包可以直接购物及支付首媒平台的各类费用"
+        android:textSize="@dimen/h37" />
+
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+
+</LinearLayout>

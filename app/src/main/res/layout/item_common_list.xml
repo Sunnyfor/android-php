@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h145">
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/text_nomal_min"
+        android:layout_centerVertical="true"
+        android:text="张三"
+        android:textSize="@dimen/h40" />
+
+    <TextView
+        android:id="@+id/shouMeiNumber"
+        style="@style/text_nomal_min"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w176"
+        android:layout_toRightOf="@+id/name"
+        android:text="首媒号：12345678900"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/h37" />
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@+id/directionIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/iconMore"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_gray" />
+</RelativeLayout>

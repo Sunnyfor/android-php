@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w862"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/shape_income_bg_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h60"
+            android:gravity="center_horizontal"
+            android:text="@string/smPhone"
+            android:textSize="@dimen/w50"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginRight="@dimen/w30"/>
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h20"
+            android:gravity="center_horizontal"
+            android:text="@string/smPhone"
+            android:textSize="@dimen/w46"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginRight="@dimen/w30"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_marginTop="@dimen/h60"
+        android:background="@color/gray_line"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h160"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/tvCancel"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cancle"
+            android:textSize="@dimen/w48" />
+
+        <ImageView
+            android:id="@id/ivLine"
+            android:layout_width="@dimen/w2"
+            android:layout_height="match_parent"
+            android:background="@color/gray_line"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@id/tvSure"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sure"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w48" />
+    </LinearLayout>
+</LinearLayout>

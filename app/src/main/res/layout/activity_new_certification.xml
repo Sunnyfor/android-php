@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F2F4F5"
+            tools:context="com.cocosh.shmstore.newCertification.ui.NewCertificationActivity">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h68"
+                android:layout_marginLeft="@dimen/w58"
+                android:gravity="center_vertical"
+                android:text="认证信息"
+                android:textColor="#767778"
+                android:textSize="@dimen/h38" />
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h68"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/w58"
+                android:paddingRight="@dimen/w58">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证状态"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvState"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证时间"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="首媒号"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvSmNum"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证账号"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvAccount"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证地区"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvDistrict"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证费用"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvCost"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h68"
+                android:layout_below="@id/ll"
+                android:layout_marginLeft="@dimen/w58"
+                android:gravity="center_vertical"
+                android:text="基础信息"
+                android:textColor="#767778"
+                android:textSize="@dimen/h38" />
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv2"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/w58"
+                android:paddingRight="@dimen/w58">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="认证人"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvPeople"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="性别"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="证件类型"
+                        style="@style/newCertiTextStyle1" />
+                    
+                    <RelativeLayout
+                        android:id="@+id/rlID"
+                        android:clickable="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="@dimen/w150"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvType"
+                            android:text="身份证"
+                            android:layout_centerVertical="true"
+                            android:textColor="#898989"
+                            android:textSize="@dimen/h40"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.cocosh.shmstore.widget.textview.ICONTextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/iconMore"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/w30"
+                            android:textColor="@color/iconColor"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+
+
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="证件号码"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvIdNum"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="住址"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="证件有效期"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvValid"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h146">
+
+                    <TextView
+                        android:text="签发机关"
+                        style="@style/newCertiTextStyle1" />
+
+                    <TextView
+                        android:id="@+id/tvAuthority"
+                        android:text="已认证"
+                        style="@style/newCertiTextStyle2" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlFace"
+                android:layout_marginTop="@dimen/h58"
+                android:layout_below="@id/ll2"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/w58"
+                android:paddingRight="@dimen/w58"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h146">
+
+                <TextView
+                    android:text="人脸识别"
+                    style="@style/newCertiTextStyle1" />
+
+                <TextView
+                    android:id="@+id/tvFace"
+                    android:text="已完善"
+                    style="@style/newCertiTextStyle2" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@id/rlFace"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h140"/>
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

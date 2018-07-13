@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+    <RelativeLayout
+        android:layout_width="@dimen/w300"
+        android:layout_height="@dimen/h300"
+        android:background="@drawable/bg_toast_gray"
+       android:layout_centerInParent="true"
+        android:gravity="center_vertical">
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/iconComplet"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w120" />
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivIcon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w42" />
+    </RelativeLayout>
+</RelativeLayout>

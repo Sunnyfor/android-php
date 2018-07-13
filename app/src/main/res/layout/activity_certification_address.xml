@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h80"
+        android:background="@color/red"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="@dimen/w50"
+            android:layout_height="@dimen/h43"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w35"
+            android:background="@drawable/service_voice" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_toRightOf="@+id/iv"
+            android:text="灰色表示此地服务商已满"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/w50"
+            android:layout_height="@dimen/h43"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginRight="@dimen/w40"
+            android:background="@drawable/bd_ocr_close" />
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/main_tab"
+        android:layout_width="@dimen/w700"
+        android:layout_height="@dimen/h120"
+        android:layout_below="@+id/rl"
+        android:layout_marginLeft="@dimen/w62"
+        android:layout_marginTop="@dimen/w40"
+        app:tabIndicatorColor="@color/red"
+        app:tabIndicatorHeight="@dimen/h10"
+        app:tabSelectedTextColor="@color/red"
+        app:tabTextAppearance="@android:style/TextAppearance.Small"
+        app:tabTextColor="@color/grayText" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/service_address_order_rl"
+        android:layout_below="@+id/main_tab" />
+
+    <RelativeLayout
+        android:id="@+id/service_address_order_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h87"
+            android:background="@color/background_gray"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/w59"
+                android:layout_height="@dimen/h59"
+                android:layout_marginLeft="@dimen/w33"
+                android:background="@drawable/service_zhuyi" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w16"
+                android:text="注：选择的服务城市必须与工商登记地址一致"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w32" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_next2"
+            style="@style/ButtonStyle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/w30"
+            android:text="下一步"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h141"
+            android:layout_below="@+id/ll"
+            android:background="#f5f5f5">
+
+            <TextView
+                android:id="@+id/tv_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w35"
+                android:gravity="right"
+                android:text="平台加盟费："
+                android:textColor="@color/red"
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:id="@+id/money_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w24"
+                android:layout_toRightOf="@+id/tv_bottom"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w46" />
+
+            <Button
+                android:id="@+id/bt_next"
+                android:layout_width="@dimen/w384"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/gray_line"
+                android:clickable="false"
+                android:text="下一步"
+                android:textColor="@color/white"
+                android:textSize="@dimen/w40" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

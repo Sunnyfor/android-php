@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/w2"
+    tools:context="com.cocosh.shmstore.newCertification.ui.IDcardActivity">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:text="身份证正面"
+            android:textColor="#818181"
+            android:textSize="@dimen/h37"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <ImageView
+            android:id="@+id/ivFront"
+            android:layout_below="@id/tv1"
+            android:background="#F2F4F5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h30"
+            android:layout_width="@dimen/w966"
+            android:layout_height="@dimen/h543" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:text="身份证反面"
+            android:layout_below="@id/ivFront"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#818181"
+            android:textSize="@dimen/h37"
+            android:layout_marginTop="@dimen/h55"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_below="@id/tv2"
+            android:background="#F2F4F5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h30"
+            android:layout_width="@dimen/w966"
+            android:layout_height="@dimen/h543" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+</layout>

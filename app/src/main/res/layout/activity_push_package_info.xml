@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h430"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginRight="@dimen/w45"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/bg_round"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="金额"
+            android:textSize="@dimen/h46" />
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h20"
+            android:text="投放金额："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/progress_drawable_list" />
+
+            <TextView
+                android:id="@+id/push"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300元"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="领取金额："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+            <ProgressBar
+                android:id="@+id/pullMoney"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_drawable_list"
+                android:secondaryProgress="50" />
+
+            <TextView
+                android:id="@+id/pull"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300元"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h430"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginRight="@dimen/w45"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/bg_round"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="领取数"
+            android:textSize="@dimen/h46" />
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h20"
+            android:text="红包领取数："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+            <ProgressBar
+                android:id="@+id/claimNumber"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/progress_drawable_list" />
+
+            <TextView
+                android:id="@+id/claim"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300元"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="实际红包领取数："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+
+            <ProgressBar
+                android:id="@+id/realClaimNumber"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_drawable_list"
+                android:secondaryProgress="50" />
+
+
+            <TextView
+                android:id="@+id/realClaim"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300元"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h430"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginRight="@dimen/w45"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/bg_round"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="曝光数"
+            android:textSize="@dimen/h46" />
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h20"
+            android:text="广告曝光数："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+
+            <ProgressBar
+                android:id="@+id/lightNumber"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/progress_drawable_list" />
+
+
+            <TextView
+                android:id="@+id/light"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300次"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="实际广告曝光数："
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55">
+
+
+            <ProgressBar
+                android:id="@+id/realLightNumber"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/w600"
+                android:layout_height="@dimen/h5"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/line_gray"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_drawable_list"
+                android:secondaryProgress="50" />
+
+
+            <TextView
+                android:id="@+id/realLight"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="300次"
+                android:textSize="@dimen/h34" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

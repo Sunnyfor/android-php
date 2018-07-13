@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@id/frameParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/frameTitle">
+
+        <FrameLayout
+            android:id="@id/frameBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/activity_bg" />
+
+        <include
+            android:id="@id/frameLoading"
+            layout="@layout/layout_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/frameError"
+            layout="@layout/layout_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@id/frameTitle"
+        style="@style/Title"
+        android:background="@color/white"/>
+
+    <View
+        android:id="@id/vTitleLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_below="@id/frameTitle"
+        android:background="@color/lineGray"
+        android:visibility="visible"/>
+</RelativeLayout>

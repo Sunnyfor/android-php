@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/chooseAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/h50"
+            android:paddingTop="@dimen/h50">
+
+            <TextView
+                android:id="@+id/inputAddress"
+                style="@style/text_nomal_min"
+                android:text="请填写收货地址"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/text_nomal_min"
+                android:layout_marginTop="@dimen/h10"
+                android:text="张小米"
+                android:textSize="@dimen/h40"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/w55"
+                android:layout_marginTop="@dimen/h10"
+                android:layout_toRightOf="@+id/name"
+                android:text="13809098989"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/address"
+                style="@style/text_nomal_small"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="@dimen/h30"
+                android:text="深圳市南山区蛇口水湾新村7号楼203室"
+                android:visibility="gone" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w55"
+                android:text="@string/iconMore"
+                android:textSize="@dimen/h60" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/goodsPic"
+                android:layout_width="@dimen/w310"
+                android:layout_height="@dimen/h310"
+                android:layout_centerVertical="true"
+                android:src="@color/red" />
+
+            <TextView
+                android:id="@+id/shopName"
+                style="@style/text_nomal_min"
+                android:layout_marginTop="@dimen/h50"
+                android:layout_toRightOf="@+id/goodsPic"
+                android:text="朴坊" />
+
+            <TextView
+                android:id="@+id/goodsName"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_marginTop="@dimen/h50"
+                android:layout_toRightOf="@+id/shopName"
+                android:text="不锈钢金碗" />
+
+
+            <TextView
+                android:id="@+id/goodsType"
+                style="@style/text_nomal_min"
+                android:layout_below="@+id/shopName"
+                android:layout_toRightOf="@+id/goodsPic"
+                android:text="差高烧汤灿装" />
+
+            <TextView
+                android:id="@+id/goodsPrice"
+                style="@style/text_nomal_min"
+                android:layout_below="@+id/goodsType"
+                android:layout_toRightOf="@+id/goodsPic"
+                android:text="￥20.00" />
+
+            <TextView
+                android:id="@+id/goodsCount"
+                style="@style/text_nomal_small"
+                android:layout_below="@+id/goodsType"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_toRightOf="@+id/goodsPrice"
+                android:text="x1" />
+
+            <TextView
+                android:id="@+id/freightPrice"
+                style="@style/text_nomal_min"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/goodsPrice"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_toRightOf="@+id/goodsPic"
+                android:background="@color/white"
+                android:text="包邮" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+
+
+        <TextView
+            android:id="@+id/totalPrice"
+            style="@style/text_nomal_min"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:gravity="right"
+            android:text="合计：¥ 20.00" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="去支付" />
+
+    <TextView
+        android:id="@+id/realPrice"
+        style="@style/text_nomal_min"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="right"
+        android:text="实付款：¥ 20.00" />
+</RelativeLayout>

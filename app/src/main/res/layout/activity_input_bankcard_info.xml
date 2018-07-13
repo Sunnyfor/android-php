@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    android:orientation="vertical"
+    tools:context="com.cocosh.shmstore.enterpriseCertification.ui.RepresentActivity">
+
+    <TextView
+        style="@style/text_nomal_small"
+        android:layout_marginLeft="@dimen/w40"
+        android:layout_marginTop="@dimen/h40"
+        android:text="请选择银行卡类型" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h132"
+        android:layout_marginTop="@dimen/h20"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="卡类型"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtBankType"
+            style="@style/EidttextStyle"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w190"
+            android:focusable="false"
+            android:gravity="center_vertical|left"
+            android:hint="请输入银行卡类型"
+            android:textSize="@dimen/h40" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="手机号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtPhone"
+            style="@style/PhoneEidttextStyle"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w190"
+            android:gravity="center_vertical|left"
+            android:hint="请输入银行预留手机号"
+            android:textSize="@dimen/h40" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/next"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h89"
+        android:background="@color/grayBtn"
+        android:text="下一步" />
+
+</LinearLayout>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.cocosh.shmstore.enterpriseCertification.ui.RepresentActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="名称"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/tvName"
+            style="@style/EidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center_vertical|right"
+            android:hint="请输入公司名称" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="法定代表人"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/tvLayerName"
+            style="@style/EidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center_vertical|right"
+            android:hint="请输入法定代表人" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:id="@+id/tvBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="开户银行"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtBankName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w200"
+            android:background="@color/white"
+            android:hint="请输入开户银行"
+            android:maxLength="50"
+            android:gravity="center_vertical|right"
+            android:paddingBottom="@dimen/w50"
+            android:paddingTop="@dimen/w50"
+            android:textSize="@dimen/h43" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_below="@id/edtBankName"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="对公账号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtBankAccount"
+            style="@style/BankEidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|right"
+            android:hint="请输入账号"
+            android:inputType="number" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="手机号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtPhoneNumber"
+            style="@style/PhoneEidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="此手机号用于打款认证核实" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnInput"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h74"
+        android:background="@color/grayBtn"
+        android:text="提交" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h75"
+        android:gravity="center"
+        android:text="请填写正确的对公账户及所能收取消息的合法手机号，"
+        android:textColor="#454545"
+        android:textSize="@dimen/h35" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h75"
+        android:gravity="center"
+        android:text="首媒将会根据你所提供的手机号进行打款认证核实！"
+        android:textColor="#454545"
+        android:textSize="@dimen/h35" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h75"
+        android:gravity="center"
+        android:text="如有疑问请拨打首媒客服热线：400-966-1168"
+        android:textColor="#454545"
+        android:textSize="@dimen/h35" />
+</LinearLayout>

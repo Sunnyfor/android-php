@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentTop="true"
+            android:background="#BFBFBF"
+            android:contentDescription="@null"
+            android:id="@+id/imageView" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageView"
+            android:paddingLeft="@dimen/w123"
+            android:paddingRight="@dimen/w123"
+            android:paddingTop="@dimen/h178">
+
+            <RelativeLayout
+                android:id="@+id/rlPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTip">
+
+                <com.cocosh.shmstore.widget.eidttext.SmEditText
+                    android:id="@+id/etPhone"
+                    style="@style/PhoneEidttextStyle"
+                    android:layout_height="@dimen/h175"
+                    android:background="@drawable/edit_text_bg"
+                    android:paddingLeft="@dimen/w120"
+                    android:paddingRight="@dimen/w10"
+                    android:textSize="@dimen/h44" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:layout_width="@dimen/w80"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/iconPhone"
+                    android:textColor="@color/iconColor"
+                    android:textSize="@dimen/w60" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlIdentifyCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlPhone"
+                android:layout_marginTop="@dimen/h45">
+
+                <com.cocosh.shmstore.widget.eidttext.SmEditText
+                    android:id="@+id/etIdentifyCode"
+                    style="@style/CodeEidttextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h175"
+                    android:paddingLeft="@dimen/w120"
+                    android:paddingRight="@dimen/w120"
+                    android:background="@drawable/edit_text_bg"/>
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:layout_width="@dimen/w80"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/iconSms"
+                    android:textColor="@color/iconColor"
+                    android:textSize="@dimen/w60" />
+
+                <com.cocosh.shmstore.widget.button.TimerButton
+                    android:id="@+id/tbSend"
+                    style="@style/CodeButtonStyle"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvProblem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/rlIdentifyCode"
+                android:layout_marginTop="@dimen/h18"
+                android:text="遇到其他问题?"
+                android:textColor="@color/text_red"
+                android:textSize="@dimen/h34" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h3"
+                android:layout_alignLeft="@id/tvProblem"
+                android:layout_alignStart="@id/tvProblem"
+                android:layout_below="@id/tvProblem"
+                android:background="@color/text_red" />
+
+            <Button
+                android:id="@+id/btNext"
+                style="@style/ButtonStyle"
+                android:layout_below="@id/tvProblem"
+                android:layout_marginTop="@dimen/h120"
+                android:enabled="false"
+                android:text="下一步" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

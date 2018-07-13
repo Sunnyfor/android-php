@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/addBankCard"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h20"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
+
+    <Button
+        android:id="@+id/addBankCard"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h145"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h20"
+        android:layout_marginLeft="@dimen/w20"
+        android:layout_marginRight="@dimen/w20"
+        android:background="@drawable/shape_rectangle_red"
+        android:text="+ 添加银行卡"
+        android:textSize="@dimen/h51" />
+</RelativeLayout>

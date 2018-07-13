@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/w138"
+            android:layout_height="@dimen/h138"
+            android:layout_marginBottom="@dimen/h35"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h35"
+            android:src="@drawable/default_content"
+            app:riv_oval="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_toRightOf="@+id/ivLogo"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="我是夏洛特"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="2017.10.1"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/w34" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@id/tvMore"
+            android:layout_width="@dimen/w60"
+            android:layout_height="@dimen/h50"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w35"
+            android:src="@drawable/more" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w200"
+        android:layout_marginRight="@dimen/w35"
+        android:lineSpacingExtra="@dimen/h15"
+        android:text="5G时代群雄逐鹿，谁更胜一筹？5G时代群雄逐鹿，谁更胜一筹？ "
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h40" />
+
+    <LinearLayout
+        android:id="@+id/subLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w145"
+        android:layout_marginRight="@dimen/w104"
+        android:layout_marginTop="@dimen/h50"
+        android:background="@color/background_gray"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/h35">
+
+        <TextView
+            android:id="@+id/tvOneTip"
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginRight="@dimen/w126"
+            android:layout_marginTop="@dimen/w35"
+            android:text="我不是小朋友：加油，加油！加油，加 油！加油，加油！"
+            android:textSize="@dimen/h37" />
+
+        <TextView
+            android:id="@+id/tvTwoTip"
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginRight="@dimen/w126"
+            android:layout_marginTop="@dimen/w30"
+            android:text="我不是小朋友回复再见再也不见:一直加油下去！"
+            android:textSize="@dimen/h37" />
+
+        <TextView
+            android:id="@+id/tvNumber"
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginRight="@dimen/w126"
+            android:layout_marginTop="@dimen/w30"
+            android:text="查看更多评论（12）..."
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/h34" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_marginTop="@dimen/h55"
+        android:background="@color/lineGray" />
+
+</LinearLayout>

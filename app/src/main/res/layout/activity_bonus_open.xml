@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgBonus"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h285"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_bg_bonus_top" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/w440"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="￥"
+                android:textColor="#c7423b"
+                android:textSize="@dimen/w50" />
+
+            <TextView
+                android:id="@id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w10"
+                android:text="0.00 元"
+                android:textColor="#c7423b"
+                android:textSize="@dimen/w123" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w10"
+            android:text="已存入红包账户，请前往钱包中查看"
+            android:textColor="#c7423b"
+            android:textSize="@dimen/w36" />
+
+        <Button
+            android:id="@+id/ivRanking"
+            android:layout_width="@dimen/w310"
+            android:layout_height="@dimen/h111"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h80"
+            android:background="@drawable/shape_btn_bonus_circle"
+            android:text="红包排行榜"
+            android:textColor="#c7423b"
+            android:textSize="@dimen/w40"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        android:padding="@dimen/w35">
+
+        <Button
+            android:id="@id/btnShare"
+            style="@style/ButtonStyle"
+            android:background="@color/red"
+            android:text="晒一下" />
+    </LinearLayout>
+</RelativeLayout>

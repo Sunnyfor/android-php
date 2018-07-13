@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@id/edtDesc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h384"
+        android:layout_marginLeft="@dimen/w33"
+        android:layout_marginRight="@dimen/w33"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/shape_income_bg_white"
+        android:gravity="top|left"
+        android:hint="请具体说明问题，我们将尽快处理"
+        android:paddingBottom="@dimen/h55"
+        android:paddingTop="@dimen/h55"
+        android:paddingLeft="@dimen/w42"
+        android:paddingRight="@dimen/w42"
+        android:textSize="@dimen/w46" />
+
+    <Button
+        android:id="@id/btnNext"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h35"
+        android:background="@color/red"
+        android:text="提交" />
+</LinearLayout>

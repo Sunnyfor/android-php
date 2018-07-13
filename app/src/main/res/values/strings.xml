@@ -1,0 +1,318 @@
+<resources>
+    <string name="app_name">首媒</string>
+
+    <!--首页Title-->
+    <string name="default_city">定位中</string>
+    <string name="formal_title">首媒中国</string>
+    <string name="dev_title">开发版本</string>
+
+    <!--首页导航-->
+    <string name="home">首页</string>
+    <string name="chat">聊聊</string>
+    <string name="group">社群</string>
+    <string name="message">消息</string>
+    <string name="message_centenr">消息中心</string>
+
+    <!--登录-->
+    <string name="moreLogin">更多登录方式</string>
+    <string name="passForget"><u>忘记密码？</u></string>
+    <string name="nomreId"><u>没有账号？</u></string>
+    <string name="regist"><u>注册</u></string>
+    <string name="logout">退出登录</string>
+    <string name="settingPass">设置登录密码</string>
+    <string name="binding">绑定</string>
+    <string name="close">关闭</string>
+    <string name="cancle">取消</string>
+    <string name="call">拨打</string>
+    <string name="sure">确定</string>
+    <string name="smPhone">首媒客服：01078334322</string>
+
+    <string name="lockPhone">登录密码出错已达上限将锁定密码\n3小时，请稍后登录。</string>
+
+    <!--loading-->
+    <string name="loading">正在加载</string>
+
+    <string name="my">我的</string>
+    <string name="share">分享</string>
+    <string name="login">登录</string>
+    <string name="reg_account">注册账户</string>
+    <string name="help">需要帮助</string>
+
+
+    <!--输入提示-->
+    <string name="phone">手机号</string>
+    <string name="inputCode">请输入短信验证码</string>
+    <string name="inputPhone">请输入手机号码</string>
+    <string name="inputPhoneBinding">输入手机号进行绑定</string>
+    <string name="inputPassDesc">设置6–20位数字或字母密码</string>
+    <string name="inputPassword">请输入密码</string>
+    <string name="next">下一步</string>
+    <string name="getCode">获取验证码</string>
+    <string name="surePass">请再次确认您的密码</string>
+
+    <!--我的模块-->
+
+    <!--新媒人认证-->
+    <string name="newAuthen">新媒人认证</string>
+    <string name="mineitem_order">订单</string>
+    <string name="mineitem_pocket">钱包</string>
+    <string name="mineitem_attention_red">收藏</string>
+    <string name="mineitem_collect">关注</string>
+    <string name="mineitem_dynamic">动态</string>
+    <string name="mineitem_file">档案</string>
+    <string name="mineitem_author">认证</string>
+    <string name="mineitem_service">帮助中心</string>
+    <string name="mineitem_game">赛事</string>
+    <string name="pwd_reset_str">重置支付密码</string>
+    <string name="pwd_forget_str">忘记支付密码</string>
+    <string name="pwd_set">密码设置</string>
+    <string name="input_old_pwd">请输入原密码</string>
+    <string name="input_new_pwd">请输入新密码</string>
+    <string name="input_pwd_again">请再次输入新密码</string>
+    <string name="input_pwd_error">两次输入的密码不一致</string>
+    <string name="find_pwd">找回密码</string>
+    <string name="cell_phone">CN&#160;+86&#160;&#160;</string>
+    <string name="verify_code">验证码&#160;&#160;&#160;&#160;</string>
+    <string name="verify_code_input">请输入验证码</string>
+    <string name="verify_code_get">获取</string>
+
+    <string name="input_passowrd">请重新设置密码</string>
+    <string name="input_again_pwd">请再次输入密码</string>
+
+    <string name="old_passowrd">旧密码:</string>
+    <string name="news_passowrd">新密码:</string>
+    <string name="password_ok">确认密码</string>
+
+    <string name="text">text</string>
+
+    <string name="shoumei">SHOUMEI</string>
+
+    <string name="visitor">未登录</string>
+    <string name="no">No.</string>
+
+    <string name="notWeixin">请安装微信</string>
+    <string name="notQQ">请安装QQ</string>
+    <string name="notSina">请安装新浪微博</string>
+
+    <string name="shejiaoyingxiao">首媒社交营销</string>
+
+    <string name="agree">同意</string>
+    <string name="comple">完成</string>
+    <!---->
+    <string name="regAgree">我已阅读并同意 《首媒服务条款》</string>
+
+    <string name="company">公司</string>
+    <!--企业主认证-->
+
+    <!--定位-->
+    <string name="iconLocal">&#xe60d;</string>
+    <!--分享-->
+    <string name="iconShare">&#xe60f;</string>
+    <!--扫一扫-->
+    <string name="iconScan">&#xe60e;</string>
+    <!--首页-->
+    <string name="iconHome">&#xe609;</string>
+    <!--聊聊-->
+    <string name="iconChat">&#xe60a;</string>
+    <!--购物-->
+    <string name="iconShoppingg">&#xe60b;</string>
+    <!--我的-->
+    <string name="iconMine">&#xe60c;</string>
+    <!--返回-->
+    <string name="iconBack">&#xe610;</string>
+    <!--手机-->
+    <string name="iconPhone">&#xe612;</string>
+    <!--密码-->
+    <string name="iconPass">&#xe613;</string>
+    <!--关闭-->
+    <string name="iconClose">&#xe614;</string>
+    <!--圆型关闭-->
+    <string name="iconCircleClose">&#xe663;</string>
+    <!--微信-->
+    <string name="iconWechat">&#xe615;</string>
+    <!--QQ-->
+    <string name="iconQQ">&#xe633;</string>
+    <!--新浪-->
+    <string name="iconSina">&#xe616;</string>
+    <!--短信-->
+    <string name="iconSms">&#xe617;</string>
+    <!--下三角-->
+    <string name="iconDown">&#xe618;</string>
+    <!--更多向下-->
+    <string name="iconMoreDown"> &#xe647;</string>
+    <!--显示密码-->
+    <string name="iconShow">&#xe61a;</string>
+    <!--隐藏密码-->
+    <string name="iconHiden">&#xe61b;</string>
+    <!--选中-->
+    <string name="iconChecked">&#xe635;</string>
+    <!--未选中-->
+    <string name="iconUnChecked">&#xe636;</string>
+    <!--上-->
+    <string name="iconUp">&#xe639;</string>
+    <!--日历-->
+    <string name="iconCalendar">&#xe638;</string>
+    <!--注意-->
+    <string name="iconTip">&#xe63a;</string>
+    <!--更多-->
+    <string name="iconMore">&#xe63c;</string>
+    <!--成功-->
+    <string name="iconComplet">&#xe611;</string>
+    <!--设置-->
+    <string name="iconSetting">&#xe64e;</string>
+    <!--二维码-->
+    <string name="iconQrcode">&#xe64f;</string>
+    <!--我的首页-->
+    <string name="iconMineHome">&#xe652;</string>
+    <!--我的收藏-->
+    <string name="iconMineCollection">&#xe653;</string>
+    <!--我的粉丝-->
+    <string name="iconMineFan">&#xe650;</string>
+    <!--我的关注-->
+    <string name="iconMineWatch">&#xe651;</string>
+    <!--认证-->
+    <string name="iconMineAuthen">&#xe656;</string>
+    <!--订单-->
+    <string name="iconMineOrder">&#xe655;</string>
+    <!--钱包-->
+    <string name="iconMinePurse">&#xe658;</string>
+    <!--帮助中心-->
+    <string name="iconMineHelp">&#xe654;</string>
+    <!--地址管理-->
+    <string name="iconAddress">&#xe665;</string>
+    <!--邀请-->
+    <string name="iconInvite">&#xe664;</string>
+    <!--新媒人-->
+    <string name="iconCertification">&#xe667;</string>
+    <!--服务商-->
+    <string name="iconServices">&#xe666;</string>
+    <!--查看更多-->
+    <string name="iconLookMore">查看 &#xe63c;</string>
+    <!--首媒之手-->
+    <string name="iconShoumei">&#xe66a;</string>
+    <!--收益-->
+    <string name="iconInCome">&#xe669;</string>
+    <!--消息-->
+    <string name="iconMessage">&#xe668;</string>
+    <!--搜索放大镜-->
+    <string name="iconSearch">&#xe64a;</string>
+    <!--大众红包-->
+    <string name="iconOneBonus">&#xe608;</string>
+    <!--精准红包-->
+    <string name="iconTwoBonus">&#xe66b;</string>
+    <!--精准红包-->
+    <string name="iconThreeBonus">&#xe66c;</string>
+
+    <!--媒体扶贫-->
+    <string name="iconMedia">&#xe66d;</string>
+    <!--消费扶贫-->
+    <string name="iconConsume">&#xe66d;</string>
+    <!--查看-->
+    <string name="iconLook">&#xe66f;</string>
+    <!--评论数-->
+    <string name="iconComment">&#xe670;</string>
+    <!--问好-->
+    <string name="iconWhat">&#xe671;</string>
+
+    <!--人脸识别-->
+    <string name="main_item_face_live">活体检测</string>
+    <string name="main_item_face_detect">人脸图像采集</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="invisit_code">邀请</string>
+
+    <!--民族-->
+    <string-array name="nations">
+        <item>汉族</item>
+        <item>壮族</item>
+        <item>满族</item>
+        <item>回族</item>
+        <item>苗族</item>
+        <item>维吾尔族</item>
+        <item>土家族</item>
+        <item>彝族</item>
+        <item>蒙古族</item>
+        <item>藏族</item>
+        <item>布依族</item>
+        <item>侗族</item>
+        <item>瑶族</item>
+        <item>朝鲜族</item>
+        <item>白族</item>
+        <item>哈尼族</item>
+        <item>哈萨克族</item>
+        <item>黎族</item>
+        <item>傣族</item>
+        <item>畲族</item>
+        <item>傈僳族</item>
+        <item>仡佬族</item>
+        <item>东乡族</item>
+        <item>高山族</item>
+        <item>拉祜族</item>
+        <item>水族</item>
+        <item>佤族</item>
+        <item>纳西族</item>
+        <item>羌族</item>
+        <item>土族</item>
+        <item>仫佬族</item>
+        <item>锡伯族</item>
+        <item>柯尔克孜族</item>
+        <item>达斡尔族</item>
+        <item>景颇族</item>
+        <item>毛南族</item>
+        <item>撒拉族</item>
+        <item>塔吉克族</item>
+        <item>阿昌族</item>
+        <item>普米族</item>
+        <item>鄂温克族</item>
+        <item>怒族</item>
+        <item>京族</item>
+        <item>基诺族</item>
+        <item>德昂族</item>
+        <item>保安族</item>
+        <item>俄罗斯族</item>
+        <item>裕固族</item>
+        <item>乌兹别克族</item>
+        <item>门巴族</item>
+        <item>鄂伦春族</item>
+        <item>独龙族</item>
+        <item>塔塔尔族</item>
+        <item>赫哲族</item>
+        <item>珞巴族</item>
+        <item>布朗族</item>
+    </string-array>
+
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+
+
+    <string name="address_sheng">选择省/直辖市</string>
+    <string name="address_shi">选择市/区</string>
+    <string name="partner_title">请仔细阅读《首媒新媒人协议》，\n加入前,需同意协议中的所有内容。</string>
+    <string name="facilitator_title">请仔细阅读《首媒服务商协议》，\n加入前,需同意协议中的所有内容。</string>
+
+    <string name="corporation">我是法人代表</string>
+    <string name="commission_agent">我是代办人</string>
+
+    <string name="name">名称</string>
+    <string name="legal_representative">法定代表人</string>
+    <string name="bank">开户银行</string>
+    <string name="account">对公账号</string>
+    <string name="mobile">手机号</string>
+    <string name="networkError">网络错误，请稍后重试！</string>
+    <string name="ent_prise_ing">激活信息已提交，激活中请稍后！</string>
+    <string name="ent_error">审核失败！</string>
+    <string name="bankcard_title">请仔细阅读《用户协议》</string>
+
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+    <string name="cer_income">新媒人收益</string>
+    <string name="whate_is_car">什么是新媒人</string>
+    <string name="fac_income">服务商收益</string>
+    <string name="whate_is_fac">什么是服务商</string>
+</resources>

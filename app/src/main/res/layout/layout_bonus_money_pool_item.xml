@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@id/ivPhoto"
+        android:layout_width="@dimen/w194"
+        android:layout_height="@dimen/h194"
+        android:layout_marginBottom="@dimen/h35"
+        android:layout_marginLeft="@dimen/w34"
+        android:layout_marginRight="@dimen/w32"
+        android:layout_marginTop="@dimen/h35"
+        android:contentDescription="@null"
+        android:src="@drawable/default_content" />
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h45"
+        android:layout_toRightOf="@id/ivPhoto"
+        android:text="大众红包"
+        android:textSize="@dimen/w41" />
+
+    <TextView
+        android:id="@id/tvMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_toRightOf="@id/ivPhoto"
+        android:text="1335552123"
+        android:textColor="@color/red"
+        android:textSize="@dimen/w46" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tvMoney"
+        android:layout_marginLeft="@dimen/w5"
+        android:layout_toRightOf="@id/tvMoney"
+        android:text="元大奖"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/w43" />
+
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMoney"
+        android:layout_toRightOf="@id/ivPhoto"
+        android:text="限量100个，快来抢~"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/w37" />
+
+
+    <TextView
+        android:id="@+id/tvScale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/w100"
+        android:layout_marginTop="@dimen/h45"
+        android:text="已抢0%"
+        android:textColor="@color/grayText"
+        android:textSize="@dimen/w32"
+        android:visibility="invisible"/>
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/w258"
+        android:layout_height="@dimen/h24"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tvScale"
+        android:layout_marginRight="@dimen/w40"
+        android:layout_marginTop="@dimen/h8"
+        app:rcBackgroundPadding="@dimen/h3"
+        app:rcBackgroundColor="@color/lineGray"
+        app:rcProgressColor="@color/lineGray"
+        app:rcSecondaryProgress="100"
+        app:rcSecondaryProgressColor="@color/white"
+        app:rcRadius="@dimen/h30"
+        android:visibility="invisible"
+         />
+
+    <Button
+        android:id="@id/btnNext"
+        android:layout_width="@dimen/w228"
+        android:layout_height="@dimen/h81"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/progressBar"
+        android:layout_marginRight="@dimen/h55"
+        android:layout_marginTop="@dimen/h25"
+        android:background="@color/red"
+        android:text="马上去抢"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w32" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:background="@color/lineGray"
+        android:layout_below="@id/ivPhoto"/>
+</RelativeLayout>

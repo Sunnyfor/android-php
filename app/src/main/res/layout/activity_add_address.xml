@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/h55"
+                android:text="收件人"
+                android:textSize="@dimen/w40" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w300"
+                android:background="@color/transparent"
+                android:hint="输入姓名"
+                android:textSize="@dimen/w40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/h55"
+                android:text="手机号码"
+                android:textSize="@dimen/w40" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@+id/phone"
+                style="@style/PhoneEidttextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w300"
+                android:background="@color/transparent"
+                android:hint="输入11位手机号码"
+                android:textSize="@dimen/w40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/h55"
+                android:text="地区"
+                android:textSize="@dimen/w40" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@+id/chooseAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w300"
+                android:background="@color/transparent"
+                android:focusable="false"
+                android:hint="省/直辖市、市/区"
+                android:textSize="@dimen/w40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/h55"
+                android:text="详细地址"
+                android:textSize="@dimen/w40" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w300"
+                android:background="@color/transparent"
+                android:hint="输入详细地址"
+                android:textSize="@dimen/w40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h40"
+        android:text="保存" />
+</RelativeLayout>

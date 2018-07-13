@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@id/ivBanner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h611"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_long"
+            android:contentDescription="@string/app_name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/w45">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w35" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4897"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w48" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/包邮"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w35" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h30"
+            android:layout_marginLeft="@dimen/w45"
+            android:layout_marginRight="@dimen/w45"
+            android:gravity="center_vertical"
+            android:text="FINE精制家具-FFDM.com.cn-纯正美式家具com.cn-纯正美式家具"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h25"
+            android:layout_marginLeft="@dimen/w45"
+            android:layout_marginRight="@dimen/w45"
+            android:gravity="center_vertical"
+            android:text="FINE精制月星家居网 优质天然原材料及精良的手工工艺完美呈现美国设计师的原创设计,精工细作专业制造和销售高价值高品质的纯正美式月星家居网,让您尊享幸福生活"
+            android:textSize="@dimen/w37" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_full"
+            android:scaleType="fitXY"/>
+
+        <Button
+            android:id="@id/btnSure"
+            style="@style/ButtonStyle"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/red"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/h40"
+            android:text="立即购买" />
+
+
+        <Button
+            android:id="@id/btnOpen"
+            style="@style/ButtonStyle"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_btn_border_gray"
+            android:textColor="@color/grayText"
+            android:layout_marginTop="@dimen/h30"
+            android:layout_marginBottom="@dimen/h35"
+            android:text="领取红包" />
+    </LinearLayout>
+</ScrollView>

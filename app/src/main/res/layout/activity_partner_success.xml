@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h182"
+        android:text="审核成功"
+        android:textSize="@dimen/w63" />
+
+
+    <com.cocosh.shmstore.widget.SuperLoadingProgress
+        android:id="@+id/itv"
+        android:layout_width="@dimen/w200"
+        android:layout_height="@dimen/h200"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_1"
+        android:layout_marginTop="@dimen/h182" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h41"
+        android:text="审核中请耐心等待！"
+        android:textColor="#333333"
+        android:textSize="@dimen/w34"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/itv"
+        android:layout_marginBottom="@dimen/h30"
+        android:layout_marginLeft="@dimen/w177"
+        android:layout_marginRight="@dimen/w177"
+        android:layout_marginTop="@dimen/h117"
+        android:background="@color/red"
+        android:text="开启首媒生活"
+        android:textSize="@dimen/w45" />
+</RelativeLayout>

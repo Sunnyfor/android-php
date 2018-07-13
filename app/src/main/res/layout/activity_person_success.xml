@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h100"
+        android:text="审核成功"
+        android:textSize="@dimen/h53" />
+
+    <com.cocosh.shmstore.widget.SuperLoadingProgress
+        android:id="@+id/icon"
+        android:layout_width="@dimen/w200"
+        android:layout_height="@dimen/h200"
+        android:layout_below="@id/desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h120" />
+
+    <Button
+        android:id="@+id/btGoActive"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h36"
+        android:layout_marginTop="@dimen/h180"
+        android:background="@color/red"
+        android:text="开启首媒新生活" />
+</RelativeLayout>

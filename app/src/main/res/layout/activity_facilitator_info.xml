@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llBtn">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llayoutD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h72"
+                    android:background="@color/gray_line"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/w58"
+                    android:text="认证信息"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/h35" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="认证状态" />
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="认证时间" />
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvShouMeiNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    app:nameText="首媒号" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvEntAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="认证账号" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvEntArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="认证地区" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvEntMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="认证费用" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h72"
+                android:background="@color/gray_line"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/w58"
+                android:text="基础信息"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h35" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="名称" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="统一社会信用代码" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFLayerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="法定代表人" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="营业期限" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="类型" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="住所" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="注册资本" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="成立日期" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="营业执照" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="对公账号"
+                app:valueText="@string/account" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvBankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="开户银行"
+                app:valueText="@string/bank" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/bank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="手机号"
+                app:valueText="@string/mobile" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h30"
+        android:layout_marginTop="@dimen/h30">
+
+        <Button
+            android:id="@id/btnSure"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="重新填写" />
+
+        <Button
+            android:id="@id/btnCancel"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/grayBtn"
+            android:text="返回" />
+    </LinearLayout>
+
+</RelativeLayout>

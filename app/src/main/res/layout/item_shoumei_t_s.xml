@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/h20"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h380"
+        android:background="@color/white"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

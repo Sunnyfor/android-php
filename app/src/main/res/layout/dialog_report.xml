@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/w55"
+        android:text="举报内容问题"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/w46" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="@dimen/w1080"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never" />
+
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h142"
+        android:paddingLeft="@dimen/w55"
+        android:paddingRight="@dimen/w55"
+        android:gravity="center_vertical"
+        android:text="我有话要说"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/h40" />
+
+
+    <Button
+        android:id="@id/btnNext"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/h30"
+        android:background="@color/red"
+        android:text="@string/comple" />
+</LinearLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/w3">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h83"
+        android:paddingLeft="@dimen/w36">
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/itvTip"
+            android:layout_centerVertical="true"
+            android:text="@string/iconTip"
+            android:textColor="@color/text_red"
+            android:textSize="@dimen/h46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <TextView
+            android:id="@id/tvDesc"
+            android:text="实人认证通过后将不能修改"
+            android:layout_toRightOf="@id/itvTip"
+            android:textColor="#767676"
+            android:textSize="@dimen/h44"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#FBFBFD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/h88">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_centerHorizontal="true"
+            android:text="人脸认证"
+            android:textSize="@dimen/h47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_centerHorizontal="true"
+            android:text="拍摄您本人人脸，请确保正对手机，光线充足"
+            android:layout_below="@id/tv1"
+            android:textColor="#ABABAB"
+            android:textSize="@dimen/h35"
+            android:layout_marginTop="@dimen/h90"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_marginTop="@dimen/h186"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv2"
+            android:background="@mipmap/facemain"
+            android:layout_width="@dimen/w630"
+            android:layout_height="@dimen/h494" />
+        
+        <Button
+            android:id="@+id/btFace"
+            android:layout_marginTop="@dimen/h183"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv"
+            android:layout_width="@dimen/w963"
+            android:text="采集本人人脸"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h41"
+            android:background="@drawable/red_corner_btn_bg"
+            android:layout_height="@dimen/h143" />
+
+    </RelativeLayout>
+
+</LinearLayout>

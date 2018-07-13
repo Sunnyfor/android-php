@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w230"
+            android:layout_marginRight="@dimen/w230"
+            android:layout_marginTop="@dimen/h350"
+            android:src="@drawable/load_error" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h40"
+            android:text="网络异常，请检查您的网络"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w48" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnTryAgain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h130"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/h20"
+        android:layout_marginLeft="@dimen/w20"
+        android:layout_marginRight="@dimen/w20"
+        android:background="@drawable/shape_rectangle_red"
+        android:text="重新加载"
+        android:textColor="@color/white" />
+</RelativeLayout>

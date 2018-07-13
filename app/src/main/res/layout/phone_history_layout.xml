@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h800"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w3"
+        android:layout_alignParentTop="true"
+        android:background="@color/popBorder"/>
+
+    <ImageView
+        android:layout_width="@dimen/w3"
+        android:layout_height="match_parent"
+        android:background="@color/popBorder"
+        android:layout_alignParentLeft="true"/>
+
+    <ListView
+        android:id="@+id/lv"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <ImageView
+        android:layout_width="@dimen/w3"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@color/popBorder" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h4"
+        android:layout_alignParentBottom="true"
+        android:background="#E9E9E9" />
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llayoutD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h72"
+            android:background="@color/gray_line"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w58"
+            android:text="认证信息"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h35" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvEntStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="认证状态" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvEntTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:nameText="认证时间" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvEntNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="首媒号" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvEntAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="认证账号" />
+
+    </LinearLayout>
+</RelativeLayout>

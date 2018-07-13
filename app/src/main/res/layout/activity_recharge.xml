@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h140"
+            android:text="充值金额"
+            android:textColor="@color/black"
+            android:textSize="@dimen/h34" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h95"
+            android:layout_marginBottom="@dimen/h238"
+            android:layout_marginTop="@dimen/h38">
+
+            <TextView
+                android:id="@+id/tvMoneySign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/w44"
+                android:text="￥"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h50" />
+
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/w10"
+                android:layout_toRightOf="@+id/tvMoneySign"
+                android:text="请输入充值金额"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w40" />
+
+            <EditText
+                android:id="@+id/tvMoney"
+                style="@style/EidttextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/w10"
+                android:layout_toRightOf="@+id/tvMoneySign"
+                android:background="@color/transparent"
+                android:gravity="bottom"
+                android:inputType="numberDecimal"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h67" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/winxinRl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h127"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/icon_0"
+                android:layout_width="@dimen/w85"
+                android:layout_height="@dimen/h73"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w44"
+                android:src="@drawable/weixin" />
+
+            <TextView
+                style="@style/text_nomal_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_toRightOf="@+id/icon_0"
+                android:text="微信支付"
+                android:textColor="@color/blackText" />
+
+            <ImageView
+                android:id="@+id/weixinImage"
+                android:layout_width="@dimen/w50"
+                android:layout_height="@dimen/h46"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w36"
+                android:src="@drawable/checked" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/gray_line" />
+
+        <RelativeLayout
+            android:id="@+id/aliPay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h127"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/icon_1"
+                android:layout_width="@dimen/w85"
+                android:layout_height="@dimen/h73"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w44"
+                android:src="@drawable/alipay" />
+
+            <TextView
+                style="@style/text_nomal_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_toRightOf="@+id/icon_1"
+                android:text="支付宝支付"
+                android:textColor="@color/blackText" />
+
+            <ImageView
+                android:id="@+id/aliImage"
+                android:layout_width="@dimen/w50"
+                android:layout_height="@dimen/h46"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w36"
+                android:src="@drawable/checked"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnCharge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_marginRight="@dimen/w20"
+            android:layout_marginTop="@dimen/h100"
+            android:text="充值"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h51" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/h40"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_treaty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cbDesc"
+                android:gravity="center_vertical"
+                android:text="点击充值即表示您已阅读并同意"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w35" />
+
+            <TextView
+                android:id="@+id/text_treaty2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/text_treaty"
+                android:gravity="center_vertical"
+                android:text="“充值协议”"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w35" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

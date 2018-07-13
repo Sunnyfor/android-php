@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:background="@drawable/shape_rectangle_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w47"
+                android:layout_marginTop="@dimen/h65"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/text_nomal_small"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="张小米"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/h40" />
+
+
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/text_nomal_small"
+                    android:layout_marginLeft="@dimen/w55"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="13809098989"
+                    android:textColor="@color/blackText" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/address"
+                style="@style/text_nomal_small"
+                android:layout_marginLeft="@dimen/w47"
+                android:layout_marginRight="@dimen/w47"
+                android:layout_marginTop="@dimen/h30"
+                android:text="深圳市南山区蛇口水湾新村7号楼203室" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_marginLeft="@dimen/h25"
+                android:layout_marginRight="@dimen/h25"
+                android:layout_marginTop="@dimen/h84"
+                android:background="@color/line_gray" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h108">
+
+            <com.cocosh.shmstore.widget.textview.CheckedICONTextView
+                android:id="@+id/rbCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/w47"
+                android:gravity="center"
+                android:text="@string/iconUnChecked"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w45" />
+
+            <TextView
+                android:id="@+id/tvCheck"
+                style="@style/text_nomal_min"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_toRightOf="@+id/rbCheck"
+                android:text="设为默认"
+                android:textSize="@dimen/w34" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w30"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/edit"
+                    android:layout_width="@dimen/w37"
+                    android:layout_height="@dimen/w37"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/icon_edit"/>
+
+                <TextView
+                    android:id="@+id/tvEdit"
+                    style="@style/text_nomal_min"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/w20"
+                    android:gravity="center"
+                    android:text="编辑"
+                    android:textSize="@dimen/w34" />
+
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="@dimen/w37"
+                    android:layout_height="@dimen/w37"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/w60"
+                    android:background="@drawable/icon_delete"/>
+
+                <TextView
+                    android:id="@+id/tvDelete"
+                    style="@style/text_nomal_min"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/w20"
+                    android:text="删除"
+                    android:textSize="@dimen/w34" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

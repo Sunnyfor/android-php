@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w236"
+    android:layout_height="@dimen/h120">
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/text_nomal_min"
+        android:layout_width="@dimen/w236"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/w8"
+        android:layout_marginTop="@dimen/h10"
+        android:background="@drawable/shape_btn_gray"
+        android:gravity="center"
+        android:text="园艺"
+        android:textSize="@dimen/h37" />
+
+    <RelativeLayout
+        android:id="@+id/deleteRl"
+        android:layout_width="@dimen/w100"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="@dimen/w45"
+            android:layout_height="@dimen/h45"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_circle_red">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h5"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/w8"
+                android:layout_marginRight="@dimen/w8"
+                android:background="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
+

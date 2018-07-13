@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgBonus"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="恭喜您! 领到一个红包"
+        android:textSize="@dimen/w60"
+        android:textColor="#d4493e"
+        android:layout_marginTop="@dimen/h190"
+        android:layout_marginLeft="@dimen/w30"
+        android:layout_marginRight="@dimen/w30"
+        android:layout_centerHorizontal="true"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/w690"
+        android:layout_height="@dimen/h950"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/w115"
+        android:layout_below="@id/tvSplash">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_bonus" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@id/ivHead"
+            android:layout_width="@dimen/w160"
+            android:layout_height="@dimen/h160"
+            android:src="@drawable/default_head"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h90"
+            app:riv_oval="true" />
+        
+        
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivHead"
+            android:textSize="@dimen/w40"
+            android:textColor="@color/textBonus"
+            android:layout_marginTop="@dimen/h20"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恭喜发财  大吉大利"
+            android:layout_below="@id/tvName"
+            android:textSize="@dimen/w51"
+            android:textColor="@color/textBonus"
+            android:layout_marginTop="@dimen/h30"
+            android:layout_centerHorizontal="true"/>
+        
+        
+        <Button
+            android:id="@+id/btnOpen"
+            android:layout_width="@dimen/w219"
+            android:layout_height="@dimen/w219"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/h250"
+            android:background="@drawable/bg_btn_open"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w53" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/w35"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <Button
+            android:id="@id/btnShare"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/red"
+            android:text="赠送好友" />
+
+        <Button
+            android:id="@+id/btnCollect"
+            style="@style/ButtonStyle"
+            android:layout_width="@dimen/w370"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_btn_border_red"
+            android:layout_marginLeft="@dimen/w20"
+            android:text="收藏红包"
+            android:textColor="@color/red"/>
+    </LinearLayout>
+
+</RelativeLayout>

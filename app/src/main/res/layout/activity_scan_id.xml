@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h85"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:text="@string/iconTip"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w15"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w32" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/h31"
+        android:layout_marginTop="@dimen/h30"
+        android:text="证件认证"
+        android:textColor="#666666"
+        android:textSize="@dimen/w43"
+        android:textStyle="bold" />
+
+    <com.cocosh.shmstore.widget.imageview.IDcardView
+        android:id="@+id/ivIdFront"
+        android:layout_width="@dimen/w872"
+        android:layout_height="@dimen/h558"
+        android:layout_gravity="center_horizontal" />
+
+    <com.cocosh.shmstore.widget.imageview.IDcardView
+        android:id="@+id/ivIdBack"
+        android:layout_width="@dimen/w872"
+        android:layout_height="@dimen/h558"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/w130" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@id/btnSure"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:text="提交" />
+    </RelativeLayout>
+</LinearLayout>

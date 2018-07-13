@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/viewIcon"
+            android:layout_width="@dimen/w317"
+            android:layout_height="@dimen/w317"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h213"
+            android:background="@drawable/icon_wait" />
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w60"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w48"
+            tools:text="银行处理中" />
+
+        <TextView
+            android:id="@id/tvDesc2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w30"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w40"
+            android:visibility="gone"
+            tools:text="审核将在1-2个工作日完成" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button0"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/h146"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="继续抢红包"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/h146"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="查看我的红包"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46" />
+    </LinearLayout>
+</RelativeLayout>

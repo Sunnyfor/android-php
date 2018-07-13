@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h150"
+        android:background="@color/activity_bg">
+
+        <EditText
+            android:id="@+id/etcontent"
+            android:layout_width="@dimen/w865"
+            android:layout_height="@dimen/h96"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/h30"
+            android:layout_marginLeft="@dimen/w38"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@drawable/shape_rectangle_white"
+            android:hint="输入品牌名称"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/h80"
+            android:singleLine="true"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h43"
+            android:visibility="visible" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etcontent"
+            android:layout_alignStart="@+id/etcontent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w32"
+            android:text="@string/iconSearch"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:id="@+id/tvClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:padding="@dimen/w43"
+            android:text="取消"
+            android:textColor="@color/grayText" />
+    </RelativeLayout>
+
+    <com.cocosh.shmstore.widget.SMSwipeRefreshLayout
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white" />
+
+</LinearLayout>

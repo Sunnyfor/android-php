@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlTitle"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h120"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="@dimen/w200"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/h44" />
+
+    <TextView
+        android:id="@+id/tvComplete"
+        android:layout_width="@dimen/w200"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/h44" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="日期选择"
+        android:textSize="@dimen/h44"
+        android:visibility="gone" />
+
+</RelativeLayout>

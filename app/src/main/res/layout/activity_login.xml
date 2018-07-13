@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h3"
+        android:background="@color/line_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/w120"
+        android:layout_marginRight="@dimen/w120">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/w210"
+            android:layout_height="@dimen/h210"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h100"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_logo" />
+
+        <!--android:layout_alignBaseline="@+id/ICONTextView"
+        android:layout_alignBottom="@+id/ICONTextView"-->
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@id/edtPhone"
+            style="@style/PhoneEidttextStyle"
+            android:layout_height="@dimen/h100"
+            android:layout_below="@id/ivLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h130"
+            android:background="@drawable/edit_text_bg"
+            android:imeOptions="actionNext"
+            android:paddingBottom="@dimen/h40"
+            android:paddingLeft="@dimen/w100" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/ICONTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivLogo"
+            android:layout_marginTop="@dimen/h130"
+            android:text="@string/iconPhone"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/w60" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/itvDown"
+            android:layout_width="@dimen/w100"
+            android:layout_height="@dimen/h100"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/ivLogo"
+            android:layout_marginTop="@dimen/h130"
+            android:text="@string/iconDown"
+            android:textColor="#BFBFBF"
+            android:textSize="@dimen/w50"
+            android:visibility="invisible" />
+
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtPassword"
+            style="@style/PassEdittextStyle"
+            android:layout_height="@dimen/h100"
+            android:layout_below="@id/edtPhone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h150"
+            android:background="@drawable/edit_text_bg"
+            android:imeOptions="actionNext"
+            android:paddingBottom="@dimen/h40"
+            android:paddingLeft="@dimen/w100"
+            android:paddingRight="@dimen/w10" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPhone"
+            android:layout_marginTop="@dimen/h140"
+            android:text="@string/iconPass"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/w60" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h143"
+            android:layout_below="@id/rlText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h85"
+            android:background="@color/grayBtn"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w51" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPassword"
+            android:layout_marginTop="@dimen/h40">
+
+            <LinearLayout
+                android:id="@+id/llReg"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h80"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:text="@string/nomreId"
+                    android:textColor="@color/text_red"
+                    android:textSize="@dimen/w35" />
+
+                <TextView
+                    android:id="@+id/tvZhuCe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:text="@string/regist"
+                    android:textColor="@color/text_red"
+                    android:textSize="@dimen/w38"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvForgetPsd"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h80"
+                android:layout_alignParentRight="true"
+                android:text="@string/passForget"
+                android:textColor="@color/text_red"
+                android:textSize="@dimen/w35"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h120">
+
+            <TextView
+                android:id="@+id/tvMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/h120"
+                android:text="@string/moreLogin"
+                android:textColor="#8F8F8F"
+                android:textSize="@dimen/w41" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvMore"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/w100"
+                android:layout_marginRight="@dimen/w100">
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:id="@+id/itvWeChat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iconWechat"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w100" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:id="@+id/itvQQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/iconQQ"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w100" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:id="@+id/itvSina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/iconSina"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w100" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3">
+    <ImageView
+        android:id="@+id/iv_line"
+        android:src="@color/gray_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2" />
+     <TextView
+         android:id="@+id/tv"
+         android:layout_below="@+id/iv_line"
+         android:textSize="@dimen/w48"
+         android:textStyle="bold"
+         android:gravity="center"
+         android:textColor="@color/blackText"
+         android:text="您归属的服务商为："
+         android:background="@color/white"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/h133" />
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="@dimen/h53"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+       <TextView
+           android:layout_marginLeft="@dimen/w58"
+           android:id="@+id/tv_company_name"
+           android:layout_marginBottom="@dimen/h40"
+           android:text="企业名称：首媒科技（北京）有限公司"
+           android:textColor="@color/blackText"
+           android:textSize="@dimen/w40"
+           android:layout_marginTop="@dimen/h39"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1" />
+        <TextView
+            android:layout_marginLeft="@dimen/w58"
+            android:id="@+id/tv_company_legal_person"
+            android:layout_marginBottom="@dimen/h40"
+            android:text="企业法人：周思思"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40"
+            android:layout_marginTop="@dimen/h39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1" />
+        <TextView
+            android:layout_marginLeft="@dimen/w58"
+            android:id="@+id/tv_company_address"
+            android:layout_marginBottom="@dimen/h40"
+            android:text="服务区域：天津 武清"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40"
+            android:layout_marginTop="@dimen/h39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+     <Button
+         android:id="@+id/bt"
+         android:text="确认且下一步"
+         android:background="@color/red"
+         android:layout_marginBottom="@dimen/h35"
+         android:layout_marginLeft="@dimen/w30"
+         android:layout_alignParentBottom="true"
+        style="@style/ButtonStyle"/>
+</RelativeLayout>

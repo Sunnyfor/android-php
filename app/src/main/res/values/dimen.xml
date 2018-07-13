@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titleHeigit">@dimen/h140</dimen>
+    <dimen name="titleTextSize">@dimen/w55</dimen>
+    <dimen name="pickerview_textsize">@dimen/h40</dimen>
+</resources>

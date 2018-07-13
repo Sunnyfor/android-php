@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F4F5">
+
+    <ImageView
+        android:id="@+id/ivDivider1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h5"
+        android:background="#EFEFEF"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/tvTip"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h124"
+        android:layout_below="@id/ivDivider1"
+        android:layout_marginLeft="@dimen/w36"
+        android:gravity="center"
+        android:text="@string/inputPhoneBinding"
+        android:textColor="#AAAAAA"
+        android:textSize="@dimen/h43" />
+
+    <RelativeLayout
+        android:id="@+id/rlPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTip">
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h175"
+            android:background="@color/white"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:paddingLeft="@dimen/w120"
+            android:paddingRight="@dimen/w120"
+            android:textSize="@dimen/h44" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="@dimen/w60"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w49"
+            android:text="@string/iconPhone"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/h60" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@id/tvClear"
+            android:layout_width="@dimen/w150"
+            android:layout_height="@dimen/h150"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w49"
+            android:gravity="center"
+            android:text="@string/iconClose"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/w55" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h5"
+        android:layout_below="@id/rlPhone"
+        android:background="#EFEFEF"
+        android:contentDescription="@null" />
+
+    <RelativeLayout
+        android:id="@+id/rlIdentifyCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivDivider">
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@id/edtCode"
+            style="@style/CodeEidttextStyle"
+            android:paddingLeft="@dimen/w120"
+            android:paddingRight="@dimen/w120" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="@dimen/w60"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w46"
+            android:text="@string/iconSms"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/w50" />
+
+        <com.cocosh.shmstore.widget.button.TimerButton
+            android:id="@id/btnCode"
+            style="@style/CodeButtonStyle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w36" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h129"
+        android:layout_below="@id/rlIdentifyCode"
+        android:layout_marginLeft="@dimen/w34"
+        android:layout_marginRight="@dimen/w34"
+        android:layout_marginTop="@dimen/h89"
+        android:background="@color/grayBtn"
+        android:text="@string/binding"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h53" />
+
+</RelativeLayout>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.cocosh.shmstore.enterpriseCertification.ui.RepresentActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:background="@color/activity_bg"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="银行卡信息"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="卡类型"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtBankType"
+            style="@style/EidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:gravity="center_vertical|right"
+            android:hint="北京银行" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="卡号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtAccount"
+            style="@style/EidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:gravity="center_vertical|right"
+            android:hint="6200 3564 2616 4545" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="手机号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtPhone"
+            style="@style/PhoneEidttextStyle"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w190"
+            android:layout_toLeftOf="@+id/phoneDialog"
+            android:gravity="center_vertical|right"
+            android:hint="请填写银行预留手机号" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/phoneDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w35"
+            android:text="@string/iconTip"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:background="@color/activity_bg"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="银行卡信息"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="姓名"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtName"
+            style="@style/BankEidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/nameDialog"
+            android:gravity="center_vertical|right"
+            android:hint="张三"
+            android:inputType="number" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/nameDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w35"
+            android:text="@string/iconTip"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="证件类型"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtType"
+            style="@style/PhoneEidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="身份证" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w58"
+        android:paddingRight="@dimen/w58">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="证件号"
+            android:textColor="#454545"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtdNumber"
+            style="@style/PhoneEidttextStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignEnd="@+id/view"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/view"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="110************6465" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:layout_alignParentBottom="true"
+            android:background="#F7F7F7" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/btn_ok"
+        android:layout_marginTop="@dimen/h30"
+        android:gravity="center">
+
+        <com.cocosh.shmstore.widget.textview.CheckedICONTextView
+            android:id="@id/cbDesc"
+            android:layout_width="@dimen/w105"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/iconUnChecked"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w45" />
+
+        <TextView
+            android:id="@+id/text_treaty"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/cbDesc"
+            android:gravity="center_vertical"
+            android:text="我已阅读并同意该"
+            android:textColor="@color/top_color"
+            android:textSize="@dimen/w30" />
+
+        <TextView
+            android:id="@+id/text_treaty2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/text_treaty"
+            android:gravity="center_vertical"
+            android:text="用户协议"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w35" />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h54"
+        android:background="@color/grayBtn"
+        android:text="确认并验证手机号" />
+
+    <Button
+        android:id="@+id/btnAgain"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h54"
+        android:background="@color/grayBtn"
+        android:text="重新扫描银行卡" />
+
+</LinearLayout>

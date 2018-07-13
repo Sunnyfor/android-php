@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.cocosh.shmstore.widget.SMSwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvSend"
+        android:layout_width="@dimen/w156"
+        android:layout_height="@dimen/h156"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/w45"
+        android:layout_marginRight="@dimen/w8"
+        android:alpha="0.7"
+        android:background="@drawable/shape_circle_red"
+        android:gravity="center"
+        android:text="发红包"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w37"
+        android:visibility="gone" />
+</RelativeLayout>

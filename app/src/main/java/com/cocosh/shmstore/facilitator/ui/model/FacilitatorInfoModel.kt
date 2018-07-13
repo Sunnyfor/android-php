@@ -1,0 +1,65 @@
+package com.cocosh.shmstore.facilitator.ui.model
+
+/**
+ * Created by lmg on 2018/4/2.
+ *
+ *
+ *
+ *  code (integer?, optional)?,
+entity (服务商实体信息?, optional)?,
+message (string?, optional)?,
+success (boolean?, optional)
+}服务商实体信息 {
+areaCode (string?, optional): 区域编码 ?,
+areaName (string?, optional): 区域名称 ?,
+authTime (string?, optional): 审核时间 ?,
+companyBankCard (string?, optional): 公司对公账号 ?,
+companyBankName (string?, optional): 对公账号开户行 ?,
+companyLegal (string?, optional): 法人 ?,
+companyName (string?, optional): 企业名称 ?,
+companyPhone (string?, optional): 公司座机 ?,
+createTime (string?, optional): 创建时间 ?,
+id (integer?, optional): 运营商id ?,
+licenceImg (string?, optional): 营业执照 ?,
+licenseAddress (string?, optional): 营业执照住所 ?,
+licenseBegTime (string?, optional): 营业执照有效期开始时间 ?,
+licenseEndTime (string?, optional): 地址 ?,
+licenseLegalName (string?, optional): 法人 ?,
+licenseName (string?, optional): 公司全名称 ?,
+licenseNo (string?, optional): 社会统一信用代码 ?,
+licenseStartTime (string?, optional): 营业执照成立日期 ?,
+licenseType (string?, optional): 营业执照类型 ?,
+licenseWealth (string?, optional): 营业执照注册资本 ?,
+money (number?, optional): 服务费，押金 ?,
+operatorsAccountId (string?, optional): 运营商账户 ?,
+operatorsImg (string?, optional): 运营商二维码 ?,
+reason (string?, optional): 审核意见 ?,
+status (string?, optional): 状态 ?,
+userId (integer?, optional): 用户id
+ */
+class FacilitatorInfoModel(var areaCode: String?,
+                           var areaName: String?,
+                           var authTime: String?,
+                           var companyBankCard: String?,
+                           var companyBankName: String?,
+                           var companyLegal: String?,
+                           var companyName: String?,
+                           var companyPhone: String?,
+                           var createTime: String?,
+                           var id: String?,
+                           var licenceImg: String?,
+                           var licenseAddress: String?,
+                           var licenseBegTime: String?,
+                           var licenseEndTime: String?,
+                           var licenseLegalName: String?,
+                           var licenseName: String?,
+                           var licenseNo: String?,
+                           var licenseStartTime: String?,
+                           var licenseType: String?,
+                           var licenseWealth: String?,
+                           var money: String?,
+                           var operatorsAccountId: String?,
+                           var operatorsImg: String?,
+                           var reason: String?,
+                           var status: String?,
+                           var userId: String?)

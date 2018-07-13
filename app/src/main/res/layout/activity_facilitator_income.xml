@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_bg"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_nomal_small"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h72"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w54"
+            android:text="拓展用户"
+            android:textSize="@dimen/h34" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sCar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="新媒人"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sEnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="企业主"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sPerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="个人用户"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <TextView
+            style="@style/text_nomal_small"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h72"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w54"
+            android:text="平台分配用户"
+            android:textSize="@dimen/h34" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sGiveEnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="企业主"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sGivePerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="个人用户"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <TextView
+            style="@style/text_nomal_small"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h72"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w54"
+            android:text="其他"
+            android:textSize="@dimen/h34" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/inCome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="收益"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/sInvite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="邀请"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+        <TextView
+            style="@style/text_nomal_small"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h72"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w54"
+            android:text="服务商信息"
+            android:textSize="@dimen/h34" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="姓名"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText=" 服务区域"></com.cocosh.shmstore.widget.view.ItemShowView>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText=" 认证时间"></com.cocosh.shmstore.widget.view.ItemShowView>
+    </LinearLayout>
+</ScrollView>

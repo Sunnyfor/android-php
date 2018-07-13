@@ -1,0 +1,266 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="SMTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/titleHeigit</item>
+    </style>
+
+    <style name="Title.Icon">
+        <item name="android:layout_width">@dimen/w55</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/grayText</item>
+        <item name="android:textSize">@dimen/w52</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="match_match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NavItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+
+    <style name="ICONEidtStyle">
+        <item name="android:textSize">@dimen/w50</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/iconColor</item>
+    </style>
+
+    <!--输入框样式-->
+    <style name="EidttextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/h175</item>
+        <item name="android:textSize">@dimen/w44</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/blackText</item>
+    </style>
+
+
+    <!--手机号码输入框样式-->
+    <style name="PhoneEidttextStyle" parent="EidttextStyle">
+        <item name="android:maxLength">11</item>
+        <item name="android:hint">@string/inputPhone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!--银行卡号码输入框样式-->
+    <style name="BankEidttextStyle" parent="EidttextStyle">
+        <item name="android:maxLength">19</item>
+        <item name="android:hint">@string/inputPhone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!--验证码输入框样式-->
+    <style name="CodeEidttextStyle" parent="PhoneEidttextStyle">
+        <item name="android:hint">@string/inputCode</item>
+        <item name="android:maxLength">6</item>
+
+    </style>
+
+
+    <!--密码输入框样式-->
+    <style name="PassEdittextStyle" parent="PhoneEidttextStyle">
+        <item name="android:maxLength">20</item>
+        <item name="android:hint">@string/inputPassword</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:digits">0123456789qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM
+        </item>
+    </style>
+
+    <!--普通按钮样式-->
+    <style name="ButtonStyle">
+        <item name="android:background">@color/grayBtn</item>
+        <item name="android:layout_width">@dimen/w1020</item>
+        <item name="android:layout_height">@dimen/h128</item>
+        <item name="android:textSize">@dimen/h48</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ProgressBar_Loading">
+        <item name="android:indeterminateDrawable">@drawable/rotate_loading</item>
+        <item name="android:minWidth">100dip</item>
+        <item name="android:maxWidth">100dip</item>
+        <item name="android:minHeight">100dip</item>　
+        <item name="android:maxHeight">100dip</item>
+    </style>
+
+    <!--验证码按钮样式-->
+    <style name="CodeButtonStyle">
+        <item name="android:text">@string/getCode</item>
+        <item name="android:layout_width">@dimen/w317</item>
+        <item name="android:layout_height">@dimen/h98</item>
+        <item name="android:background">@drawable/rounded_rectangle_gray</item>
+        <item name="android:textSize">@dimen/h40</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+
+    <!--首页动画导航样式-->
+    <style name="custom_textview">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="DefaultDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="checkInfoBottomTvStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/h48</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="checkInfoGrayTv">
+        <item name="android:textSize">@dimen/h38</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">@dimen/w17</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">#EEEEEE</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/h68</item>
+    </style>
+
+    <style name="checkInfoLeftTv">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/h35</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="checkInfoEt" parent="">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/edit_border</item>
+        <item name="android:textSize">@dimen/h35</item>
+        <item name="android:paddingLeft">@dimen/w23</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="newCertiTextStyle1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">#707070</item>
+        <item name="android:textSize">@dimen/h40</item>
+    </style>
+
+    <style name="newCertiTextStyle2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">#898989</item>
+        <item name="android:textSize">@dimen/h40</item>
+
+
+    </style>
+
+    <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="text_nomal_min">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blackText</item>
+        <item name="android:textSize">@dimen/w43</item>
+    </style>
+
+    <style name="text_nomal_small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/grayText</item>
+        <item name="android:textSize">@dimen/w40</item>
+    </style>
+
+    <style name="KeyBroadBtnStyle">
+        <item name="android:textSize">@dimen/h80</item>
+        <item name="android:background">@drawable/keybroad_btn_selector</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+
+    <style name="SercurityDialogTheme" parent="@android:style/Theme.Dialog">
+        <!-- 设置未浮动窗口 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 设置无边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 设置无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置完全透明 -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!-- 设置屏幕变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@style/SercurityAnimation</item>
+    </style>
+
+    <style name="SercurityAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_exit</item>
+    </style>
+
+    <!--tablay文字大小-->
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/w46</item>
+        <item name="android:textColor">@color/textGray</item>
+    </style>
+
+
+    <style name="NoAnimationTheme" parent="SMTheme">
+        <item name="android:windowAnimationStyle">@style/NoAnimation</item>
+    </style>
+
+    <style name="NoAnimation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Title"
+    android:paddingLeft="@dimen/w36">
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@+id/itvBack"
+        style="@style/Title.Icon"
+        android:text="@string/iconBack"
+        />
+
+    <TextView
+        android:text="设置登录密码"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4C4C4C"
+        android:textSize="@dimen/h46"
+        />
+
+</RelativeLayout>

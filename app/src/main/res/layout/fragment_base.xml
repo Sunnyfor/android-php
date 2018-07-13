@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/ivTitleLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_below="@id/iframeTitle"
+        android:background="@color/lineGray"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/iframeBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/iframeTitle"></FrameLayout>
+
+    <include
+        android:id="@+id/frameFragmentError"
+        layout="@layout/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/iframeTitle"
+        style="@style/Title"
+        android:background="@color/white"
+        android:visibility="gone" />
+
+</RelativeLayout>

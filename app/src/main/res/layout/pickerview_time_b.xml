@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/include_pickerview_topbar_b"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h100" />
+
+    <LinearLayout
+        android:id="@+id/timepicker"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h600"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/w180"
+        android:paddingRight="@dimen/w180"
+        android:paddingTop="@dimen/h10">
+
+        <com.cocosh.shmstore.widget.wheel.WheelView2
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/h439"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="6dp"
+            app:pickerview_textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.wheel.WheelView2
+            android:id="@+id/month"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/h439"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="6dp"
+            app:pickerview_textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.wheel.WheelView2
+            android:id="@+id/day"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/h439"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="6dp"
+            app:pickerview_textSize="@dimen/h40" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_long"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/w90"
+        android:paddingRight="@dimen/w90"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1"
+            android:background="@color/gray_line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/h20"
+            android:layout_marginTop="@dimen/h20"
+            android:gravity="center"
+            android:text="长期"
+            android:textColor="@color/red"
+            android:textSize="@dimen/h44" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1"
+            android:layout_marginBottom="@dimen/h30"
+            android:background="@color/gray_line" />
+    </LinearLayout>
+</LinearLayout>

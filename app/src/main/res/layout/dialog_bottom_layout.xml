@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="@dimen/h741">
+    
+    <RelativeLayout
+        android:id="@+id/rlTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h143"
+        android:paddingLeft="@dimen/w90"
+        android:paddingRight="@dimen/w90">
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:textColor="@color/text_red"
+            android:text="取消"
+            android:textSize="@dimen/h44"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvComplete"
+            android:textColor="@color/text_red"
+            android:text="完成"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/h44"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:text=""
+            android:textSize="@dimen/h44"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_below="@id/rlTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h3"
+        android:background="#F5F5F5"/>
+
+    <com.cocosh.shmstore.widget.wheel.WheelView2
+        android:id="@+id/wvSex"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_below="@id/ivDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h50" />
+    <!--h161-->
+
+</RelativeLayout>

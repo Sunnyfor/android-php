@@ -1,0 +1,336 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/toSetInfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h95"
+            android:background="#fcfdfd"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w90"
+                android:text="@string/iconMessage"
+                android:textColor="#f1a96f"
+                android:textSize="@dimen/h34" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w10"
+                android:text="为了给您派发更多的红包，请您尽快完善个人档案"
+                android:textColor="#f1a96f"
+                android:textSize="@dimen/h34" />
+        </LinearLayout>
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/rightIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w55"
+            android:text="@string/iconMore"
+            android:textSize="@dimen/h50" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h20"
+        android:background="@drawable/shape_rectangle_white"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_nomal_min"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:text="红包收益"
+            android:textSize="@dimen/h51" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w55"
+            android:layout_marginTop="@dimen/h50"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_small"
+                android:text="共抢到红包"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/redMony"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/w30"
+                android:text="0.00元"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h51" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnRed"
+            android:layout_width="@dimen/w240"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/h50"
+            android:layout_marginRight="@dimen/w55"
+            android:layout_marginTop="@dimen/h110">
+
+            <TextView
+                android:id="@+id/redDesc"
+                style="@style/text_nomal_small"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w15"
+                android:layout_toLeftOf="@+id/tvMore"
+                android:text="查看详情"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h37" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/tvMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/iconMore"
+                android:textSize="@dimen/h37" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h20"
+        android:background="@drawable/shape_rectangle_white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginTop="@dimen/h60"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:text="@string/cer_income"
+                android:textSize="@dimen/h51" />
+
+            <TextView
+                android:id="@+id/whatCer"
+                style="@style/text_nomal_small"
+                android:layout_marginLeft="@dimen/w20"
+                android:text="@string/whate_is_car"
+                android:textColor="@color/nav_blue"
+                android:textSize="@dimen/h34" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/tipCer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iconWhat"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h34" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h100"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginTop="@dimen/h60"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_small"
+                android:text="累计收益" />
+
+            <TextView
+                android:id="@+id/cerMoney"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/w30"
+                android:text="0.00元"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h51" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h30">
+
+            <TextView
+                android:id="@+id/cerDesc"
+                style="@style/text_nomal_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:text="速速成为首媒平台新媒人，获取更多收益吧！"
+                android:textSize="@dimen/h34" />
+
+            <RelativeLayout
+                android:id="@+id/btnCer"
+                android:layout_width="@dimen/w200"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/w55">
+
+                <RelativeLayout
+                    android:id="@+id/cerRl"
+                    android:layout_width="@dimen/w240"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/cerShow"
+                        style="@style/text_nomal_small"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w15"
+                        android:layout_toLeftOf="@+id/cerMore"
+                        android:text="前往认证"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/h37" />
+
+                    <com.cocosh.shmstore.widget.textview.ICONTextView
+                        android:id="@+id/cerMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/iconMore"
+                        android:textSize="@dimen/h37" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h20"
+        android:background="@drawable/shape_rectangle_white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginTop="@dimen/h60"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:text="@string/fac_income"
+                android:textSize="@dimen/h51" />
+
+            <TextView
+                android:id="@+id/whatFac"
+                style="@style/text_nomal_small"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:text="@string/whate_is_fac"
+                android:textColor="@color/nav_blue"
+                android:textSize="@dimen/h34" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/tipFac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iconWhat"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h34" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h100"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginTop="@dimen/h60"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_small"
+                android:text="累计收益" />
+
+            <TextView
+                android:id="@+id/facMoney"
+                style="@style/text_nomal_min"
+                android:layout_marginLeft="@dimen/w30"
+                android:text="0.00元"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h51" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h30">
+
+            <TextView
+                android:id="@+id/facDesc"
+                style="@style/text_nomal_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:text="速速成为首媒平台服务商，获取更多收益吧！"
+                android:textSize="@dimen/h34" />
+
+            <RelativeLayout
+                android:id="@+id/btnFac"
+                android:layout_width="@dimen/w200"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/w55">
+
+                <RelativeLayout
+                    android:id="@+id/facRl"
+                    android:layout_width="@dimen/w240"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/facShow"
+                        style="@style/text_nomal_small"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w15"
+                        android:layout_toLeftOf="@+id/facMore"
+                        android:text="前往认证"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/h37" />
+
+                    <com.cocosh.shmstore.widget.textview.ICONTextView
+                        android:id="@+id/facMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/iconMore"
+                        android:textSize="@dimen/h37" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

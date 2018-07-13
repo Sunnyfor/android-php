@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/w1025"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_one"
+            android:layout_width="@dimen/w1025"
+            android:layout_height="@dimen/h146"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="拍照上传"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/h44" />
+
+        <View
+            android:id="@+id/line_one"
+            android:layout_width="@dimen/w952"
+            android:layout_height="@dimen/h1"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/lineGray" />
+
+        <TextView
+            android:id="@+id/tv_two"
+            android:layout_width="@dimen/w1025"
+            android:layout_height="@dimen/h146"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="上传手机中的图片"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/h44" />
+
+        <View
+            android:id="@+id/line_two"
+            android:layout_width="@dimen/w952"
+            android:layout_height="@dimen/h1"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/lineGray"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_three"
+            android:layout_width="@dimen/w1025"
+            android:layout_height="@dimen/h146"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="上传手机中的图片"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/h44"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="@dimen/w1025"
+        android:layout_height="@dimen/h146"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/shape_rectangle_top_round_white"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h44" />
+</LinearLayout>

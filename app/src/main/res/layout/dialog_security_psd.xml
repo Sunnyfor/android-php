@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h1345"
+    android:layout_alignParentBottom="true"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+
+    <!--标题-->
+    <RelativeLayout
+        android:id="@+id/titleRl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h145"
+        android:background="@color/activity_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="请输入支付密码"
+            android:textColor="#101010"
+            android:textSize="@dimen/h48" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w33"
+            android:text="@string/iconClose"
+            android:textSize="@dimen/h53"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <!--分割线-->
+    <TextView
+        android:id="@+id/titleLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_below="@+id/titleRl"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/inputLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleLine"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <!--密码框-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h390">
+
+            <LinearLayout
+                android:id="@+id/pwd_container"
+                android:layout_width="@dimen/w863"
+                android:layout_height="@dimen/h125"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_red_rectangle"
+                android:orientation="horizontal">
+                <!--放密码控件-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_1"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_2"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_3"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_4"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_5"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_6"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <!--密码框里面的忘记密码-->
+
+            <TextView
+                android:id="@+id/forget_psd"
+                style="@style/text_nomal_min"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/pwd_container"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w105"
+                android:layout_marginTop="@dimen/h30"
+                android:text="忘记密码?"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h30" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/line_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h90"></LinearLayout>
+        <!--键盘-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第一行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button1"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="1" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="2" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button3"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="3" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第二行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <Button
+                    android:id="@+id/button4"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="4" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button5"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="5" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button6"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="6" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第三行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <Button
+                    android:id="@+id/button7"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="7" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button8"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="8" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button9"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="9" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />  <!--键盘第四行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <TextView
+                    android:id="@+id/button_nothing"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/gray_line" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button0"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="0" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <LinearLayout
+                    android:id="@+id/button_del"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/line_gray"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/w120"
+                        android:layout_height="@dimen/h80"
+                        android:src="@drawable/cmbkb_key_delete_normal" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingRl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titleLine"
+        android:background="@color/activity_bg"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/w284"
+            android:layout_height="@dimen/h284"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h150"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/rotate"
+            android:padding="@dimen/w20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/h68"
+            android:text="正在校验.." />
+    </RelativeLayout>
+</RelativeLayout>

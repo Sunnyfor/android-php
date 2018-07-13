@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginRight="@dimen/w50"
+            android:text="@string/shoumei"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h40" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@id/tvIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/h51"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_marginRight="@dimen/w50"
+            android:layout_marginTop="@dimen/h51"
+            android:gravity="right"
+            android:text="@string/iconMore"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/h40" />
+
+        <LinearLayout
+            android:id="@+id/llayoutValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w100"
+            android:layout_toLeftOf="@id/tvIcon"
+            android:layout_toRightOf="@id/tvName"
+            android:gravity="right"
+            android:paddingBottom="@dimen/h50"
+            android:paddingTop="@dimen/h50">
+
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/h40" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/w1030"
+        android:layout_height="@dimen/h2"
+        android:layout_marginLeft="@dimen/w50"
+        android:background="@color/gray_line" />
+</LinearLayout>

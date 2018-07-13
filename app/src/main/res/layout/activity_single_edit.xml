@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/w30"
+            android:paddingRight="@dimen/w30"
+            android:text="@string/company"
+            android:textSize="@dimen/w44"
+            android:visibility="gone" />
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@id/edtName"
+            style="@style/EidttextStyle"
+            android:paddingLeft="@dimen/w30"
+            android:singleLine="true"
+            android:maxLength="10"
+            android:paddingRight="@dimen/w30" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtCompany"
+            style="@style/EidttextStyle"
+            android:paddingLeft="@dimen/w30"
+            android:singleLine="true"
+            android:paddingRight="@dimen/w30"
+            android:maxLength="20"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

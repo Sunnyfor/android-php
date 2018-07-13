@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@id/ivBanner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h611"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_long" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h40"
+            android:layout_marginLeft="@dimen/w105"
+            android:layout_marginRight="@dimen/w105"
+            android:layout_marginTop="@dimen/h40"
+            android:gravity="center_horizontal"
+            android:text="简述：LOHO墨镜,能滤除阳光中99%以上的紫外线,保护眼镜,时尚出行!LOHO墨镜,上千款式任您选,预约立享专业客服+资深验光师+高级配镜师一对一服务!"
+            android:textSize="@dimen/w43" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_full" />
+
+
+        <Button
+            android:id="@id/btnSure"
+            style="@style/ButtonStyle"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/red"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/h35"
+            android:layout_marginBottom="@dimen/h35"
+            android:text="领取红包" />
+    </LinearLayout>
+</ScrollView>

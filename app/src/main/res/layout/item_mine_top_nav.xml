@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h220"
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@id/tvIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/iconComplet"
+        android:textColor="@color/iconColor"
+        android:textSize="@dimen/w71" />
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/blackText"
+        android:layout_marginTop="@dimen/h15"
+        android:textSize="@dimen/w43" />
+</LinearLayout>

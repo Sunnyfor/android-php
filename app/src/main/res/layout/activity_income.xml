@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h730"
+        android:background="@drawable/wallet_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h85"
+            android:text="新媒人收益(元)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h10"
+            android:singleLine="true"
+            android:text="0.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h158" />
+
+        <TextView
+            android:id="@+id/desc"
+            style="@style/text_nomal_small"
+            android:layout_gravity="center_horizontal"
+            android:text="注：满足T+1个月才可以提现"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h34" />
+
+        <Button
+            android:id="@+id/btn_withdraw_money"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h110"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@drawable/shape_btn_white_100"
+            android:paddingLeft="@dimen/w40"
+            android:paddingRight="@dimen/w40"
+            android:text="转出至钱包"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h40" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h35"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="累计收益(元)"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/totalProfit"
+                    style="@style/text_nomal_small"
+                    android:text="5000"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/w2"
+                android:layout_height="@dimen/h70"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="可转出(元)"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/canWithDraw"
+                    style="@style/text_nomal_small"
+                    android:text="5000"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h90"
+        android:layout_marginLeft="@dimen/w50"
+        android:gravity="center"
+        android:text="收益明细"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h40" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.cocosh.shmstore.widget.SMSwipeRefreshLayout
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"></com.cocosh.shmstore.widget.SMSwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/tvShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_line"
+            android:paddingLeft="@dimen/w55"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w43" />
+    </RelativeLayout>
+</LinearLayout>

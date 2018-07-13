@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h240">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray_line" />
+
+    <ImageView
+        android:id="@+id/civPic"
+        android:layout_width="@dimen/w58"
+        android:layout_height="@dimen/h58"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w60"
+        android:background="@color/red" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w40"
+        android:layout_toRightOf="@+id/civPic"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvType"
+            style="@style/text_nomal_min"
+            android:text="大众"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/tvNum"
+            style="@style/text_nomal_small"
+            android:layout_marginTop="@dimen/h30"
+            android:text="流水号：10000000"
+            android:textSize="@dimen/h34" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/text_nomal_small"
+            android:layout_marginTop="@dimen/h15"
+            android:text="2018-03-08 12:12:12"
+            android:textSize="@dimen/h34" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMoney"
+        style="@style/text_nomal_min"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/w84"
+        android:layout_marginTop="@dimen/h30"
+        android:text="+127.00"
+        android:textColor="@color/red"
+        android:textSize="@dimen/h46" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_line" />
+</RelativeLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--<com.cocosh.shmstore.widget.textview.ICONTextView-->
+    <!--android:id="@+id/icon"-->
+    <!--android:text="@string/iconComplet"-->
+    <!--android:textSize="@dimen/h317"-->
+    <!--android:textColor="@color/red"-->
+    <!--android:layout_marginTop="@dimen/h236"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <com.cocosh.shmstore.widget.SuperLoadingProgress
+        android:id="@+id/icon"
+        android:layout_width="@dimen/w200"
+        android:layout_height="@dimen/h200"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h100" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h70"
+        android:text="认证成功!"
+        android:textSize="@dimen/h47" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h157"
+        android:text="已为您认证首媒企业主，点击激活享受更多服务"
+        android:textColor="#8F8F8F"
+        android:textSize="@dimen/h42" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h316"
+        android:text="您的专属客服电话"
+        android:textColor="#B1B1B1"
+        android:textSize="@dimen/h42" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h382"
+        android:text="400-000-0000"
+        android:textColor="#B1B1B1"
+        android:textSize="@dimen/h42" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h439"
+        android:text="如有疑问请致电"
+        android:textColor="#B1B1B1"
+        android:textSize="@dimen/h42" />
+
+    <Button
+        android:id="@+id/btGoActive"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h36"
+        android:background="@color/red"
+        android:text="前往激活" />
+</RelativeLayout>

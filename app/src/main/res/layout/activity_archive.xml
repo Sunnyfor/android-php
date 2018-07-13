@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h360"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/h40"
+            android:paddingLeft="@dimen/w50"
+            android:paddingRight="@dimen/w50"
+            android:paddingTop="@dimen/h40">
+
+            <RelativeLayout
+                android:id="@+id/rlProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <com.cocosh.shmstore.widget.progressbar.ArcProgressBar
+                    android:id="@+id/progressBar_big"
+                    android:layout_width="@dimen/w260"
+                    android:layout_height="@dimen/w260"
+                    android:layout_gravity="center"
+                    app:arc_stroke_width="@dimen/h10"
+                    app:arc_progress="0"
+                    app:arc_angle = "240"
+                    app:arc_text_color = "@color/textGray"
+                    app:arc_unfinished_color = "@color/progressBg"
+                    app:arc_finished_color = "@color/red"
+                    app:arc_bottom_text="完善度"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:id="@+id/tvProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w60" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="完善度"
+                        android:textColor="@color/gray_text"
+                        android:textSize="@dimen/w40" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w90"
+                android:layout_toRightOf="@+id/rlProgress"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小主!"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/w43" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="您的资料完善度越高,收到的红包越多,\n我们对您的服务需求越精准哦~"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/w37" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h30"
+            app:nameText="头像"
+            app:valueText="">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@id/ivHead"
+                android:layout_width="@dimen/w110"
+                android:layout_height="@dimen/w110"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w50"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                app:riv_oval="true"
+                android:src="@drawable/defalut_updata_image" />
+        </com.cocosh.shmstore.widget.view.ItemShowView>
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="昵称"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="真实姓名"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="生日"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="性别"/>
+
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="地区"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="公司"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="所属行业"/>
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvInteresting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nameText="兴趣爱好">
+
+            <TextView
+                android:id="@+id/tvInterestingDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="@dimen/w120"
+                android:text="我们将根据您的喜好为您推荐红包"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h40" />
+        </com.cocosh.shmstore.widget.view.ItemShowView>
+    </LinearLayout>
+</ScrollView>

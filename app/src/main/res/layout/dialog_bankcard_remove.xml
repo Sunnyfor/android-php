@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/w870"
+    android:layout_height="@dimen/h511"
+    android:layout_marginLeft="@dimen/w105"
+    android:background="@drawable/shape_rectangle_white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_nomal_min"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h50"
+        android:text="确定要解除绑定该银行卡吗？"
+        android:textSize="@dimen/h46" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h270"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rivLogo"
+            android:layout_width="@dimen/w120"
+            android:layout_height="@dimen/h120"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/h150"
+            android:scaleType="fitXY"
+            app:riv_oval="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w35"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBankName"
+                style="@style/text_nomal_min"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="北京银行储蓄卡"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/tvBankNum"
+                style="@style/text_nomal_min"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/h20"
+                android:maxLength="19"
+                android:text="***** ****** ****** ***555"
+                android:textSize="@dimen/h40" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h80"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel"
+            style="@style/text_nomal_min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="取消" />
+
+        <View
+            android:layout_width="@dimen/w2"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray" />
+
+        <TextView
+            android:id="@+id/btnBankOk"
+            style="@style/text_nomal_small"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+
+</LinearLayout>

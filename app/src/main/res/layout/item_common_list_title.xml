@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h90"
+    android:background="@color/grayBtn">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_nomal_min"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w50"
+        android:text="该新媒人拓展企业主"
+        android:textSize="@dimen/h37" />
+</RelativeLayout>

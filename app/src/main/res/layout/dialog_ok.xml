@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w106"
+        android:layout_marginRight="@dimen/w106"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h63"
+            android:text="自动识别结果"
+            android:textColor="#333333"
+            android:textSize="@dimen/h46" />
+
+        <LinearLayout
+            android:id="@+id/three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h63"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/three_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w77"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_marginTop="@dimen/h43"
+                android:gravity="left"
+                android:textColor="#333333"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/three_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w77"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_marginTop="@dimen/h43"
+                android:gravity="left"
+                android:textColor="#333333"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/three_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w77"
+                android:layout_marginRight="@dimen/h30"
+                android:layout_marginTop="@dimen/h43"
+                android:gravity="left"
+                android:textColor="#333333"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/three_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w77"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_marginTop="@dimen/h43"
+                android:gravity="left"
+                android:textColor="#333333"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/three_residence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w77"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_marginTop="@dimen/h40"
+                android:gravity="left"
+                android:textColor="#333333"
+                android:textSize="@dimen/h40" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h37"
+            android:layout_marginTop="@dimen/h62">
+
+            <Button
+                android:id="@+id/re"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w98"
+                android:background="@null"
+                android:text="取消"
+                android:textColor="@color/grayBtn"
+                android:textSize="@dimen/h43" />
+
+            <View
+                android:layout_width="@dimen/w1"
+                android:layout_height="@dimen/h76"
+                android:layout_centerInParent="true"
+                android:background="#bfbfbf" />
+
+            <Button
+                android:id="@+id/conf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w136"
+                android:background="@null"
+                android:text="自动填充"
+                android:textColor="@color/red"
+                android:textSize="@dimen/h43" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

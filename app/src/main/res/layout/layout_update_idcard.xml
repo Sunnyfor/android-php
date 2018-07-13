@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/w872"
+    android:layout_height="@dimen/h558"
+    android:layout_gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        app:srcCompat="@drawable/bg_idscan_border" />
+
+    <ImageView
+        android:id="@+id/ivBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/h30"
+        android:layout_marginLeft="@dimen/w40"
+        android:layout_marginRight="@dimen/w40"
+        android:layout_marginTop="@dimen/h30"
+        android:contentDescription="@null"
+        app:srcCompat="@drawable/bg_default_id_front" />
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击扫描身份证 正面"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/w40"
+        android:layout_marginBottom="@dimen/h145"/>
+</RelativeLayout>

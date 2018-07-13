@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h40"
+            android:text="2018-02-19 12:32"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w34" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h25"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/w210"
+                android:layout_height="@dimen/w210"
+                android:layout_marginBottom="@dimen/h70"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginTop="@dimen/h50"
+                android:background="@drawable/default_content" />
+
+            <LinearLayout
+                android:layout_width="@dimen/w700"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w25"
+                android:layout_marginTop="@dimen/h70"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/w95"
+                    android:text="订单已发货"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/w40"
+                    android:layout_marginTop="@dimen/h20"
+                    android:ellipsize="end"
+                    android:maxEms="20"
+                    android:text="郭铺（Haier） 清披萨HY-GD1802 芝士+鸡胸肉 到店免费续杯咖啡"
+                    android:textColor="@color/grayText"
+                    android:textSize="@dimen/w37" />
+
+            </LinearLayout>
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/w50"
+                android:text="@string/iconMore"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w50" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

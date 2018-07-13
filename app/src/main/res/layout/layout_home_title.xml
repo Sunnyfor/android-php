@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/vLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/iv_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w25"
+            android:text="@string/iconLocal"
+            android:textColor="@color/iconColor"
+            android:textSize="@dimen/w75" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h75"
+            android:layout_marginLeft="@dimen/w5"
+            android:gravity="bottom"
+            android:paddingBottom="@dimen/w5"
+            android:text="@string/default_city"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w35" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="@dimen/w350"
+        android:layout_height="@dimen/h52"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        app:srcCompat="@drawable/bg_title_logo" />
+
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@+id/vShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/w25"
+        android:text="@string/iconShare"
+        android:textColor="@color/iconColor"
+        android:textSize="@dimen/w75" />
+
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@+id/vScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/w48"
+        android:layout_toLeftOf="@+id/vShare"
+        android:text="@string/iconScan"
+        android:textColor="@color/iconColor"
+        android:visibility="gone"
+        android:textSize="@dimen/w75" />
+
+</RelativeLayout>

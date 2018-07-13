@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cocosh.shmstore">
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 用于写入缓存数据到扩展存储卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 向外拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 开启摄像头 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 读取存储卡 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--震动权限-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        tools:overrideLibrary="com.xiaoluo.updatelib" />
+
+
+    <application
+        android:name=".application.SmApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/new_ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:resizeableActivity="false"
+        android:roundIcon="@mipmap/new_ic_launcher"
+        android:supportsRtl="false"
+        android:theme="@style/SMTheme"
+        tools:replace="android:allowBackup,android:supportsRtl,android:theme"
+        tools:targetApi="n">
+
+        <!-- 友盟key -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="583e60df82b635648c001fd1" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
+
+        <!-- 高德地图KAY -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="9fc2fee48ff7a53ce7658d6b51d43948" />
+        <!-- 高德定位服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <!--欢迎页面-->
+        <activity
+            android:name=".home.SplashActivity"
+            android:windowFullscreen="true"
+            android:windowIsTranslucent="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--切换HOST页面-->
+        <activity android:name=".mine.ui.DeveloperActivity" />
+
+        <!-- 首页,入口 -->
+        <activity
+            android:name=".home.HomeActivity"
+            android:launchMode="singleTask" />
+
+        <!-- 登录页面 -->
+        <activity
+            android:name=".login.ui.activity.LoginActivity"
+            android:launchMode="singleTop" />
+        <!-- 注册页面 -->
+        <activity android:name=".register.RegisterActivity" />
+
+        <!-- 服务协议页面 -->
+        <activity android:name=".term.ServiceTermActivity" />
+
+        <!-- 绑定手机页面 -->
+        <activity
+            android:name=".login.ui.activity.BindingPhoneActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 设置登录密码 -->
+        <activity android:name=".login.ui.activity.SettingLoginPsdActivity" />
+        <!-- 验证手机页面 -->
+        <activity android:name=".forgetPsd.ui.activity.IdentifyMobileActivity" />
+        <!-- 设置新登录密码 -->
+        <activity android:name=".forgetPsd.ui.activity.SettingNewLoginPsdActivity" />
+
+        <!-- 微信回调页面 -->
+        <activity
+            android:name="com.coco_sh.shmstore.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- QQ回调页面 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105781269" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 分享回调页面 -->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <activity android:name=".register.RegisterPassActivity" />
+        <activity android:name=".baiduFace.ui.FaceDetectExpActivity" />
+        <activity android:name=".baiduFace.ui.FaceMainActivity" />
+        <activity android:name=".baiduFace.ui.FaceLivenessExpActivity" />
+        <activity
+            android:name=".mine.ui.AuthActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".baiduFace.ui.OfflineFaceLivenessActivity" />
+        <activity android:name=".newCertification.ui.CheckIdentityInfoActivity" />
+        <activity android:name=".newCertification.ui.PartnerSplashActivity" />
+        <activity android:name=".newCertification.ui.AuthorGuideActivity" />
+        <activity android:name=".newCertification.ui.CertificationAddressActivity" />
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity-alias
+            android:name="com.coco_sh.shmstore.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".newCertification.ui.PayActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".newCertification.ui.NewCertificationActivity" />
+        <activity android:name=".newCertification.ui.IDcardActivity" />
+        <activity android:name=".newCertification.ui.SuccessActivity" />
+        <activity android:name=".newCertification.ui.ConfirmInformationActivity" />
+        <activity android:name=".baiduFace.ui.FaceLivenessActivity" />
+        <activity android:name=".enterpriseCertification.ui.EnterpriseCertificationActivity" />
+        <activity android:name=".enterpriseCertification.ui.EnterpriseCertiSuccessActivity" />
+        <activity android:name=".enterpriseCertification.ui.AuthenticationMainActivity" />
+        <activity android:name=".enterpriseCertification.ui.RepresentActivity" />
+        <activity android:name=".enterpriseCertification.ui.BusinessAuthenInfoActivity" />
+        <activity android:name=".enterpriseCertification.ui.CorporateAccountActivty" />
+        <activity android:name=".mine.ui.InviteCodeActivity" />
+
+        <!--企业主激活页面-->
+        <activity
+            android:name=".enterpriseCertification.ui.EnterpriseActiveActivity"
+            android:launchMode="singleTask" />
+        <!-- 企业主激活结果 -->
+        <activity android:name=".enterpriseCertification.ui.CompanyAuthStatueActivity" />
+
+        <!--身份证扫描页-->
+        <activity android:name=".baiduScan.ScanIdCardActivity" />
+
+        <activity android:name=".enterpriseCertification.ui.UpLoadAgreementActivity" />
+        <activity android:name=".enterpriseCertification.ui.CompanyInformationActivity" />
+        <activity android:name=".enterpriseCertification.ui.BusinessLisenceActivity" />
+        <activity android:name=".baiduScan.ScanLicenseActivity" />
+        <activity android:name=".enterpriseCertification.ui.CorporateAccountShowActivty" />
+        <activity android:name=".facilitator.ui.FacilitatorSplashActivity" />
+        <activity android:name=".facilitator.ui.FacilitatorInformationActivity" />
+        <activity android:name=".facilitator.ui.PayFranchiseFeeActivity" />
+
+        <!--新媒人选择服务商-->
+        <activity android:name=".newCertification.ui.SelectServiceActivity" />
+        <!--新媒人待支付页面-->
+        <activity android:name=".newCertification.ui.PartherPendingPayActivity" />
+        <!--失败页-->
+        <activity android:name=".facilitator.ui.FacilitatorFailActivity" />
+        <activity android:name=".enterpriseCertification.ui.AuthenticationAvtiveInfoActivity" />
+
+        <!--设置页面-->
+        <activity
+            android:name=".mine.ui.SettingActivity"
+            android:launchMode="singleTask" />
+
+        <!--个人认证-->
+        <activity android:name=".person.PersonRsultActivity" />
+
+        <!--关于首媒-->
+        <activity android:name=".about.AboutActivity" />
+
+        <!--档案-->
+        <activity
+            android:name=".mine.ui.ArchiveActivity"
+            android:launchMode="singleTask" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.coco_sh.shmstore.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!--分享 微博-->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".person.PersonSuccessActivity" />
+
+        <activity android:name=".mine.ui.SingleEditActivity" />
+        <activity android:name=".mine.ui.ArchiveInterestingActivity" />
+        <activity
+            android:name=".mine.ui.mywallet.BankCardMangerActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".mine.ui.mywallet.RemovedResultActivity" />
+        <activity android:name=".baiduScan.ScanBankCardActivity" />
+        <activity android:name=".mine.ui.mywallet.CheckBankCardInfoActivity" />
+
+        <!--重置密码页面-->
+        <activity android:name=".mine.ui.ResetPasswordActivity" />
+
+        <!--通过短信重置密码-->
+        <activity android:name=".mine.ui.ResetPassCodeActivity" />
+
+        <activity
+            android:name=".home.CityListActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!--通过旧密码修改密码-->
+        <activity android:name=".mine.ui.OldModifyPasswordActivity" />
+        <!--设置新密码-->
+        <activity android:name=".mine.ui.SettingPasswordActivity" />
+        <!--新消息通知-->
+        <activity android:name=".mine.ui.NewMessageNotifyActivity" />
+        <!--添加银行卡-->
+        <activity android:name=".mine.ui.mywallet.AddBankCardActivity" />
+        <!--填写银行卡信息-->
+        <activity android:name=".mine.ui.mywallet.InputBankCardInfo" />
+        <!--校验 短信码-->
+        <activity android:name=".mine.ui.mywallet.BindBankCardMessage" />
+        <!--钱包-->
+        <activity
+            android:name=".mine.ui.mywallet.MyWalletActivity"
+            android:launchMode="singleTask" />
+        <!--红包账户-->
+        <activity
+            android:name=".mine.ui.mywallet.RedAccountActivity"
+            android:launchMode="singleTask" />
+        <!--收支明细-->
+        <activity android:name=".mine.ui.mywallet.MoneyWaterActivity" />
+        <!--提现-->
+        <activity
+            android:name=".mine.ui.mywallet.OutToWalletActivity"
+            android:launchMode="singleTask" />
+        <!--红包资金池-->
+        <activity android:name=".home.BonusPoolActivity" />
+        <!--红包列表-->
+        <activity
+            android:name=".home.BonusListActivity"
+            android:launchMode="singleTask" />
+        <!--红包没钱-->
+        <activity android:name=".home.BonusNoneActivity" />
+
+        <!--转出至我的钱包结果页-->
+        <activity android:name=".mine.ui.mywallet.OutToWalletResult" />
+        <!--充值结果-->
+        <activity
+            android:name=".mine.ui.mywallet.ReChargeResult"
+            android:launchMode="singleTask" />
+        <!--提现-->
+        <activity
+            android:name=".mine.ui.mywallet.WithDrawActivity"
+            android:launchMode="singleTask" />
+        <!--充值-->
+        <activity android:name=".mine.ui.mywallet.ReChargeActivity" />
+        <!--提现结果-->
+        <activity android:name=".mine.ui.mywallet.WithDrawResult" />
+
+        <!--红包详情页-->
+        <activity android:name=".home.BonusDetailActivity" />
+
+        <!--红包开启-->
+        <activity
+            android:name=".home.BonusOpenActivity"
+            android:theme="@style/NoAnimationTheme" />
+
+        <!--发送红包-->
+        <activity
+            android:name=".home.SendBonusActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!--红包推广web页-->
+        <activity android:name=".home.BonusWebActivity" />
+
+        <!--发送红包内容-->
+        <activity android:name=".home.SendBonusDetailActivity" />
+
+        <!--红包商品页-->
+        <activity android:name=".home.BonusGoodsActivity" />
+
+        <!--红包图文页面-->
+        <activity android:name=".home.BonusTextActivity" />
+
+        <!--红包APP推广-->
+        <activity android:name=".home.BonusAppActivity" />
+
+        <!--红包排行榜-->
+        <activity android:name=".home.BonusRankingActivity" />
+
+        <!--企业钱包-->
+        <activity
+            android:name=".mine.ui.enterprisewallet.EnterPriseWalletActivity"
+            android:launchMode="singleTask" />
+        <!--通用列表-->
+        <activity android:name=".mine.ui.authentication.CommListActivity" />
+        <!--收益-->
+        <activity
+            android:name=".mine.ui.authentication.IncomeActivity"
+            android:launchMode="singleTask" />
+        <!--已发送红包页-->
+        <activity
+            android:name=".mine.ui.authentication.SendPackageActivity"
+            android:launchMode="singleTask" />
+        <!--发红包结果页面-->
+        <activity
+            android:name=".home.SendBonusResultActivity"
+            android:launchMode="singleTask" />
+
+        <!--举报页面-->
+        <activity android:name=".home.ReportActivity" />
+
+        <!--新媒人-->
+        <activity android:name=".mine.ui.authentication.CertificationInComeActivity" />
+        <!--服务商-->
+        <activity android:name=".mine.ui.authentication.FacilitatorInComeActivity" />
+        <!--关注-->
+        <activity android:name=".mine.ui.FollowActivity" />
+        <!--红包投放数据信息-->
+        <activity android:name=".mine.ui.authentication.PackagePushInfoActivity" />
+        <!--收藏-->
+        <activity android:name=".mine.ui.CollectionActivity" />
+        <!--订单-->
+        <activity android:name=".mine.ui.OrderListActivity" />
+
+        <!--扫描二维码-->
+        <activity android:name=".zxing.QrCodeActivity" />
+
+        <!--订单详情-->
+        <activity android:name=".mine.ui.OrderDetailActivity" />
+        <!--确认订单-->
+        <activity android:name=".mine.ui.CreateOrderActivity" />
+        <!--地址管理-->
+        <activity android:name=".mine.ui.AddressMangerActivity" />
+        <!--添加地址-->
+        <activity android:name=".mine.ui.AddAddressActivity" />
+        <!--联系客服-->
+        <activity android:name=".mine.ui.ContactServiceActivity" />
+        <!--设置支付密码-->
+        <activity
+            android:name=".mine.ui.SetPayPwdActivity"
+            android:launchMode="singleTask" />
+        <!--支付验证码-->
+        <activity android:name=".mine.ui.CheckPayPwdMessage" />
+        <!--身份信息检查-->
+        <activity android:name=".mine.ui.PersonInfoCheck" />
+        <!--重置支付密码-->
+        <activity
+            android:name=".mine.ui.ResetPayPasswordActivity"
+            android:launchMode="singleTask" />
+        <!--再次确认输入的密码-->
+        <activity android:name=".mine.ui.ReInputPayPwdActivity" />
+        <activity android:name=".mine.ui.WebActivity" />
+        <activity
+            android:name=".home.ShoumeiDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".web.WebViewActivity" />
+        <activity
+            android:name=".home.ShouMeiCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".home.ShouMeiBrandActivity" />
+        <activity
+            android:name=".home.ShouMeiSearchActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".mine.ui.HelpActivity" />
+    </application>
+
+</manifest>

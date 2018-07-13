@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnSure">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llayoutD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h72"
+                    android:background="@color/gray_line"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/w58"
+                    android:text="代办人身份信息"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/h35" />
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="姓名" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDsex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="性别" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDnation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="民族" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDidType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="证件类型"
+                    app:valueText="身份证" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDidNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="公民身份证号码" />
+
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="住址" />
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="有效期限" />
+
+                <com.cocosh.shmstore.widget.view.ItemShowView
+                    android:id="@+id/isvDdepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nameText="签发机关" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h72"
+                android:background="@color/gray_line"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/w58"
+                android:text="法人代表身份信息"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h35" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="姓名" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFsex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="性别" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFnation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="民族" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFidType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="证件类型"
+                app:valueText="身份证" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFidNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="公民身份证号码" />
+
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="住址" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="有效期限" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvFdepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="签发机关" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@id/btnSure"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/red"
+        android:layout_marginTop="@dimen/h30"
+        android:layout_marginBottom="@dimen/h30"
+        android:text="重新填写" />
+</RelativeLayout>

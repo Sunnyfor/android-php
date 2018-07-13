@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/shm_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h150"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="新媒人认证须知"
+                android:textColor="@color/black"
+                android:textSize="@dimen/w60" />
+
+
+            <TextView
+                android:id="@+id/tvLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_margin="@dimen/w55"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/w20"
+                android:paddingLeft="@dimen/w38"
+                android:textColor="@color/top_color"
+                android:textSize="@dimen/w40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPartner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="成为首媒新媒人"
+                android:textColor="@color/top_color_orange"
+                android:textSize="@dimen/w60" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h60"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成为新媒人表明您已同意我们"
+                    android:textColor="@color/top_color"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_toRightOf="@+id/text_shm"
+                    android:gravity="center_horizontal"
+                    android:text="首媒新媒人协议"
+                    android:textColor="@color/bg_btn"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/regist_agreement"
+                    android:text=", 并且通读"
+                    android:textColor="@color/top_color"
+                    android:textSize="@dimen/w40" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_toRightOf="@+id/text_shm"
+                    android:gravity="center_horizontal"
+                    android:text="首媒新媒人优势"
+                    android:textColor="@color/bg_btn"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/regist_agreement"
+                    android:text=", 成为新媒人后,推荐的广告主投放广告"
+                    android:textColor="@color/top_color"
+                    android:textSize="@dimen/w40" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/regist_agreement"
+                android:text="时一定扫描你的二维码,否则广告收益将无法计算"
+                android:textColor="@color/top_color"
+                android:textSize="@dimen/w40" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/visit_code"
+        android:layout_width="@dimen/w710"
+        android:layout_height="@dimen/h340"
+        android:layout_below="@+id/shm_text_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h80"
+        android:background="@drawable/bg_rect">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h82"
+            android:text="邀请码"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h37" />
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtInviteCode"
+            android:layout_width="@dimen/w460"
+            android:layout_height="@dimen/h91"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h151"
+            android:background="@drawable/bg_btn"
+            android:gravity="center"
+            android:hint="邀请码(选填)"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="15"
+            android:textSize="@dimen/h37"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvInviteCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h151"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h48"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_ok"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/visit_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/h400"
+        android:background="@color/grayBtn"
+        android:text="加入" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/btn_ok"
+        android:layout_marginTop="@dimen/h60"
+        android:gravity="center">
+
+        <com.cocosh.shmstore.widget.textview.CheckedICONTextView
+            android:id="@id/cbDesc"
+            android:layout_width="@dimen/w105"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/iconUnChecked"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w45" />
+
+        <TextView
+            android:id="@+id/text_treaty"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/cbDesc"
+            android:gravity="center_vertical"
+            android:text="我已阅读并同意该"
+            android:textColor="@color/top_color"
+            android:textSize="@dimen/w30" />
+
+        <TextView
+            android:id="@+id/text_treaty2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/text_treaty"
+            android:gravity="center_vertical"
+            android:text="新媒人协议"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w35" />
+
+    </RelativeLayout>
+
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/loing_btn"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true">-->
+
+    <!--<inclactivity_choose_serviceyouactivity_choose_serviceyout/loing_btn"-->
+    <!--android:visibility="gone"/>-->
+
+
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

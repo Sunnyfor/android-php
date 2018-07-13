@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_city_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/h27"
+        android:paddingLeft="@dimen/w22"
+        android:paddingTop="@dimen/h27"
+        android:text="安阳市"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w45" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_marginLeft="@dimen/w22"
+        android:background="@color/background_gray" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hot_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray"
+        android:paddingLeft="@dimen/w22"
+        android:visibility="gone" />
+
+</LinearLayout>

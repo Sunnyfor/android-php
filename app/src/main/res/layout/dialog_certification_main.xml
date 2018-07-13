@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent">
+
+        <LinearLayout
+            android:id="@+id/rlAgent"
+            android:layout_width="@dimen/w695"
+            android:layout_height="@dimen/h725"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_rectangle_white"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h90"
+                android:text="认证提醒"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h46" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h70"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/h25"
+                android:textColor="#9B9B9B"
+                android:textSize="@dimen/h43" />
+
+            <Button
+                android:id="@+id/btn_certification"
+                android:layout_width="@dimen/w522"
+                android:layout_height="@dimen/h102"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h150"
+                android:background="@drawable/shape_btn_red"
+                android:text="前往认证"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h46" />
+        </LinearLayout>
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlAgent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h180"
+            android:text="@string/iconCircleClose"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h100" />
+    </RelativeLayout>
+</layout>

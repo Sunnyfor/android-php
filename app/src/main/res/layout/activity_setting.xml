@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlHead"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h474"
+            android:background="@color/white">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@id/ivHead"
+                android:layout_width="@dimen/w245"
+                android:layout_height="@dimen/w245"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginTop="@dimen/h55"
+                android:scaleType="fitXY"
+                android:src="@drawable/defalut_updata_image"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w40"
+                android:layout_marginRight="@dimen/w110"
+                android:layout_marginTop="@dimen/h115"
+                android:layout_toRightOf="@id/ivHead"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+
+            <TextView
+                android:id="@id/tvNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvName"
+                android:layout_marginLeft="@dimen/w40"
+                android:layout_toRightOf="@id/ivHead"
+                android:text="@string/no"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w37" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/h51"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginTop="@dimen/h51"
+                android:gravity="right"
+                android:text="@string/iconMore"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/h40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h2"
+            android:layout_marginLeft="@dimen/w50"
+            android:background="@color/gray_line" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="手机号"
+            app:valueText="" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvResetLoginPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="重置登录密码" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/resetPayPwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="重置支付密码" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvNewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:nameText="新消息通知" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="清理缓存"
+            app:valueText="0.00MB" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isvAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="关于首媒" />
+    </LinearLayout>
+
+    <Button
+        android:id="@id/btnLoginOut"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/h22"
+        android:layout_marginLeft="@dimen/w22"
+        android:layout_marginRight="@dimen/w22"
+        android:background="@color/red"
+        android:text="@string/logout" />
+</RelativeLayout>

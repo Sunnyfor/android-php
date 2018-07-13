@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/w35"
+        android:layout_marginLeft="@dimen/w40"
+        android:layout_marginTop="@dimen/w35"
+        android:text="今日现金红包池总金额"
+        android:textColor="@color/red"
+        android:textSize="@dimen/w43" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="¥"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w80" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10"
+            android:gravity="center"
+            android:text="0.00"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w108"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h120"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_unit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:text="万"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_5"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_6"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_7"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_8"
+            android:layout_width="@dimen/w88"
+            android:layout_height="@dimen/h88"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w20"
+            android:background="@drawable/rounded_rectangle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w50" />
+
+        <TextView
+            android:id="@+id/tv_unit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w25"
+            android:text="元"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w50" />
+    </LinearLayout>
+
+</LinearLayout>

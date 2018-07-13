@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlayoutBg"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h142"
+    android:background="@drawable/bg_select_white_red">
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w55"
+        android:text="@string/shoumei"
+        android:textColor="@color/color_select_gray_white"
+        android:textSize="@dimen/h40"/>
+
+    <View
+        android:id="@id/ivLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_line" />
+</RelativeLayout>

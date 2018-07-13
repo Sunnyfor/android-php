@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:background="@color/activity_bg"
+    android:orientation="vertical">
+    <!--分割线-->
+    <TextView
+        android:id="@+id/titleLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_below="@+id/titleRl"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/inputLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h160"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+
+        <TextView
+            android:id="@+id/showDesc"
+            style="@style/text_nomal_small"
+            android:layout_gravity="center"
+            android:text="请再次填写以确认"
+            android:textSize="@dimen/h48" />
+        <!--密码框-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/pwd_container"
+                android:layout_width="@dimen/w863"
+                android:layout_height="@dimen/h125"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_red_rectangle"
+                android:orientation="horizontal">
+                <!--放密码控件-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_1"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_2"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_3"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_4"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_5"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/red" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pwd_6"
+                        android:layout_width="@dimen/w48"
+                        android:layout_height="@dimen/h48"
+                        android:src="@drawable/dot"
+                        android:visibility="gone" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!--密码框里面的忘记密码-->
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/activity_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第一行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button1"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="1" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="2" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button3"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="3" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第二行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <Button
+                    android:id="@+id/button4"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="4" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button5"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="5" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button6"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="6" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />
+            <!--键盘第三行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <Button
+                    android:id="@+id/button7"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="7" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button8"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="8" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button9"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="9" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w2"
+                android:layout_weight="0"
+                android:background="@color/gray_line" />  <!--键盘第四行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h180">
+
+                <TextView
+                    android:id="@+id/button_nothing"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/gray_line" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/gray_line" />
+
+                <Button
+                    android:id="@+id/button0"
+                    style="@style/KeyBroadBtnStyle"
+                    android:text="0" />
+
+                <ImageView
+                    android:layout_width="@dimen/w2"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_line" />
+
+                <LinearLayout
+                    android:id="@+id/button_del"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/line_gray"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/w120"
+                        android:layout_height="@dimen/h80"
+                        android:src="@drawable/cmbkb_key_delete_normal" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

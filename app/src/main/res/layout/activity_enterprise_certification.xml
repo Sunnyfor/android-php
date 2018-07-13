@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/h6"
+        tools:context="com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity">
+
+        <RelativeLayout
+            android:id="@+id/rlName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/w76">
+
+            <TextView
+                android:id="@id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="公司名称"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h43" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@id/edtName"
+                style="@style/EidttextStyle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w31"
+                android:layout_marginRight="@dimen/w31"
+                android:layout_toRightOf="@id/tvName"
+                android:hint="请填写完整的公司名称"
+                android:maxLength="70"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlName"
+            android:layout_marginTop="@dimen/h6"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/w76">
+
+            <TextView
+                android:id="@+id/tvCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="邀请码"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h43" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@id/edtCode"
+                style="@style/EidttextStyle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w73"
+                android:layout_marginRight="@dimen/w31"
+                android:layout_toRightOf="@id/tvCode"
+                android:hint="请输入邀请码"
+                android:inputType="number"
+                android:maxLength="15"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btAuthentication"
+            style="@style/ButtonStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/h36"
+            android:background="@color/red"
+            android:text="认证" />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h85"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:text="@string/iconTip"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w15"
+            android:text="持卡人信息与银行卡预留信息须一致"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w32" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/h50"
+        android:layout_marginLeft="@dimen/w50"
+        android:layout_marginRight="@dimen/w50"
+        android:layout_marginTop="@dimen/h50"
+        app:srcCompat="@drawable/bg_yingye_border" />
+
+    <ImageView
+        android:id="@+id/iv_scan"
+        android:layout_width="@dimen/w400"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h260"
+        android:layout_marginLeft="@dimen/w100"
+        android:layout_marginRight="@dimen/w100"
+        android:layout_marginTop="@dimen/h260"
+        app:srcCompat="@drawable/yingyezhizhao" />
+
+</RelativeLayout>

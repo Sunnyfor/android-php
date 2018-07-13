@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h710"
+        android:background="@drawable/wallet_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h88"
+            android:text="当前财富额"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h26"
+            android:singleLine="true"
+            android:text="0.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h158" />
+
+        <TextView
+            android:id="@+id/moneyList"
+            style="@style/text_nomal_min"
+            android:layout_width="@dimen/w260"
+            android:layout_height="@dimen/h77"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h28"
+            android:background="@drawable/shape_btn_red_circle"
+            android:gravity="center"
+            android:text="收支明细"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/w742"
+            android:layout_height="@dimen/h112"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h70"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_charge_money"
+                android:layout_width="@dimen/w306"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_btn_white_50"
+                android:text="充值"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h45" />
+
+            <View
+                android:layout_width="@dimen/w2"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/h30"
+                android:layout_marginTop="@dimen/h30"
+                android:background="@color/white" />
+
+            <Button
+                android:id="@+id/btn_withdraw_money"
+                android:layout_width="@dimen/w306"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape_btn_white_50"
+                android:text="提现"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h45" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h268"
+        android:layout_below="@+id/llTop"
+        android:layout_marginTop="@dimen/h38"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_red"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h250">
+
+            <View
+                android:layout_width="@dimen/w18"
+                android:layout_height="@dimen/h188"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_btn_orange" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w75"
+                android:layout_toRightOf="@+id/ivLogo"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="红包账户"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/h43" />
+
+                <TextView
+                    android:id="@+id/tvRedMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/h10"
+                    android:text="0.00元"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/h57" />
+
+                <TextView
+                    android:id="@+id/rule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20px"
+                    android:layout_marginTop="@dimen/h20"
+                    android:text="注：红包可以直接购物及支付首媒平台的各类费用"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/h40" />
+            </LinearLayout>
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/tvShowRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w45"
+                android:text="@string/iconMore"
+                android:textSize="@dimen/h53" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:layout_marginLeft="@dimen/w75"
+            android:background="@color/gray_line" />
+    </LinearLayout>
+</RelativeLayout>

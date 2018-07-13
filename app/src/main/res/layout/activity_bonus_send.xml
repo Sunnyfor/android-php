@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llayoutBottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h140"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h40"
+                    android:text="红包名称"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w40" />
+
+                <com.cocosh.shmstore.widget.eidttext.SmEditText
+                    android:id="@+id/edtName"
+                    style="@style/EidttextStyle"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/w240"
+                    android:layout_marginRight="@dimen/w40"
+                    android:hint="请输入"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:textSize="@dimen/w40" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:background="@color/gray_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h328"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:layout_marginTop="@dimen/h40"
+                    android:text="红包图片"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w40" />
+
+
+                <ImageView
+                    android:id="@id/ivPhoto"
+                    android:layout_width="@dimen/w638"
+                    android:layout_height="@dimen/w243"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/w275"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/bg_bonus_defult_add" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:background="@color/gray_line" />
+            </RelativeLayout>
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="投放位置" />
+
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/isvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:nameText="投放开始时间" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h140"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tvBonusCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:text="红包个数"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w40" />
+
+                <com.cocosh.shmstore.widget.eidttext.SmEditText
+                    android:id="@+id/edtNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tvGe"
+                    android:layout_toRightOf="@id/tvBonusCount"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:hint="红包投放数量不得小于1"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/w50"
+                    android:paddingRight="@dimen/w50"
+                    android:maxLength="9"
+                    android:textSize="@dimen/w38" />
+
+                <TextView
+                    android:id="@+id/tvGe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/w50"
+                    android:text="个"
+                    android:textColor="@color/blackText" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/w50"
+                    android:background="@color/gray_line" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h140">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:text="单个红包平均金额"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w50"
+                        android:text="￥1.00元/个"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w43" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:background="@color/white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h140">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:text="总金额"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w50"
+                        android:text="元"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w43" />
+
+
+                    <TextView
+                        android:id="@+id/tvAmountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w20"
+                        android:layout_toLeftOf="@id/tvAmount"
+                        android:text="0.00"
+                        android:textColor="@color/grayText"
+                        android:textSize="@dimen/w34" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:background="@color/white" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h140">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:text="红包领取次数"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+
+                    <TextView
+                        android:id="@+id/tvGetBonusCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w50"
+                        android:text="次"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w43" />
+
+
+                    <TextView
+                        android:id="@+id/tvGetBonusCountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w20"
+                        android:layout_toLeftOf="@id/tvGetBonusCount"
+                        android:text="0"
+                        android:textColor="@color/grayText"
+                        android:textSize="@dimen/w34" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/h2"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:background="@color/white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h140"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/w50"
+                        android:text="广告曝光次数"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+
+                    <TextView
+                        android:id="@+id/tvAdCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w50"
+                        android:text="次"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w43" />
+
+
+                    <TextView
+                        android:id="@+id/tvAdCountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w20"
+                        android:layout_toLeftOf="@id/tvAdCount"
+                        android:text="0"
+                        android:textColor="@color/grayText"
+                        android:textSize="@dimen/w34" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h100"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="* 未被领取的红包，将于24小时后自动退款"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w34"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/llayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w140"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/lineGray"
+            android:gravity="center"
+            android:text="需支付 0.00元"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w46" />
+
+        <Button
+            android:id="@id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="下一步，填写内容"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w782"
+    android:layout_height="@dimen/h810"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/shape_income_bg_white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h90"
+        android:text="我送你一个红包，快来领取吧"
+        android:textSize="@dimen/w46" />
+
+    <View
+        android:layout_width="@dimen/w221"
+        android:layout_height="@dimen/h279"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h30"
+        android:background="@drawable/bg_share_bonus" />
+
+    <com.cocosh.shmstore.widget.eidttext.SmEditText
+        android:id="@id/edtTitle"
+        android:layout_width="@dimen/w522"
+        android:layout_height="@dimen/h102"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h60"
+        android:background="@drawable/corner_gray_white_bg"
+        android:hint="我送你一个红包，快来领取吧！"
+        android:maxLength="15"
+        android:lines="1"
+        android:paddingLeft="@dimen/w20"
+        android:paddingRight="@dimen/w20"
+        android:textSize="@dimen/w34" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/tvCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:textSize="@dimen/w43"
+            android:gravity="center"
+            android:text="取消" />
+
+        <View
+            android:layout_width="@dimen/w2"
+            android:layout_height="@dimen/h77"
+            android:background="@color/line_gray" />
+
+        <TextView
+            android:id="@id/tvSure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43"
+            android:gravity="center"
+            android:text="发送" />
+    </LinearLayout>
+</LinearLayout>

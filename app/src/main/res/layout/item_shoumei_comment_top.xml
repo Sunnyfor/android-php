@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/w138"
+            android:layout_height="@dimen/h138"
+            android:layout_marginBottom="@dimen/h35"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h35"
+            android:src="@drawable/default_content"
+            app:riv_oval="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_toRightOf="@+id/ivLogo"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="我是夏洛特"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+
+            <TextView
+                android:id="@+id/tvTopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="2017.10.1"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/w34" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvTopDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:lineSpacingExtra="@dimen/h15"
+        android:text="5G时代群雄逐鹿，谁更胜一筹？5G时代群雄逐鹿，谁更胜一筹？ "
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h43" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_marginBottom="@dimen/h20"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h55"
+        android:background="@color/lineGray" />
+</LinearLayout>

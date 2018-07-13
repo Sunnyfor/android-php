@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h354"
+    android:background="@drawable/shape_rectangle_white"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/rivLogo"
+        android:layout_width="@dimen/w150"
+        android:layout_height="@dimen/h150"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/w60"
+        android:scaleType="fitXY" />
+
+    <View
+        android:layout_width="@dimen/w2"
+        android:layout_height="@dimen/h143"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/w58"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/w36"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvBankName"
+            style="@style/text_nomal_min"
+            android:text="北京银行" />
+
+        <TextView
+            android:id="@+id/tvBankType"
+            style="@style/text_nomal_small"
+            android:layout_marginTop="@dimen/h40"
+            android:text="北京银行" />
+
+        <TextView
+            android:id="@+id/tvBankNum"
+            style="@style/text_nomal_min"
+            android:layout_marginTop="@dimen/h37"
+            android:text="***** ****** ****** ***555" />
+    </LinearLayout>
+
+</LinearLayout>

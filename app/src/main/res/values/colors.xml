@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="white50">#50ffffff</color>
+    <color name="colorPrimaryDark">#ff212121</color>
+    <color name="colorPrimaryAlpha">#44000000</color>
+    <color name="text_orange">#ff6633</color>
+    <color name="transparent">#00000000</color>
+    <color name="default_gray">#F4F4F4</color>
+    <color name="text_gray">#BFBFBF</color>
+    <color name="line_gray">#E0E0E0</color>
+
+    <color name="edit_bg_gray">#DDDDDD</color>
+    <color name="hint_gray">#DDDDDD</color>
+
+    <!-- 背景颜色 -->
+    <color name="activity_bg">#F2F4F5</color>
+    <color name="subimt_bg">#DDDDDD</color>
+    <color name="lineGray">#EEEEEE</color>
+    <color name="gray_text">#a5a5a5</color>
+    <color name="gray_line">#e0e0e0</color>
+    <color name="background_gray">#efefef</color>
+    <color name="nav_blue">#72ace3</color>
+    <color name="nav_gray">#FAFAFA</color>
+    <color name="nav_red_package">#CCB2AA</color>
+
+    <!--actionbar -->
+    <color name="bg_btn">#ff6633</color>
+    <color name="top_color_orange">#ff6633</color>
+    <color name="text">#757575</color>
+    <color name="top_color">#484746</color>
+    <color name="red">#D8253B</color>
+    <color name="text_red">#DD4457</color>
+    <color name="iconColor">#BFBFBF</color>
+    <color name="blackText">#333333</color>
+    <color name="grayText">#999999</color>
+    <color name="grayBtn">#C5C5C5</color>
+    <color name="textGray">#666666</color>
+    <color name="progressBg">#EEEEEE</color>
+    <color name="popBorder">#F3F3F3</color>
+    <color name="item_main_color_selected">#63B8FF</color>
+    <color name="edit_border">#D3D3D3</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#60000000</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="red_color">#ff6633</color>
+    <color name="red_color_nomal">#ff8656</color>
+
+    <!--扫描二维码色值-->
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="gray">#808080</color>
+    <color name="lightgreen">#99CC33</color>
+    <color name="green">#00CC00</color>
+    <color name="hailan">#2587ec</color>
+    <color name="textBonus">#ecc284</color>
+    <color name="bgBonus">#fff1dc</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDarkS">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+</resources>
+

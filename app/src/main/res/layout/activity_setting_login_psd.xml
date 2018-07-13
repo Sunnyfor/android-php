@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.cocosh.shmstore.login.ui.activity.SettingLoginPsdActivity">
+
+        <ImageView
+            android:id="@+id/ivDivider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h5"
+            android:background="#EFEFEF" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/w123"
+            android:paddingRight="@dimen/w123"
+            android:paddingTop="@dimen/h80">
+
+            <TextView
+                android:id="@+id/tvTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/inputPassDesc"
+                android:textColor="#545454"
+                android:textSize="@dimen/h45" />
+
+            <com.cocosh.shmstore.widget.eidttext.SmEditText
+                android:id="@+id/etSetPsd"
+                style="@style/PassEdittextStyle"
+                android:layout_below="@id/tvTip"
+                android:layout_marginTop="@dimen/h80"
+                android:background="@drawable/edit_text_bg" />
+
+            <RelativeLayout
+                android:id="@+id/rlPsd"
+                android:layout_width="@dimen/w150"
+                android:layout_height="@dimen/h100"
+                android:layout_alignBottom="@id/etSetPsd"
+                android:layout_alignParentRight="true">
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:id="@+id/itvHidePsd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/w30"
+                    android:text="@string/iconHiden"
+                    android:textColor="#C7C7C7"
+                    android:textSize="@dimen/w50"
+                    android:visibility="visible" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:id="@+id/itvShowPsd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/w30"
+                    android:text="@string/iconShow"
+                    android:textColor="#C7C7C7"
+                    android:textSize="@dimen/w50"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btComplete"
+                style="@style/ButtonStyle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/etSetPsd"
+                android:layout_marginTop="109dp"
+                android:enabled="false"
+                android:text="@string/comple" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

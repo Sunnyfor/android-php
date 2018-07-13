@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/chooseRl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h120"
+        android:layout_marginLeft="@dimen/w62"
+        android:layout_marginTop="@dimen/h60"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/chooseLl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_nomal_min"
+                android:text="兴趣爱好"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/w20"
+            android:layout_toRightOf="@+id/chooseLl"
+            android:orientation="horizontal"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listRl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/h100"
+        android:background="@color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewBottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"/>
+    </RelativeLayout>
+</LinearLayout>

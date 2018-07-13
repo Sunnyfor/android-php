@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140"
+            android:layout_marginTop="@dimen/w30"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w58"
+            android:text="身份信息"
+            android:textSize="@dimen/w42"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:layout_marginLeft="@dimen/w58"
+            android:background="@color/gray_line" />
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isv_personName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="姓名" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isv_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:nameText="身份证号" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h140"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w58"
+            android:text="所属服务商"
+            android:textSize="@dimen/w42"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:layout_marginLeft="@dimen/w58"
+            android:background="@color/gray_line" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isv_partherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="企业名称" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isv_partherAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="服务区域" />
+
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/isv_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="企业法人" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h124"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="支付金额：￥0.00"
+            android:textColor="@color/text_red" />
+
+        <TextView
+            android:id="@+id/tvPay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="去支付"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

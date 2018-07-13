@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h145">
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/h30"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/lineUp"
+            android:layout_width="@dimen/w2"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/red" />
+
+        <View
+            android:id="@+id/circle"
+            android:layout_width="@dimen/w30"
+            android:layout_height="@dimen/h30"
+            android:background="@drawable/shape_circle_red" />
+
+        <View
+            android:id="@+id/lineDown"
+            android:layout_width="@dimen/w2"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/red" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w55"
+        android:layout_marginTop="@dimen/h10"
+        android:layout_toRightOf="@+id/line"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h10"
+            android:text="在分拨中心黑龙江哈尔滨香坊区黎明公司进行蓝剑扫描"
+            android:textSize="@dimen/h40" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/text_nomal_small"
+            android:text="2017-10-24  12:31"
+            android:textSize="@dimen/h34" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f4f5"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="@color/white"
+        android:paddingBottom="@dimen/h40"
+        android:paddingLeft="@dimen/w70"
+        android:paddingTop="@dimen/h42"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_statue"
+            android:text="激活失败"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/h33"
+            android:id="@+id/tv_statue_content"
+            android:text="该企业已被认证且激活"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/h43"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <RelativeLayout
+          android:paddingRight="@dimen/w42"
+          android:paddingLeft="@dimen/w70"
+          android:id="@+id/rl_auth"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/h129">
+          <TextView
+              android:layout_centerVertical="true"
+              android:textSize="@dimen/w40"
+              android:textColor="@color/blackText"
+              android:text="认证信息"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+          <com.cocosh.shmstore.widget.textview.ICONTextView
+              android:textColor="@color/blackText"
+              android:text="@string/iconLookMore"
+              android:layout_centerVertical="true"
+              android:layout_alignParentRight="true"
+              android:textSize="@dimen/w40"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+      </RelativeLayout>
+        <ImageView
+            android:src="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1" />
+        <RelativeLayout
+            android:paddingRight="@dimen/w42"
+            android:paddingLeft="@dimen/w70"
+            android:id="@+id/rl_identity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h129">
+            <TextView
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/w40"
+                android:textColor="@color/blackText"
+                android:text="身份验证"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:textColor="@color/blackText"
+                android:text="@string/iconLookMore"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/w40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <ImageView
+            android:src="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1" />
+        <RelativeLayout
+            android:paddingRight="@dimen/w42"
+            android:paddingLeft="@dimen/w70"
+            android:id="@+id/rl_license"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h129">
+            <TextView
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/w40"
+                android:textColor="@color/blackText"
+                android:text="营业执照"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:textColor="@color/blackText"
+                android:text="@string/iconLookMore"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/w40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <ImageView
+            android:src="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1" />
+        <RelativeLayout
+            android:paddingRight="@dimen/w42"
+            android:paddingLeft="@dimen/w70"
+            android:id="@+id/rl_company_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h129">
+            <TextView
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/w40"
+                android:textColor="@color/blackText"
+                android:text="企业对公账号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:textColor="@color/blackText"
+                android:text="@string/iconLookMore"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/w40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_fill_in"
+        android:layout_marginTop="@dimen/h75"
+        android:text="重新填写"
+        android:background="@color/red"
+        android:layout_gravity="center_horizontal"
+        style="@style/ButtonStyle" />
+    <Button
+        android:id="@+id/bt_back"
+        android:layout_marginTop="@dimen/h41"
+        android:textColor="@color/gray_text"
+        android:text="返回首页"
+        android:background="@drawable/btn_bg_gry"
+        android:layout_gravity="center_horizontal"
+        style="@style/ButtonStyle" />
+    <LinearLayout
+        android:paddingLeft="@dimen/w72"
+        android:layout_marginTop="@dimen/h137"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:textColor="@color/blackText"
+            android:text="请查看是否为以下情况："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/h27"
+            android:textColor="@color/blackText"
+            android:text="①贵公司其他员工已完成企业主认证；"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/h27"
+            android:textColor="@color/blackText"
+            android:text="②企业资料填写有误；"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/h27"
+            android:textColor="@color/blackText"
+            android:text="③其他原因"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/h27"
+            android:textColor="@color/blackText"
+            android:text="如有疑问致电首媒：400-000-000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

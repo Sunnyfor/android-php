@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h600"
+        android:layout_above="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h175"
+        android:background="@color/background_gray">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginTop="@dimen/h30"
+            android:textSize="@dimen/h37" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="@dimen/h25"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/type"
+                android:layout_width="@dimen/w50"
+                android:layout_height="@dimen/h50"
+                android:layout_marginLeft="@dimen/w30"
+                android:src="@drawable/redicon" />
+
+            <TextView
+                android:id="@+id/number"
+                style="@style/text_nomal_small"
+                android:layout_marginLeft="@dimen/w10"
+                android:text="红包总金额:0人"
+                android:textSize="@dimen/h34" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/text_nomal_small"
+            android:layout_width="@dimen/w135"
+            android:layout_height="@dimen/h50"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/w35"
+            android:background="@color/grayBtn"
+            android:gravity="center"
+            android:text="已打开"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h37" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.cocosh.shmstore.enterpriseCertification.ui.RepresentActivity">
+
+    <TextView
+        android:id="@+id/desc"
+        style="@style/text_nomal_small"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h96"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/h15"
+        android:text="绑定银行卡需要短信确认，验证码已发送至手机:\n138*******1959，请按提示操作" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h74"
+        android:orientation="horizontal">
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@+id/edtCode"
+            style="@style/EidttextStyle"
+            android:layout_width="@dimen/w590"
+            android:layout_height="@dimen/h120"
+            android:layout_marginLeft="@dimen/w60"
+            android:layout_marginRight="@dimen/w30"
+            android:background="@drawable/shape_rectangle_gray_to_white"
+            android:gravity="center_vertical|center"
+            android:hint="填写验证码"
+            android:inputType="number"
+            android:textSize="@dimen/h40" />
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_width="@dimen/w360"
+            android:layout_height="@dimen/h120"
+            android:layout_marginRight="@dimen/w40"
+            android:background="@drawable/shape_rectangle_round_gray"
+            android:text="填写验证码(60s)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h40" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h100"
+        android:background="@color/grayBtn"
+        android:text="下一步"
+        android:visibility="visible" />
+
+</LinearLayout>

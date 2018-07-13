@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="frameTitle" type="id" />
+    <item name="frameBody" type="id" />
+    <item name="frameParent" type="id" />
+    <item name="frameLoading" type="id" />
+    <item name="tvLeft" type="id" />
+    <item name="ivHead" type="id" />
+    <item name="ivBanner" type="id" />
+    <item name="ivBg" type="id" />
+    <item name="tvRight" type="id" />
+    <item name="ivIcon" type="id" />
+    <item name="tvIcon" type="id" />
+    <item name="ivScan" type="id" />
+    <item name="ivBonusPhoto" type="id" />
+    <item name="ivPhoto" type="id" />
+    <item name="ivShare" type="id" />
+    <item name="rlLocal" type="id" />
+    <item name="rlShare" type="id" />
+    <item name="ivLine" type="id" />
+    <item name="rlScan" type="id" />
+
+
+    <item name="tvDesc" type="id" />
+    <item name="tvReg" type="id" />
+    <item name="tvHelp" type="id" />
+    <item name="tvClear" type="id" />
+    <item name="tvCancel" type="id" />
+    <item name="tvSure" type="id" />
+    <item name="tvTitle" type="id" />
+    <item name="tvName" type="id" />
+    <item name="tvNo" type="id" />
+    <item name="tvMoney" type="id" />
+    <item name="vTitleLine" type="id" />
+
+    <item name="edtTitle" type="id" />
+    <item name="edtName" type="id" />
+    <item name="edtDesc" type="id" />
+    <item name="edtPhone" type="id" />
+    <item name="edtPassword" type="id" />
+    <item name="edtCode" type="id" />
+
+
+    <item name="btnLogin" type="id" />
+    <item name="btnNext" type="id" />
+    <item name="btnCode" type="id" />
+    <item name="btnSure" type="id" />
+    <item name="btnLoginOut" type="id" />
+    <item name="btnShare" type="id" />
+    <item name="btnOpen" type="id"/>
+    <item name="btnCancel" type="id" />
+
+    <item name="recyclerView" type="id" />
+
+    <item name="refreshLayout" type="id"/>
+
+    <item name="llReg" type="id" />
+
+    <item name="rlBg" type="id" />
+
+    <item name="cbDesc" type="id" />
+
+
+    <!--扫描二维码ID-->
+    <item name="decode" type="id" />
+    <item name="decode_failed" type="id" />
+    <item name="decode_succeeded" type="id" />
+    <item name="launch_product_query" type="id" />
+    <item name="quit" type="id" />
+    <item name="restart_preview" type="id" />
+    <item name="return_scan_result" type="id" />
+
+</resources>

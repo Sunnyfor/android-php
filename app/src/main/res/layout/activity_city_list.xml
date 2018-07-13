@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/h20"
+        android:paddingLeft="@dimen/w25"
+        android:paddingRight="@dimen/w25"
+        android:paddingTop="@dimen/h20">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/subimt_bg"
+            android:gravity="center_vertical"
+            android:hint="输入城市名称"
+            android:imeOptions="actionSearch"
+            android:paddingBottom="@dimen/h8"
+            android:padding="@dimen/w20"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_text"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/w43" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="@dimen/w43"
+            android:layout_height="@dimen/h43"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/w20"
+            android:text="@string/iconSearch"
+            android:textSize="@dimen/w43" />
+    </RelativeLayout>
+
+
+    <ExpandableListView
+        android:id="@+id/elv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:groupIndicator="@null" />
+</LinearLayout>

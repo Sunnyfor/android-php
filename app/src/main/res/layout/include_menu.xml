@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w2"
+        android:background="@color/lineGray" />
+
+    <LinearLayout
+        android:id="@+id/llgroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w140"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <RelativeLayout
+            android:id="@+id/rlHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/iconHome"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w75" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_home"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h5"
+                android:text="首页"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w30" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlInCome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/iv_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/iconInCome"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w75" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_income"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h5"
+                android:text="收益"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w30" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlMsgNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w65"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvMsgNum"
+                    android:layout_width="@dimen/w40"
+                    android:layout_height="@dimen/h40"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/w20" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlShoumei"
+            android:layout_width="@dimen/w170"
+            android:layout_height="@dimen/h170"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginRight="@dimen/w50"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_shoumei_home" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/iconShoumei"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w102" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/iv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/iconMessage"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w75" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_message"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h5"
+                android:text="消息"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w30" />
+
+            <View
+                android:id="@+id/viewMsgPoint"
+                android:layout_width="@dimen/w25"
+                android:layout_height="@dimen/w25"
+                android:background="@drawable/shape_circle_red"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/w50"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlMine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:id="@+id/iv_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/iconMine"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w75" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_mine"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h5"
+                android:text="我的"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w30" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

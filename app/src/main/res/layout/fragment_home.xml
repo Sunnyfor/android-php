@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.cocosh.shmstore.home.widget.HomeAdView
+        android:id="@+id/homeAdView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:background="@color/lineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h140"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layoutOne"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/w60"
+                android:layout_height="@dimen/h70"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginRight="@dimen/w30"
+                android:src="@drawable/icon_bonus_one"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大众红包"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/w3"
+            android:layout_height="@dimen/h70"
+            android:layout_gravity="center_vertical"
+            android:background="@color/red" />
+
+
+        <LinearLayout
+            android:id="@+id/layoutTwo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/w60"
+                android:layout_height="@dimen/h70"
+                android:layout_marginLeft="@dimen/w30"
+                android:layout_marginRight="@dimen/w30"
+                android:src="@drawable/icon_media"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="媒体扶贫"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/w3"
+            android:layout_height="@dimen/h70"
+            android:layout_gravity="center_vertical"
+            android:background="@color/red" />
+
+
+        <LinearLayout
+            android:id="@+id/layoutThree"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/w60"
+                android:layout_height="@dimen/h70"
+                android:layout_marginLeft="@dimen/w30"
+                android:layout_marginRight="@dimen/w30"
+                android:src="@drawable/icon_consume"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消费扶贫"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:background="@color/lineGray"/>
+
+    <com.cocosh.shmstore.home.widget.HomeBottomView
+        android:id="@+id/homeBottomView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h360" />
+</LinearLayout>

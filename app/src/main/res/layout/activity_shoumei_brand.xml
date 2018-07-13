@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/ivLogo"
+                        android:layout_width="@dimen/w138"
+                        android:layout_height="@dimen/h138"
+                        android:layout_marginBottom="@dimen/h35"
+                        android:layout_marginLeft="@dimen/w35"
+                        android:layout_marginTop="@dimen/h35"
+                        android:src="@drawable/default_content"
+                        app:riv_oval="true" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/w20"
+                        android:layout_toRightOf="@+id/ivLogo"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:ellipsize="end"
+                                android:maxEms="10"
+                                android:singleLine="true"
+                                android:text="首媒科技"
+                                android:textColor="@color/blackText"
+                                android:textSize="@dimen/w46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="@dimen/h4"
+                                android:layout_marginLeft="@dimen/w20"
+                                android:background="@color/red"
+                                android:padding="@dimen/h4"
+                                android:text="企业"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/w25" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="关注人数：6534人"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/w34" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="@dimen/w144"
+                        android:layout_height="@dimen/h58"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/w35"
+                        android:background="@drawable/shape_rectangle_round_gray"
+                        android:gravity="center"
+                        android:text="已关注"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w34" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/h40"
+                    android:layout_marginLeft="@dimen/w35"
+                    android:layout_marginRight="@dimen/w35"
+                    android:layout_marginTop="@dimen/h217"
+                    android:background="@drawable/shape_bg_round_gray">
+
+                    <ImageView
+                        android:id="@+id/circle"
+                        android:layout_width="@dimen/w23"
+                        android:layout_height="@dimen/h23"
+                        android:layout_marginLeft="@dimen/w74"
+                        android:layout_marginTop="@dimen/h44"
+                        android:background="@drawable/shape_circle_red" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/text_nomal_small"
+                        android:layout_marginLeft="@dimen/w15"
+                        android:layout_marginTop="@dimen/h30"
+                        android:layout_toRightOf="@+id/circle"
+                        android:text="公告"
+                        android:textColor="@color/red" />
+
+                    <com.cocosh.shmstore.widget.SMSpannableTextView
+                        android:id="@+id/desc"
+                        style="@style/text_nomal_small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title"
+                        android:layout_marginBottom="@dimen/h60"
+                        android:layout_marginLeft="@dimen/w74"
+                        android:layout_marginRight="@dimen/w74"
+                        android:layout_marginTop="@dimen/h30"
+                        android:text="就是开工建设的就是开工建设的就是开工建设的就是开工建设的就是开工建设的就是开工建设的就是开工建设的就是开工建设的"
+                        android:textColor="@color/blackText" />
+                </RelativeLayout>
+
+                <!-- 设置标题-->
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h128"
+                app:tabPaddingBottom="@dimen/h10"
+                app:tabSelectedTextColor="@color/red" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

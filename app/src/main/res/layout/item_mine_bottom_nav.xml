@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h148"
+    android:background="@color/nav_gray">
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@id/tvIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w70"
+        android:text="@string/iconComplet"
+        android:textColor="@color/iconColor"
+        android:textSize="@dimen/w56" />
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w32"
+        android:layout_toRightOf="@id/tvIcon"
+        android:text="@string/app_name"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/w43" />
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/w42"
+        android:layout_alignRight="@id/tvIcon"
+        android:text="@string/iconMore"
+        android:textColor="@color/iconColor"
+        android:textSize="@dimen/w33" />
+</RelativeLayout>

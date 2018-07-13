@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h105"
+        android:layout_marginLeft="@dimen/w120"
+        android:layout_marginRight="@dimen/w120"
+        android:layout_marginTop="@dimen/w55">
+
+        <com.cocosh.shmstore.widget.eidttext.SmEditText
+            android:id="@id/edtPassword"
+            style="@style/PassEdittextStyle"
+            android:hint="@string/input_old_pwd"
+            android:inputType="textPassword" />
+
+        <com.cocosh.shmstore.widget.textview.CheckedICONTextView
+            android:id="@+id/checkbox"
+            android:layout_width="@dimen/w80"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"
+            android:text="@string/iconHiden"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w52" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_marginLeft="@dimen/w120"
+        android:layout_marginRight="@dimen/w120"
+        android:background="@color/line_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w120"
+        android:layout_marginRight="@dimen/w120"
+        android:layout_marginTop="@dimen/h10">
+
+        <TextView
+            android:id="@+id/tvDesc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="@dimen/h34" />
+
+        <TextView
+            android:id="@+id/tvPassForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/passForget"
+            android:textColor="@color/blackText"
+            android:visibility="gone"
+            android:textSize="@dimen/h34" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@id/btnSure"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h58"
+        android:background="@color/red"
+        android:text="@string/sure" />
+
+    <Button
+        android:id="@+id/btnCall"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h58"
+        android:background="@color/red"
+        android:visibility="gone"
+        android:text="联系客服" />
+</LinearLayout>

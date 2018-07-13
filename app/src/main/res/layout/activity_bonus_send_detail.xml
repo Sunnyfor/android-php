@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h328"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginTop="@dimen/h40"
+                android:text="红包图片"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
+
+
+            <ImageView
+                android:id="@id/ivBonusPhoto"
+                android:layout_width="@dimen/w638"
+                android:layout_height="@dimen/w243"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w275"
+                android:background="@drawable/bg_bonus_defult_add"
+                android:scaleType="fitXY" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:background="@color/gray_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h210"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginTop="@dimen/h40"
+                android:text="简述"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
+
+            <EditText
+                android:id="@+id/edtDesc"
+                style="@style/EidttextStyle"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/w180"
+                android:layout_marginRight="@dimen/w40"
+                android:gravity="top"
+                android:hint="请输入"
+                android:maxLength="200"
+                android:paddingBottom="@dimen/h40"
+                android:paddingTop="@dimen/h40"
+                android:textSize="@dimen/w37" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/w50"
+                android:background="@color/gray_line" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginTop="@dimen/h40"
+                android:text="广告图"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
+
+
+            <ImageView
+                android:id="@+id/ivAdPhoto"
+                android:layout_width="@dimen/w638"
+                android:layout_height="@dimen/w347"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/h55"
+                android:layout_marginLeft="@dimen/w275"
+                android:layout_marginTop="@dimen/h55"
+                android:background="@drawable/bg_ad_defult_add"
+                android:scaleType="centerCrop"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w140"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@id/tvMoney"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/lineGray"
+            android:gravity="center"
+            android:text="需支付 0元"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w46" />
+
+        <Button
+            android:id="@id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46" />
+
+    </LinearLayout>
+</RelativeLayout>

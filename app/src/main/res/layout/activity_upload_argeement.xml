@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activity_bg"
+        android:gravity="center"
+        android:text="上传委托协议"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h34" />
+
+
+    <ImageView
+        android:id="@+id/iv_argeement"
+        android:layout_width="@dimen/w839"
+        android:layout_height="@dimen/h550"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h87"
+        android:background="@drawable/rl_black_border"
+        android:scaleType="centerCrop"
+        android:padding="@dimen/w3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h40"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:text="委托协议"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/h43" />
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="@dimen/w726"
+        android:layout_height="@dimen/h120"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h70"
+        android:background="@drawable/shape_btn_red"
+        android:text="上传"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h43" />
+
+    <Button
+        android:id="@id/btnSure"
+        android:layout_width="@dimen/w1040"
+        android:layout_height="@dimen/h140"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h560"
+        android:background="@color/red"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h43" />
+</LinearLayout>

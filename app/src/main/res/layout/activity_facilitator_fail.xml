@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.coco_sh.shmstore.mine.author.service.PayFranchiseFeeActivity">
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h150"
+            android:gravity="center"
+            android:text="@string/iconCircleClose"
+            android:textColor="@color/red"
+            android:textSize="@dimen/h317" />
+
+        <TextView
+            android:layout_marginTop="@dimen/h70"
+            android:id="@+id/tv_red1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon"
+            android:gravity="center"
+            android:text="认证失败"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h55" />
+
+        <TextView
+            android:id="@+id/tv_red2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_red1"
+            android:layout_marginTop="@dimen/h60"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/h20"
+            android:paddingLeft="@dimen/w200"
+            android:paddingRight="@dimen/w200"
+            android:text="用户名不能填写错误，错字或者错标点均会被银行退款"
+            android:textColor="#DD5A6E"
+            android:textSize="@dimen/h38" />
+
+        <Button
+            android:id="@+id/btn_again"
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/h30"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginRight="@dimen/w30"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="重新打款"
+            android:textColor="@color/white"
+            android:textSize="45px" />
+
+    </RelativeLayout>
+</layout>

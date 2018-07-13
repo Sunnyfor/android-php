@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addBank"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h150"
+    android:background="@drawable/shape_rectangle_top_round_white">
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w20"
+        android:layout_toRightOf="@+id/ivPic"
+        android:text="选择到账银行卡"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/h43" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:background="@color/gray_line" />
+
+</RelativeLayout>

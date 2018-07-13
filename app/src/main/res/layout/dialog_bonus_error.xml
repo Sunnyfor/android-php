@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/w680"
+        android:layout_height="@dimen/h936"
+        android:background="@drawable/bg_bonus_error"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@id/ivHead"
+            android:layout_width="@dimen/w160"
+            android:layout_height="@dimen/h160"
+            android:layout_marginTop="@dimen/h150"
+            android:src="@drawable/default_head"
+            app:riv_oval="true" />
+
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h20"
+            android:text="@string/shoumei"
+            android:textColor="@color/textBonus"
+            android:textSize="@dimen/w40" />
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h60"
+            android:text="恭喜发财  大吉大利"
+            android:textColor="@color/textBonus"
+            android:textSize="@dimen/w51" />
+    </LinearLayout>
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@+id/isv_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/iconCircleClose"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w120"/>
+</LinearLayout>
