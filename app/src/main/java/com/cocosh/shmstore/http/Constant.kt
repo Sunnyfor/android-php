@@ -13,6 +13,10 @@ object Constant {
 
     var SHOWLOG = true //是否打印LOG
 
+    const val APPSECRET = "SM_ANDROID" //接口SECRET
+    const val VERSION = "v1"  //接口版本
+    const val CLIENT = "android"
+
     /**
      * 图片，照相
      */
@@ -20,6 +24,25 @@ object Constant {
     const val SELECT_PIC_NOUGAT = 101
     const val RESULT_REQUEST_CODE = 102
     const val CAMERA_REQUEST_CODE = 104
+
+
+    /*新版PHP接口*/
+
+    const val REGISTER_SEND_CODE = "$VERSION/common/sms" //注册发送验证码
+
+    const val REGISTER = "$VERSION/portal/register" //注册
+
+    const val LOGIN = "$VERSION/portal/login"//登录
+
+    const val LOGOUT = "$VERSION/portal/logout"
+
+    const val FORGOTPWD = "$VERSION/portal/forgotpwd" //忘记密码
+
+    const val PROFILE = "$VERSION/profile/" //获取个人档案
+
+    const val PROFILE_UPDATE = "$VERSION/profile/update" //更新个人档案
+
+    const val COMMON_UPLOADS= "$VERSION/common/uploads" //上传文件
 
 
     /**
@@ -54,12 +77,9 @@ object Constant {
 
     const val USER_LOCATION = "ucenter/user/location/userLocation" //用户定位
 
-    const val LOGIN = "ucenter/memberlogin/login"//登录
-    const val REGISTER_SEND_CODE = "ucenter/member/sendRegisterMessage" //注册发送验证码
     const val REGISTER_AUTH_CODE = "ucenter/member/checkVerificationCode"//校验验证码
     const val REGISTER_PHONE = "ucenter/member/registeredUser" //手机号码注册
 
-    const val MEMBER_INFO = "ucenter/member/memberEntrance" //我的信息入口
 
     const val GET_MYFILEINFO = "ucenter/member/getMyFileInfo" //档案
 
@@ -220,7 +240,7 @@ object Constant {
     const val CASH_PAY = "account/cash/pinpp/pay"//支付接口 支付类型 RECHARGE (1,"充值"),PAYMENT(3,"消费"), SEND_RED_PACKET(7,"发红包") 8-押金
     const val LOCAL_PAY = "account/cash/local/pay"//本地支付  支付类型 RECHARGE (1,"充值"),PAYMENT(3,"消费"), SEND_RED_PACKET(7,"发红包") 8-押金
     const val PAY_RESULT = "account/cash/get/pinpp/pay"//支付结果确认
-    const val PAY_SECURITY="ucenter/member/partner/paySecurity" //平台支付押金
+    const val PAY_SECURITY = "ucenter/member/partner/paySecurity" //平台支付押金
 
     /**
      * 消息
@@ -250,6 +270,7 @@ object Constant {
     const val SM_DELETE_COMMENT = "sm-home/sm/deleteComment"//删除评论
     const val SM_ADD_COMMENT = "sm-home/sm/releaseComment"//添加评论
     const val SM_FOLLOW_OR_CANCEL = "sm-home/company/home/theme/followAndCancel"//关注/取消关注
+    const val BONUS_CHECKFOLLOW = "red-packet/red/packet/checkFollow" //粉丝红包检查是否关注企业
     const val SM_THEME_LIST = "sm-home/company/home/theme/getBrandExclusive"//品牌专属论坛
     const val SM_COMMON_LIST = "sm-home/company/home/theme/getThemeList"//论坛列表
     const val SM_COMMONT_DETAIL = "sm-home/sm/getCommentByCommentId"//评论详情

@@ -83,7 +83,7 @@ class TitleManager(private val activity: BaseActivity) {
         fragment.rightIcon(activity.resources.getString(R.string.iconSetting))
         fragment.setRightOnClickListener(View.OnClickListener {
 
-            if (!UserManager.isLogin()) {
+            if (!UserManager2.isLogin()) {
                 SmediaDialog(activity).showLogin()
                 return@OnClickListener
             }

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/h88"
-            android:text="服务商余额"
+            android:text="服务商余额(元)"
             android:textColor="@color/white"
             android:textSize="@dimen/h40" />
 

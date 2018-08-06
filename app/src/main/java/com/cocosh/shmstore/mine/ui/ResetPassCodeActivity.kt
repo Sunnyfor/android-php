@@ -9,9 +9,11 @@ import android.view.View
 import android.widget.EditText
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.forgetPsd.IdentifyMobileContract
 import com.cocosh.shmstore.forgetPsd.presenter.IdentifyMoboilePresenter
+import com.cocosh.shmstore.sms.model.SMS
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
 import kotlinx.android.synthetic.main.activity_reset_pass_code.*
@@ -23,30 +25,38 @@ import java.util.*
  * Created by zhangye on 2018/5/11.
  */
 class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
+    override fun onCodeResult(result: BaseBean<SMS>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onForgetPassResult(result: BaseBean<String>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private lateinit var codeStr: StringBuilder
     private val passList = ArrayList<EditText>()
     private val presenter = IdentifyMoboilePresenter(this, this)
     private var phone = UserManager.getPhone()
 
-    override fun onCodeResult(result: BaseModel<String>) {
-        if (result.success) {
-            tbSend.action()
-        } else {
-            ToastUtil.show(result.message)
-        }
-        tbSend.setClick(true)
-    }
-
-    override fun onCheckedCodeResult(result: BaseModel<String>) {
-        if (result.success) {
-            val it = Intent(this, SettingPasswordActivity::class.java)
-            it.putExtra("type", 1)
-            it.putExtra("token", result.entity)
-            startActivity(it)
-        } else {
-            ToastUtil.show(result.message)
-        }
-    }
+//    override fun onCodeResult(result: BaseModel<String>) {
+//        if (result.success) {
+//            tbSend.action()
+//        } else {
+//            ToastUtil.show(result.message)
+//        }
+//        tbSend.setClick(true)
+//    }
+//
+//    override fun onForgetPassResult(result: BaseModel<String>) {
+//        if (result.success) {
+//            val it = Intent(this, SettingPasswordActivity::class.java)
+//            it.putExtra("type", 1)
+//            it.putExtra("token", result.entity)
+//            startActivity(it)
+//        } else {
+//            ToastUtil.show(result.message)
+//        }
+//    }
 
     override fun setLayout(): Int = R.layout.activity_reset_pass_code
 
@@ -167,7 +177,7 @@ class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
                 }
                 if (codeStr.length == 6) {
                     phone?.let {
-                        presenter.checkCode(it, codeStr.toString())
+//                        presenter.forgetPass(it, codeStr.toString())
                     }
                 }
             }

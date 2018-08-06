@@ -91,7 +91,7 @@
             android:id="@id/btnShare"
             style="@style/ButtonStyle"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:layout_gravity="center_horizontal"
             android:background="@color/red"
             android:text="赠送好友" />
@@ -99,7 +99,8 @@
         <Button
             android:id="@+id/btnCollect"
             style="@style/ButtonStyle"
-            android:layout_width="@dimen/w370"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape_btn_border_red"
             android:layout_marginLeft="@dimen/w20"

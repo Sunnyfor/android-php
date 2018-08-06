@@ -86,12 +86,39 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rlPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlIdentifyCode"
+                android:layout_marginTop="@dimen/h45">
+
+                <com.cocosh.shmstore.widget.eidttext.SmEditText
+                    android:id="@+id/editPass"
+                    style="@style/PassEdittextStyle"
+                    android:layout_height="@dimen/h175"
+                    android:background="@drawable/edit_text_bg"
+                    android:paddingLeft="@dimen/w120"
+                    android:paddingRight="@dimen/w10"
+                    android:textSize="@dimen/h44" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:layout_width="@dimen/w80"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/iconPass"
+                    android:textColor="@color/iconColor"
+                    android:textSize="@dimen/w60" />
+
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tvProblem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/rlIdentifyCode"
+                android:layout_below="@id/rlPass"
                 android:layout_marginTop="@dimen/h18"
                 android:text="遇到其他问题?"
                 android:textColor="@color/text_red"
@@ -110,7 +137,7 @@
                 style="@style/ButtonStyle"
                 android:layout_below="@id/tvProblem"
                 android:layout_marginTop="@dimen/h120"
-                android:enabled="false"
+                android:clickable="false"
                 android:text="下一步" />
 
         </RelativeLayout>

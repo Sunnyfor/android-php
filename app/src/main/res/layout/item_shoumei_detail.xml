@@ -17,7 +17,6 @@
             android:layout_marginBottom="@dimen/h35"
             android:layout_marginLeft="@dimen/w35"
             android:layout_marginTop="@dimen/h35"
-            android:src="@drawable/default_content"
             app:riv_oval="true" />
 
         <LinearLayout

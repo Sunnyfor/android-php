@@ -7,8 +7,10 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.person.PersonRsultActivity
@@ -19,11 +21,13 @@ import com.cocosh.shmstore.widget.dialog.SelectDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.qiniu.android.http.ResponseInfo
 import com.qiniu.android.storage.UploadManager
+import com.umeng.socialize.media.Base
 import kotlinx.android.synthetic.main.activity_archive.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -51,7 +55,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
 
     override fun initView() {
         cameraUtils = CameraPhotoUtils(this)
-        cameraUtils.setAspectXY(resources.getDimension(R.dimen.w1080).toInt(),resources.getDimension(R.dimen.w1080).toInt())
+        cameraUtils.setAspectXY(resources.getDimension(R.dimen.w1080).toInt(), resources.getDimension(R.dimen.w1080).toInt())
         pickerViewUtils = PickerViewUtils(this)
 
         cameraUtils.onResultListener = this
@@ -67,7 +71,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
         isvInteresting.setOnClickListener(this)
         token = SmApplication.getApp().getData(DataCode.QINIU_TOKEN, false) //获取缓存的Token
 
-        loadData()
+//        loadData()
     }
 
     override fun onListener(view: View) {
@@ -174,7 +178,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
      */
     override fun onResult(file: File) {
         this.file = file
-        tokenRequest()
+        updatePhoto()
     }
 
 
@@ -316,67 +320,95 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     }
 
 
-    //获取七牛token
-    private fun tokenRequest() {
-        showLoading()
+//    //获取七牛token
+//    private fun tokenRequest() {
+//        showLoading()
+//
+//        if (token != null) {
+//            updatePhoto()
+//            return
+//        }
+//        val map = HashMap<String, String>()
+//        map["dataType"] = "1"
+//        ApiManager.get(0, this, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
+//
+//            override fun onCatch(data: String) {}
+//
+//            override fun onFailed(e: Throwable) {
+//                hideLoading()
+//                LogUtil.d("获取token失败" + e)
+//            }
+//
+//            override fun onSuccess(data: String) {
+//                LogUtil.d("获取七牛Token结果：" + data)
+//                try {
+//                    val jsonObject = JSONObject(data)
+//                    val token = jsonObject.optString("token")
+//                    if (TextUtils.isEmpty(token)) {
+//                        ToastUtil.show("七牛Token为空")
+//                    } else {
+//                        //七牛token存储到内存
+//                        this@ArchiveActivity.token = token
+//                        SmApplication.getApp().setData(DataCode.QINIU_TOKEN, token)
+//                        updatePhoto()
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//
+//            }
+//        })
+//    }
 
-        if (token != null) {
-            updatePhoto()
-            return
-        }
-        val map = HashMap<String, String>()
-        map["dataType"] = "1"
-        ApiManager.get(0, this, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
-
-            override fun onCatch(data: String) {}
-
-            override fun onFailed(e: Throwable) {
-                hideLoading()
-                LogUtil.d("获取token失败" + e)
-            }
-
-            override fun onSuccess(data: String) {
-                LogUtil.d("获取七牛Token结果：" + data)
-                try {
-                    val jsonObject = JSONObject(data)
-                    val token = jsonObject.optString("token")
-                    if (TextUtils.isEmpty(token)) {
-                        ToastUtil.show("七牛Token为空")
-                    } else {
-                        //七牛token存储到内存
-                        this@ArchiveActivity.token = token
-                        SmApplication.getApp().setData(DataCode.QINIU_TOKEN, token)
-                        updatePhoto()
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-            }
-        })
-    }
-
-    fun updatePhoto() {
-        val fileName = "${System.currentTimeMillis()}head.jpg"
-
+    private fun updatePhoto() {
         file?.let {
-            uploadManager.put(it, fileName, token, { _, info, _ ->
-                info?.let {
-                    runOnUiThread {
-                        if (it.isOK) {
-                            update("头像", Constant.QINIU_KEY_HEAD + fileName)
-                        } else
-                            hideLoading()
-                        if (info.statusCode == ResponseInfo.InvalidToken) {
-                            SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
-                        }
+            ApiManager2.postImage(this, it.path, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+                override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                    data.message?.let {
+                        val params = hashMapOf<String, String>()
+                        params["avatar"] = it[0]
+                        UserManager2.updateMemberEntrance(this@ArchiveActivity, params, object : ApiManager2.OnResult<BaseBean<String>>() {
+                            override fun onSuccess(data: BaseBean<String>) {
+                                GlideUtils.loadHead(this@ArchiveActivity,it[0],ivHead)
+                            }
+
+                            override fun onFailed(code: String, message: String) {
+                            }
+
+                            override fun onCatch(data: BaseBean<String>) {
+                            }
+
+                        })
                     }
+
                 }
-            }, null)
+
+                override fun onFailed(code: String, message: String) {
+
+                }
+
+                override fun onCatch(data: BaseBean<ArrayList<String>>) {
+
+                }
+
+            })
+
+//            uploadManager.put(it, fileName, token, { _, info, _ ->
+//                info?.let {
+//                    runOnUiThread {
+//                        if (it.isOK) {
+//                            update("头像", Constant.QINIU_KEY_HEAD + fileName)
+//                        } else
+//                            hideLoading()
+//                        if (info.statusCode == ResponseInfo.InvalidToken) {
+//                            SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
+//                        }
+//                    }
+//                }
+//            }, null)
         }
 
     }
-
 
 
     override fun onNewIntent(intent: Intent?) {

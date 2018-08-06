@@ -8,7 +8,10 @@ import com.cocosh.shmstore.about.AboutActivity
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.presenter.IsSetPwdPresenter
 import com.cocosh.shmstore.utils.*
@@ -58,13 +61,12 @@ class SettingActivity : BaseActivity() {
                 val dialog = SmediaDialog(this)
                 dialog.setTitle("是否要退出当前账号")
                 dialog.OnClickListener = OnClickListener {
-                    UserManager.setEmptyUser()
-                    finish()
+                    logout()
                 }
                 dialog.show()
             }
             isvAbout.id -> {
-                startActivityForResult(Intent(this, AboutActivity::class.java),IntentCode.FINISH)
+                startActivityForResult(Intent(this, AboutActivity::class.java), IntentCode.FINISH)
             }
             resetPayPwd.id -> {
                 //判断是否设置支付密码
@@ -118,7 +120,7 @@ class SettingActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IntentCode.FINISH && resultCode == IntentCode.FINISH){
+        if (requestCode == IntentCode.FINISH && resultCode == IntentCode.FINISH) {
             finish()
         }
     }
@@ -126,5 +128,25 @@ class SettingActivity : BaseActivity() {
     override fun onDestroy() {
         SmApplication.getApp().activityName = null
         super.onDestroy()
+    }
+
+    private fun logout() {
+        val params = HashMap<String, String>()
+        params["sid"] = UserManager2.getLogin()?.sid ?: ""
+        ApiManager2.post(this, params, Constant.LOGOUT, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                UserManager2.setEmptyUser()
+                finish()
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
     }
 }

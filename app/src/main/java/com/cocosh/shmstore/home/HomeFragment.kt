@@ -8,11 +8,14 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.Banner
+import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.title.HomeTitleFragment
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -50,14 +53,15 @@ class HomeFragment : BaseFragment() {
             }
 
             R.id.layoutTwo -> {
-//                startBonus("精准红包")
-                startBonus("媒体扶贫")
+                startBonus("精准红包")
+//                startBonus("媒体扶贫")
 
             }
 
             R.id.layoutThree -> {
-//                startBonus("粉丝红包")
-                startBonus("消费扶贫")
+//                startBonus("媒体扶贫")
+                startBonus("粉丝红包")
+//                startBonus("消费扶贫")
             }
         }
     }
@@ -120,6 +124,8 @@ class HomeFragment : BaseFragment() {
             }
 
         })
+
+        UserManager2.loadMemberEntrance(getBaseActivity()) //加载用户资料
     }
 
     override fun onPause() {
@@ -130,6 +136,7 @@ class HomeFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         getLayoutView().homeAdView.startLooep()
+        SmApplication.getApp().removeData(DataCode.BONUS)
     }
 
 

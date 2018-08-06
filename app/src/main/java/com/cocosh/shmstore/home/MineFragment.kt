@@ -7,12 +7,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
-import com.cocosh.shmstore.http.ApiManager
-import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.MineBottomNavAdapter
 import com.cocosh.shmstore.mine.adapter.MineTopNavAdapter
 import com.cocosh.shmstore.mine.model.AuthenStatus
@@ -23,12 +19,8 @@ import com.cocosh.shmstore.mine.ui.authentication.FacilitatorInComeActivity
 import com.cocosh.shmstore.mine.ui.authentication.SendPackageActivity
 import com.cocosh.shmstore.mine.ui.enterprisewallet.EnterPriseWalletActivity
 import com.cocosh.shmstore.mine.ui.mywallet.MyWalletActivity
-import com.cocosh.shmstore.model.ValueByKey
-import com.cocosh.shmstore.utils.GlideUtils
-import com.cocosh.shmstore.utils.RecycleViewDivider
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
-import com.cocosh.shmstore.web.WebViewActivity
+import com.cocosh.shmstore.term.ServiceTermActivity
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 import kotlinx.android.synthetic.main.layout_top_head.view.*
@@ -82,7 +74,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
     override fun onListener(view: View) {
 
-        if (!UserManager.isLogin()) {
+        if (!UserManager2.isLogin()) {
             SmediaDialog(activity).showLogin()
             return
         }
@@ -94,7 +86,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
 
     override fun onItemClick(v: View, index: Int) {
-        if (!UserManager.isLogin()) {
+        if (!UserManager2.isLogin()) {
             SmediaDialog(activity).showLogin()
             return
         }
@@ -112,8 +104,12 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             "订单" -> OrderListActivity.start(activity)
             "收藏" -> CollectionActivity.start(activity)
             "帮助中心" -> {
-                intentHelp()
-//                startActivity(Intent(context, HelpActivity::class.java))
+                val intent = Intent(context, ServiceTermActivity::class.java).apply {
+                    putExtra("title", "帮助中心")
+                    putExtra("OPEN_TYPE", OpenType.Help.name)
+                }
+                startActivity(intent)
+//              startActivity(Intent(context, HelpActivity::class.java))
             }
             "发出的红包" -> SendPackageActivity.start(activity)
         }
@@ -124,9 +120,8 @@ class MineFragment : BaseFragment(), OnItemClickListener {
      * 加载数据
      */
     fun loadDate() {
-
-        if (!UserManager.isLogin()) {
-            UserManager.loadBg(null, getLayoutView().ivBg)
+        if (!UserManager2.isLogin()) {
+            UserManager2.loadBg(null, getLayoutView().ivBg)
             getLayoutView().tvName.text = "未登录"
             getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
             getLayoutView().tvNo.visibility = View.GONE
@@ -176,7 +171,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
         if (cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
             newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
-            var index = newBottomTitles.indexOfFirst {
+            val index = newBottomTitles.indexOfFirst {
                 it.title == "钱包"
             }
             newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
@@ -186,7 +181,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
         }
 
-        if(cityOpertorsStatus == AuthenStatus.PRE_PASS.type || partnerStatus == AuthenStatus.PRE_PASS.type){
+        if (cityOpertorsStatus == AuthenStatus.PRE_PASS.type || partnerStatus == AuthenStatus.PRE_PASS.type) {
             newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconInvite), "邀请码"))
         }
 
@@ -212,25 +207,4 @@ class MineFragment : BaseFragment(), OnItemClickListener {
     }
 
 
-    private fun intentHelp() {
-        val params = HashMap<String, String>()
-        params["dictionaryKey"] = "help_page_url"
-        ApiManager.get(0, activity as BaseActivity, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) = if (data.success) {
-                val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("title", "帮助中心")
-                intent.putExtra("url", data.entity?.dictionaryValue ?: "")
-                startActivity(intent)
-            } else {
-                ToastUtil.show(data.message)
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<ValueByKey>) {
-            }
-
-        })
-    }
 }

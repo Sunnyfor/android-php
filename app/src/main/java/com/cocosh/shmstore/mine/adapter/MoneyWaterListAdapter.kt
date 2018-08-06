@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.item_money_water_list.view.*
  * Created by lmg on 2018/3/13.
  */
 class MoneyWaterListAdapter(list: ArrayList<WalletWaterModel>) : BaseRecycleAdapter<WalletWaterModel>(list) {
-
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         if (position % 2 == 0) {
             holder.itemView.setBackgroundResource(R.color.nav_gray)
@@ -22,17 +21,19 @@ class MoneyWaterListAdapter(list: ArrayList<WalletWaterModel>) : BaseRecycleAdap
             holder.itemView.setBackgroundResource(R.color.white)
         }
 
-        holder.itemView.tvType.text = getData(position).recordDesc
-        holder.itemView.tvNum.text = "流水号：" + getData(position).runningNumber
-        holder.itemView.tvTime.text = getData(position).createTime
+        getData(position).run {
+            holder.itemView.tvType.text = recordDesc
+            holder.itemView.tvNum.text = "流水号：$runningNumber"
+            holder.itemView.tvTime.text = createTime
 
 
-        if (getData(position).resultType == "1" || getData(position).resultType == "4") {
-            holder.itemView.tvMoney.text = "+" + getData(position).accountMoney
-            holder.itemView.civPic.setBackgroundResource(R.drawable.inwater)
-        } else {
-            holder.itemView.tvMoney.text = getData(position).accountMoney
-            holder.itemView.civPic.setBackgroundResource(R.drawable.outwater)
+            if (resultType == "1" || resultType == "4") {
+                holder.itemView.tvMoney.text = "+$accountMoney"
+                holder.itemView.civPic.setBackgroundResource(R.drawable.inwater)
+            } else {
+                holder.itemView.tvMoney.text = accountMoney
+                holder.itemView.civPic.setBackgroundResource(R.drawable.outwater)
+            }
         }
     }
 

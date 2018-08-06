@@ -1,8 +1,10 @@
 package com.cocosh.shmstore.register
 
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.login.model.Login2
+import com.cocosh.shmstore.sms.model.SMS
 
 /**
  *
@@ -11,9 +13,9 @@ import com.cocosh.shmstore.base.IBaseView
 interface RegisterContract {
     interface IView : IBaseView {
         //验证码发送结果回调
-        fun onCodeResult(result: BaseModel<String>)
+        fun onCodeResult(data: BaseBean<SMS>)
 
-        fun onCheckedCodeResult(result: BaseModel<String>)
+        fun onRegister(result: BaseBean<Login2>)
     }
 
     interface IPresenter : IBasePresenter {
@@ -21,6 +23,6 @@ interface RegisterContract {
         fun sendCode(phone: String)
 
         //验证验证码
-        fun checkCode(phone: String, code: String)
+        fun register(phone: String, password: String, smscode:String)
     }
 }

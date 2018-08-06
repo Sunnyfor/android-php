@@ -130,9 +130,11 @@ class ShouMeiBrandActivity : BaseActivity() {
                 if (data.success && data.code == 200) {
                     if (isFollow == "0") {
                         tvStatus.text = "+关注"
+                        status = "0"
                         tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
                     } else {
                         tvStatus.text = "已关注"
+                        status = "1"
                         tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
                     }
                     ObserverManager.getInstance().notifyObserver(3, baseId ?: "", isFollow, "")
@@ -151,4 +153,7 @@ class ShouMeiBrandActivity : BaseActivity() {
         })
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+    }
 }

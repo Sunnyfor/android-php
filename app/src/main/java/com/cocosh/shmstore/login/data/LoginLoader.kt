@@ -2,12 +2,17 @@ package com.cocosh.shmstore.login.data
 
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.login.ILoginContract
 import com.cocosh.shmstore.login.model.Login
+import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.login.model.LoginHistory
+import com.cocosh.shmstore.utils.DigestUtils
+import com.cocosh.shmstore.utils.StringUtils
 import xiaofei.library.comparatorgenerator.ComparatorGenerator
 import java.util.*
 
@@ -17,35 +22,45 @@ import java.util.*
  */
 class LoginLoader(var activity: BaseActivity, var loginView: ILoginContract.IView) {
 
-    /**
-     * 登录
-     */
-    fun login(phone: String, password: String) {
+    //    /**
+//     * 登录
+//     */
+//    fun login(phone: String, password: String) {
+//        val map = HashMap<String, String>()
+//        map["userName"] = phone.trim()
+//        map["userPwd"] = password.trim()
+//        map["deviceModel"] = "android"
+//        map["longitude"] = "0"
+//        map["latitude"] = "0"
+//        map["systemVersion"] = "0"
+//        map["deviceSerialNumber"] = "0"
+//
+//        ApiManager.post(activity, map, Constant.LOGIN, object : ApiManager.OnResult<BaseModel<Login>>() {
+//
+//            override fun onSuccess(data: BaseModel<Login>) {
+//                loginView.loginResult(data, false)
+//
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<Login>) {
+//
+//            }
+//
+//        })
+//    }
+    //用户名密码登录
+    fun login(phone: String, password: String, onResult: ApiManager2.OnResult<BaseBean<Login2>>) {
         val map = HashMap<String, String>()
-        map["userName"] = phone.trim()
-        map["userPwd"] = password.trim()
-        map["deviceModel"] = "android"
-        map["longitude"] = "0"
-        map["latitude"] = "0"
-        map["systemVersion"] = "0"
-        map["deviceSerialNumber"] = "0"
-
-        ApiManager.post(activity, map, Constant.LOGIN, object : ApiManager.OnResult<BaseModel<Login>>() {
-
-            override fun onSuccess(data: BaseModel<Login>) {
-                loginView.loginResult(data, false)
-
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<Login>) {
-
-            }
-
-        })
+        map["ts"] = StringUtils.getTimeStamp()
+        map["phone"] = phone
+        map["passwd"] = DigestUtils.sha1(DigestUtils.md5(password)+map["ts"])
+        map["client"] = Constant.CLIENT
+        map["device"] = SmApplication.getApp().getDeviceID()
+        ApiManager2.post(activity, map, Constant.LOGIN, onResult)
     }
 
     /**
@@ -62,9 +77,9 @@ class LoginLoader(var activity: BaseActivity, var loginView: ILoginContract.IVie
         ApiManager.post(activity, map, Constant.WEB_VALIDATE, object : ApiManager.OnResult<BaseModel<Login>>() {
 
             override fun onSuccess(data: BaseModel<Login>) {
-                data.entity?.type = type
-                data.entity?.openId = openId
-                loginView.loginResult(data, true)
+//                data.entity?.type = type
+//                data.entity?.openId = openId
+//                loginView.loginResult(data, true)
             }
 
             override fun onFailed(e: Throwable) {

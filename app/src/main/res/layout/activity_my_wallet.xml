@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/h88"
-            android:text="当前财富额"
+            android:text="当前财富额(元)"
             android:textColor="@color/white"
             android:textSize="@dimen/h40" />
 
@@ -48,7 +48,7 @@
             android:layout_width="@dimen/w742"
             android:layout_height="@dimen/h112"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/h70"
+            android:layout_marginTop= "@dimen/h70"
             android:orientation="horizontal">
 
             <Button

@@ -6,5 +6,9 @@ package com.cocosh.shmstore.utils
 enum class OpenType {
     Cer,//新媒人
     Fac,//服务商
-    SysMessage//系统图文消息
+    Help,//帮助中心
+    Bonus,//红包规则
+    SysMessage,//系统图文消息
+    Charge,//充值
+    BusinessMan//企业主
 }

@@ -163,12 +163,23 @@ class BonusListActivity : BaseActivity() {
                                 refreshLayout.recyclerView.adapter = adapter
                                 it.setOnItemClickListener(object : OnItemClickListener {
                                     override fun onItemClick(v: View, index: Int) {
-                                        if (type == 1){
+                                        if (type == 1 || type ==2 || type ==3 ){
                                             if (SmApplication.getApp().getData<Location>(DataCode.LOCATION,false) == null){
                                                 SmediaDialog(this@BonusListActivity).showLocationError()
                                                 return
                                             }
                                             it.getData(index).let {
+                                                //精准红包和粉丝红包需要完善资料
+                                                if (it.typeInfo == 2 || it.typeInfo == 3) {
+                                                    UserManager.getArchivalCompletion()?.let {
+                                                        if (it.toFloat() < 0.22) {
+                                                            SmediaDialog(this@BonusListActivity).showArchive()
+                                                            return
+                                                        }
+                                                    }
+                                                }
+
+
                                                 when {
                                                     it.redPacketStatus == 1 -> {
                                                         intentWeb(it, "RECEIVE")
@@ -186,8 +197,6 @@ class BonusListActivity : BaseActivity() {
                                                 //扶贫需要绑定微信
                                                 if (type == 4 || type ==5){
                                                     checkWx(it.getData(index),"")
-                                                }else{
-                                                    intentWeb(it.getData(index), "")
                                                 }
                                             }else{
                                                 SmediaDialog(this@BonusListActivity).showLogin()

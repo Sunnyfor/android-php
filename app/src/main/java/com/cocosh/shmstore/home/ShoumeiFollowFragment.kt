@@ -70,6 +70,7 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
 
             override fun onUpdate(page: Int) {
                 currentPage = page
+                getCompanyList("", "1", "")
                 getThemeList(true, currentPage, "", "1")
             }
 

@@ -70,6 +70,11 @@ class SmediaDialog : Dialog, View.OnClickListener {
         tvDesc.text = desc
     }
 
+    fun setDescColor(color:Int){
+        tvDesc.setTextColor(color)
+    }
+
+
     fun setPositiveText(posiText: String) {
         tvSure.text = posiText
     }
@@ -146,6 +151,15 @@ class SmediaDialog : Dialog, View.OnClickListener {
         }
         show()
     }
+
+    fun showSmsMotifyPassword(password: String, OnClickListener: View.OnClickListener) {
+        setTitle(context.resources.getString(R.string.surePass))
+        setDesc(password)
+        this.OnClickListener = OnClickListener
+        show()
+    }
+
+
 
 
     //取消按钮销毁页面

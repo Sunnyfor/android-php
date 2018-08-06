@@ -57,7 +57,7 @@ class BonusWebActivity : BaseActivity() {
         webView.settings.setAppCacheEnabled(true)
         webView.settings.setAppCachePath(application.cacheDir.absolutePath)
         webView.settings.databaseEnabled = true
-        webView.setWebChromeClient(object :WebChromeClient(){
+        webView.setWebChromeClient(object : WebChromeClient() {
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
                 result?.cancel()
                 return true
@@ -76,7 +76,7 @@ class BonusWebActivity : BaseActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 hideLoading()
-                if (typeInfo == "1" || typeInfo == "2" || typeInfo == "3" ) {
+                if (typeInfo == "1" || typeInfo == "2" || typeInfo == "3") {
                     llayoutBtn.visibility = View.VISIBLE
                 }
             }
@@ -138,7 +138,7 @@ class BonusWebActivity : BaseActivity() {
 
                 if (typeInfo == "1") {
                     titleManager.rightText(title ?: "", "分享", View.OnClickListener {
-//                        val diaolog = ReportDialog(this, id.toString(), "1")
+                        //                        val diaolog = ReportDialog(this, id.toString(), "1")
 //                        diaolog.show()
                         share(true)
                     })
@@ -173,16 +173,25 @@ class BonusWebActivity : BaseActivity() {
                 }
             }
             btnOpen.id -> {
-                val intent = Intent(this, BonusDetailActivity::class.java)
-                intent.putExtra("id", id)
-                intent.putExtra("typeInfo", typeInfo)
-                intent.putExtra("title", intent.getStringExtra("title"))
-                intent.putExtra("companyLogo", companyLogo)
-                intent.putExtra("companyName", companyName)
-                startActivity(intent)
+                if (typeInfo == "3"){
+                    checkFollow()
+                }else{
+                    openBonus()
+                }
             }
         }
     }
+
+    private fun openBonus(){
+        val intent = Intent(this, BonusDetailActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("typeInfo", typeInfo)
+        intent.putExtra("title", intent.getStringExtra("title"))
+        intent.putExtra("companyLogo", companyLogo)
+        intent.putExtra("companyName", companyName)
+        startActivity(intent)
+    }
+
 
     override fun reTryGetData() {
     }
@@ -216,9 +225,9 @@ class BonusWebActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         SmApplication.getApp().removeData(DataCode.BONUS_ID)
-        if (webView != null){
+        if (webView != null) {
             val parent = webView.parent
-            if (parent != null){
+            if (parent != null) {
                 (parent as ViewGroup).removeView(webView)
             }
             webView.stopLoading()
@@ -241,18 +250,17 @@ class BonusWebActivity : BaseActivity() {
     }
 
 
-
     /**
      * 获取用户Token
      */
     @JavascriptInterface
-    fun getUserToken(): String  = UserManager.getUserToken()
+    fun getUserToken(): String = UserManager.getUserToken()
 
 
     @JavascriptInterface
     fun intentAddress() {
         val intent = Intent(this, AddressMangerActivity::class.java)
-        intent.putExtra("type","web")
+        intent.putExtra("type", "web")
         startActivityForResult(intent, IntentCode.IS_INPUT)
     }
 
@@ -264,32 +272,32 @@ class BonusWebActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IntentCode.IS_INPUT && resultCode == Activity.RESULT_OK){
+        if (requestCode == IntentCode.IS_INPUT && resultCode == Activity.RESULT_OK) {
             val jsonObject = JSONObject()
-            jsonObject.put("idUserAddressInfo",data?.getStringExtra("idUserAddressInfo"))
-            jsonObject.put("addressName",data?.getStringExtra("addressName"))
-            jsonObject.put("addressPhone",data?.getStringExtra("addressPhone"))
-            jsonObject.put("address",data?.getStringExtra("address"))
-            jsonObject.put("areaName",data?.getStringExtra("areaName"))
+            jsonObject.put("idUserAddressInfo", data?.getStringExtra("idUserAddressInfo"))
+            jsonObject.put("addressName", data?.getStringExtra("addressName"))
+            jsonObject.put("addressPhone", data?.getStringExtra("addressPhone"))
+            jsonObject.put("address", data?.getStringExtra("address"))
+            jsonObject.put("areaName", data?.getStringExtra("areaName"))
             webView.loadUrl("javascript:getAddressInfo($jsonObject)")
         }
     }
 
-    private fun share(type:Boolean) {
+    private fun share(type: Boolean) {
         val params = HashMap<String, String>()
         params["dictionaryKey"] = "index_share_url"
         ApiManager.get(0, this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
             override fun onSuccess(data: BaseModel<ValueByKey>) {
                 if (data.success) {
                     val diaolog = ShareDialog(this@BonusWebActivity)
-                    if (typeInfo =="4" || typeInfo =="5" ){
-                        if (type){
+                    if (typeInfo == "4" || typeInfo == "5") {
+                        if (type) {
                             diaolog.showShareBase("温暖中国  媒体扶贫行动！", "参与扶贫，无需捐款，一次点击就是一次扶贫行动！", data.entity?.dictionaryValue
                                     ?: "")
-                        }else{
+                        } else {
                             diaolog.showShareApp(data.entity?.dictionaryValue ?: "")
                         }
-                    }else{
+                    } else {
                         diaolog.showShareApp(data.entity?.dictionaryValue ?: "")
                     }
                     diaolog.show()
@@ -302,6 +310,32 @@ class BonusWebActivity : BaseActivity() {
             }
 
             override fun onCatch(data: BaseModel<ValueByKey>) {
+            }
+
+        })
+    }
+
+    private fun checkFollow() {
+        val params = HashMap<String, String>()
+        params["redPacketOrderId"] = id ?: ""
+        ApiManager.get(0, this, params, Constant.BONUS_CHECKFOLLOW, object : ApiManager.OnResult<BaseModel<String>>() {
+            override fun onSuccess(data: BaseModel<String>) = if (data.entity == "1"){
+                openBonus()
+            }else{
+               val dialog = SmediaDialog(this@BonusWebActivity)
+                dialog.setTitle("该企业将获取你的头像和昵称等信息")
+                dialog.setDesc("点击同意同时关注该企业")
+                dialog.setDescColor(ContextCompat.getColor(this@BonusWebActivity,R.color.grayText))
+                dialog.OnClickListener = View.OnClickListener {
+                    openBonus()
+                }
+                dialog.show()
+            }
+
+            override fun onFailed(e: Throwable) {
+            }
+
+            override fun onCatch(data: BaseModel<String>) {
             }
 
         })

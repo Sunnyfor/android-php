@@ -32,7 +32,7 @@ class SelectServiceActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_select_service
 
     override fun initView() {
-        titleManager.defaultTitle("确认服务城市")
+        titleManager.defaultTitle("选择服务商")
         addressCode = intent.getStringExtra("addressCode")
         recyclerView.layoutManager = LinearLayoutManager(this)
         btnSure.setOnClickListener(this)

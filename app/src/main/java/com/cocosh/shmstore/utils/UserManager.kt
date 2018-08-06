@@ -8,6 +8,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.login.model.Login
 import com.cocosh.shmstore.mine.model.MemberEntrance
@@ -174,7 +175,7 @@ object UserManager {
         if (!isLogin()) {
             return
         }
-        ApiManager.get(0, baseActivity, hashMapOf(), Constant.MEMBER_INFO, object : ApiManager.OnResult<BaseModel<MemberEntrance>>() {
+        ApiManager.get(0, baseActivity, hashMapOf(), Constant.PROFILE, object : ApiManager.OnResult<BaseModel<MemberEntrance>>() {
             override fun onFailed(e: Throwable) {
 
             }
@@ -188,7 +189,9 @@ object UserManager {
                     data.entity?.let {
                         UserManager.setMemberEntrance(it)  //存储信息
                         if (baseActivity is HomeActivity) {
-                            baseActivity.mineFragment?.loadDate()
+                            if (baseActivity.mineFragment?.isAdded == true){
+                                baseActivity.mineFragment?.loadDate()
+                            }
                         }
                     }
                 }

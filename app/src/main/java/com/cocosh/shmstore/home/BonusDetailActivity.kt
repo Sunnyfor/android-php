@@ -15,6 +15,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.HelpActivity
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.model.ValueByKey
+import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.web.WebViewActivity
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
@@ -64,7 +65,11 @@ class BonusDetailActivity : BaseActivity() {
 
 
         titleManager.rightText("红包", "红包规则", View.OnClickListener {
-            getRule()
+            val intent = Intent(this, ServiceTermActivity::class.java).apply {
+                putExtra("title", "红包规则")
+                putExtra("OPEN_TYPE", OpenType.Bonus.name)
+            }
+            startActivity(intent)
         })
 
         id = intent.getStringExtra("id")
@@ -108,7 +113,7 @@ class BonusDetailActivity : BaseActivity() {
             }
             btnShare.id -> { //分享红包
                 id?.let {
-                    val shareDialog = ShareDialog(this,getParams())
+                    val shareDialog = ShareDialog(this, getParams())
                     shareDialog.isFinish = true
                     shareDialog.showGiveBouns(
                             it, redpacketId)
@@ -156,12 +161,12 @@ class BonusDetailActivity : BaseActivity() {
     //开红包
 
     private fun open() {
-        val params:HashMap<String,String>
+        val params: HashMap<String, String>
         val url: String
         if (redpacketId != null) {
-            params =hashMapOf()
+            params = hashMapOf()
             url = Constant.BONUS_OPEN_COLLECT
-            params["redPacketId"] = redpacketId?:""
+            params["redPacketId"] = redpacketId ?: ""
         } else {
             params = getParams()
             url = Constant.BONUS_OPEN
@@ -212,50 +217,8 @@ class BonusDetailActivity : BaseActivity() {
     }
 
 
-    private fun getRule() {
-        val params = HashMap<String, String>()
-        params["dictionaryKey"] = "hongbaoguize"
-        ApiManager.get(0, this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) = if (data.success) {
-                val intent = Intent(this@BonusDetailActivity, WebViewActivity::class.java)
-                intent.putExtra("title", "红包规则")
-                intent.putExtra("url", data.entity?.dictionaryValue ?: "")
-                startActivity(intent)
-            } else {
-                ToastUtil.show(data.message)
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<ValueByKey>) {
-            }
-        })
-    }
-
-
-    //        ApiManager.get(0,this,null,Constant.BONUS_RULE,object : ApiManager.OnResult<BaseModel<String>>(){
-//            override fun onSuccess(data: BaseModel<String>) {
-//                if (data.success){
-//                    val intent = Intent(this@BonusDetailActivity,WebViewActivity::class.java)
-//                    intent.putExtra("title","红包规则")
-//                    intent.putExtra("url",data.entity?:"")
-//                    startActivity(intent)
-//                }else{
-//                    ToastUtil.show(data.message)
-//                }
-//            }
-//
-//            override fun onFailed(e: Throwable) {
-//            }
-//
-//            override fun onCatch(data: BaseModel<String>) {
-//            }
-//
-//        })
-//    }
     //开红包、赠送红包、收藏红包put定位数据参数
-    fun getParams(): HashMap<String, String> {
+    private fun getParams(): HashMap<String, String> {
         val params = HashMap<String, String>()
         SmApplication.getApp().getData<Location>(DataCode.LOCATION, false)?.let {
             params["areaCode"] = it.adcode

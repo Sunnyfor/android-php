@@ -13,8 +13,13 @@ import android.webkit.WebViewClient
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.facilitator.ui.FacilitatorFailActivity
 import com.cocosh.shmstore.facilitator.ui.FacilitatorSplashActivity
+import com.cocosh.shmstore.facilitator.ui.PayFranchiseFeeActivity
 import com.cocosh.shmstore.mine.model.AuthenStatus
+import com.cocosh.shmstore.mine.ui.authentication.CommonType
+import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
+import com.cocosh.shmstore.newCertification.ui.PartherPendingPayActivity
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.utils.PermissionCode
@@ -29,9 +34,9 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 class WebActivity : BaseActivity() {
     var type: String? = null
     override fun setLayout(): Int = R.layout.activity_web_view
-
+    var status: String? =null
     override fun initView() {
-        val status: String? = intent.getStringExtra("status")
+        status = intent.getStringExtra("status")
         val ruleUrl: String? = intent.getStringExtra("loadUrl")
         type = intent.getStringExtra("TYPE")
         permissionUtil = PermissionUtil(this)
@@ -71,8 +76,15 @@ class WebActivity : BaseActivity() {
             btnSure.id -> {
                 when (type) {
                     OpenType.Cer.name -> {
+
                         if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-                            PartnerSplashActivity.start(this)
+                            //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
+                            when (status) {
+                                AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
+                                AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+                                AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.CERTIFICATION_INCOME.type)
+                                AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+                            }
                         } else {
                             val dialog = SmediaDialog(this)
                             dialog.setTitle("请先完成实人认证")
@@ -87,7 +99,12 @@ class WebActivity : BaseActivity() {
                         }
                     }
                     OpenType.Fac.name -> {
-                        FacilitatorSplashActivity.start(this)
+                        when (status) {
+                            AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
+                            AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
+                            AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
+                            AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(this, -1)
+                        }
                     }
                 }
             }

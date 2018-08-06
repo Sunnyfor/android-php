@@ -15,6 +15,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.MyWalletModel
 import com.cocosh.shmstore.mine.model.PayResultModel
+import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.mywallet.ReChargeActivity
 import com.cocosh.shmstore.newCertification.CertifimInforPresenter
@@ -82,6 +83,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             if (result.entity?.status == 13) {
                 //成功
                 if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+                    setResult(IntentCode.IS_INPUT)
                     SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
                     startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
                     finish()
@@ -212,9 +214,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<String> {
             override fun inputComplete(pwd: String) {
-                if (payOperatStatus == "DEPOSIT"){
+                if (payOperatStatus == "DEPOSIT") {
                     paySecurity(pwd)
-                }else{
+                } else {
                     presenter.getLocalPay(check, amount!!, payOperatStatus ?: "", runningNumber
                             ?: "", pwd)
                 }
@@ -222,11 +224,13 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             }
 
             override fun result(boolean: Boolean, data: String?) {
+                mDialog?.dismiss()
                 if (boolean) {
                     //成功
                     if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
                         SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
                         startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+                        setResult(IntentCode.IS_INPUT)
                         finish()
                     }
                 } else {
@@ -322,19 +326,24 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         SmApplication.getApp().deleteActivity(DataCode.BONUS_SEND_ACTIVITYS, this)
     }
 
-    fun paySecurity(pass:String){
-        val params = HashMap<String,String>()
+    fun paySecurity(pass: String) {
+        val params = HashMap<String, String>()
         params["pass"] = pass
-        ApiManager.post(this,params,Constant.PAY_SECURITY,object : ApiManager.OnResult<BaseModel<Boolean>>(){
+        ApiManager.post(this, params, Constant.PAY_SECURITY, object : ApiManager.OnResult<BaseModel<Boolean>>() {
             override fun onSuccess(data: BaseModel<Boolean>) {
-                if (data.success){
+                mDialog?.hideLoading()
+                mDialog?.dismiss()
+                if (data.success) {
+                    AuthActivity.start(this@PayActivity)
                     SuccessActivity.start(this@PayActivity)
-                }else{
+                } else {
                     ToastUtil.show(data.message)
                 }
             }
 
             override fun onFailed(e: Throwable) {
+                mDialog?.hideLoading()
+                mDialog?.dismiss()
             }
 
             override fun onCatch(data: BaseModel<Boolean>) {

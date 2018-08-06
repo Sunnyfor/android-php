@@ -40,7 +40,7 @@ class FacilitatorInComeActivity : BaseActivity() {
                 IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
             }
             sInvite.id -> {
-                InviteCodeActivity.start(this)
+                InviteCodeActivity.start(this,"3")
             }
             sCar.id -> {
                 CommListActivity.start(this, CommonType.FACILITTOR_0.type)

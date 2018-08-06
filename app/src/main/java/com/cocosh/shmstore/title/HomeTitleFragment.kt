@@ -145,7 +145,6 @@ class HomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
         super.onResume()
         //更新切换用户城市区域
         SmApplication.getApp().getData<Boolean>(DataCode.CHANGE_USER, true)?.let {
-            UserManager.loadMemberEntrance(getBaseActivity()) //加载用户资料
             SmApplication.getApp().getData<Location>(DataCode.LOCATION, false)?.let {
                 updateLocation(it)
             }

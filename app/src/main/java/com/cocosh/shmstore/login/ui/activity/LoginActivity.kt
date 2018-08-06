@@ -9,20 +9,18 @@ import android.transition.TransitionInflater
 import android.view.View
 import android.view.Window
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity
 import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.login.ILoginContract
 import com.cocosh.shmstore.login.LoginPresenter
 import com.cocosh.shmstore.login.model.Login
+import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.login.model.LoginHistory
-import com.cocosh.shmstore.login.model.OtherLogin
 import com.cocosh.shmstore.register.RegisterActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.PhonePopUpWindow
-import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareConfig
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -181,40 +179,42 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
 
 
     //登录信息回调
-    override fun loginResult(result: BaseModel<Login>, isOtherLogin: Boolean) {
-        if (result.success) {
-            SmApplication.getApp().setData(DataCode.CHANGE_USER, true)
-            result.entity?.let {
-                if (!isOtherLogin) {
-                    result.entity?.let {
-                        val history = LoginHistory(phone)
-                        UserManager.setLogin(it)
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        mPresenter.addHistory(history)
-                        finish()
-                        return
-                    }
-                    ToastUtil.show("登录信息获取失败！")
-                } else {
-                    UserManager.setLogin(it) //存储用户信息
-                    if (it.hasUser) {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        finish()
-                    } else {
-                        startActivityForResult(Intent(this, BindingPhoneActivity::class.java), IntentCode.IS_REGIST)
-                    }
-                }
-            }
-        } else {
-            if (result.code == 3015) {
-                val dialog = SmediaDialog(this)
-                dialog.setTitle(getString(R.string.lockPhone))
-                dialog.singleButton()
-                dialog.show()
-            } else {
-                ToastUtil.show(result.message)
-            }
-        }
+    override fun loginResult(result: BaseBean<Login2>, isOtherLogin: Boolean) {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+//        if (result.success) {
+//            SmApplication.getApp().setData(DataCode.CHANGE_USER, true)
+//            result.entity?.let {
+//                if (!isOtherLogin) {
+//                    result.entity?.let {
+//                        val history = LoginHistory(phone)
+//                        UserManager.setLogin(it)
+//                        startActivity(Intent(this, HomeActivity::class.java))
+//                        mPresenter.addHistory(history)
+//                        finish()
+//                        return
+//                    }
+//                    ToastUtil.show("登录信息获取失败！")
+//                } else {
+//                    UserManager.setLogin(it) //存储用户信息
+//                    if (it.hasUser) {
+//                        startActivity(Intent(this, HomeActivity::class.java))
+//                        finish()
+//                    } else {
+//                        startActivityForResult(Intent(this, BindingPhoneActivity::class.java), IntentCode.IS_REGIST)
+//                    }
+//                }
+//            }
+//        } else {
+//            if (result.code == 3015) {
+//                val dialog = SmediaDialog(this)
+//                dialog.setTitle(getString(R.string.lockPhone))
+//                dialog.singleButton()
+//                dialog.show()
+//            } else {
+//                ToastUtil.show(result.message)
+//            }
+//        }
     }
 
     //历史记录回调

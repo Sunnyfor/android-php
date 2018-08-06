@@ -18,6 +18,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.OpenType
 import kotlinx.android.synthetic.main.partner_splash_activity.*
 
 /**
@@ -66,7 +67,7 @@ class FacilitatorSplashActivity : BaseActivity() {
                     ScanLicenseActivity.loadActivity(this, 222)
                 }
             }
-            R.id.text_treaty2 -> startActivityForResult(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", Constant.FACILITOTAAR_SERVICE_RULE), IntentCode.IS_TERM)
+            R.id.text_treaty2 -> startActivityForResult(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Fac.name), IntentCode.IS_TERM)
         }
     }
 
@@ -80,10 +81,8 @@ class FacilitatorSplashActivity : BaseActivity() {
         override fun onClick(widget: View) {
 //            NuclearAgreementActivity.start(widget?.activity, "service")
 //            SaleH5Activity.start(widget.activity,SaleH5Activity.OPERATOR,null)
-
-            activity.startActivityForResult(Intent(widget.context, ServiceTermActivity::class.java), IntentCode.IS_TERM)
+            activity.startActivityForResult(Intent(activity, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Fac.name), IntentCode.IS_TERM)
         }
-
     }
 
 

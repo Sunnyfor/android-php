@@ -205,7 +205,9 @@
         <activity android:name=".enterpriseCertification.ui.BusinessLisenceActivity" />
         <activity android:name=".baiduScan.ScanLicenseActivity" />
         <activity android:name=".enterpriseCertification.ui.CorporateAccountShowActivty" />
-        <activity android:name=".facilitator.ui.FacilitatorSplashActivity" />
+        <activity
+            android:name=".facilitator.ui.FacilitatorSplashActivity"
+            android:launchMode="singleInstance" />
         <activity android:name=".facilitator.ui.FacilitatorInformationActivity" />
         <activity android:name=".facilitator.ui.PayFranchiseFeeActivity" />
 
@@ -350,7 +352,8 @@
             android:windowSoftInputMode="adjustPan" />
 
         <!--红包推广web页-->
-        <activity android:name=".home.BonusWebActivity" />
+        <activity android:name=".home.BonusWebActivity"
+            android:launchMode="singleTask"/>
 
         <!--发送红包内容-->
         <activity android:name=".home.SendBonusDetailActivity" />
@@ -432,6 +435,7 @@
         <activity android:name=".mine.ui.WebActivity" />
         <activity
             android:name=".home.ShoumeiDetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".web.WebViewActivity" />
@@ -439,7 +443,9 @@
             android:name=".home.ShouMeiCommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".home.ShouMeiBrandActivity" />
+        <activity
+            android:name=".home.ShouMeiBrandActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".home.ShouMeiSearchActivity"
             android:windowSoftInputMode="adjustPan" />

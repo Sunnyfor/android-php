@@ -27,7 +27,7 @@ class SuccessActivity : BaseActivity() {
 
     override fun onListener(view: View) {
         when (view.id) {
-            R.id.btn ->startActivity(Intent(this,AuthActivity::class.java))
+            R.id.btn ->finish()
         }
     }
 

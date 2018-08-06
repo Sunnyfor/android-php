@@ -43,7 +43,7 @@ object ApiManager {
 
     fun getHost(): String {
 //        https://dev.shoumeiapp.com/
-        host = if (Constant.isDebug()) "http://10.10.100.206/" else "http://app.shoumeiapp.com"
+        host = if (Constant.isDebug()) "http://10.10.100.206/" else "https://app.shoumeiapp.com"
 //        host = "http://10.10.100.51:8085/"
         return host
     }
@@ -278,6 +278,8 @@ object ApiManager {
                     e.printStackTrace()
                 }
             } else {
+
+                LogUtil.i("非basemodl类型json")
                 onResult.onSuccess(gson.fromJson(json, onResult.typeToken))
             }
         }

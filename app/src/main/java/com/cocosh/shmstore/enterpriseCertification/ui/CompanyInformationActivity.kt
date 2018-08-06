@@ -15,6 +15,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.TextView
 import com.baidu.ocr.sdk.OCR
@@ -52,7 +53,22 @@ import kotlin.collections.HashMap
  *
  * Created by lmg on 2017/11/1.
  */
-class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
+class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, BottomPhotoDialog.OnItemClickListener, CameraPhotoUtils.OnResultListener {
+    override fun onResult(file: File) {
+        showLoading()
+        licensePath = file.absolutePath
+        GlideUtils.loadFullScreen(this, licensePath, iv_img)
+        initAccessToken(licensePath!!)
+    }
+
+    override fun onTopClick() {
+        cameraUtils.startCamera()
+    }
+
+    override fun onBottomClick() {
+        cameraUtils.startPoto()
+    }
+
     override fun reTryGetData() {
 
     }
@@ -63,14 +79,15 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
     private var pageType: Int? = null
     private lateinit var licenseBean: LicenseBean
     private var hasGotToken = false
-    private var mDialog: BottomPhotoDialog? = null
     var path = Environment.getExternalStorageDirectory()
     var mCameraFile: File? = null
     var mCropFile: File? = null
     var mGalleryFile: File? = null
     var licenseKey = ""
+    private lateinit var cameraUtils: CameraPhotoUtils
     var preserter = EntLicensePresenter(this, this)
     override fun setResultData(result: BaseModel<EntActiveInfoModel>) {
+        hideLoading()
         if (result.success && result.code == 200) {
             //回传结果 刷新导航页
             SmApplication.getApp().setData(DataCode.COMPANY_NAME, licenseBean.getWords_result()?.单位名称?.words!!)
@@ -90,12 +107,12 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
         showLoading()
         UploadManager().put(licensePath, licenseImg, result, { key, info, _ ->
             runOnUiThread {
-                hideLoading()
                 if (info.isOK) {
                     //存储图片路径（用于接口提交数据）
                     licenseKey = Constant.QINIU_KEY_HEAD + key
                     chackData()
                 } else {
+                    hideLoading()
                     if (info.statusCode == ResponseInfo.InvalidToken) {
                         SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
                     }
@@ -107,10 +124,12 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
 
     override fun setLayout(): Int = R.layout.activity_company_info
     override fun initView() {
+        cameraUtils = CameraPhotoUtils(this)
+        cameraUtils.setAspectXY(resources.getDimension(R.dimen.w1080).toInt(), resources.getDimension(R.dimen.h1920).toInt())
+        cameraUtils.onResultListener = this
         titleManager.defaultTitle("营业执照验证")
         licensePath = intent.getStringExtra("licensePath")
         pageType = intent.getIntExtra("PAGE_TYPE", -1)
-        mDialog = BottomPhotoDialog(this)
         mCameraFile = File(path, "IMAGE_FILE_NAME")//照相机的File对象
         mCropFile = File(path, "PHOTO_FILE_NAME")//裁剪后的File对象
         mGalleryFile = File(path, "IMAGE_GALLERY_NAME")//相册的File对象Co
@@ -175,45 +194,12 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
             }
         })
 
-        edt_code.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                edt_code.background = null
-                edt_name.background = null
-                edt_layer_name.background = null
-            }
-        }
-
-        edt_name.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                edt_code.background = null
-                edt_name.background = null
-                edt_layer_name.background = null
-            }
-        }
-
-        edt_layer_name.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                edt_code.background = null
-                edt_layer_name.background = null
-                edt_name.background = null
-            }
-        }
-
-        mDialog?.setOnItemClickListener(object : BottomPhotoDialog.OnItemClickListener {
-            override fun onTopClick() {
-                //拍照
-                startCamera()
-            }
-
-            override fun onBottomClick() {
-                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, Constant.SELECT_PIC_NOUGAT)
-            }
-        })
-
         btn_input.setOnClickListener {
             //检查数据
-            preserter.getQINNIUToken()
+            if (isFastClick()) {
+                preserter.getQINNIUToken()
+            }
+            showLoading()
         }
 
         iv_end_time.setOnTouchListener { _, _ ->
@@ -221,23 +207,26 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        cameraUtils.onRequestPermissionsResult(requestCode, permissions as Array<String>, grantResults)
+    }
+
     private fun chackData() {
+        hideLoading()
         if (TextUtils.isEmpty(licenseKey)) {
             ToastUtil.show("请上传营业执图片！")
             return
         }
         if (TextUtils.isEmpty(edt_code.text) || edt_code.text.length !in 17..21) {
-            edt_code.setBackgroundResource(R.drawable.shape_rectangle_round)
             ToastUtil.show("请输入正确的统一社会信用代码！")
             return
         }
         if (TextUtils.isEmpty(edt_name.text) || edt_name.text.length < 2) {
-            edt_name.setBackgroundResource(R.drawable.shape_rectangle_round)
             ToastUtil.show("请输入正确的公司名称！")
             return
         }
         if (TextUtils.isEmpty(edt_layer_name.text) || edt_layer_name.text.length < 2) {
-            edt_layer_name.setBackgroundResource(R.drawable.shape_rectangle_round)
             ToastUtil.show("请输入正确的法人名！")
             return
         }
@@ -259,6 +248,7 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
             return
         }
 
+        showLoading()
         //上传数据
         val map = HashMap<String, String>()
         map["licenceImg"] = licenseKey
@@ -269,7 +259,7 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
         map["foundingTime"] = tv_create.text.toString()//成立日期
         map["domicile"] = edt_address.text.toString()//住所
         map["registeredCapital"] = edt_money.text.toString()//注册资本
-        map["registeredType"] = edt_money.text.toString()//注册类型
+        map["registeredType"] = edt_type.text.toString()//注册类型
         map["scope"] = ""
         if (pageType == 222) {
             map["startTime"] = tv_start_time.text.toString() //营业执照有效期 开始
@@ -292,24 +282,9 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
     override fun onListener(view: View) {
         when (view.id) {
             iv_img.id -> {
-                val storage = ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                val camera = ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                if (storage || camera) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (storage) {
-                            ActivityCompat.requestPermissions(this@CompanyInformationActivity,
-                                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                                    IntentCode.PERMISSIONS_EXTERNAL_STORAGE)
-                        }
-                        if (camera) {
-                            ActivityCompat.requestPermissions(this@CompanyInformationActivity,
-                                    arrayOf(Manifest.permission.CAMERA),
-                                    IntentCode.PERMISSIONS_REQUEST_CAMERA)
-                        }
-                        return
-                    }
-                }
-                mDialog?.show()
+                val dialog = BottomPhotoDialog(this)
+                dialog.setOnItemClickListener(this)
+                dialog.show()
             }
             iv_start_time.id -> {
                 showTimePicker(tv_start_time, true)
@@ -338,44 +313,8 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
             showLoading()
             GlideUtils.loadFullScreen(this, licensePath, iv_img)
             initAccessToken(licensePath!!)
-        }
-
-        when (requestCode) {
-            Constant.CAMERA_REQUEST_CODE -> {//照相后返回
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    val inputUri = FileProvider.getUriForFile(this, "com.coco_sh.shmstore.provider", mCameraFile)//通过FileProvider创建一个content类型的Uri
-                    val url = GetImagePath().getPath(this, inputUri)
-                    GlideUtils.loadFullScreen(this, url, iv_img)
-                    showLoading()
-                    initAccessToken(url!!)
-                } else {
-                    val inputUri = Uri.fromFile(mCameraFile)
-                    val url = GetImagePath().getPath(this, inputUri)
-                    GlideUtils.loadFullScreen(this, url, iv_img)
-                    showLoading()
-                    initAccessToken(url!!)
-                }
-            }
-            Constant.IMAGE_REQUEST_CODE -> {//版本<7.0  图库后返回
-                if (data != null) {
-                    // 得到图片的全路径
-                    val uri = data.data
-                    //crop(uri);
-                    val url = GetImagePath().getPath(this, uri)
-                    GlideUtils.loadFullScreen(this, url, iv_img)
-                    showLoading()
-                    initAccessToken(url!!)
-                }
-            }
-            Constant.SELECT_PIC_NOUGAT//版本>= 7.0
-            -> {
-                val imgUri = File(GetImagePath().getPath(this, data?.data!!))
-                val dataUri = FileProvider.getUriForFile(this, "com.coco_sh.shmstore.provider", imgUri)
-                val url = GetImagePath().getPath(this, dataUri)
-                GlideUtils.loadFullScreen(this, url, iv_img)
-                showLoading()
-                initAccessToken(url!!)
-            }
+        } else {
+            cameraUtils.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -388,11 +327,15 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
                 try {
                     licenseBean = gson.fromJson(result, LicenseBean::class.java)
                     if (TextUtils.equals(licenseBean.getWords_result()?.法人?.words, "无") || TextUtils.equals(licenseBean.getWords_result()?.社会信用代码?.words, "无")) {
-                        showScanErrorDialog()
+                        if (!isFinishing) {
+                            showScanErrorDialog()
+                        }
                         return@ServiceListener
                     }
                 } catch (e: Exception) {
-                    showScanErrorDialog()
+                    if (!isFinishing) {
+                        showScanErrorDialog()
+                    }
                     return@ServiceListener
                 }
                 LogUtil.d("license result: " + result)
@@ -516,7 +459,7 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
         params["licenseNo"] = licenseNo
         ApiManager.get(0, this, params, Constant.FACILITOTAAR_AUTH_NUM, object : ApiManager.OnResult<BaseModel<Boolean>>() {
             override fun onSuccess(data: BaseModel<Boolean>) {
-                isShowLoading = false
+                hideLoading()
                 if (data.success && data.code == 200) {
                     if (data.entity == true) {
                         startActivity(Intent(this@CompanyInformationActivity, CertificationAddressActivity::class.java).putExtra("FACILITATOR_TYPE", 333))
@@ -529,12 +472,25 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView {
             }
 
             override fun onFailed(e: Throwable) {
-                isShowLoading = false
+                hideLoading()
             }
 
             override fun onCatch(data: BaseModel<Boolean>) {
             }
 
         })
+    }
+
+    private val MIN_DELAY_TIME = 1000  // 两次点击间隔不能少于1000ms
+    private var lastClickTime: Long = 0
+
+    fun isFastClick(): Boolean {
+        var flag = true
+        val currentClickTime = System.currentTimeMillis()
+        if (currentClickTime - lastClickTime <= MIN_DELAY_TIME) {
+            flag = false
+        }
+        lastClickTime = currentClickTime
+        return flag
     }
 }

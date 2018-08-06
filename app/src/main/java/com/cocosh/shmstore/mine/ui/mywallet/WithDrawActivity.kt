@@ -80,18 +80,17 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     }
 
 
-    override fun corporateAccountData(result: BaseModel<CorporateAccountModel>) {
-        if (result.success && result.code == 200) {
-            edtBankAccount.setText(result.entity?.bankNumber)
-            etName.setText(result.entity?.accountName)
-            edtBankName.setText(result.entity?.openingBankName)
-            text_treaty.text = result.entity?.ruleType?.des
-            maxMoney = result.entity?.ruleType?.maxMoney ?: "0"
-            minMoney = result.entity?.ruleType?.minMoney ?: "0"
-        } else {
-            ToastUtil.show(result.message)
-        }
-    }
+    override fun corporateAccountData(result: BaseModel<CorporateAccountModel>) =
+            if (result.success && result.code == 200) {
+                edtBankAccount.setText(result.entity?.bankNumber)
+                etName.text = result.entity?.accountName
+                edtBankName.setText(result.entity?.openingBankName)
+                text_treaty.text = result.entity?.ruleType?.des
+                maxMoney = result.entity?.ruleType?.maxMoney ?: "0"
+                minMoney = result.entity?.ruleType?.minMoney ?: "0"
+            } else {
+                ToastUtil.show(result.message)
+            }
 
 
     override fun initView() {

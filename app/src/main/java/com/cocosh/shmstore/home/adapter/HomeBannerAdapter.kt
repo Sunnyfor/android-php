@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.model.Banner
-import com.cocosh.shmstore.utils.GlideUtils
 import kotlinx.android.synthetic.main.item_card_view.view.*
 
 /**

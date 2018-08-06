@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.home.BonusWebActivity
@@ -14,6 +15,7 @@ import com.cocosh.shmstore.home.model.SendBonus
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.ui.authentication.PackagePushInfoActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
+import com.cocosh.shmstore.utils.IntentCode
 import kotlinx.android.synthetic.main.item_red_package.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +24,7 @@ import java.util.*
  * 适配器
  * Created by zhangye on 2018/3/13.
  */
-class SendRedPackageListAdapter(list: ArrayList<SendBonus.Bonus>) : BaseRecycleAdapter<SendBonus.Bonus>(list) {
+class SendRedPackageListAdapter(var activity:BaseActivity,list: ArrayList<SendBonus.Bonus>) : BaseRecycleAdapter<SendBonus.Bonus>(list) {
     var array = SparseArray<BaseRecycleViewHolder>()
     var onCancleReleaseListener: OnCancleReleaseListener? = null
     var format = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
@@ -55,11 +57,11 @@ class SendRedPackageListAdapter(list: ArrayList<SendBonus.Bonus>) : BaseRecycleA
             holder.itemView.payTimeLL.visibility = View.GONE
 
             holder.itemView.pay.setOnClickListener {
-                val intent = Intent(context, PayActivity::class.java)
+                val intent = Intent(activity, PayActivity::class.java)
                 intent.putExtra("amount", getData(position).redPacketMoney)
                 intent.putExtra("runningNumber", getData(position).orderNumber)
                 intent.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
-                context.startActivity(intent)
+                activity.startActivityForResult(intent,IntentCode.IS_INPUT)
             }
 
             holder.itemView.cancel.setOnClickListener {

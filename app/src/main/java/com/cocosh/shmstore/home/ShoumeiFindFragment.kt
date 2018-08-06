@@ -69,6 +69,7 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
             override fun onUpdate(page: Int) {
                 currentPage = page
                 getThemeList(true, currentPage, "", "0")
+                getCompanyList("", "0", "")
             }
 
             override fun onLoadMore(page: Int) {

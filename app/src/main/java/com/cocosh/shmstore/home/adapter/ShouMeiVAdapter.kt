@@ -46,92 +46,102 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                 }
             })
         } else {
-            GlideUtils.loadRound(1, mContext, list[position - 1].resCompanyHomeInfoVO?.forumHeadImg, holder.itemView.ivLogo)
-            holder.itemView.tvName.text = list[position - 1].resCompanyHomeInfoVO?.forumName
-            holder.itemView.tvTime.text = list[position - 1].createTime
-            holder.itemView.tvDesc.text = list[position - 1].themeTitle
-            holder.itemView.showNumber.text = list[position - 1].readNumber
-            holder.itemView.commentNumber.text = list[position - 1].commentsNumber
-            if (list[position - 1].resCompanyHomeInfoVO?.followStatus == "0") {
-                holder.itemView.tvStatus.text = "+关注"
-                holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
-            } else {
-                holder.itemView.tvStatus.text = "已关注"
-                holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
-            }
-            if (list[position - 1].isRead == "1") {
-                holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.red))
-            } else {
-                holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.grayText))
-            }
+            list[position - 1].run {
 
-            when (list[position - 1].resCompanyHomeInfoVO?.userType) {
-                "1" -> {
-                    holder.itemView.tvType.text = "企业主"
-                }
-                "2" -> {
-                    holder.itemView.tvType.text = "新媒人"
-                }
-                "3" -> {
-                    holder.itemView.tvType.text = "服务商"
-                }
-                "4" -> {
-                    holder.itemView.tvType.text = "用户"
-                }
             }
+            with(list[position - 1]) {
+                GlideUtils.loadRound(1, mContext, resCompanyHomeInfoVO?.forumHeadImg, holder.itemView.ivLogo)
+                holder.itemView.tvName.text = resCompanyHomeInfoVO?.forumName
+                holder.itemView.tvTime.text = createTime
+                holder.itemView.tvDesc.text = themeTitle
+                holder.itemView.showNumber.text = readNumber
+                holder.itemView.commentNumber.text = commentsNumber
+                if (resCompanyHomeInfoVO?.followStatus == "0") {
+                    holder.itemView.tvStatus.text = "+关注"
+                    holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
+                } else {
+                    holder.itemView.tvStatus.text = "已关注"
+                    holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
+                }
+                if (isRead == "1") {
+                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.red))
+                } else {
+                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.grayText))
+                }
 
-            if (list[position - 1]?.imageUrl != null && list[position - 1]?.imageUrl?.size!! > 0) {
-                when {
-                    list[position - 1]?.imageUrl?.size == 1 -> {
-                        holder.itemView.imageOne.visibility = View.VISIBLE
-                        holder.itemView.imageTwo.visibility = View.GONE
-                        holder.itemView.imageThree.visibility = View.GONE
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![0], holder.itemView.imageOne)
+                when (resCompanyHomeInfoVO?.userType) {
+                    "1" -> {
+                        holder.itemView.tvType.text = "企业主"
                     }
-
-                    list[position - 1]?.imageUrl?.size == 2 -> {
-                        holder.itemView.imageOne.visibility = View.VISIBLE
-                        holder.itemView.imageTwo.visibility = View.VISIBLE
-                        holder.itemView.imageThree.visibility = View.GONE
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![0], holder.itemView.imageOne)
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![1], holder.itemView.imageTwo)
+                    "2" -> {
+                        holder.itemView.tvType.text = "新媒人"
                     }
-                    else -> {
-                        holder.itemView.imageOne.visibility = View.VISIBLE
-                        holder.itemView.imageTwo.visibility = View.VISIBLE
-                        holder.itemView.imageThree.visibility = View.VISIBLE
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![0], holder.itemView.imageOne)
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![1], holder.itemView.imageTwo)
-                        GlideUtils.load(context, list[position - 1]?.imageUrl!![2], holder.itemView.imageThree)
+                    "3" -> {
+                        holder.itemView.tvType.text = "服务商"
+                    }
+                    "4" -> {
+                        holder.itemView.tvType.text = "用户"
                     }
                 }
 
-            } else {
-                holder.itemView.imageOne.visibility = View.GONE
-                holder.itemView.imageTwo.visibility = View.GONE
-                holder.itemView.imageThree.visibility = View.GONE
-            }
-            holder.itemView.detailLL.setOnClickListener {
-                //新闻详情
-                var oldNumber = list[position - 1].readNumber?.toInt()
-                var number = (oldNumber ?: 1) + 1
-                list[position - 1].readNumber = number.toString()
-                list[position - 1].isRead = "1"
-                notifyItemChanged(position)
-                mOnFollowClick?.read(10, position - 1)
-                ShoumeiDetailActivity.start(context, list[position - 1].resCompanyHomeInfoVO?.followStatus
-                        ?: "", list[position - 1].resCompanyHomeInfoVO?.isBlack
-                        ?: "", list[position - 1].idCompanyHomeTheme
-                        ?: "", list[position - 1].themePageUrl
-                        ?: "", list[position - 1].resCompanyHomeInfoVO?.idCompanyHomeBaseInfo ?: "")
-            }
-            holder.itemView.ivLogo.setOnClickListener {
-                //品牌专属论坛
-                ShouMeiBrandActivity.start(context, list[position - 1].resCompanyHomeInfoVO?.idCompanyHomeBaseInfo
-                        ?: "")
-            }
-            holder.itemView.tvStatus.setOnClickListener {
-                mOnFollowClick?.follow(2, position - 1)
+                if (imageUrl != null && imageUrl?.size!! > 0) {
+                    when {
+                        imageUrl?.size == 1 -> {
+                            holder.itemView.imageOne.visibility = View.VISIBLE
+                            holder.itemView.imageTwo.visibility = View.GONE
+                            holder.itemView.imageThree.visibility = View.GONE
+                            GlideUtils.load(context, imageUrl!![0], holder.itemView.imageOne)
+                        }
+
+                        imageUrl?.size == 2 -> {
+                            holder.itemView.imageOne.visibility = View.VISIBLE
+                            holder.itemView.imageTwo.visibility = View.VISIBLE
+                            holder.itemView.imageThree.visibility = View.GONE
+                            GlideUtils.load(context, imageUrl!![0], holder.itemView.imageOne)
+                            GlideUtils.load(context, imageUrl!![1], holder.itemView.imageTwo)
+                        }
+                        else -> {
+                            holder.itemView.imageOne.visibility = View.VISIBLE
+                            holder.itemView.imageTwo.visibility = View.VISIBLE
+                            holder.itemView.imageThree.visibility = View.VISIBLE
+                            GlideUtils.load(context, imageUrl!![0], holder.itemView.imageOne)
+                            GlideUtils.load(context, imageUrl!![1], holder.itemView.imageTwo)
+                            GlideUtils.load(context, imageUrl!![2], holder.itemView.imageThree)
+                        }
+                    }
+
+                } else {
+                    holder.itemView.imageOne.visibility = View.GONE
+                    holder.itemView.imageTwo.visibility = View.GONE
+                    holder.itemView.imageThree.visibility = View.GONE
+                }
+                holder.itemView.detailLL.setOnClickListener {
+                    //新闻详情
+                    var oldNumber = readNumber?.toInt()
+                    var number = (oldNumber ?: 1) + 1
+                    readNumber = number.toString()
+                    isRead = "1"
+                    notifyItemChanged(position)
+                    mOnFollowClick?.read(10, position - 1)
+                    ShoumeiDetailActivity.start(context, resCompanyHomeInfoVO?.followStatus
+                            ?: "", resCompanyHomeInfoVO?.isBlack
+                            ?: "", idCompanyHomeTheme
+                            ?: "", themePageUrl
+                            ?: "", resCompanyHomeInfoVO?.idCompanyHomeBaseInfo ?: "")
+                }
+                holder.itemView.ivLogo.setOnClickListener {
+                    //品牌专属论坛
+                    ShouMeiBrandActivity.start(context, resCompanyHomeInfoVO?.idCompanyHomeBaseInfo
+                            ?: "")
+                }
+                holder.itemView.nameLl.setOnClickListener {
+                    //品牌专属论坛
+                    ShouMeiBrandActivity.start(context, resCompanyHomeInfoVO?.idCompanyHomeBaseInfo
+                            ?: "")
+                }
+                holder.itemView.tvStatus.setOnClickListener {
+                    mOnFollowClick?.follow(2, position - 1)
+                }
             }
         }
     }

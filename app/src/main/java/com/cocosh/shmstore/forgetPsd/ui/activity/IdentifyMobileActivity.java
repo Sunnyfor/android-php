@@ -12,10 +12,12 @@ import android.view.View;
 
 import com.cocosh.shmstore.R;
 import com.cocosh.shmstore.base.BaseActivity;
+import com.cocosh.shmstore.base.BaseBean;
 import com.cocosh.shmstore.base.BaseModel;
 import com.cocosh.shmstore.databinding.ActivityIdentifyMobileBinding;
 import com.cocosh.shmstore.forgetPsd.IdentifyMobileContract;
 import com.cocosh.shmstore.forgetPsd.presenter.IdentifyMoboilePresenter;
+import com.cocosh.shmstore.sms.model.SMS;
 import com.cocosh.shmstore.utils.PermissionCode;
 import com.cocosh.shmstore.utils.PermissionUtil;
 import com.cocosh.shmstore.utils.ToastUtil;
@@ -23,12 +25,14 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog;
 
 import org.jetbrains.annotations.NotNull;
 
+//忘记密码
 public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobileContract.IView {
 
     private ActivityIdentifyMobileBinding dataBinding;
     private String phone;
     private boolean phoneOk;
     private boolean codeOk;
+    private boolean passOK;
     private PermissionUtil permissionUtil;
     private IdentifyMoboilePresenter presenter = new IdentifyMoboilePresenter(IdentifyMobileActivity.this, this);
 
@@ -40,7 +44,7 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
     @Override
     public void initView() {
         permissionUtil = new PermissionUtil(this);
-        titleManager.defaultTitle("验证手机");
+        titleManager.defaultTitle("忘记密码");
         dataBinding = getDataBinding();
         initClick();
         addListener();
@@ -55,19 +59,8 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                phone = dataBinding.etPhone.getText().toString();
-                if (phone.length() != 11 || charSequence.length() != 6) {
-                    dataBinding.btNext.setEnabled(false);
-                    dataBinding.btNext.setBackgroundColor(ContextCompat.getColor(IdentifyMobileActivity.this, R.color.grayBtn));
-                } else {
-                    dataBinding.btNext.setEnabled(true);
-                    dataBinding.btNext.setBackgroundColor(ContextCompat.getColor(IdentifyMobileActivity.this, R.color.red));
-                }
-                if (charSequence.length() == 6) {
-                    codeOk = true;
-                } else {
-                    codeOk = false;
-                }
+                codeOk = charSequence.length() == 6;
+                isOk();
             }
 
             @Override
@@ -91,10 +84,33 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
                     dataBinding.tbSend.setClick(false);
                     phoneOk = false;
                 }
+                isOk();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        dataBinding.editPass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                passOK = s.length() >= 6;
+
+                isOk();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -119,10 +135,17 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
     public void onListener(@NotNull View view) {
         switch (view.getId()) {
             case R.id.btNext:
-                if (phoneOk && codeOk) {
-                    System.out.println(phoneOk + "-----" + codeOk);
-                    presenter.checkCode(dataBinding.etPhone.getText().toString(), dataBinding.etIdentifyCode.getText().toString());
-                }
+
+                //确认密码弹窗
+                SmediaDialog smDialog = new SmediaDialog(this);
+                smDialog.showSmsMotifyPassword(dataBinding.editPass.getText().toString(), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.forgetPass(dataBinding.etPhone.getText().toString(),
+                                dataBinding.editPass.getText().toString(),
+                                dataBinding.etIdentifyCode.getText().toString());
+                    }
+                });
                 break;
             case R.id.tvProblem:
                 showDialog();
@@ -147,24 +170,13 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
     }
 
     @Override
-    public void onCodeResult(@NotNull BaseModel<String> result) {
-        if (result.getSuccess()) {
-            dataBinding.tbSend.action();//验证码发送成功执行计时
-        } else {
-            ToastUtil.INSTANCE.show(result.getMessage());
-        }
+    public void onCodeResult(@NotNull BaseBean<SMS> result) {
+        dataBinding.tbSend.action();//验证码发送成功执行计时
     }
 
     @Override
-    public void onCheckedCodeResult(@NotNull BaseModel<String> result) {
-        if (result.getSuccess()) {
-            Intent intent = new Intent(IdentifyMobileActivity.this, SettingNewLoginPsdActivity.class);
-            intent.putExtra("phone", phone);
-            intent.putExtra("token", result.getEntity());
-            startActivityForResult(intent, 0);
-        } else {
-            ToastUtil.INSTANCE.show(result.getMessage());
-        }
+    public void onForgetPassResult(@NotNull BaseBean<String> result) {
+        finish();
     }
 
 
@@ -198,4 +210,16 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
         startActivity(intent);
     }
 
+
+    //输入条件检查
+    public void isOk() {
+        if (phoneOk && passOK && codeOk) {
+            dataBinding.btNext.setClickable(true);
+            dataBinding.btNext.setBackgroundResource(R.color.red);
+        } else {
+            dataBinding.btNext.setClickable(false);
+            dataBinding.btNext.setBackgroundResource(R.color.grayBtn);
+        }
+
+    }
 }

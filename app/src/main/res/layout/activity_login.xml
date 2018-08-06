@@ -150,7 +150,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/h120">
+            android:layout_marginBottom="@dimen/h120"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvMore"

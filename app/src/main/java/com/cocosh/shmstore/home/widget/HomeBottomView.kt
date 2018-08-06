@@ -1,6 +1,7 @@
 package com.cocosh.shmstore.home.widget
 
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -15,13 +16,12 @@ import android.widget.RelativeLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.BonusMoneyFragment
-import com.cocosh.shmstore.home.PovertyFragment
-import com.cocosh.shmstore.home.WeatherFragment
+import com.cocosh.shmstore.home.*
 import com.cocosh.shmstore.home.model.HomeBottom
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
+import kotlinx.android.synthetic.main.activity_contact_service.view.*
 import kotlinx.android.synthetic.main.layout_home_bottom.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -35,6 +35,8 @@ class HomeBottomView : RelativeLayout {
     private var weatherFragment = WeatherFragment()
     private var bonusmoneyFragment = BonusMoneyFragment()
     private var povertyFragment = PovertyFragment()
+    private var photoFragment1:PhotoFragment? = null
+    private var photoFragment2:PhotoFragment? = null
     private val fragments = arrayListOf<Fragment>()
     private val pointList = arrayListOf<View>()
     constructor(context: Context?) : super(context)
@@ -48,8 +50,11 @@ class HomeBottomView : RelativeLayout {
         LayoutInflater.from(context).inflate(R.layout.layout_home_bottom, this, true)
         fragments.add(bonusmoneyFragment)
         fragments.add(weatherFragment)
+
+//       initPhotoFragment()
+
+        viewPager.offscreenPageLimit = fragments.size
         viewPager.adapter = PageAdapter(fragments, fragmentManager)
-        viewPager.offscreenPageLimit = 3
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
 
@@ -110,10 +115,13 @@ class HomeBottomView : RelativeLayout {
                             weatherFragment = WeatherFragment()
                             fragments.add(bonusmoneyFragment)
                             fragments.add(weatherFragment)
+
+//                            initPhotoFragment()
+
                             viewPager.offscreenPageLimit = 0
 
                             viewPager.adapter = PageAdapter(fragments, fragmentManager)
-                            viewPager.offscreenPageLimit = 3
+                            viewPager.offscreenPageLimit = fragments.size
 
                             initPoint()
 
@@ -168,5 +176,25 @@ class HomeBottomView : RelativeLayout {
         }
 
         pointList[0].setBackgroundResource(R.color.red)
+    }
+
+    private fun initPhotoFragment(){
+        photoFragment1 = PhotoFragment()
+        photoFragment1?.res = R.drawable.bg_default_id_front
+        photoFragment1?.onClickListener = OnClickListener{
+            val intent = Intent(context, BonusListActivity::class.java)
+            intent.putExtra("title", "消费扶贫")
+            context.startActivity(intent)
+        }
+        photoFragment2 = PhotoFragment()
+        photoFragment2?.res = R.drawable.bg_default_id_back
+        photoFragment2?.onClickListener = OnClickListener{
+            val intent = Intent(context, BonusListActivity::class.java)
+            intent.putExtra("title", "媒体扶贫")
+
+            context.startActivity(intent)
+        }
+        fragments.add(photoFragment1!!)
+        fragments.add(photoFragment2!!)
     }
 }

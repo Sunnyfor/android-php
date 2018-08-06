@@ -30,6 +30,7 @@ interface ApiService {
     /*
      * POST上传文件
      */
+    @POST
     fun post(@Body body: MultipartBody, @Url url: String): Observable<ResponseBody>
 
     /*

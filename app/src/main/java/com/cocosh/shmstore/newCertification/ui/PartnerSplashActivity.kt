@@ -19,6 +19,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.model.ApplyPartner
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.partner_splash_activity.*
 
@@ -77,7 +78,7 @@ class PartnerSplashActivity : BaseActivity() {
                     }
                 }
             }
-            R.id.text_treaty2 -> startActivityForResult(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", Constant.PARTNER_SERVICE_RULE), IntentCode.IS_TERM)
+            R.id.text_treaty2 -> startActivityForResult(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Cer.name), IntentCode.IS_TERM)
         }
     }
 
@@ -89,7 +90,7 @@ class PartnerSplashActivity : BaseActivity() {
 
     class TextClick(val activity: Activity) : ClickableSpan() {
         override fun onClick(widget: View) {
-            activity.startActivityForResult(Intent(widget.context, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", Constant.PARTNER_SERVICE_RULE), IntentCode.IS_TERM)
+            activity.startActivityForResult(Intent(widget.context, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Cer.name), IntentCode.IS_TERM)
         }
 
     }

@@ -45,10 +45,12 @@ class IncomeActivity : BaseActivity() {
             getProfitInfo("1")
             getProfitList(true, "0", "1")
             btn_withdraw_money.text = "转出至钱包"
+            inComeTitle.text = "新媒人收益(元)"
         } else {
             getProfitInfo("2")
             getProfitList(true, "0", "2")
             btn_withdraw_money.text = "转出至服务商钱包"
+            inComeTitle.text = "服务商收益(元)"
         }
         btn_withdraw_money.setOnClickListener(this)
 

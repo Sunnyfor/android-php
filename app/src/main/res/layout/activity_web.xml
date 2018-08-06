@@ -1,4 +1,20 @@
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/btnNext"
+        style="@style/ButtonStyle"
+        android:layout_height="@dimen/h142"
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:text="同意"
+        android:visibility="gone"
+        />
+</LinearLayout>
+

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/h85"
-            android:text="红包金额"
+            android:text="红包金额(元)"
             android:textColor="@color/white"
             android:textSize="@dimen/h40" />
 

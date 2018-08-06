@@ -109,7 +109,8 @@ class LoggerInterceptor constructor(tag: String, private val showResponse: Boole
             if (mediaType.subtype() == "json" ||
                     mediaType.subtype() == "xml" ||
                     mediaType.subtype() == "html" ||
-                    mediaType.subtype() == "webviewhtml")
+                    mediaType.subtype() == "webviewhtml"||
+                    mediaType.subtype() == "x-www-form-urlencoded")
                 return true
         }
         return false

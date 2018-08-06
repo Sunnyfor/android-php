@@ -45,7 +45,7 @@ class SendPackageFragment : BaseFragment() {
         getLayoutView().smSwipeRefreshLayout.recyclerView.layoutManager = LinearLayoutManager(context)
         (getLayoutView().smSwipeRefreshLayout.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        adapter = SendRedPackageListAdapter(list)
+        adapter = SendRedPackageListAdapter(getBaseActivity(),list)
 
         getLayoutView().smSwipeRefreshLayout.recyclerView.adapter = adapter
         adapter?.onCancleReleaseListener = object : SendRedPackageListAdapter.OnCancleReleaseListener {

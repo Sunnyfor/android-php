@@ -23,6 +23,7 @@ import com.cocosh.shmstore.newCertification.ui.PartherPendingPayActivity
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
+import kotlinx.android.synthetic.main.fragment_income.*
 import kotlinx.android.synthetic.main.fragment_income.view.*
 
 
@@ -138,9 +139,9 @@ class IncomeFragment : BaseFragment() {
             override fun onSuccess(data: BaseModel<UserInCome>) {
                 if (data.success && data.code == 200) {
                     hideReTryLayout()
-                    getLayoutView().redMony.text = data.entity?.redPacketMoney ?: "0.0" + "元"
-                    getLayoutView().cerMoney.text = data.entity?.partnerMoney ?: "0.0" + "元"
-                    getLayoutView().facMoney.text = data.entity?.cityOperatorsMoney ?: "0.0" + "元"
+                    getLayoutView().redMony.text = (data.entity?.redPacketMoney ?: "0") + "元"
+                    getLayoutView().cerMoney.text = (data.entity?.partnerMoney ?: "0") + "元"
+                    getLayoutView().facMoney.text = (data.entity?.cityOperatorsMoney ?: "0") + "元"
                     facValue = data.entity?.cityOperatorsStatu
                     cerValue = data.entity?.partnerState
 
@@ -151,11 +152,23 @@ class IncomeFragment : BaseFragment() {
                     if (facValue == "5") {
                         getLayoutView().facDesc.visibility = View.INVISIBLE
                         getLayoutView().facShow.text = "查看详情"
+                    } else {
+                        getLayoutView().facDesc.visibility = View.VISIBLE
+                        getLayoutView().facShow.text = "前往认证"
                     }
 
                     if (cerValue == "5") {
                         getLayoutView().cerDesc.visibility = View.INVISIBLE
                         getLayoutView().cerShow.text = "查看详情"
+                    } else {
+                        getLayoutView().cerDesc.visibility = View.VISIBLE
+                        getLayoutView().cerShow.text = "前往认证"
+                    }
+
+                    if (facValue == "5" && cerValue == "5") {
+                        cerLl.visibility = View.GONE
+                    } else {
+                        cerLl.visibility = View.VISIBLE
                     }
                 } else {
                     ToastUtil.show(data.message)

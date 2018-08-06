@@ -31,8 +31,8 @@ class ShoumeiFragment : BaseFragment() {
         titleList.add("发现")
         fragment1 = ShoumeiFollowFragment()
         fragment2 = ShoumeiFindFragment()
-        fragmentList.add(fragment1!!)
-        fragmentList.add(fragment2!!)
+        fragmentList.add(fragment1)
+        fragmentList.add(fragment2)
 
         //设置tab的模式
         getLayoutView().tab.tabMode = TabLayout.MODE_FIXED
@@ -103,7 +103,7 @@ class ShoumeiFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         getLayoutView().tab.let {
-            it.post { ViewUtil.setIndicator(it, resources.getDimension(R.dimen.w70).toInt(), resources.getDimension(R.dimen.w70).toInt()) }
+            it.post { ViewUtil.setIndicator(it, resources.getDimension(R.dimen.w200).toInt(), resources.getDimension(R.dimen.w200).toInt()) }
         }
     }
 

@@ -19,6 +19,7 @@ import com.cocosh.shmstore.newCertification.CertifimInforPresenter
 import com.cocosh.shmstore.newCertification.ConfirmlnforContrat
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.CashierInputFilter
+import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.utils.ToastUtil
 import com.google.gson.Gson
 import com.pingplusplus.android.Pingpp
@@ -129,7 +130,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onListener(view: View) {
         when (view.id) {
             text_treaty2.id -> {
-                startActivity(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", Constant.CHARGE_SERVICE_RULE))
+                startActivity(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Charge.name))
             }
             winxinRl.id -> choose("PINGPP_WX")
             aliPay.id -> choose("PINGPP_ALIPAY")

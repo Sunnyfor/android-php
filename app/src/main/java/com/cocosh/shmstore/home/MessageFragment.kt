@@ -78,6 +78,7 @@ class MessageFragment : BaseFragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                getMsgCount()
                 /**在这里记录TabLayoupt选中后内容更新已读标记 */
                 val customView = tab?.customView
                 customView?.findViewById(R.id.iv_tab_red)?.visibility = View.INVISIBLE
@@ -124,6 +125,14 @@ class MessageFragment : BaseFragment() {
         ApiManager.get(0, activity as BaseActivity, map, Constant.MSG_UNREAD, object : ApiManager.OnResult<BaseModel<MsgUnReadCount>>() {
             override fun onSuccess(data: BaseModel<MsgUnReadCount>) {
                 if (data.success && data.code == 200) {
+                    if (data.entity?.unreadRedPacketMessageCount == 0 && data.entity?.unreadReplyMessageCount == 0 && data.entity?.unreadSystemMessageCount == 0) {
+                        //隐藏
+                        (activity as HomeActivity).isShowMsgPoint(false)
+                    } else {
+                        //显示
+                        (activity as HomeActivity).isShowMsgPoint(true)
+                    }
+
                     //更改消息按钮
                     changeRedPoint(0, data.entity?.unreadSystemMessageCount == 0)
                     changeRedPoint(1, data.entity?.unreadRedPacketMessageCount == 0)

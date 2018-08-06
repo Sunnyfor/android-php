@@ -6,11 +6,14 @@ import android.text.TextWatcher
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_single_edit.*
 
 
@@ -100,31 +103,27 @@ class SingleEditActivity : BaseActivity() {
 
         val params = hashMapOf<String, String>()
         when (type) {
-            "昵称" -> params["nickName"] = value
-            "公司名称" -> params["companyName"] = value
+            "昵称" -> params["nickname"] = value
+            "公司名称" -> params["company"] = value
         }
 
-        ApiManager.post(this, params, Constant.UPDATE_MYFILESINFO, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-                    val intent = Intent()
-                    intent.putExtra("title", title)
-                    intent.putExtra("value", value)
-                    setResult(IntentCode.IS_INPUT, intent)
-                    finish()
-                } else {
-                    ToastUtil.show(data.message)
-                }
+        UserManager2.updateMemberEntrance(this, params, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onSuccess(data: BaseBean<String>) {
+                val intent = Intent()
+                intent.putExtra("title", title)
+                intent.putExtra("value", value)
+                setResult(IntentCode.IS_INPUT, intent)
+                finish()
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+
+            override fun onCatch(data: BaseBean<String>) {
 
             }
 
         })
-
     }
 }

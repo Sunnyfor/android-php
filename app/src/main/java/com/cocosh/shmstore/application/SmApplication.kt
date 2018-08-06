@@ -1,14 +1,17 @@
 package com.cocosh.shmstore.application
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager.NameNotFoundException
 import android.graphics.Typeface
+import android.provider.Settings
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import android.support.v7.app.AppCompatDelegate
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.utils.DigestUtils
 import com.squareup.leakcanary.LeakCanary
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.PlatformConfig
@@ -155,4 +158,9 @@ class SmApplication : MultiDexApplication() {
     }
 
     fun getActivityCallBack(): Class<BaseActivity>? = activityName
+
+
+    @SuppressLint("HardwareIds")
+    fun getDeviceID():String =
+            DigestUtils.md5(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
 }

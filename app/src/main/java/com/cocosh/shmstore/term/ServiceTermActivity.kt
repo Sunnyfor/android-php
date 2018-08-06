@@ -1,28 +1,37 @@
 package com.cocosh.shmstore.term
 
 import android.annotation.SuppressLint
-import android.net.http.SslError
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.view.KeyEvent
+import android.graphics.Bitmap
+import android.text.TextUtils
 import android.view.View
-import android.webkit.*
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.utils.IntentCode
-import com.cocosh.shmstore.utils.LogUtil
+import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_term.*
-import java.util.*
+
 
 /**
- * 服务条款
+ * 协议相关web加载页面
  * Created by zhangye on 2018/1/25.
  */
 class ServiceTermActivity : BaseActivity() {
+
+    private val fac = "renzhengfuwushangxieyi"
+    private val charge = "chongzhixieyi"
+    private val newcer = "xinmeirenrenzhengxieyi"
+    private val businessman = "qiyezhurenzhengxieyi"
+    private val help = "help_page_url" //帮助中心
+    private val bonus = "hongbaoguize"//红包规则
+
     override fun reTryGetData() {
 
     }
@@ -30,16 +39,36 @@ class ServiceTermActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_term
 
     override fun initView() {
-        titleManager.defaultTitle("首媒服务条款")
         val ruleUrl = intent.getStringExtra("OPEN_TYPE")
-        if (ruleUrl != null) {
-            if (ruleUrl == Constant.CHARGE_SERVICE_RULE) {
-                getRuleUrl(ruleUrl)
-                return
-            }
-            initWebView(ruleUrl, true)
+        val title = intent.getStringExtra("title")
+        if (title == null) {
+            titleManager.defaultTitle("首媒服务条款")
+        } else {
+            titleManager.defaultTitle(title)
         }
+
         btnSure.setOnClickListener(this)
+
+        if (ruleUrl == OpenType.Fac.name) {
+            getUrl(fac)
+        }
+        if (ruleUrl == OpenType.Cer.name) {
+            getUrl(newcer)
+        }
+        if (ruleUrl == OpenType.Charge.name) {
+            getUrl(charge)
+        }
+        if (ruleUrl == OpenType.BusinessMan.name) {
+            getUrl(businessman)
+        }
+        if (ruleUrl == OpenType.Help.name){
+            btnSure.visibility = View.GONE
+            getUrl(help)
+        }
+        if (ruleUrl == OpenType.Bonus.name){
+            btnSure.visibility = View.GONE
+            getUrl(bonus)
+        }
     }
 
     override fun onListener(view: View) {
@@ -51,132 +80,56 @@ class ServiceTermActivity : BaseActivity() {
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    private fun initWebView(url: String, boolean: Boolean) {
-        if (boolean) {
-            webView.loadUrl(ApiManager.SALE_URL + url)
-        } else {
-            webView.loadUrl(url)
-        }
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "AddJavascriptInterface")
+    private fun initWebView(url: String) {
+        webView.loadUrl(url)
+        webView.settings.javaScriptEnabled = true
+        webView.addJavascriptInterface(this, "android")
+        webView.settings.javaScriptCanOpenWindowsAutomatically = true
+        webView.settings.allowFileAccess = true
+        webView.settings.domStorageEnabled = true// 打开本地缓存提供JS调用,至关重要
+        webView.settings.setAppCacheEnabled(true)
+        webView.settings.setAppCachePath(application.cacheDir.absolutePath)
+        webView.settings.databaseEnabled = true
+        webView.setWebChromeClient(WebChromeClient())
+        webView.setWebViewClient(object : WebViewClient() {
 
-        val webSettings = webView.settings
-        //JS交互支持
-        webSettings.javaScriptEnabled = true
-        //设置缓存
-        webSettings.allowFileAccess = true
-        webSettings.domStorageEnabled = true
-        webSettings.loadWithOverviewMode = true
-        val appCachePath = applicationContext.cacheDir.absolutePath
-        webSettings.setAppCachePath(appCachePath)
-        webSettings.setAppCacheEnabled(true)
-        webSettings.cacheMode = WebSettings.LOAD_DEFAULT
-        //        webSettings.setAppCacheEnabled(true);
-        //        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.javaScriptCanOpenWindowsAutomatically = true
-        //放大或者缩小
-        webSettings.builtInZoomControls = false
-        //显示放大缩小控制按钮
-        webSettings.displayZoomControls = false
-        webSettings.setSupportZoom(false)
-        webSettings.useWideViewPort = true
-        //多窗口打开界面
-        webSettings.setSupportMultipleWindows(false)
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
-        //设置网页初始放大倍数
-
-
-        //使用本地窗口打开
-        webView.setWebViewClient(MyWebViewClient())
-
-        webView.setWebChromeClient(object : WebChromeClient() {
-
-            override fun onProgressChanged(view: WebView, newProgress: Int) {
-//                h5Binding.progressBar1.setVisibility(View.VISIBLE)
-//                h5Binding.progressBar1.setProgress(newProgress)
-//                if (newProgress == 100) {
-//                    h5Binding.progressBar1.setVisibility(View.GONE)
-//                }
-                super.onProgressChanged(view, newProgress)
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                showLoading()
             }
-        })
-        webView.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-                    webView.goBack()
-                    return@OnKeyListener true
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                val title = view?.title
+                if (!TextUtils.isEmpty(title)) {
+//                    titleManager.defaultTitle(title ?: "首媒服务条款")
+//                    titleManager.defaultTitle("首媒服务条款")
                 }
+                hideLoading()
             }
-            false
         })
 
     }
 
-    private inner class MyWebViewClient : WebViewClient() {
-
-        override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
-            super.onReceivedHttpError(view, request, errorResponse)
-        }
-
-        /**
-         * 加载错误的时候会回调，在其中可做错误处理，比如再请求加载一次，或者提示404的错误页面
-         */
-        override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
-            super.onReceivedError(view, errorCode, description, failingUrl)
-        }
-
-        /**
-         * 当接收到https错误时，会回调此函数，在其中可以做错误处理
-         */
-        override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
-            LogUtil.e(error.toString())
-            super.onReceivedSslError(view, handler, error)
-        }
-
-        /**
-         * 拦截 url 跳转,在里边添加点击链接跳转或者操作
-         */
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-            return super.shouldOverrideUrlLoading(view, request)
-        }
-
-        override fun onPageFinished(view: WebView, url: String) {
-            LogUtil.e("onPageFinished:" + url)
-            super.onPageFinished(view, url)
-        }
-
-        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-            //退出H5界面
-            if (url.contains("native_smapp/newsDetail_imageBrowse")) {//跳转图集
-
-            } else if (url.contains("native_smapp/newsDetail_labelsClick")) {//跳转到搜索
-
-            } else {
-                return false
-            }
-            return true
-        }
-
-    }
-
-    fun getRuleUrl(url: String) {
-        val map = HashMap<String, String>()
-        ApiManager.get(1, this, map, url, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success && data.code == 200) {
-                    initWebView(data.entity ?: "", false)
+    private fun getUrl(key: String) {
+        val params = hashMapOf<String, String>()
+        params["dictionaryKey"] = key
+        ApiManager.get(this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
+            override fun onSuccess(data: BaseModel<ValueByKey>) {
+                if (data.success) {
+                    initWebView(data.entity?.dictionaryValue ?: "")
                 } else {
                     ToastUtil.show(data.message)
                 }
             }
 
             override fun onFailed(e: Throwable) {
-
             }
 
-            override fun onCatch(data: BaseModel<String>) {
-
+            override fun onCatch(data: BaseModel<ValueByKey>) {
             }
         })
+
     }
 }

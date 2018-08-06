@@ -1,11 +1,10 @@
 package com.cocosh.shmstore.login
 
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
-import com.cocosh.shmstore.login.model.Login
+import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.login.model.LoginHistory
-import com.cocosh.shmstore.login.model.OtherLogin
 import com.umeng.socialize.bean.SHARE_MEDIA
 
 /**
@@ -16,7 +15,7 @@ interface ILoginContract {
 
     interface IView : IBaseView {
         //返回登录信息
-        fun loginResult(result: BaseModel<Login>,isOtherLogin:Boolean)
+        fun loginResult(result: BaseBean<Login2>, isOtherLogin:Boolean)
 
         //返回历史帐号记录数据
         fun onHistory(history: List<LoginHistory>)

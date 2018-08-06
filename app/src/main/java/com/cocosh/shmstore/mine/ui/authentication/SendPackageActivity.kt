@@ -17,6 +17,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.SendListAdapter
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -181,9 +182,9 @@ class SendPackageActivity : BaseActivity() {
     /**
      * 用于支付成功后全部列表是否刷新完成
      */
-    fun allUpdateOk(allUpdateOk:Boolean){
+    fun allUpdateOk(allUpdateOk: Boolean) {
         this.allUpdateOk = allUpdateOk
-        if (allUpdateOk && paymentUpdateOk){
+        if (allUpdateOk && paymentUpdateOk) {
             SmApplication.getApp().removeData(DataCode.BONUS_PAY)
         }
     }
@@ -191,10 +192,18 @@ class SendPackageActivity : BaseActivity() {
     /**
      * 用于支付成功后待支付列表是否刷新完成
      */
-    fun paymentUpdateOk(paymentUpdateOk:Boolean){
+    fun paymentUpdateOk(paymentUpdateOk: Boolean) {
         this.paymentUpdateOk = paymentUpdateOk
-        if (allUpdateOk && paymentUpdateOk){
+        if (allUpdateOk && paymentUpdateOk) {
             SmApplication.getApp().removeData(DataCode.BONUS_PAY)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IntentCode.IS_INPUT) {
+            fragmentList[0].update()
+            fragmentList[1].update()
         }
     }
 }

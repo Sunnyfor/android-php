@@ -7,6 +7,9 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bigkoo.pickerview.view.TimePickerView
+import com.cocosh.shmstore.model.City
+import com.cocosh.shmstore.model.District
+import com.cocosh.shmstore.model.Province
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.mine.model.BankModel
 import com.cocosh.shmstore.base.BaseActivity
@@ -128,29 +131,30 @@ class PickerViewUtils(val activity: BaseActivity) {
 
         activity.showLoading()
 
-        var options1Items = ArrayList<ProvinceModel>()
+        val options1Items = ArrayList<ProvinceModel>()
         val options2Items = ArrayList<ArrayList<ProvinceModel>>()
         val options3Items = ArrayList<ArrayList<ArrayList<ProvinceModel>>>()
 
 
         disposable = Observable.create<String> {
-            options1Items = parseAddressData(isDouble)
-            options1Items.forEach {
-                val cityList = it.childrens
-                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
-                it.childrens?.forEach {
-                    it.childrens?.let {
-                        provinceAreaList.add(it)
-                    }
-                }
-                cityList?.let {
-                    options2Items.add(it)
-                }
-
-                if (!isDouble) {
-                    options3Items.add(provinceAreaList)
-                }
-            }
+            parseAddressData(options1Items, options2Items, options3Items)
+//            options1Items = parseAddressData()
+//            options1Items.forEach {
+//                val cityList = it.childrens
+//                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
+//                it.childrens?.forEach {
+//                    it.childrens?.let {
+//                        provinceAreaList.add(it)
+//                    }
+//                }
+//                cityList?.let {
+//                    options2Items.add(it)
+//                }
+//
+//                if (!isDouble) {
+//                    options3Items.add(provinceAreaList)
+//                }
+//            }
 
             it.onNext("ok")
         }
@@ -187,11 +191,11 @@ class PickerViewUtils(val activity: BaseActivity) {
                     }).setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
                             .build()
-                    if (isDouble) {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, null)
-                    } else {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
-                    }
+//                    if (isDouble) {
+//                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, null)
+//                    } else {
+                    addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
+//                    }
                     addressOptionsPickerView?.show()
                     activity.hideLoading()
                     disposable?.dispose() //销毁
@@ -209,52 +213,50 @@ class PickerViewUtils(val activity: BaseActivity) {
 
         activity.showLoading()
 
-        var options1Items = ArrayList<ProvinceModel>()
+        val options1Items = ArrayList<ProvinceModel>()
         val options2Items = ArrayList<ArrayList<ProvinceModel>>()
         val options3Items = ArrayList<ArrayList<ArrayList<ProvinceModel>>>()
 
-
         disposable = Observable.create<String> {
-            options1Items = parseAddressData(false)
-
-            val allChilddList = arrayListOf<ProvinceModel>()
-            allChilddList.add(ProvinceModel("", "000000", null))
-
-            val allCitydList = arrayListOf<ProvinceModel>()
-            allCitydList.add(ProvinceModel("", "000000", allChilddList))
-
-            options1Items.add(0, ProvinceModel("全国", "000000", allCitydList))
-
-            options1Items.forEach {
-                val cityList = it.childrens
-
-                if (it.name != "全国"){
-                    val childdList = arrayListOf<ProvinceModel>()
-                    childdList.add(ProvinceModel("", it.id, null))
-                    cityList?.add(0, ProvinceModel("全部", it.id, childdList))
-                }
-
-                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
-                cityList?.forEach {
-                    if (it.name != "全部" && it.name != "" && !it.name.contains("北京") && !it.name.contains("天津") && !it.name.contains("上海") && !it.name.contains("重庆")){
-                        val childdList = arrayListOf<ProvinceModel>()
-                        childdList.add(ProvinceModel("", it.id, null))
-                        it.childrens?.add(0,ProvinceModel("全部", it.id, childdList))
-                    }
-                    it.childrens?.let {
-                        provinceAreaList.add(it)
-                    }
-                }
-
-                cityList?.let {
-                    options2Items.add(it)
-                }
-
-
-                options3Items.add(provinceAreaList)
-
-            }
-
+            //            options1Items = parseAddressData(false)
+//
+//            val allChilddList = arrayListOf<ProvinceModel>()
+//            allChilddList.add(ProvinceModel("", "000000", null))
+//
+//            val allCitydList = arrayListOf<ProvinceModel>()
+//            allCitydList.add(ProvinceModel("", "000000", allChilddList))
+//
+//            options1Items.add(0, ProvinceModel("全国", "000000", allCitydList))
+//
+//            options1Items.forEach {
+//                val cityList = it.childrens
+//
+//                if (it.name != "全国") {
+//                    val childdList = arrayListOf<ProvinceModel>()
+//                    childdList.add(ProvinceModel("", it.id, null))
+//                    cityList?.add(0, ProvinceModel("全部", it.id, childdList))
+//                }
+//
+//                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
+//                cityList?.forEach {
+//                    if (it.name != "全部" && it.name != "" && !it.name.contains("北京") && !it.name.contains("天津") && !it.name.contains("上海") && !it.name.contains("重庆")) {
+//                        val childdList = arrayListOf<ProvinceModel>()
+//                        childdList.add(ProvinceModel("", it.id, null))
+//                        it.childrens?.add(0, ProvinceModel("全部", it.id, childdList))
+//                    }
+//                    it.childrens?.let {
+//                        provinceAreaList.add(it)
+//                    }
+//                }
+//
+//                cityList?.let {
+//                    options2Items.add(it)
+//                }
+//
+//
+//                options3Items.add(provinceAreaList)
+//            }
+//            parseAddressData()
             it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
@@ -333,14 +335,42 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
     //解析地区数据
-    private fun parseAddressData(isDouble: Boolean): ArrayList<ProvinceModel> {
-        val fileName = if (isDouble) "cityred.json" else "city.json"
-        val jsonData = GetJsonDataUtil().getJson(activity, fileName)//获取assets目录下的json文件数据
-        val provinceModels = Gson().fromJson<ArrayList<ProvinceModel>>(jsonData, object : TypeToken<java.util.ArrayList<ProvinceModel>>() {
-        }.type)
+    private fun parseAddressData(options1Items: ArrayList<ProvinceModel>, options2Items: ArrayList<ArrayList<ProvinceModel>>,
+                                 options3Items: ArrayList<ArrayList<ArrayList<ProvinceModel>>>) {
 
-        Collections.sort(provinceModels) { o1, o2 -> if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) 1 else -1 }
-        return provinceModels
+        val provinceJson = GetJsonDataUtil.getJson("province.json")
+        val cityJson = GetJsonDataUtil.getJson("city.json")
+        val districtJson = GetJsonDataUtil.getJson("district.json")
+
+        val provinces = Gson().fromJson<ArrayList<Province>>(provinceJson, object : TypeToken<java.util.ArrayList<Province>>() {}.type)
+
+        val citys = Gson().fromJson<ArrayList<City>>(cityJson, object : TypeToken<java.util.ArrayList<City>>() {}.type)
+
+        val districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
+
+        provinces.forEach {
+            val provinceId = it.provinceID
+
+            options1Items.add(ProvinceModel(it.provinceName, it.divisionCode))
+
+            val cityList = ArrayList<ProvinceModel>()
+            val districtList = ArrayList<ArrayList<ProvinceModel>>()
+
+            citys.filter { it.provinceID == provinceId }.forEach {
+                val cityID = it.cityID
+                cityList.add(ProvinceModel(it.cityName, it.divisionCode))
+
+                val district = ArrayList<ProvinceModel>()
+
+                districts.filter { it.cityID == cityID }.forEach {
+                    district.add(ProvinceModel(it.districtName, it.divisionCode))
+                }
+                districtList.add(district)
+            }
+
+            options2Items.add(cityList)
+            options3Items.add(districtList)
+        }
     }
 
     //银行卡选择器

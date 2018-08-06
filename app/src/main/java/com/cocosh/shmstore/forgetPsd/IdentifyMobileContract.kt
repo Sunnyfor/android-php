@@ -1,8 +1,9 @@
 package com.cocosh.shmstore.forgetPsd
 
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.sms.model.SMS
 
 /**
  *
@@ -11,9 +12,9 @@ import com.cocosh.shmstore.base.IBaseView
 interface IdentifyMobileContract {
     interface IView : IBaseView {
         //验证码发送结果回调
-        fun onCodeResult(result: BaseModel<String>)
+        fun onCodeResult(result: BaseBean<SMS>)
 
-        fun onCheckedCodeResult(result: BaseModel<String>)
+        fun onForgetPassResult(result: BaseBean<String>)
     }
 
     interface IPresenter : IBasePresenter {
@@ -21,6 +22,6 @@ interface IdentifyMobileContract {
         fun sendCode(phone: String)
 
         //验证验证码
-        fun checkCode(phone: String, code: String)
+        fun forgetPass(phone: String, password: String,smsCode:String)
     }
 }

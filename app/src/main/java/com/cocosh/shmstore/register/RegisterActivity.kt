@@ -3,10 +3,7 @@ package com.cocosh.shmstore.register
 import android.content.Intent
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
-import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.TextWatcher
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -14,17 +11,18 @@ import android.view.View
 import android.widget.CompoundButton
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.register.presenter.RegisterPresenter
-import com.cocosh.shmstore.term.ServiceTermActivity
-import com.cocosh.shmstore.utils.IntentCode
-import com.cocosh.shmstore.utils.ToastUtil
-import kotlinx.android.synthetic.main.activity_register.*
-import android.text.TextPaint
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.model.ValueByKey
+import com.cocosh.shmstore.register.presenter.RegisterPresenter
+import com.cocosh.shmstore.sms.model.SMS
+import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.web.WebViewActivity
+import kotlinx.android.synthetic.main.activity_register.*
 
 
 /**
@@ -39,6 +37,9 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
     private var phoneOk = false
     private var codeOk = false
     private var isArgeen = false
+    private var passwordOk = false
+    private var surePasswordOk = false
+
     private val presenter = RegisterPresenter(this, this)
     private var phone = ""
 
@@ -52,7 +53,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
 
         edtPhone.postDelayed({
             showKeyboard(edtPhone)
-        },500)
+        }, 500)
 
 
         val style = SpannableStringBuilder(tvDesc.text)
@@ -122,6 +123,40 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         })
 
         /**
+         * 密码文本逻辑
+         */
+        edtPassWord.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                passwordOk = s?.length ?: 0 >= 6
+                isOk()
+            }
+
+        })
+
+        /**
+         * 确认密码文本逻辑
+         */
+        editSurePassWord.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                surePasswordOk = s?.length ?: 0 >= 6
+                isOk()
+            }
+
+        })
+
+        /**
          * 验证码按钮事件
          */
         btnCode.setCallListener(View.OnClickListener {
@@ -133,7 +168,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         /**
          * 协议按钮
          */
-        cbDesc.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+        tvChecked.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             isArgeen = isChecked
             isOk()
         })
@@ -147,8 +182,16 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         when (view.id) {
         //下一步校验验证码
             btnNext.id -> {
-                if (phoneOk && codeOk && isArgeen) {
-                    presenter.checkCode(edtPhone.text.toString(), edtCode.text.toString())
+
+                if (!isArgeen) {
+                    ToastUtil.show("须同意注册协议后再进行注册")
+                    return
+                }
+                if (edtPassWord.text.toString() == editSurePassWord.text.toString()) {
+                    //调用注册请求
+                    presenter.register(edtPhone.text.toString(), edtPassWord.text.toString(), edtCode.text.toString())
+                } else {
+                    ToastUtil.show(getString(R.string.input_pwd_error))
                 }
             }
         }
@@ -158,31 +201,22 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
      * 校验提交条件
      */
     fun isOk() {
-        if (phoneOk && codeOk && isArgeen) {
+        if (phoneOk && codeOk && passwordOk && surePasswordOk) {
+            btnNext.isClickable = true
             btnNext.setBackgroundResource(R.color.red)
         } else {
+            btnNext.isClickable = false
             btnNext.setBackgroundResource(R.color.grayBtn)
         }
     }
 
 
-    override fun onCodeResult(result: BaseModel<String>) {
-        if (result.success) {
-            btnCode.action() //验证码发送成功执行计时
-        }else{
-            ToastUtil.show(result.message)
-        }
+    override fun onCodeResult(data: BaseBean<SMS>) {
+        btnCode.action() //验证码发送成功执行计时
     }
 
-    override fun onCheckedCodeResult(result: BaseModel<String>) {
-        if (result.success) {
-            val it = Intent(this, RegisterPassActivity::class.java)
-            it.putExtra("phone", edtPhone.text.toString())
-            it.putExtra("token", result.entity)
-            startActivityForResult(it, IntentCode.IS_REGIST)
-        }else{
-            ToastUtil.show(result.message)
-        }
+    override fun onRegister(result: BaseBean<Login2>) {
+        finish()
     }
 
 
@@ -196,23 +230,24 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         //修改协议按钮状态
         if (requestCode == IntentCode.IS_TERM && resultCode == IntentCode.IS_TERM) {
             isArgeen = true
-            cbDesc.setChecked(true)
+            tvChecked.setChecked(true)
             isOk()
         }
     }
 
 
-    fun intentAgreement(){
-        val params = hashMapOf<String,String>()
+    fun intentAgreement() {
+        val params = hashMapOf<String, String>()
         params["dictionaryKey"] = "yonghuzhucexieyi"
-        ApiManager.get(this,params,Constant.GET_SHARE_URL,object :ApiManager.OnResult<BaseModel<ValueByKey>>(){
+        ApiManager.get(this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
             override fun onSuccess(data: BaseModel<ValueByKey>) {
-                if (data.success){
-                    val intent = Intent(this@RegisterActivity,WebViewActivity::class.java)
-                    intent.putExtra("title","注册协议")
-                    intent.putExtra("url",data.entity?.dictionaryValue)
-                    startActivity(intent)
-                }else {
+                if (data.success) {
+                    val intent = Intent(this@RegisterActivity, WebViewActivity::class.java)
+                    intent.putExtra("title", "注册协议")
+                    intent.putExtra("url", data.entity?.dictionaryValue)
+                    intent.putExtra("showButton", true)
+                    startActivityForResult(intent, IntentCode.IS_TERM)
+                } else {
                     ToastUtil.show(data.message)
                 }
             }

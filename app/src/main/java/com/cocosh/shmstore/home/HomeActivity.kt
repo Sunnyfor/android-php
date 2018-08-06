@@ -11,10 +11,7 @@ import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.MsgUnReadCount
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.utils.PermissionCode
-import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.zxing.QrCodeActivity
@@ -82,7 +79,7 @@ class HomeActivity : BaseActivity() {
                 selectTab(position)
             }
             R.id.rlInCome -> {
-                if (!UserManager.isLogin()) {
+                if (!UserManager2.isLogin()) {
                     SmediaDialog(this).showLogin()
                     return
                 }
@@ -91,7 +88,7 @@ class HomeActivity : BaseActivity() {
             }
 
             R.id.rlShoumei -> {
-                if (!UserManager.isLogin()) {
+                if (!UserManager2.isLogin()) {
                     SmediaDialog(this).showLogin()
                     return
                 }
@@ -100,7 +97,7 @@ class HomeActivity : BaseActivity() {
             }
 
             R.id.rlMessage -> {
-                if (!UserManager.isLogin()) {
+                if (!UserManager2.isLogin()) {
                     SmediaDialog(this).showLogin()
                     return
                 }

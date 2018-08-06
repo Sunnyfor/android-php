@@ -45,30 +45,30 @@ class ShouMeiBrandAdapter(list: ArrayList<SMCompanyThemeData.SubCompanyTheme>) :
         if (list[position].imageUrl != null && list[position].imageUrl?.size != 0) {
             if (list[position].imageUrl?.size == 1) {
                 holder.itemView.imageOne.visibility = View.VISIBLE
-                holder.itemView.imageTwo.visibility = View.INVISIBLE
-                holder.itemView.imageThree.visibility = View.INVISIBLE
-                GlideUtils.loadDefault(context, list[position].imageUrl!![0], holder.itemView.imageOne)
+                holder.itemView.imageTwo.visibility = View.GONE
+                holder.itemView.imageThree.visibility = View.GONE
+                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
             }
             if (list[position].imageUrl?.size == 2) {
                 holder.itemView.imageOne.visibility = View.VISIBLE
                 holder.itemView.imageTwo.visibility = View.VISIBLE
-                holder.itemView.imageThree.visibility = View.INVISIBLE
-                GlideUtils.loadDefault(context, list[position].imageUrl!![0], holder.itemView.imageOne)
-                GlideUtils.loadDefault(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
+                holder.itemView.imageThree.visibility = View.GONE
+                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
+                GlideUtils.load(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
             }
             if (list[position].imageUrl?.size == 3) {
                 holder.itemView.imageOne.visibility = View.VISIBLE
                 holder.itemView.imageTwo.visibility = View.VISIBLE
                 holder.itemView.imageThree.visibility = View.VISIBLE
-                GlideUtils.loadDefault(context, list[position].imageUrl!![0], holder.itemView.imageOne)
-                GlideUtils.loadDefault(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
-                GlideUtils.loadDefault(context, list[position].imageUrl!![2], holder.itemView.imageThree)
+                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
+                GlideUtils.load(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
+                GlideUtils.load(context, list[position].imageUrl!![2], holder.itemView.imageThree)
             }
 
         } else {
-            holder.itemView.imageOne.visibility = View.INVISIBLE
-            holder.itemView.imageTwo.visibility = View.INVISIBLE
-            holder.itemView.imageThree.visibility = View.INVISIBLE
+            holder.itemView.imageOne.visibility = View.GONE
+            holder.itemView.imageTwo.visibility = View.GONE
+            holder.itemView.imageThree.visibility = View.GONE
         }
 //        holder.itemView.detailLL.setOnClickListener {
         //新闻详情

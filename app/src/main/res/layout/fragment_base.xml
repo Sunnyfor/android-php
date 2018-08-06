@@ -16,7 +16,7 @@
         android:id="@+id/iframeBody"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/iframeTitle"></FrameLayout>
+        android:layout_below="@+id/iframeTitle"/>
 
     <include
         android:id="@+id/frameFragmentError"

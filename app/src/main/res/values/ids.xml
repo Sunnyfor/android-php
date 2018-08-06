@@ -32,6 +32,7 @@
     <item name="tvNo" type="id" />
     <item name="tvMoney" type="id" />
     <item name="vTitleLine" type="id" />
+    <item name="tvChecked" type="id"/>
 
     <item name="edtTitle" type="id" />
     <item name="edtName" type="id" />
@@ -39,7 +40,8 @@
     <item name="edtPhone" type="id" />
     <item name="edtPassword" type="id" />
     <item name="edtCode" type="id" />
-
+    <item name="edtPassWord" type="id"/>
+    <item name="editSurePassWord" type="id"/>
 
     <item name="btnLogin" type="id" />
     <item name="btnNext" type="id" />

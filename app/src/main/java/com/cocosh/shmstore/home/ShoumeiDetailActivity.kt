@@ -185,7 +185,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
             override fun subCommentClick(position: Int) {
                 //跳转评论详情
                 ShouMeiCommentActivity.start(this@ShoumeiDetailActivity, mList[position].idCompanyHomeThemeComment
-                        ?: "", mList[position].logo
+                        ?: "", mList[position].headImg
                         ?: "", mList[position].nickName
                         ?: "", mList[position].commentCreateTime
                         ?: "", mList[position].commentDesc
@@ -512,5 +512,24 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     override fun onDestroy() {
         super.onDestroy()
         ObserverManager.getInstance().remove(this)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        followType = intent?.getStringExtra("FOLLOWTYPE")
+        val blackType = intent?.getStringExtra("BLACKTYPE")
+        id = intent?.getStringExtra("baseId")
+        commentId = intent?.getStringExtra("commentId")
+        val themeUrl = intent?.getStringExtra("THEMEURL")
+        //禁言
+        if (blackType == "1") {
+            etcontent.isFocusable = false
+            tvError.visibility = View.VISIBLE
+        } else {
+            etcontent.isFocusable = true
+            tvError.visibility = View.GONE
+        }
+        initWebView(headView.webView, themeUrl?:"")
+        getCommentList(true, currentPage.toString(), "", id ?: "", "1")
     }
 }

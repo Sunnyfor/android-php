@@ -50,7 +50,7 @@ class CertificationInComeActivity : BaseActivity() {
                 CommListActivity.start(this, CommonType.CERTIFICATION_2.type)
             }
             sInvite.id -> {
-                InviteCodeActivity.start(this, "H")
+                InviteCodeActivity.start(this, "2")
             }
         }
     }

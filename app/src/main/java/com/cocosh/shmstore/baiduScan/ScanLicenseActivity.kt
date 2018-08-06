@@ -70,6 +70,7 @@ class ScanLicenseActivity : BaseActivity() {
     }
 
     private fun openInfoPage() {
+        hideLoading()
         val intent = Intent(this, CompanyInformationActivity::class.java)
         intent.putExtra("licensePath", licensePath)
         intent.putExtra("PAGE_TYPE", pageType)
@@ -79,6 +80,7 @@ class ScanLicenseActivity : BaseActivity() {
     //初始化Token并识别身份证信息
     private fun initAccessToken() {
         if (!NetworkUtils.isNetworkAvaliable(this)) {
+            hideLoading()
             ToastUtil.show(getString(R.string.networkError))
             return
         }
@@ -89,13 +91,18 @@ class ScanLicenseActivity : BaseActivity() {
             OCR.getInstance().initAccessToken(object : OnResultListener<AccessToken> {
                 override fun onResult(accessToken: AccessToken) {
                     hasGotToken = true
-                    openInfoPage()
+                    runOnUiThread {
+                        openInfoPage()
+                    }
                 }
 
                 override fun onError(error: OCRError) {
                     error.printStackTrace()
                     hasGotToken = false
-                    ToastUtil.show("获取token失败,请重试")
+                    runOnUiThread {
+                        hideLoading()
+                        ToastUtil.show("获取token失败,请重试")
+                    }
                 }
             }, applicationContext)
         }

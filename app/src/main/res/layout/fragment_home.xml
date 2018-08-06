@@ -60,12 +60,12 @@
                 android:layout_height="@dimen/h70"
                 android:layout_marginLeft="@dimen/w30"
                 android:layout_marginRight="@dimen/w30"
-                android:src="@drawable/icon_media"/>
+                android:src="@drawable/icon_bonus_two"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="媒体扶贫"
+                android:text="精准红包"
                 android:textColor="@color/blackText"
                 android:textSize="@dimen/w43" />
         </LinearLayout>
@@ -89,12 +89,12 @@
                 android:layout_height="@dimen/h70"
                 android:layout_marginLeft="@dimen/w30"
                 android:layout_marginRight="@dimen/w30"
-                android:src="@drawable/icon_consume"/>
+                android:src="@drawable/icon_bonus_three"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消费扶贫"
+                android:text="粉丝红包"
                 android:textColor="@color/blackText"
                 android:textSize="@dimen/w43" />
         </LinearLayout>

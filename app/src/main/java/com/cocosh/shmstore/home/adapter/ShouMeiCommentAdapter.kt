@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_shoumei_comment_top.view.*
 class ShouMeiCommentAdapter(var mContext: Context, var id: String, list: ArrayList<CommentData.SubComment>) : BaseRecycleAdapter<CommentData.SubComment>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvTime.text = list[position].commentCreateTime
-        if (list[position]?.replyId == id) {
+        if (list[position].replayNickName.isNullOrEmpty()) {
             holder.itemView.tvDesc.text = Html.fromHtml("<font color='#2587ec'>${list[position].nickName}:</font>" + list[position].commentDesc)
         } else {
             holder.itemView.tvDesc.text = Html.fromHtml("<font color='#2587ec'>${list[position].nickName}</font> 回复 " + list[position].replayNickName + ":" + list[position].commentDesc)

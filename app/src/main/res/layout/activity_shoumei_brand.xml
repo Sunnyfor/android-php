@@ -59,7 +59,7 @@
                                 android:layout_gravity="bottom"
                                 android:ellipsize="end"
                                 android:maxEms="10"
-                                android:singleLine="true"
+                                android:maxLines="2"
                                 android:text="首媒科技"
                                 android:textColor="@color/blackText"
                                 android:textSize="@dimen/w46" />

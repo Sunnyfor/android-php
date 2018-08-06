@@ -59,7 +59,7 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
         tv_invite_code.text = info?.inviteCode
         GlideUtils.loadHead(this, info?.headPic, name_icon)
         GlideUtils.load(this, info?.inviteImage, qr_code)
-        if (info?.userIdentity == "新媒人") {
+        if (info?.userIdentity == "2") {
             name.text = info.realName
             name_nature.text = "新媒人"
         } else {
@@ -87,9 +87,9 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
             //type H:新媒人 Y:服务商
             if (info?.partnerStatus == AuthenStatus.PRE_PASS.type || info?.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
                 type = if (info.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-                    "Y"
+                    "3"
                 } else {
-                    "H"
+                    "2"
                 }
             }
         }
@@ -102,7 +102,11 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
         when (view.id) {
         //分享
             invite_code_btn.id -> {
-
+                if (infoData != null){
+                    val dialog = ShareDialog(this)
+                    dialog.showShareBase("首媒约你一起互联网+","抢不完的现金红包等着你", infoData?.codeInfo?:"")
+                    dialog.show()
+                }
             }
 
             tv_conserve_img.id -> {

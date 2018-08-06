@@ -45,16 +45,18 @@ class ShouMeiCommentActivity : BaseActivity() {
     lateinit var headView: LinearLayout
     private lateinit var adapter: ShouMeiCommentAdapter
     var isSend = false
+    var themeId: String? = ""
+    var followType: String? = ""
     override fun setLayout(): Int = R.layout.activity_shoumei_comment
 
     override fun initView() {
         id = intent.getStringExtra("themeId")
-        var themeId: String? = intent.getStringExtra("id")
+        themeId = intent.getStringExtra("id")
         var headUrl: String? = intent.getStringExtra("headUrl")
         var name: String? = intent.getStringExtra("name")
         var time: String? = intent.getStringExtra("time")
         var desc: String? = intent.getStringExtra("desc")
-        var followType: String? = intent.getStringExtra("followType")
+        followType = intent.getStringExtra("followType")
         var blackType: String? = intent.getStringExtra("blackType")
 
         titleManager.rightText("评论", "举报", View.OnClickListener {
@@ -74,7 +76,7 @@ class ShouMeiCommentActivity : BaseActivity() {
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_comment_top, all, false) as LinearLayout
         recyclerView.recyclerView.addHeaderView(headView)
 
-        GlideUtils.loadRound(2,this, headUrl, headView.ivLogo)
+        GlideUtils.loadRound(2, this, headUrl, headView.ivLogo)
         headView.tvTopName.text = name
         headView.tvTopTime.text = time
         headView.tvTopDesc.text = desc
@@ -254,8 +256,9 @@ class ShouMeiCommentActivity : BaseActivity() {
                     }
 
                     //更改评论回复数
-                    totalComment = totalComment!! + 1
-                    ObserverManager.getInstance().notifyObserver(2, id ?: "", totalComment as Any,mList as Any)
+                    totalComment -= 1
+                    ObserverManager.getInstance().notifyObserver(2, id
+                            ?: "", totalComment as Any, mList as Any)
                 } else {
                     ToastUtil.show(data.message)
                 }
@@ -285,8 +288,9 @@ class ShouMeiCommentActivity : BaseActivity() {
                     mList.add(data.entity!!)
                     adapter.notifyDataSetChanged()
                     //更改评论回复数
-                    totalComment = totalComment!! + 1
-                    ObserverManager.getInstance().notifyObserver(2, id ?: "", totalComment as Any,mList as Any)
+                    totalComment += 1
+                    ObserverManager.getInstance().notifyObserver(2, id
+                            ?: "", totalComment as Any, mList as Any)
                 } else {
                     ToastUtil.show(data.message)
                 }
@@ -316,6 +320,8 @@ class ShouMeiCommentActivity : BaseActivity() {
                 if (data.success) {
                     if (boolean) {
                         totalComment = data.entity?.totalResult?.toInt() ?: 0
+                        ObserverManager.getInstance().notifyObserver(2, id
+                                ?: "", totalComment as Any, mList as Any)
                         mList.clear()
                         recyclerView.update(data.entity?.data)
                     } else {
@@ -354,5 +360,33 @@ class ShouMeiCommentActivity : BaseActivity() {
             editText.requestFocus()
             showKeyboard(editText)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        id = intent?.getStringExtra("themeId")
+        themeId = intent?.getStringExtra("id")
+        var headUrl: String? = intent?.getStringExtra("headUrl")
+        var name: String? = intent?.getStringExtra("name")
+        var time: String? = intent?.getStringExtra("time")
+        var desc: String? = intent?.getStringExtra("desc")
+        followType = intent?.getStringExtra("followType")
+        var blackType: String? = intent?.getStringExtra("blackType")
+
+        GlideUtils.loadRound(2, this, headUrl, headView.ivLogo)
+        headView.tvTopName.text = name
+        headView.tvTopTime.text = time
+        headView.tvTopDesc.text = desc
+
+        //禁言
+        if (blackType == "1") {
+            etcontent.isFocusable = false
+            tvError.visibility = View.VISIBLE
+        } else {
+            etcontent.isFocusable = true
+            tvError.visibility = View.GONE
+        }
+
+        getCommentDetail(true, currentPage, lastTimeStamp ?: "", id ?: "")
     }
 }

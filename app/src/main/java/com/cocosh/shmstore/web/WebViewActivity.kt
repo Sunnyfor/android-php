@@ -49,6 +49,17 @@ class WebViewActivity : BaseActivity() {
 
         webView.loadUrl(url)
 //        webView.loadUrl("http://10.10.100.104:10002/prize/detail.html")
+
+        intent.getBooleanExtra("showButton",false).let {
+            if (it){
+                btnNext.visibility = View.VISIBLE
+            }
+        }
+
+        btnNext.setOnClickListener {
+            setResult(IntentCode.IS_TERM)
+            finish()
+        }
     }
 
     override fun onListener(view: View) {

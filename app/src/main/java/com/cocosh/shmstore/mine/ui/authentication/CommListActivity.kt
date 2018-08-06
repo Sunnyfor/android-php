@@ -122,13 +122,12 @@ class CommListActivity : BaseActivity() {
                         list.addAll(data.entity?.infoList ?: arrayListOf())
                     } else {
                         data.entity?.infoList.let {
-                            it?.forEach {
-                                it.entList?.forEach {
+                            it?.forEachIndexed { index, subCommonModel ->
+                                it[index].entList?.forEach {
                                     it.itemType = "1"
                                 }
-                                it.entList?.add(0, CommonModel.SubCommonModel(false, 2.toString(), "该新媒人拓展企业主"
-                                        , "", "", "", "", null))
-                                it.itemType = "0"
+                                it[index].entList?.add(0, CommonModel.SubCommonModel(false, 2.toString(), "该新媒人拓展企业主", index.toString(), index.toString(), index.toString(), index.toString(), null))
+                                it[index].itemType = "0"
                             }
                         }
                         list.addAll(data.entity?.infoList ?: arrayListOf())
