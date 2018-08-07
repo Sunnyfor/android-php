@@ -138,24 +138,6 @@ class PickerViewUtils(val activity: BaseActivity) {
 
         disposable = Observable.create<String> {
             parseAddressData(options1Items, options2Items, options3Items)
-//            options1Items = parseAddressData()
-//            options1Items.forEach {
-//                val cityList = it.childrens
-//                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
-//                it.childrens?.forEach {
-//                    it.childrens?.let {
-//                        provinceAreaList.add(it)
-//                    }
-//                }
-//                cityList?.let {
-//                    options2Items.add(it)
-//                }
-//
-//                if (!isDouble) {
-//                    options3Items.add(provinceAreaList)
-//                }
-//            }
-
             it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
@@ -164,29 +146,29 @@ class PickerViewUtils(val activity: BaseActivity) {
                     addressOptionsPickerView = OptionsPickerBuilder(activity, OnOptionsSelectListener { options1, option2, options3, _ ->
                         //返回的分别是三个级别的选中位置
                         val addressText = StringBuilder(options1Items[options1].name)
-                        val city = options2Items[options1][option2].name
+                        val codeText = StringBuilder(options1Items[options1].id)
 
-                        if (city.isNotEmpty()) {
-                            if (isDouble) {
-                                if (city != addressText.toString()) {
-                                    addressText.append("-")
-                                    addressText.append(city)
-                                }
-                            } else {
-                                addressText.append("-")
-                                addressText.append(city)
-                            }
+                        val city = options2Items[options1][option2].name
+                        val cityId = options2Items[options1][option2].id
+
+                        if (city != "") {
+                            addressText.append("-")
+                            addressText.append(city)
                         }
-                        if (isDouble) {
-                            addressresultlistener.onPickerViewResult(addressText.toString(), options2Items[options1][option2].id)
-                        } else {
-                            val area = options3Items[options1][option2][options3].name
-                            if (area.isNotEmpty()) {
-                                addressText.append("-")
-                                addressText.append(area)
-                            }
-                            addressresultlistener.onPickerViewResult(addressText.toString(), options3Items[options1][option2][options3].id)
+
+                        codeText.append("-")
+                        codeText.append(cityId)
+
+                        val areaText = options3Items[options1][option2][options3].name
+                        val areaId = options3Items[options1][option2][options3].id
+                        if (areaText != "") {
+                            addressText.append("-")
+                            addressText.append(areaText)
                         }
+                        codeText.append("-")
+                        codeText.append(areaId)
+
+                        addressresultlistener.onPickerViewResult(addressText.toString(), codeText.toString())
 
                     }).setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色

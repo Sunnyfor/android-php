@@ -17,5 +17,6 @@ data class MemberEntrance2(
         var district:String,
         var company: String,//公司名称
         var industry: String,//所属行业编号
+        var industry_name:String,//所属行业名字
         var hobby: String //兴趣爱好id列表(多笔用英文逗号分隔)
 )

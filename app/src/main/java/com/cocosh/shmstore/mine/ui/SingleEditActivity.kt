@@ -115,6 +115,13 @@ class SingleEditActivity : BaseActivity() {
                 val intent = Intent()
                 intent.putExtra("title", title)
                 intent.putExtra("value", value)
+
+                val memberEntrance2 = UserManager2.getMemberEntrance()
+                when (type) {
+                    "昵称" -> memberEntrance2?.nickname = value
+                    "公司名称" -> memberEntrance2?.company = value
+                }
+                UserManager2.setMemberEntrance(memberEntrance2)
                 setResult(IntentCode.IS_INPUT, intent)
                 finish()
             }

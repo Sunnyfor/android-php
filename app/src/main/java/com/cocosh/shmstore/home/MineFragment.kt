@@ -136,6 +136,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         UserManager2.loadMemberEntrance(getBaseActivity(), object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
             override fun onSuccess(data: BaseBean<MemberEntrance2>) {
                 data.message?.let {
+                    UserManager2.setMemberEntrance(it)
                     updateInfo(it)
                 }
             }

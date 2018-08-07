@@ -1,7 +1,6 @@
 package com.cocosh.shmstore.mine.ui
 
 import android.content.Intent
-import android.text.TextUtils
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -12,22 +11,18 @@ import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.*
+import com.cocosh.shmstore.mine.model.AuthenEnter
+import com.cocosh.shmstore.mine.model.AuthenStatus
+import com.cocosh.shmstore.mine.model.IndustryModel
 import com.cocosh.shmstore.person.PersonRsultActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.cocosh.shmstore.widget.dialog.OnDialogResult
 import com.cocosh.shmstore.widget.dialog.SelectDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
-import com.qiniu.android.http.ResponseInfo
 import com.qiniu.android.storage.UploadManager
-import com.umeng.socialize.media.Base
 import kotlinx.android.synthetic.main.activity_archive.*
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
@@ -69,9 +64,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
         isvCompany.setOnClickListener(this)
         isvWork.setOnClickListener(this)
         isvInteresting.setOnClickListener(this)
-        token = SmApplication.getApp().getData(DataCode.QINIU_TOKEN, false) //获取缓存的Token
-
-//        loadData()
+        loadData()
     }
 
     override fun onListener(view: View) {
@@ -123,6 +116,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             isvAddress.id -> {
                 pickerViewUtils.showAddress(object : PickerViewUtils.OnAddressResultListener {
                     override fun onPickerViewResult(address: String, code: String) {
+                        isvAddress.tag = address
                         update("地区", code)
                     }
                 })
@@ -191,58 +185,20 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
 
 
     private fun loadData() {
-        ApiManager.get(1, this, hashMapOf(), Constant.GET_MYFILEINFO, object : ApiManager.OnResult<BaseModel<ArchiveModel>>() {
-            override fun onSuccess(data: BaseModel<ArchiveModel>) {
-                data.entity?.let {
-                    val memberEntrance = UserManager.getMemberEntrance()
-                    it.headPic?.let {
-                        GlideUtils.loadHead(baseContext, it, ivHead)
-                        memberEntrance?.headPic = it
-                    }
 
-                    it.nickName?.let {
-                        isvNickname.setValue(it)
-                        memberEntrance?.userNick = it
-                    }
-
-                    it.realName?.let {
-                        isvName.setValue(it)
-                        memberEntrance?.realName
-                    }
-
-                    it.birthday?.let {
-                        isvBirthday.setValue(it)
-                    }
-
-                    it.sex?.let {
-                        isvSex.setValue(it)
-                    }
-
-                    it.regionName?.let {
-                        isvAddress.setValue(it)
-                    }
-                    it.companyName?.let {
-                        isvCompany.setValue(it)
-                    }
-                    it.industryName?.let {
-                        isvWork.setValue(it)
-                    }
-
-                    progressBar_big.progress = (it.degreeOfPerfection * 100).toInt()
-                    progressBar_big.invalidate()
-                    UserManager.setArchivalCompletion(it.degreeOfPerfection.toString())//更新缓存中的进度
-                    memberEntrance?.degreeOfPerfection = it.degreeOfPerfection.toString()
-                    UserManager.setMemberEntrance(memberEntrance)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<ArchiveModel>) {
-            }
-
-        })
+        val memberEntrance2 = UserManager2.getMemberEntrance()
+        memberEntrance2?.let {
+            GlideUtils.loadHead(baseContext, it.avatar, ivHead) //头像
+            isvNickname.setValue(it.nickname) //昵称
+            isvName.setValue(it.realname)
+            isvBirthday.setValue(it.birth)
+            isvSex.setValue(it.gender)
+            isvAddress.setValue(it.district)
+            isvCompany.setValue(it.company)
+            isvWork.setValue(it.industry_name)
+            progressBar_big.progress = (it.degree.toInt())
+            progressBar_big.invalidate()
+        }
     }
 
 
@@ -287,98 +243,81 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     }
 
 
+    //更新用户资料
     private fun update(type: String, value: String) {
         val params = hashMapOf<String, String>()
         when (type) {
-            "头像" -> params["headPic"] = value
-            "昵称" -> params["nickName"] = value
-            "生日" -> params["birthday"] = value
-            "性别" -> params["sex"] = value
-            "公司名称" -> params["companyName"] = value
-            "所属行业" -> params["industryId"] = value
-            "地区" -> params["areaCode"] = value
+            "头像" -> params["avatar"] = value
+            "生日" -> params["birth"] = value
+            "性别" -> params["gender"] = if (value == "女") "0" else "1"
+            "所属行业" -> params["industry"] = value
+            "地区" -> {
+                val addressCode = value.split("-")
+                params["province"] = addressCode[0]
+                params["city"] = addressCode[1]
+                params["town"] = addressCode[2]
+            }
         }
 
-        ApiManager.post(this, params, Constant.UPDATE_MYFILESINFO, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-                    loadData()
-                } else {
-                    ToastUtil.show(data.message)
+        UserManager2.updateMemberEntrance(this, params, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                when (type) {
+                    "头像" -> {
+                        UserManager2.getMemberEntrance()?.let {
+                            it.avatar = value
+                            UserManager2.setMemberEntrance(it)
+                        }
+                    }
+                    "生日" -> {
+                        UserManager2.getMemberEntrance()?.let {
+                            it.birth = value
+                            UserManager2.setMemberEntrance(it)
+                        }
+                    }
+                    "性别" -> {
+                        UserManager2.getMemberEntrance()?.let {
+                            it.gender = value
+                            UserManager2.setMemberEntrance(it)
+                        }
+                    }
+                    "所属行业" -> {
+                        UserManager2.getMemberEntrance()?.let {
+                            it.industry_name = value
+                            UserManager2.setMemberEntrance(it)
+                        }
+                    }
+                    "地区" -> {
+                        UserManager2.getMemberEntrance()?.let {
+                            it.district = isvAddress.tag.toString()
+                            UserManager2.setMemberEntrance(it)
+                        }
+                    }
+
                 }
+                loadData()
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onFailed(code: String, message: String) {
+
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
 
             }
 
         })
 
+
     }
 
 
-//    //获取七牛token
-//    private fun tokenRequest() {
-//        showLoading()
-//
-//        if (token != null) {
-//            updatePhoto()
-//            return
-//        }
-//        val map = HashMap<String, String>()
-//        map["dataType"] = "1"
-//        ApiManager.get(0, this, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
-//
-//            override fun onCatch(data: String) {}
-//
-//            override fun onFailed(e: Throwable) {
-//                hideLoading()
-//                LogUtil.d("获取token失败" + e)
-//            }
-//
-//            override fun onSuccess(data: String) {
-//                LogUtil.d("获取七牛Token结果：" + data)
-//                try {
-//                    val jsonObject = JSONObject(data)
-//                    val token = jsonObject.optString("token")
-//                    if (TextUtils.isEmpty(token)) {
-//                        ToastUtil.show("七牛Token为空")
-//                    } else {
-//                        //七牛token存储到内存
-//                        this@ArchiveActivity.token = token
-//                        SmApplication.getApp().setData(DataCode.QINIU_TOKEN, token)
-//                        updatePhoto()
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }
-//        })
-//    }
-
+    //上传头像
     private fun updatePhoto() {
         file?.let {
             ApiManager2.postImage(this, it.path, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
                 override fun onSuccess(data: BaseBean<ArrayList<String>>) {
                     data.message?.let {
-                        val params = hashMapOf<String, String>()
-                        params["avatar"] = it[0]
-                        UserManager2.updateMemberEntrance(this@ArchiveActivity, params, object : ApiManager2.OnResult<BaseBean<String>>() {
-                            override fun onSuccess(data: BaseBean<String>) {
-                                GlideUtils.loadHead(this@ArchiveActivity,it[0],ivHead)
-                            }
-
-                            override fun onFailed(code: String, message: String) {
-                            }
-
-                            override fun onCatch(data: BaseBean<String>) {
-                            }
-
-                        })
+                        update("头像", it[0])
                     }
 
                 }
@@ -392,20 +331,6 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
                 }
 
             })
-
-//            uploadManager.put(it, fileName, token, { _, info, _ ->
-//                info?.let {
-//                    runOnUiThread {
-//                        if (it.isOK) {
-//                            update("头像", Constant.QINIU_KEY_HEAD + fileName)
-//                        } else
-//                            hideLoading()
-//                        if (info.statusCode == ResponseInfo.InvalidToken) {
-//                            SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
-//                        }
-//                    }
-//                }
-//            }, null)
         }
 
     }

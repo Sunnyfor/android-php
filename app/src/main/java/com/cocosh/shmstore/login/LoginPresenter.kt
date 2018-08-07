@@ -29,10 +29,7 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
     override fun login(phone: String, password: String) {
         loginLoader.login(phone, password, object : ApiManager2.OnResult<BaseBean<Login2>>() {
             override fun onSuccess(data: BaseBean<Login2>) {
-                data.message?.let {
-                    UserManager2.setLogin(it)
-
-                }
+                updateProfile(phone, data)
             }
 
             override fun onFailed(code: String, message: String) {
@@ -102,8 +99,8 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
         UMShareAPI.get(SmApplication.getApp()).getPlatformInfo(activity, type, this)
     }
 
-    private fun updateProfile(phone:String,loginData: BaseBean<Login2>){
-        UserManager2.loadMemberEntrance(activity,object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>(){
+    private fun updateProfile(phone: String, loginData: BaseBean<Login2>) {
+        UserManager2.loadMemberEntrance(activity, object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
             override fun onSuccess(data: BaseBean<MemberEntrance2>) {
                 UserManager2.setMemberEntrance(data.message)
                 loginData.message?.let {
