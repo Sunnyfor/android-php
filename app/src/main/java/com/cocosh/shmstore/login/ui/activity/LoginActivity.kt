@@ -179,7 +179,7 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
 
 
     //登录信息回调
-    override fun loginResult(result: BaseBean<Login2>, isOtherLogin: Boolean) {
+    override fun loginResult(isOtherLogin: Boolean) {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
 //        if (result.success) {

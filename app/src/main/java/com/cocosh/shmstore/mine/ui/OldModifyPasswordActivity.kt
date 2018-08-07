@@ -3,21 +3,21 @@ package com.cocosh.shmstore.mine.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.text.Editable
-import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.CompoundButton
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.model.ResetPass
+import com.cocosh.shmstore.utils.DigestUtils
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_old_modify_pass.*
@@ -97,44 +97,58 @@ class OldModifyPasswordActivity : BaseActivity() {
     }
 
     private fun checkedOldPassword() {
-        UserManager.getPhone()?.let {
             val params = hashMapOf<String, String>()
-            params["userName"] = it
-            params["userPwd"] = edtPassword.text.toString()
-            ApiManager.post(this, params, Constant.CHECK_OLD_PASSWORD, object : ApiManager.OnResult<BaseModel<String>>() {
-                override fun onSuccess(data: BaseModel<String>) {
-                    if (data.success) {
-                        val intent = Intent(this@OldModifyPasswordActivity, SettingPasswordActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        if (data.code == 3044) { //密码错误显示忘记密码
-                            tvPassForget.visibility = View.VISIBLE
-                        } else {
-                            tvPassForget.visibility = View.GONE
-                        }
+            params["oldpwd"] = DigestUtils.md5(edtPassword.text.toString())
+            ApiManager2.post(this, params, Constant.OLDCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
+                override fun onSuccess(data: BaseBean<ResetPass>) {
+                    val intent = Intent(this@OldModifyPasswordActivity, SettingPasswordActivity::class.java)
+                    startActivity(intent)
+                }
 
-                        if (data.code == 3043) { //密码错误次数上限 显示联系客服
-                            btnSure.visibility = View.GONE
-                            btnCall.visibility = View.VISIBLE
-                        } else {
-                            btnCall.visibility = View.GONE
-                            btnSure.visibility = View.VISIBLE
-                        }
-
-                        tvDesc1.text = data.message
+                override fun onFailed(code: String, message: String) {
+                    //密码错误显示忘记密码
+                    if (code == "400"){
+                        tvPassForget.visibility = View.VISIBLE
+                    }else{
+                        tvPassForget.visibility = View.GONE
                     }
                 }
 
-                override fun onFailed(e: Throwable) {
+                override fun onCatch(data: BaseBean<ResetPass>) {
 
                 }
 
-                override fun onCatch(data: BaseModel<String>) {
-
-                }
+//                override fun onSuccess(data: BaseModel<String>) {
+//                    if (data.success) {
+//
+//                    } else {
+//                        if (data.code == 3044) { //密码错误显示忘记密码
+//                            tvPassForget.visibility = View.VISIBLE
+//                        } else {
+//                            tvPassForget.visibility = View.GONE
+//                        }
+//
+//                        if (data.code == 3043) { //密码错误次数上限 显示联系客服
+//                            btnSure.visibility = View.GONE
+//                            btnCall.visibility = View.VISIBLE
+//                        } else {
+//                            btnCall.visibility = View.GONE
+//                            btnSure.visibility = View.VISIBLE
+//                        }
+//
+//                        tvDesc1.text = data.message
+//                    }
+//                }
+//
+//                override fun onFailed(e: Throwable) {
+//
+//                }
+//
+//                override fun onCatch(data: BaseModel<String>) {
+//
+//                }
 
             })
-        }
 
     }
 

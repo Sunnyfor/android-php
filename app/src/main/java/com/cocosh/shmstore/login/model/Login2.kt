@@ -5,6 +5,7 @@ package com.cocosh.shmstore.login.model
  * Created by zhangye on 2018/8/2.
  */
 data class Login2(
+        var phone:String,
         var code: String,  //首媒号
         var sid: String, // 会话唯一凭证,用于<注销>操作
         var access_token: String, // 令牌,用于客户端判断用户是否在线

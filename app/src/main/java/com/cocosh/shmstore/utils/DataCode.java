@@ -40,4 +40,6 @@ public class DataCode {
     public static final String MESSAGE_PWD_KEY = "message_pwd_key"; //验证码TOKEN
     public static final String COMMENT_DATA = "COMMENT_DATA"; //验证码TOKEN
     public static final String ISDEBUG = "isDebug"; //是否是debug模式
+
+    public static final String RESETPASS = "resetpass"; //修改登录密码票据
 }

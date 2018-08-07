@@ -15,7 +15,7 @@ interface ILoginContract {
 
     interface IView : IBaseView {
         //返回登录信息
-        fun loginResult(result: BaseBean<Login2>, isOtherLogin:Boolean)
+        fun loginResult(isOtherLogin:Boolean)
 
         //返回历史帐号记录数据
         fun onHistory(history: List<LoginHistory>)

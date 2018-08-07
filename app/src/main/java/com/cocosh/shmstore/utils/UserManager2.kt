@@ -159,9 +159,6 @@ object UserManager2 {
      * 加载我的页面数据
      */
     fun loadMemberEntrance(baseActivity: BaseActivity,onResult: ApiManager2.OnResult<BaseBean<MemberEntrance2>>) {
-        if (!isLogin()) {
-            return
-        }
         ApiManager2.get(0, baseActivity, null, Constant.PROFILE,onResult)
     }
 

@@ -207,14 +207,12 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        UserManager2.getMemberEntrance()?.let {
-            updateInfo(it)
-        }
+        loadDate()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!hidden){
+        if (!hidden) {
             loadDate()
         }
     }

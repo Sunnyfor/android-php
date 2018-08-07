@@ -8,36 +8,34 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.forgetPsd.IdentifyMobileContract
-import com.cocosh.shmstore.forgetPsd.presenter.IdentifyMoboilePresenter
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.model.ResetPass
+import com.cocosh.shmstore.sms.data.SMSLoader
 import com.cocosh.shmstore.sms.model.SMS
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.sms.type.SMSType
+import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_reset_pass_code.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 /**
  *
  * Created by zhangye on 2018/5/11.
  */
-class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
-    override fun onCodeResult(result: BaseBean<SMS>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class ResetPassCodeActivity : BaseActivity() {
 
-    override fun onForgetPassResult(result: BaseBean<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private lateinit var codeStr: StringBuilder
     private val passList = ArrayList<EditText>()
-    private val presenter = IdentifyMoboilePresenter(this, this)
-    private var phone = UserManager.getPhone()
-
+    private var phone = UserManager2.getLogin()?.phone
+    private var smsLoader = SMSLoader(this)
+    private var smsKey = ""
 //    override fun onCodeResult(result: BaseModel<String>) {
 //        if (result.success) {
 //            tbSend.action()
@@ -73,12 +71,12 @@ class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
         passList.add(pwd_6)
 
         passList.forEach {
-                it.setOnTouchListener { view: View, event: MotionEvent ->
-                    if (event.action == MotionEvent.ACTION_DOWN){
-                        showKeyboard(view)
-                    }
-                    return@setOnTouchListener true
+            it.setOnTouchListener { view: View, event: MotionEvent ->
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    showKeyboard(view)
                 }
+                return@setOnTouchListener true
+            }
         }
 
         pwd_1.requestFocus()
@@ -177,7 +175,7 @@ class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
                 }
                 if (codeStr.length == 6) {
                     phone?.let {
-//                        presenter.forgetPass(it, codeStr.toString())
+                        //                        presenter.forgetPass(it, codeStr.toString())
                     }
                 }
             }
@@ -255,13 +253,13 @@ class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
 
 
         phone?.let {
-            presenter.sendCode(it)
+            sendSMS()
         }
 
         tbSend.setCallListener(View.OnClickListener {
             //发送验证码
             phone?.let {
-                presenter.sendCode(it)
+                sendSMS()
             }
         })
 
@@ -275,4 +273,53 @@ class ResetPassCodeActivity : BaseActivity(), IdentifyMobileContract.IView {
 
     }
 
+    private fun sendSMS() {
+        smsLoader.sendCode(phone
+                ?: "", SMSType.RESET_PASS, object : ApiManager2.OnResult<BaseBean<SMS>>() {
+            override fun onSuccess(data: BaseBean<SMS>) {
+                smsKey = data.message?.smskey ?: ""
+                onCodeResult()
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<SMS>) {
+
+            }
+        })
+
+    }
+
+    private fun checkSMSCode(smscode: String) {
+        val params = HashMap<String, String>()
+        params["smscode"] = smscode
+        params["smskey"] = smsKey
+        ApiManager2.post(this, params, Constant.SMSCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
+            override fun onSuccess(data: BaseBean<ResetPass>) {
+                onCheckCodeResult(data)
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<ResetPass>) {
+            }
+
+        })
+    }
+
+
+    fun onCodeResult() {
+        tbSend.action()
+        tbSend.setClick(true)
+    }
+
+    fun onCheckCodeResult(result: BaseBean<ResetPass>) {
+        val it = Intent(this, SettingPasswordActivity::class.java)
+        SmApplication.getApp().setData(DataCode.RESETPASS, result.message)
+        it.putExtra("type", 1)
+        startActivity(it)
+    }
 }

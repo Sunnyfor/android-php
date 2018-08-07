@@ -34,7 +34,13 @@ object Constant {
 
     const val LOGIN = "$VERSION/portal/login"//登录
 
-    const val LOGOUT = "$VERSION/portal/logout"
+    const val LOGOUT = "$VERSION/portal/logout" //注销
+
+    const val SMSCHECK = "$VERSION/pass/smscheck" //修改登录密码-短信校验
+
+    const val OLDCHECK = "$VERSION/pass/oldcheck" //修改登录密码-旧密码校验
+
+    const val PASS_SET = "$VERSION/pass/set" //登录密码-更新
 
     const val FORGOTPWD = "$VERSION/portal/forgotpwd" //忘记密码
 

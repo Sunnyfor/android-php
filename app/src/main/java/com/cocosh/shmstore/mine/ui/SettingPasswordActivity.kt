@@ -6,12 +6,14 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.model.ResetPass
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_setting_password.*
 
@@ -22,8 +24,6 @@ import kotlinx.android.synthetic.main.activity_setting_password.*
  */
 class SettingPasswordActivity : BaseActivity() {
 
-    var type = 0
-
     override fun setLayout(): Int = R.layout.activity_setting_password
 
     override fun initView() {
@@ -31,8 +31,6 @@ class SettingPasswordActivity : BaseActivity() {
         rlPsd.setOnClickListener(this)
         rlPsdTwo.setOnClickListener(this)
         btnSure.setOnClickListener(this)
-
-        type = intent.getIntExtra("type", 0)
     }
 
     override fun onClick(view: View) {
@@ -85,14 +83,7 @@ class SettingPasswordActivity : BaseActivity() {
                 tvDesc1.text = ""
                 tvDesc2.text = ""
 
-                if (type == 0) {
-                    oldMotifyPass() //通过旧密码修改
-                }
-
-                if (type == 1) {
-                    smsMotifyPass() //通过短信修改
-                }
-
+                motifyPasswod()
             }
         }
     }
@@ -108,68 +99,37 @@ class SettingPasswordActivity : BaseActivity() {
         smediaDialog.setTitle("密码修改成功")
         smediaDialog.singleButton()
         smediaDialog.OnClickListener = View.OnClickListener {
+            SmApplication.getApp().removeData(DataCode.RESETPASS)
             startActivity(Intent(this, SettingActivity::class.java))
         }
         smediaDialog.show()
     }
 
-    /**
-     * 短信修改密码弹窗
-     */
-    private fun smsMotifyPass() {
-        UserManager.getPhone()?.let {
-            SmediaDialog(this).showSmsMotifyPassword(
-                    it,
-                    edtPasswordTwo.text.toString(),
-                    intent.getStringExtra("token"),
-                    object : ApiManager.OnResult<BaseModel<String>>() {
-                        override fun onSuccess(data: BaseModel<String>) {
-                            if (data.success) {
-                                showMotifyDialog()
-                            } else {
-                                tvDesc1.text = ""
-                                tvDesc2.text = data.message
-                            }
-                        }
 
-                        override fun onFailed(e: Throwable) {
-                        }
-
-                        override fun onCatch(data: BaseModel<String>) {
-                        }
-
-                    })
+    private fun motifyPasswod() {
+        val params = HashMap<String, String>()
+        SmApplication.getApp().getData<ResetPass>(DataCode.RESETPASS, false)?.apply {
+            params["ticket"] = ticket
+            params["ts"] = ts
+            params["pwd"] = edtPasswordOne.text.toString()
         }
-    }
 
-    private fun oldMotifyPass() {
-        UserManager.getPhone()?.let {
-            val params = HashMap<String, String>()
-            params["userName"] = it
-            params["newUserPwd"] = edtPasswordOne.text.toString()
-            params["newUserPwdTwo"] = edtPasswordTwo.text.toString()
+        ApiManager2.post(this, params, Constant.PASS_SET, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                showMotifyDialog()
+                tvDesc1.text = ""
+                tvDesc2.text = ""
+            }
 
-            ApiManager.post(this, params, Constant.MOTIFY_PASSWORD, object : ApiManager.OnResult<BaseModel<String>>() {
-                override fun onSuccess(data: BaseModel<String>) {
-                    if (data.success) {
-                        showMotifyDialog()
-                    } else {
-                        tvDesc1.text = ""
-                        tvDesc2.text = data.message
-                    }
-                }
+            override fun onFailed(code: String, message: String) {
 
-                override fun onFailed(e: Throwable) {
+            }
 
-                }
+            override fun onCatch(data: BaseBean<String>) {
 
-                override fun onCatch(data: BaseModel<String>) {
+            }
 
-                }
-
-            })
-
-        }
+        })
     }
 
 

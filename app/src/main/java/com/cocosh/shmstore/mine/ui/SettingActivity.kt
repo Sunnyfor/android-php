@@ -46,13 +46,12 @@ class SettingActivity : BaseActivity() {
         isvCache.setNoIconValue(catchSize)
         isvPhoto.setNoIconValue(UserManager.getPhone())
 
-        UserManager.getMemberEntrance()?.let {
-            if (!it.headPic.isNullOrEmpty()) {
-                GlideUtils.loadHead(this, it.headPic, ivHead)
-            }
-            tvName.text = it.userNick
-            tvNo.text = (getString(R.string.no) + it.smCode)
+        UserManager2.getMemberEntrance()?.let {
+                GlideUtils.loadHead(this, it.avatar, ivHead)
+            tvName.text = it.nickname
+
         }
+        tvNo.text = (getString(R.string.no) +   UserManager2.getLogin()?.code)
     }
 
     override fun onListener(view: View) {
