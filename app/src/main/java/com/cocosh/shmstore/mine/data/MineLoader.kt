@@ -1,9 +1,11 @@
 package com.cocosh.shmstore.mine.data
 
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.*
@@ -557,18 +559,15 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取地址列表
      */
     fun requestGetAddress(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.GET_ADDRESS, object : ApiManager.OnResult<BaseModel<ArrayList<AddressListModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<AddressListModel>>) {
+        ApiManager2.get(flag, activity, null, Constant.ADDRESS_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Address>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<Address>>) {
                 (view as MineContrat.IAddressView).getAddress(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: BaseModel<ArrayList<AddressListModel>>) {
-                LogUtil.d(data.toString())
+            override fun onCatch(data: BaseBean<ArrayList<Address>>) {
             }
         })
     }

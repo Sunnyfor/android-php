@@ -8,12 +8,14 @@ import android.view.View
 import android.widget.RadioButton
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.mine.adapter.AddressListAdapter
 import com.cocosh.shmstore.mine.adapter.SpaceHItem
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.Address
 import com.cocosh.shmstore.mine.model.AddressListModel
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.utils.IntentCode
@@ -32,39 +34,40 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     var defaultId = ""
     var mPresenter = AddRessPresenter(this, this)
     var adapter: AddressListAdapter? = null
-    var list = ArrayList<AddressListModel>()
+    var list = ArrayList<Address>()
     var isShow = false //判断是否需要直接弹窗
     override fun setLayout(): Int = R.layout.activity_address_manger
+
     override fun deleteAddress(result: BaseModel<String>) =
             if (result.success && result.code == 200) {
-                val data = list.first {
-                    it.idUserAddressInfo == id
-                }
-                list.remove(data)
+//                val data = list.first {
+//                    it.idUserAddressInfo == id
+//                }
+//                list.remove(data)
                 recyclerView.adapter.notifyDataSetChanged()
             } else {
                 ToastUtil.show(result.message)
             }
 
-    override fun getAddress(result: BaseModel<ArrayList<AddressListModel>>) {
-        if (result.success && result.code == 200) {
-            if (result.entity != null) {
+    override fun getAddress(result: BaseBean<ArrayList<Address>>) {
                 list.clear()
-                list.addAll(result.entity!!)
+        result.message?.let {
+            list.addAll(it)
+        }
                 recyclerView.adapter.notifyDataSetChanged()
 
                 if (isShow) {
                     isShow = false
                     SmediaDialog(this@AddressMangerActivity).let {
                         it.setTitle("当前选择的收货地址")
-                        it.setDesc(list.last().areaName + "-" + list.last().address)
+                        it.setDesc(list.last().addr)
                         it.OnClickListener = View.OnClickListener {
                             val data = Intent()
-                            data.putExtra("idUserAddressInfo", list.last().idUserAddressInfo)
-                            data.putExtra("addressName", list.last().addressName)
-                            data.putExtra("addressPhone", list.last().addressPhone)
-                            data.putExtra("address", list.last().address)
-                            data.putExtra("areaName", list.last().areaName)
+//                            data.putExtra("idUserAddressInfo", list.last().idUserAddressInfo)
+//                            data.putExtra("addressName", list.last().addr)
+//                            data.putExtra("addressPhone", list.last().phone)
+//                            data.putExtra("address", list.last().address)
+//                            data.putExtra("areaName", list.last().areaName)
                             setResult(Activity.RESULT_OK, data)
                             finish()
                         }
@@ -72,21 +75,17 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
                     }
                 }
 
-            }
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun defaultAddress(result: BaseModel<String>) {
         if (result.success && result.code == 200) {
-            list.forEach {
-                if (it.idUserAddressInfo == defaultId) {
-                    it.isDefault = "1"
-                } else {
-                    it.isDefault = "0"
-                }
-            }
+//            list.forEach {
+//                if (it.idUserAddressInfo == defaultId) {
+//                    it.isDefault = "1"
+//                } else {
+//                    it.isDefault = "0"
+//                }
+//            }
             recyclerView.adapter.notifyDataSetChanged()
         } else {
             ToastUtil.show(result.message)
@@ -110,16 +109,16 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
                 if (type != null && type == "web") {
                     SmediaDialog(this@AddressMangerActivity).let {
                         it.setTitle("当前选择的收货地址")
-                        it.setDesc(list[index].areaName + "-" + list[index].address)
-                        it.OnClickListener = View.OnClickListener {
-                            data.putExtra("idUserAddressInfo", list[index].idUserAddressInfo)
-                            data.putExtra("addressName", list[index].addressName)
-                            data.putExtra("addressPhone", list[index].addressPhone)
-                            data.putExtra("address", list[index].address)
-                            data.putExtra("areaName", list[index].areaName)
-                            setResult(Activity.RESULT_OK, data)
-                            finish()
-                        }
+//                        it.setDesc(list[index].areaName + "-" + list[index].address)
+//                        it.OnClickListener = View.OnClickListener {
+//                            data.putExtra("idUserAddressInfo", list[index].idUserAddressInfo)
+//                            data.putExtra("addressName", list[index].addressName)
+//                            data.putExtra("addressPhone", list[index].addressPhone)
+//                            data.putExtra("address", list[index].address)
+//                            data.putExtra("areaName", list[index].areaName)
+//                            setResult(Activity.RESULT_OK, data)
+//                            finish()
+//                        }
                         it.show()
                     }
                 }
@@ -127,20 +126,20 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
             override fun checkedChange(index: Int) {
                 //default
-                defaultId = list[index].idUserAddressInfo ?: ""
-                mPresenter.requestDefaultAddress(list[index].idUserAddressInfo ?: "")
+//                defaultId = list[index].idUserAddressInfo ?: ""
+//                mPresenter.requestDefaultAddress(list[index].idUserAddressInfo ?: "")
             }
 
             override fun onEdit(position: Int) {
-                AddAddressActivity.start(this@AddressMangerActivity, list[position].addressName
-                        ?: "", list[position].addressPhone ?: ""
-                        , list[position].areaCode ?: "", list[position].address
-                        ?: "", list[position].idUserAddressInfo ?: ""
-                        , list[position].areaName ?: "")
+//                AddAddressActivity.start(this@AddressMangerActivity, list[position].addressName
+//                        ?: "", list[position].addressPhone ?: ""
+//                        , list[position].areaCode ?: "", list[position].address
+//                        ?: "", list[position].idUserAddressInfo ?: ""
+//                        , list[position].areaName ?: "")
             }
 
             override fun onDelete(position: Int) {
-                showDeleteDialog(list[position].idUserAddressInfo ?: "")
+//                showDeleteDialog(list[position].idUserAddressInfo ?: "")
             }
         })
     }

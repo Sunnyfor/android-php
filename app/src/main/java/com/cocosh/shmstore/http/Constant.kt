@@ -50,6 +50,7 @@ object Constant {
 
     const val COMMON_UPLOADS= "$VERSION/common/uploads" //上传文件
 
+    const val ADDRESS_LIST = "$VERSION/address/list" //收货地址列表
 
     /**
      * 首页

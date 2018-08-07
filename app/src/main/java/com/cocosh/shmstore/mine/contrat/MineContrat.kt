@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.mine.contrat
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -184,7 +185,7 @@ class MineContrat {
      */
     interface IAddressView : IBaseView {
         fun deleteAddress(result: BaseModel<String>)
-        fun getAddress(result: BaseModel<ArrayList<AddressListModel>>)
+        fun getAddress(result: BaseBean<ArrayList<Address>>)
         fun defaultAddress(result: BaseModel<String>)
     }
 
