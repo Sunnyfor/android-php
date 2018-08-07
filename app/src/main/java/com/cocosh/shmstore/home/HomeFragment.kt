@@ -124,8 +124,6 @@ class HomeFragment : BaseFragment() {
             }
 
         })
-
-        UserManager2.loadMemberEntrance(getBaseActivity()) //加载用户资料
     }
 
     override fun onPause() {

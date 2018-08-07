@@ -7,6 +7,7 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.login.model.LoginHistory
 import com.cocosh.shmstore.login.data.LoginLoader
 import com.cocosh.shmstore.login.model.Login2
+import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.umeng.socialize.UMAuthListener
@@ -30,9 +31,7 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
             override fun onSuccess(data: BaseBean<Login2>) {
                 data.message?.let {
                     UserManager2.setLogin(it)
-                    val history = LoginHistory(phone)
-                    addHistory(history)
-                    loginView.loginResult(data, false)
+
                 }
             }
 
@@ -103,4 +102,24 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
         UMShareAPI.get(SmApplication.getApp()).getPlatformInfo(activity, type, this)
     }
 
+    private fun updateProfile(phone:String,loginData: BaseBean<Login2>){
+        UserManager2.loadMemberEntrance(activity,object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>(){
+            override fun onSuccess(data: BaseBean<MemberEntrance2>) {
+                UserManager2.setMemberEntrance(data.message)
+                loginData.message?.let {
+                    UserManager2.setLogin(it)
+                    val history = LoginHistory(phone)
+                    addHistory(history)
+                }
+                loginView.loginResult(loginData, false)
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<MemberEntrance2>) {
+            }
+
+        })
+    }
 }

@@ -158,23 +158,11 @@ object UserManager2 {
     /**
      * 加载我的页面数据
      */
-    fun loadMemberEntrance(baseActivity: BaseActivity) {
+    fun loadMemberEntrance(baseActivity: BaseActivity,onResult: ApiManager2.OnResult<BaseBean<MemberEntrance2>>) {
         if (!isLogin()) {
             return
         }
-        ApiManager2.get(0, baseActivity, null, Constant.PROFILE, object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
-            override fun onFailed(code: String, message: String) {
-
-            }
-
-            override fun onCatch(data: BaseBean<MemberEntrance2>) {
-                UserManager2.setMemberEntrance(data.message)
-            }
-
-            override fun onSuccess(data: BaseBean<MemberEntrance2>) {
-
-            }
-        })
+        ApiManager2.get(0, baseActivity, null, Constant.PROFILE,onResult)
     }
 
     //更新用户资料

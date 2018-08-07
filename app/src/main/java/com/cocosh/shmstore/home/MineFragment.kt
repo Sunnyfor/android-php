@@ -7,11 +7,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.OnItemClickListener
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.mine.adapter.MineBottomNavAdapter
 import com.cocosh.shmstore.mine.adapter.MineTopNavAdapter
 import com.cocosh.shmstore.mine.model.AuthenStatus
+import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.mine.model.MineTopNavEntity
 import com.cocosh.shmstore.mine.ui.*
 import com.cocosh.shmstore.mine.ui.authentication.CertificationInComeActivity
@@ -130,21 +133,21 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         }
 
 
-        val memberEntrance = UserManager.getMemberEntrance()
-        memberEntrance?.let {
-            getLayoutView().tvName.text = it.userNick ?: ""
-            setNo(it.smCode)
-            UserManager.loadBg(it.headPic, getLayoutView().ivBg) //加载背景图
-            if (!it.headPic.isNullOrEmpty()) {
-                GlideUtils.loadHead(context, it.headPic, getLayoutView().ivHead)
-            } else {
-                getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
+        UserManager2.loadMemberEntrance(getBaseActivity(), object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
+            override fun onSuccess(data: BaseBean<MemberEntrance2>) {
+                data.message?.let {
+                    updateInfo(it)
+                }
             }
 
-            motifyMenu(it.cityOpertorsStatus ?: "", it.partnerStatus ?: "")
-        }
+            override fun onFailed(code: String, message: String) {
 
-        getLayoutView().tvNo.visibility = View.VISIBLE
+            }
+
+            override fun onCatch(data: BaseBean<MemberEntrance2>) {
+
+            }
+        })
 
     }
 
@@ -203,8 +206,33 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        loadDate()
+        UserManager2.getMemberEntrance()?.let {
+            updateInfo(it)
+        }
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            loadDate()
+        }
+    }
 
+    private fun updateInfo(memberEntrance: MemberEntrance2) {
+        setNo(UserManager2.getLogin()?.code)
+        getLayoutView().tvName.text = memberEntrance.nickname
+        UserManager.loadBg(memberEntrance.avatar, getLayoutView().ivBg) //加载背景图
+
+        memberEntrance.avatar.let {
+            if (it != "") {
+                GlideUtils.loadHead(context, it, getLayoutView().ivHead)
+            } else {
+                getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
+            }
+//            motifyMenu(it.cityOpertorsStatus ?: "", it.partnerStatus ?: "")
+            getLayoutView().tvNo.visibility = View.VISIBLE
+
+        }
+
+    }
 }
