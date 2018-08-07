@@ -26,6 +26,7 @@ import com.cocosh.shmstore.person.PersonRsultActivity
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.GlideUtils
 import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_author.*
 import kotlinx.android.synthetic.main.layout_top_head.view.*
@@ -56,21 +57,24 @@ class AuthActivity : BaseActivity() {
         llMedia.setOnClickListener(this)
         llCompany.setOnClickListener(this)
 
-        val memberEntrance = UserManager.getMemberEntrance()
-        memberEntrance?.let {
-            top_new_title.tvName.text = it.userNick ?: ""
-            top_new_title.tvNo.text = (getString(R.string.no) + it.smCode)
-            UserManager.loadBg(it.headPic,top_new_title.ivBg) //加载背景图
-            if (!it.headPic.isNullOrEmpty()){
-                GlideUtils.loadHead(this,it.headPic,top_new_title.ivHead)
-            }
-        }
+        top_new_title.tvNo.text = (getString(R.string.no) + UserManager2.getLogin()?.code)
+
     }
 
     var flag = 1
     override fun onResume() {
         super.onResume()
-        getState(flag)
+
+        val memberEntrance = UserManager2.getMemberEntrance()
+        memberEntrance?.let {
+            top_new_title.tvName.text = it.nickname
+            if (it.avatar != "") {
+                UserManager.loadBg(it.avatar, top_new_title.ivBg) //加载背景图
+                GlideUtils.loadHead(this, it.avatar, top_new_title.ivHead)
+            }
+        }
+
+//        getState(flag)
     }
 
     private fun getState(flag: Int) {
@@ -139,7 +143,7 @@ class AuthActivity : BaseActivity() {
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
                         }
                     }
-                    entStatus = it.entStatus?:AuthenStatus.NOT_ACTIVE.type //企业主
+                    entStatus = it.entStatus ?: AuthenStatus.NOT_ACTIVE.type //企业主
                     when (entStatus) {
                         AuthenStatus.NOT_ACTIVE.type -> {
                             tvCompanyState.text = "待激活"
@@ -182,7 +186,7 @@ class AuthActivity : BaseActivity() {
             R.id.llPartner -> llparnter()
             R.id.llMedia -> llmedia()
             R.id.llCompany -> llcompany()
-            top_new_title.ivHead.id -> startActivity(Intent(this,ArchiveActivity::class.java))
+            top_new_title.ivHead.id -> startActivity(Intent(this, ArchiveActivity::class.java))
         }
     }
 
@@ -190,6 +194,9 @@ class AuthActivity : BaseActivity() {
      * 个人认证
      */
     private fun llpersion() {
+
+        personStatus = AuthenStatus.PERSION_NO.type
+
         if (personStatus == AuthenStatus.PERSION_OK.type) {
             startActivity(Intent(this, PersonRsultActivity::class.java))
         }

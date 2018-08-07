@@ -1,10 +1,8 @@
 package com.cocosh.shmstore.widget.dialog.adapter
 
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
@@ -20,7 +18,7 @@ class SelectDialogAdapter(list: ArrayList<IndustryModel>) : BaseRecycleAdapter<I
     var index = -1
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.getView<TextView>(R.id.tvName).text = getData(position).industryName
+        holder.getView<TextView>(R.id.tvName).text = getData(position).name
 //
 //        if(index == position){
 //            holder.getView<RelativeLayout>(R.id.rlayoutBg).setBackgroundResource(R.color.red)

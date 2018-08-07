@@ -14,6 +14,7 @@ import com.baidu.idl.face.platform.FaceEnvironment;
 import com.baidu.idl.face.platform.FaceSDKManager;
 import com.baidu.idl.face.platform.FaceStatusEnum;
 import com.baidu.idl.face.platform.LivenessTypeEnum;
+import com.baidu.ocr.sdk.model.IDCardParams;
 import com.baidu.ocr.sdk.model.IDCardResult;
 import com.cocosh.shmstore.application.SmApplication;
 import com.cocosh.shmstore.baiduFace.APIService;
@@ -22,26 +23,24 @@ import com.cocosh.shmstore.baiduFace.OnResultListener;
 import com.cocosh.shmstore.baiduFace.exception.FaceException;
 import com.cocosh.shmstore.baiduFace.model.AccessToken;
 import com.cocosh.shmstore.baiduFace.model.LivenessVsIdcardResult;
+import com.cocosh.shmstore.base.BaseBean;
 import com.cocosh.shmstore.base.BaseModel;
 import com.cocosh.shmstore.http.ApiManager;
+import com.cocosh.shmstore.http.ApiManager2;
 import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.mine.model.AuthenStatus;
-import com.cocosh.shmstore.mine.model.MemberEntrance;
+import com.cocosh.shmstore.mine.model.MemberEntrance2;
 import com.cocosh.shmstore.mine.ui.SetPayPwdActivity;
-import com.cocosh.shmstore.mine.ui.mywallet.BankCardMangerActivity;
 import com.cocosh.shmstore.person.PersonSuccessActivity;
 import com.cocosh.shmstore.utils.DataCode;
 import com.cocosh.shmstore.utils.LogUtil;
 import com.cocosh.shmstore.utils.NetworkUtils;
 import com.cocosh.shmstore.utils.ToastUtil;
 import com.cocosh.shmstore.utils.UserManager;
+import com.cocosh.shmstore.utils.UserManager2;
 import com.cocosh.shmstore.widget.dialog.SmediaDialog;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,12 +130,14 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
         //检测成功
         if (status == FaceStatusEnum.OK && mIsCompletion) {
             saveImage(base64ImageMap);
+            initAccessToken();
+
         } else if (status == FaceStatusEnum.Error_DetectTimeout ||
                 status == FaceStatusEnum.Error_LivenessTimeout ||
                 status == FaceStatusEnum.Error_Timeout) {
             //检测超时
             SmediaDialog dialog = new SmediaDialog(this);
-            dialog.setTitle("检测超时");
+            dialog.setTitle(message);
             dialog.singleButton();
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -159,10 +160,9 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
             FileOutputStream outputStream = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
             outputStream.close();
-
             bestImagePath = file.getAbsolutePath();
             //保存活体图片
-            updateFace(file);
+//            updateFace(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,6 +195,15 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
         String birthday = front.getBirthday().toString();
         String ethnic = front.getEthnic().toString();
         String gender = front.getGender().toString();
+
+        if ("男".equals(gender)) {
+            gender = "1";
+        }
+
+        if ("女".equals(gender)) {
+            gender = "0";
+        }
+
         String address = front.getAddress().toString();
 
         IDCardResult back = app.getData("back", false);
@@ -203,36 +212,30 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
         String expiryDate = back.getExpiryDate().toString();
 
         Map<String, String> map = new HashMap<>();
-        map.put("realName", name);
-        map.put("idNo", idNumber);
         String idFront = Constant.QINIU_KEY_HEAD + app.getData(DataCode.FRONT_URL, false);
-        map.put("idFront", idFront);
+        map.put("img_front", idFront);
         String idBack = Constant.QINIU_KEY_HEAD + app.getData(DataCode.BACK_URL, false);
-        map.put("idBack", idBack);
-        map.put("sex", gender);
-        map.put("ethnic", ethnic);
-        map.put("birth", birthday);
-        map.put("cardAddress", address);
-        map.put("validityPeriodStartTime", signDate);
-        map.put("validityPeriodEndTime", expiryDate);
-        map.put("issuingAgency", issueAuthority);
-        map.put("faceRecognition", "1");
-        String face = app.getData(DataCode.FACE_KEY, false);
-        map.put("liveRecognitionPicture", Constant.QINIU_KEY_HEAD + face);
+        map.put("img_back", idBack);
+        map.put("name", name);     //真实姓名
+        map.put("gender", gender); //性别
+        map.put("ethnic", ethnic); //民族
+        map.put("birth", birthday);//生日
+        map.put("idno", idNumber); //身份证号码
+        map.put("addr", address); //住址
+        map.put("beg_time", signDate);
+        map.put("end_time", expiryDate);
+        map.put("org", issueAuthority);
+//        map.put("faceRecognition", "1");
+//        String face = app.getData(DataCode.FACE_KEY, false);
+//        map.put("liveRecognitionPicture", Constant.QINIU_KEY_HEAD + face);
 
-        ApiManager.INSTANCE.post(this, map, Constant.IDCARD_IDENTITY, new ApiManager.OnResult<BaseModel>() {
-
-            @Override
-            public void onCatch(BaseModel data) {
-
-            }
+        ApiManager2.INSTANCE.post(this, map, Constant.CERT_DO, new ApiManager2.OnResult<BaseBean<String>>() {
 
             @Override
-            public void onFailed(@NotNull Throwable e) {
-                LogUtil.INSTANCE.d(e.getMessage());
+            public void onFailed(@NotNull String code, @NotNull String message) {
                 SmediaDialog dialog = new SmediaDialog(OfflineFaceLivenessActivity.this);
                 dialog.singleButton();
-                dialog.setTitle("请求失败");
+                dialog.setTitle(message);
                 dialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -243,29 +246,27 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
             }
 
             @Override
-            public void onSuccess(BaseModel data) {
-                if (data.getCode() == 200 && data.getSuccess()) {
-                    //  AuthActivity.Companion.start(OfflineFaceLivenessActivity.this);
-                    UserManager.INSTANCE.setPersonStatus(AuthenStatus.PERSION_OK.getType());
-                    //跳转设置密码页
-                    if (SmApplication.Companion.getApp().getActivityName() != null) {
-                        ToastUtil.INSTANCE.show("实人认证成功");
-                        MemberEntrance memberEntrance = UserManager.INSTANCE.getMemberEntrance();
-                        memberEntrance.setRealName(front.getName().toString());
-                        memberEntrance.setPersonStatus(AuthenStatus.PERSION_OK.getType());
-                        UserManager.INSTANCE.setMemberEntrance(memberEntrance);
-                        SetPayPwdActivity.Companion.start(OfflineFaceLivenessActivity.this);
-                        return;
-                    }
-                    PersonSuccessActivity.Companion.start(OfflineFaceLivenessActivity.this);
-                    finish();//成功后跳转，关闭当前页面
-                } else {
-                    Intent intent = new Intent();
-                    intent.putExtra("message", data.getMessage() == null ? "未知错误" : data.getMessage());
-                    setResult(2, intent);
-                    finish();
+            public void onCatch(BaseBean<String> data) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseBean<String> data) {
+                //  AuthActivity.Companion.start(OfflineFaceLivenessActivity.this);
+                UserManager.INSTANCE.setPersonStatus(AuthenStatus.PERSION_OK.getType());
+                //跳转设置密码页
+                if (SmApplication.Companion.getApp().getActivityName() != null) {
+                    ToastUtil.INSTANCE.show("实人认证成功");
+                    MemberEntrance2 memberEntrance = UserManager2.INSTANCE.getMemberEntrance();
+                    assert memberEntrance != null;
+                    memberEntrance.setRealname(front.getName().toString());
+                    memberEntrance.setPersonStatus(AuthenStatus.PERSION_OK.getType());
+                    UserManager2.INSTANCE.setMemberEntrance(memberEntrance);
+                    SetPayPwdActivity.Companion.start(OfflineFaceLivenessActivity.this);
+                    return;
                 }
-                LogUtil.INSTANCE.d(data.toString());
+                PersonSuccessActivity.Companion.start(OfflineFaceLivenessActivity.this);
+                finish();//成功后跳转，关闭当前页面
             }
         });
     }
@@ -317,7 +318,8 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
      * 开始公安系统验证
      */
     public void startCertify() {
-        IDCardResult front = SmApplication.Companion.getApp().getData("front", false);
+        IDCardResult front = SmApplication.Companion.getApp().getData(IDCardParams.ID_CARD_SIDE_FRONT, false);
+        assert front != null;
         String name = front.getName().toString();
         String idNumber = front.getIdNumber().toString();
 
@@ -362,6 +364,7 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
                             faceDialog.cancleFinish();
                             faceDialog.show();
                         }
+                        delete();
                     }
 
                     @Override
@@ -377,60 +380,56 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
     }
 
     /**
-     * 向七牛上传活体照片
+     * 不传了
      */
-    public void updateFace(final File file) {
-        if (!NetworkUtils.INSTANCE.isNetworkAvaliable(this)) {
-            SmediaDialog dialog = new SmediaDialog(this);
-            dialog.cancleFinish();
-            dialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateFace(file);
-                }
-            });
-            dialog.showNetWorkError();
-            return;
-        }
-        //获取token
-        String key = UserManager.INSTANCE.getUserId() + System.currentTimeMillis() + "face.jpg";//活体图片
-        final String qiniuToken = SmApplication.Companion.getApp().getData(DataCode.QINIU_TOKEN, false);
-        UploadManager uploadManager = new UploadManager();
-
-        uploadManager.put(file, key, qiniuToken, new UpCompletionHandler() {
-            @Override
-            public void complete(final String key, final ResponseInfo info, final JSONObject response) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtil.INSTANCE.d("key:" + key + "\r\n" + info + "\r\n" + response);
-
-                        if (info.isOK()) {
-                            LogUtil.INSTANCE.d("活体图片上传成功");
-                            SmApplication.Companion.getApp().setData(DataCode.FACE_KEY, key);
-                            initAccessToken();
-                        } else {
-                            if (info.statusCode == ResponseInfo.InvalidToken) {
-                                SmApplication.Companion.getApp().removeData(DataCode.QINIU_TOKEN);
-                            }
-                            LogUtil.INSTANCE.d("活体图片上传失败");
-                            SmediaDialog dialog = new SmediaDialog(OfflineFaceLivenessActivity.this);
-                            dialog.setTitle("上传失败");
-                            dialog.setPositiveText("重试");
-                            dialog.cancleFinish();
-                            dialog.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    updateFace(file);
-                                }
-                            });
-                            dialog.show();
-                        }
-                    }
-                });
-            }
-        }, null);
-    }
+//    public void updateFace(final File file) {
+//        if (!NetworkUtils.INSTANCE.isNetworkAvaliable(this)) {
+//            SmediaDialog dialog = new SmediaDialog(this);
+//            dialog.cancleFinish();
+//            dialog.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    updateFace(file);
+//                }
+//            });
+//            dialog.showNetWorkError();
+//            return;
+//        }
+//        //获取token
+//        String key = UserManager.INSTANCE.getUserId() + System.currentTimeMillis() + "face.jpg";//活体图片
+//
+//        ApiManager2.INSTANCE.postImage(this, file.getAbsolutePath(), Constant.COMMON_UPLOADS, new ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+//
+//            @Override
+//            public void onFailed(@NotNull String code, @NotNull String message) {
+//                SmediaDialog dialog = new SmediaDialog(OfflineFaceLivenessActivity.this);
+//                dialog.setTitle("上传失败");
+//                dialog.setPositiveText("重试");
+//                dialog.cancleFinish();
+//                dialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        updateFace(file);
+//                    }
+//                });
+//                dialog.show();
+//            }
+//
+//            @Override
+//            public void onSuccess(BaseBean<ArrayList<String>> data) {
+//                ArrayList<String> list = data.getMessage();
+//                if (list != null) {
+//                    SmApplication.Companion.getApp().setData(DataCode.FACE_KEY, list.get(0));
+//                    initAccessToken();
+//                }
+//            }
+//
+//            @Override
+//            public void onCatch(BaseBean<ArrayList<String>> data) {
+//
+//            }
+//        });
+//    }
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, OfflineFaceLivenessActivity.class));

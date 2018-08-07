@@ -207,23 +207,18 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             showIndustry()
             return
         }
-        ApiManager.get(0, this, null, Constant.GET_INDUSTRYINFO, object : ApiManager.OnResult<BaseModel<ArrayList<IndustryModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<IndustryModel>>) {
-                if (data.success) {
-                    data.entity?.let {
-                        works = it
-                    }
-                    showIndustry()
-                } else {
-                    ToastUtil.show(data.message)
+        ApiManager2.get(0, this, null, Constant.INDUSTRY, object : ApiManager2.OnResult<BaseBean<ArrayList<IndustryModel>>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<IndustryModel>>) {
+                data.message?.let {
+                    works = it
                 }
+                showIndustry()
             }
 
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<ArrayList<IndustryModel>>) {
+            override fun onCatch(data: BaseBean<ArrayList<IndustryModel>>) {
 
             }
 
@@ -236,7 +231,10 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
         workDialog?.onDialogResult = object : OnDialogResult {
             override fun onResult(result: Any) {
                 workDialog?.dismiss()
-                update("所属行业", (result as IndustryModel).industryId ?: "")
+                val industry = result as IndustryModel
+                val strsb = StringBuilder()
+                strsb.append(industry.code + "-" + industry.name)
+                update("所属行业", strsb.toString())
             }
         }
         workDialog?.show()
@@ -250,7 +248,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             "头像" -> params["avatar"] = value
             "生日" -> params["birth"] = value
             "性别" -> params["gender"] = if (value == "女") "0" else "1"
-            "所属行业" -> params["industry"] = value
+            "所属行业" -> params["industry"] = value.split("-")[0]
             "地区" -> {
                 val addressCode = value.split("-")
                 params["province"] = addressCode[0]
@@ -282,7 +280,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
                     }
                     "所属行业" -> {
                         UserManager2.getMemberEntrance()?.let {
-                            it.industry_name = value
+                            it.industry_name = value.split("-")[1]
                             UserManager2.setMemberEntrance(it)
                         }
                     }

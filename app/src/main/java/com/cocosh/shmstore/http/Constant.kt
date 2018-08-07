@@ -48,9 +48,13 @@ object Constant {
 
     const val PROFILE_UPDATE = "$VERSION/profile/update" //更新个人档案
 
+    const val INDUSTRY = "$VERSION/common/industry" //行业列表
+
     const val COMMON_UPLOADS= "$VERSION/common/uploads" //上传文件
 
     const val ADDRESS_LIST = "$VERSION/address/list" //收货地址列表
+
+    const val CERT_DO = "$VERSION/cert/do" //个人认证
 
     /**
      * 首页

@@ -8,9 +8,6 @@ import com.cocosh.shmstore.newCertification.data.CertifitionLoader
  * Created by cjl on 2018/2/5.
  */
 class CertificationPresenter(activity: BaseActivity, loginView: CertificationContrat.IView): CertificationContrat.IPresenter {
-    override fun tokenRequest() {
-        certifitionLoader.tokenRequest()
-    }
 
     private var certifitionLoader= CertifitionLoader(activity, loginView)
     override fun start() {

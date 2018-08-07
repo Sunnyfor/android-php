@@ -55,37 +55,4 @@ class CertifitionLoader(var activity: BaseActivity, var loginView: Certification
             }
         }
     }
-
-    //获取七牛token
-    fun tokenRequest() {
-        activity.showLoading()
-        val map = HashMap<String, String>()
-        map["dataType"] = "1"
-        ApiManager.get(0,activity, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
-
-            override fun onCatch(data: String) {}
-
-            override fun onFailed(e: Throwable) {
-                activity.hideLoading()
-                LogUtil.d("获取token失败" + e)
-            }
-
-            override fun onSuccess(data: String) {
-                activity.hideLoading()
-                LogUtil.d("获取七牛Token结果：" + data)
-                try {
-                    val jsonObject = JSONObject(data)
-                    val token = jsonObject.optString("token")
-                    if (TextUtils.isEmpty(token)) {
-                        ToastUtil.show("七牛Token为空")
-                    } else {
-                        loginView.tokenResult(jsonObject.optString("token"))
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-            }
-        })
-    }
 }

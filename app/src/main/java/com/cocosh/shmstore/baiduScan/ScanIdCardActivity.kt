@@ -17,16 +17,19 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduFace.utils.FileUtil
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.contrat.CertificationContrat
 import com.cocosh.shmstore.newCertification.presenter.CertificationPresenter
 import com.cocosh.shmstore.newCertification.ui.CheckIdentityInfoActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
-import com.qiniu.android.http.ResponseInfo
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_scan_id.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import java.util.*
 
 
 /**
@@ -92,7 +95,7 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
             ivIdBack.id -> backID()
             btnSure.id -> {
                 if (frontScanOk && backScanOk) {
-                    mPresenter.tokenRequest()
+                    updatePhoto()
                 }
             }
         }
@@ -181,67 +184,66 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
     }
 
     //上传图片到七牛
-    override fun tokenResult(token: String) {
-        //七牛token存储到内存
-        SmApplication.getApp().setData(DataCode.QINIU_TOKEN, token)
-
-        showLoading()
+    private fun updatePhoto() {
         if (!NetUtil.isConnected(this)) {
             hideLoading()
             ToastUtil.show(getString(R.string.networkError))
             return
         }
 
-        val keyFront = UserManager.getUserId() + System.currentTimeMillis() + "front.jpg"//身份证正面
-        val keyBack = UserManager.getUserId() + System.currentTimeMillis() + "back.jpg"//身份证背面图片
+//        val keyFront = UserManager.getUserId() + System.currentTimeMillis() + "front.jpg"//身份证正面
+//        val keyBack = UserManager.getUserId() + System.currentTimeMillis() + "back.jpg"//身份证背面图片
 
         //上传正面身份证
-        showLoading()
-        uploadManager.put(frontPath, keyFront, token, { key, info, _ ->
-            runOnUiThread {
-                if (info.isOK) {
-                    //存储图片路径（用于接口提交数据）
+        ApiManager2.postImage(this, frontPath, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                //存储图片路径（用于接口提交数据）
+                data.message?.let {
                     if ("代办人" == type) {
-                        SmApplication.getApp().setData(DataCode.AGENT_FRONT_URL, key)
+                        SmApplication.getApp().setData(DataCode.AGENT_FRONT_URL, it[0])
                     } else {
-                        SmApplication.getApp().setData(DataCode.FRONT_URL, key)
+                        SmApplication.getApp().setData(DataCode.FRONT_URL, it[0])
                     }
                     frontUpOk = true
-                } else {
-                    if (info.statusCode == ResponseInfo.InvalidToken) {
-                        SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
-                    }
-                    frontUpOk = false
-                    hideLoading()
-                    ToastUtil.show("提交失败，请稍后重试！")
                 }
+                handler.sendEmptyMessage(1)
             }
-            handler.sendEmptyMessage(1)
-        }, null)
+
+            override fun onFailed(code: String, message: String) {
+                frontUpOk = false
+                ToastUtil.show(message)
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<String>>) {
+            }
+
+        })
+
 
         //上传背面身份证
-        uploadManager.put(backPath, keyBack, token, { key, info, _ ->
-            runOnUiThread {
-                if (info.isOK) {
-                    //存储图片路径（用于接口提交数据）
-                    backUpOk = true
+        ApiManager2.postImage(this, backPath, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                //存储图片路径（用于接口提交数据）
+                data.message?.let {
                     if ("代办人" == type) {
-                        SmApplication.getApp().setData(DataCode.AGENT_BACK_URL, key)
+                        SmApplication.getApp().setData(DataCode.AGENT_BACK_URL, it[0])
                     } else {
-                        SmApplication.getApp().setData(DataCode.BACK_URL, key)
+                        SmApplication.getApp().setData(DataCode.BACK_URL, it[0])
                     }
-                } else {
-                    if (info.statusCode == ResponseInfo.InvalidToken) {
-                        SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
-                    }
-                    hideLoading()
-                    backUpOk = false
-                    ToastUtil.show("提交失败，请稍后重试！")
+                    backUpOk = true
                 }
+                handler.sendEmptyMessage(1)
             }
-            handler.sendEmptyMessage(1)
-        }, null)
 
+            override fun onFailed(code: String, message: String) {
+                backUpOk = false
+                ToastUtil.show(message)
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<String>>) {
+            }
+
+        })
     }
 
 
@@ -273,7 +275,7 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
                     error.printStackTrace()
                     hasGotToken = false
                     launch(UI) {
-                        ToastUtil.show("获取token失败,请重试")
+                        ToastUtil.show(error.message)
                     }
                 }
             }, applicationContext)

@@ -138,7 +138,7 @@ class AuthorGuideActivity : BaseActivity(), CertificationContrat.IView {
 
             R.id.btnSure -> {
                 if (front_ok && back_ok) {
-                    mPresenter.tokenRequest()
+//                    mPresenter.tokenRequest()
                 }
             }
         }
@@ -181,7 +181,7 @@ class AuthorGuideActivity : BaseActivity(), CertificationContrat.IView {
         }
     }
 
-    override fun tokenResult(token: String) {
+    fun tokenResult(token: String) {
         LogUtil.d(token)
         //把token存起来
         SmApplication.getApp().setData(DataCode.QINIU_TOKEN, token)

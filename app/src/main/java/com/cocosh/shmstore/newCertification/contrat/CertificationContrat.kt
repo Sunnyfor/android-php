@@ -10,10 +10,8 @@ import com.cocosh.shmstore.base.IBaseView
 interface CertificationContrat {
     interface IView:IBaseView{
         fun idCardResult(idCardSide:String,result: IDCardResult?)
-        fun tokenResult(token: String)
     }
     interface IPresenter : IBasePresenter {
         fun recIDCard(idCardSide: String, filePath: String)
-        fun tokenRequest()
     }
 }
