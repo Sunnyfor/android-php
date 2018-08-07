@@ -40,6 +40,12 @@ object Constant {
 
     const val OLDCHECK = "$VERSION/pass/oldcheck" //修改登录密码-旧密码校验
 
+    const val PAYPASS_OLDCHECK = "$VERSION/paypass/oldcheck" //修改支付密码-旧密码校验
+
+    const val PAYPASS_SMSCHECK = "$VERSION/paypass/smscheck" //支付密码-短信检测
+
+    const val PAYPASS_SET = "$VERSION/paypass/set" //支付密码-设置
+
     const val PASS_SET = "$VERSION/pass/set" //登录密码-更新
 
     const val FORGOTPWD = "$VERSION/portal/forgotpwd" //忘记密码

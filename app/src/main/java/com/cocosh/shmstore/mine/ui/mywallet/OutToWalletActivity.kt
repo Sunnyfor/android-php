@@ -11,6 +11,7 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.model.RedToWalletModel
 import com.cocosh.shmstore.mine.presenter.RedToWalletPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
@@ -171,7 +172,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
         dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().activityName = this@OutToWalletActivity.javaClass
-            CheckPayPwdMessage.start(this@OutToWalletActivity)
+            CheckPayPwdMessage.start(this@OutToWalletActivity,PayPassworType.INIT)
         }
         dialog.show()
     }

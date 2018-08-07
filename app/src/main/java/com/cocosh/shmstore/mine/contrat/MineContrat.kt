@@ -5,6 +5,7 @@ import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.mine.model.*
+import com.cocosh.shmstore.sms.model.SMS
 
 /**
  * Created by lmg on 2018/5/2.
@@ -66,13 +67,13 @@ class MineContrat {
      * 绑定银行卡发送验证码
      */
     interface ISendMessageView : IBaseView {
-        fun sendMessageData(result: BaseModel<String>)
-        fun authCode(result: BaseModel<String>)
+        fun sendMessageData(result: BaseBean<SMS>)
+        fun authCode(result: BaseBean<String>)
     }
 
     interface ISendMessagePresenter : IBasePresenter {
         fun requestSendMessageData(phone: String, boolean: Boolean)
-        fun requestAuthCodeData(code: String)
+        fun requestAuthCodeData(type: String, code: String)
     }
 
     /**
@@ -90,9 +91,9 @@ class MineContrat {
      * 验证密码是否正确
      */
     interface IIsPwdRightView : IBaseView {
-        fun isPwdRight(result: BaseModel<String>)
+        fun isPwdRight(result: BaseBean<ResetPass>)
         fun savePwdData(result: BaseModel<Boolean>)
-        fun modifyPwdData(result: BaseModel<String>)
+        fun modifyPwdData(result: BaseBean<String>)
     }
 
     interface IIsPwdRightPresenter : IBasePresenter {

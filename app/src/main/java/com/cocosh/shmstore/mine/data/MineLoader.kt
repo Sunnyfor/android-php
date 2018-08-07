@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.mine.data
 
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
@@ -9,7 +10,10 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.*
+import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.DigestUtils
 import com.cocosh.shmstore.utils.LogUtil
+import com.cocosh.shmstore.utils.StringUtils
 
 /**
  * Created by lmg on 2018/5/2.
@@ -166,63 +170,66 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 发送验证码
      */
-    fun requestSendMessageData(phone: String) {
-        var map = HashMap<String, String>()
-        map["mobile"] = phone
-        ApiManager.post(activity, map, Constant.CHANGE_PAY_PWD_SEND_CODE, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                (view as MineContrat.ISendMessageView).sendMessageData(data)
-            }
+//    fun requestSendMessageData(phone: String) {
+//        var map = HashMap<String, String>()
+//        map["mobile"] = phone
+//        ApiManager.post(activity, map, Constant.CHANGE_PAY_PWD_SEND_CODE, object : ApiManager.OnResult<BaseModel<String>>() {
+//            override fun onSuccess(data: BaseModel<String>) {
+//                (view as MineContrat.ISendMessageView).sendMessageData(data)
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                LogUtil.d(e.message.toString())
+//            }
+//
+//            override fun onCatch(data: BaseModel<String>) {
+//                LogUtil.d(data.toString())
+//            }
+//        })
+//    }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-                LogUtil.d(data.toString())
-            }
-        })
-    }
-
-    /**
-     * 发送验证码
-     */
-    fun requestSendMessageData(phone: String, hasVolidate: Boolean) {
-        var map = HashMap<String, String>()
-        map["mobile"] = phone
-        map["hasVolidate"] = hasVolidate.toString()
-        ApiManager.post(activity, map, Constant.CHANGE_PAY_PWD_SEND_CODE, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                (view as MineContrat.ISendMessageView).sendMessageData(data)
-            }
-
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-                LogUtil.d(data.toString())
-            }
-        })
-    }
+//    /**
+//     * 发送验证码
+//     */
+//    fun requestSendMessageData(phone: String, hasVolidate: Boolean) {
+//        var map = HashMap<String, String>()
+//        map["mobile"] = phone
+//        map["hasVolidate"] = hasVolidate.toString()
+//        ApiManager.post(activity, map, Constant.CHANGE_PAY_PWD_SEND_CODE, object : ApiManager.OnResult<BaseModel<String>>() {
+//            override fun onSuccess(data: BaseModel<String>) {
+//                (view as MineContrat.ISendMessageView).sendMessageData(data)
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                LogUtil.d(e.message.toString())
+//            }
+//
+//            override fun onCatch(data: BaseModel<String>) {
+//                LogUtil.d(data.toString())
+//            }
+//        })
+//    }
 
 
     /**
      * 校验 验证码
      */
-    fun requestAuthCodeData(code: String) {
-        var map = HashMap<String, String>()
-        map["messageCode"] = code
-        ApiManager.post(activity, map, Constant.CHECK_MESSAGECODE, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+    fun requestAuthCodeData(target: String,smskey:String,code: String) {
+        val map = HashMap<String, String>()
+        map["target"] = target
+        map["smscode"] = code
+        map["smskey"] = smskey
+        ApiManager2.post(activity, map, Constant.PAYPASS_SMSCHECK, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.ISendMessageView).authCode(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -252,19 +259,18 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 校验支付密码
      */
     fun requestIsPwdRightData(pwd: String) {
-        var map = HashMap<String, String>()
-        map["pwd"] = pwd
-        ApiManager.post(activity, map, Constant.CHECK_PWD, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        val map = HashMap<String, String>()
+        map["ts"] = StringUtils.getTimeStamp()
+        map["pwd"] = DigestUtils.md5(pwd)
+        ApiManager2.post(activity, map, Constant.PAYPASS_OLDCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
+            override fun onSuccess(data: BaseBean<ResetPass>) {
                 (view as MineContrat.IIsPwdRightView).isPwdRight(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: BaseModel<String>) {
-                LogUtil.d(data.toString())
+            override fun onCatch(data: BaseBean<ResetPass>) {
             }
         })
     }
@@ -379,21 +385,23 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 修改支付密码
      */
     fun requestModifyPwdData(pwd: String, repwd: String) {
-        var map = HashMap<String, String>()
-        map["pwd"] = pwd
-        map["repwd"] = repwd
-        ApiManager.post(activity, map, Constant.CHANGE_PWD, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        val map = HashMap<String, String>()
+        val resetPass = SmApplication.getApp().getData<ResetPass>(DataCode.RESET_PAY_PASS, false)
+        map["ticket"] = resetPass?.ticket ?: ""
+        map["ts"] = resetPass?.ts ?: ""
+        map["paypwd"] = pwd
+        ApiManager2.post(activity, map, Constant.PAYPASS_SET, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.IIsPwdRightView).modifyPwdData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: BaseModel<String>) {
-                LogUtil.d(data.toString())
+            override fun onCatch(data: BaseBean<String>) {
+
             }
+
         })
     }
 
@@ -516,7 +524,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 校验身份信息
      */
     fun requestCheckPersonInfoData(name: String, idCardNum: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["name"] = name
         map["idCardNum"] = idCardNum
         ApiManager.post(activity, map, Constant.CHECK_PERSON_INFO, object : ApiManager.OnResult<BaseModel<String>>() {
@@ -794,10 +802,10 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestDrawTo(personType: String, amount: String, runningNum: String, paymentPassword: String) {
         var map = HashMap<String, String>()
-        map["personType"]=personType
-        map["amount"]=amount
-        map["runningNum"]=runningNum
-        map["paymentPassword"]=paymentPassword
+        map["personType"] = personType
+        map["amount"] = amount
+        map["runningNum"] = runningNum
+        map["paymentPassword"] = paymentPassword
         ApiManager.post(activity, map, Constant.OUT_TO_WALLET, object : ApiManager.OnResult<BaseModel<RedToWalletModel>>() {
             override fun onSuccess(data: BaseModel<RedToWalletModel>) {
                 (view as MineContrat.IRedToWalletView).outToData(data)

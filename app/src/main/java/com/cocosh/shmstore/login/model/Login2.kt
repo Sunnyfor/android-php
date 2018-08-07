@@ -12,7 +12,8 @@ data class Login2(
         var expires_in: String, // 令牌生命周期(单位,秒):默认30天
         var time: String, // 令牌生效开始时间
         var invitee: Invitee,
-        var cert: String // 认证状态:'0'-未认证,'1'-待激活,'2'-审核中,'3'-激活失败,'4'-已认证
+        var cert: String, // 认证状态:'0'-未认证,'1'-待激活,'2'-审核中,'3'-激活失败,'4'-已认证
+        var paypass:String // 是否已设置支付密码:'0'-未设置,'1'-已设置
 
 ) {
     data class Invitee(

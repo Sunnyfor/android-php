@@ -15,6 +15,7 @@ import com.cocosh.shmstore.mine.adapter.BankMangerListAdapter
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.BankModel
+import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.presenter.BankListPresenter
 import com.cocosh.shmstore.mine.presenter.IsSetPwdPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
@@ -187,7 +188,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@BankCardMangerActivity.javaClass
-            CheckPayPwdMessage.start(this@BankCardMangerActivity)
+            CheckPayPwdMessage.start(this@BankCardMangerActivity,PayPassworType.INIT)
         }
         dialog.show()
     }

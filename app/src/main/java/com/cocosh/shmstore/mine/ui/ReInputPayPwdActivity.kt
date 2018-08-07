@@ -7,12 +7,16 @@ import android.widget.ImageView
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.PayPassworType
+import com.cocosh.shmstore.mine.model.ResetPass
 import com.cocosh.shmstore.mine.presenter.IsPwdRightPresenter
 import com.cocosh.shmstore.mine.ui.mywallet.AddBankCardActivity
 import com.cocosh.shmstore.mine.ui.mywallet.BankCardMangerActivity
 import com.cocosh.shmstore.mine.ui.mywallet.WithDrawActivity
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -32,17 +36,17 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
     var mPresenter = IsPwdRightPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_set_pay_pwd_again
 
-    override fun isPwdRight(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            SetPayPwdActivity.start(this, "modify")
-            finish()
-        } else if (result.code == 4015) {
-            showErrorDialog(result.message!!)
-        } else if (result.code == 4018) {
-            showAgainDialog(result.message!!)
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun isPwdRight(result: BaseBean<ResetPass>) {
+        SetPayPwdActivity.start(this, "modify")
+        SmApplication.getApp().setData(DataCode.RESET_PAY_PASS, result.message)
+        finish()
+//        } else if (result.code == 4015) {
+//            showErrorDialog(result.message!!)
+//        } else if (result.code == 4018) {
+//            showAgainDialog(result.message!!)
+//        } else {
+//            ToastUtil.show(result.message)
+//        }
     }
 
     override fun savePwdData(result: BaseModel<Boolean>) {
@@ -74,12 +78,8 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         }
     }
 
-    override fun modifyPwdData(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            showResult("密码修改成功")
-        } else {
-            showResult(result.message ?: "错误")
-        }
+    override fun modifyPwdData(result: BaseBean<String>) {
+        showResult("密码修改成功")
     }
 
     override fun initView() {
@@ -230,7 +230,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         dialog.OnClickListener = View.OnClickListener {
             //忘记密码
             //
-            CheckPayPwdMessage.start(this@ReInputPayPwdActivity)
+            CheckPayPwdMessage.start(this@ReInputPayPwdActivity,PayPassworType.FORGOT)
             finish()
         }
         dialog.show()

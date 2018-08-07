@@ -240,7 +240,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
-            CheckPayPwdMessage.start(this@WithDrawActivity)
+            CheckPayPwdMessage.start(this@WithDrawActivity,PayPassworType.INIT)
         }
         dialog.show()
     }

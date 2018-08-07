@@ -14,6 +14,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.MyWalletModel
+import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
@@ -203,7 +204,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@PayActivity.javaClass
-            CheckPayPwdMessage.start(this@PayActivity)
+            CheckPayPwdMessage.start(this@PayActivity,PayPassworType.INIT)
         }
         dialog.show()
     }

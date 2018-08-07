@@ -42,4 +42,5 @@ public class DataCode {
     public static final String ISDEBUG = "isDebug"; //是否是debug模式
 
     public static final String RESETPASS = "resetpass"; //修改登录密码票据
+    public static final String RESET_PAY_PASS = "resetpaypass"; //修改支付密码票据
 }

@@ -9,11 +9,13 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.AddBankModel
 import com.cocosh.shmstore.mine.presenter.AddBankPresenter
 import com.cocosh.shmstore.mine.presenter.SendMessagePresenter
+import com.cocosh.shmstore.sms.model.SMS
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_message_check.*
@@ -46,21 +48,13 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
         }
     }
 
-    override fun authCode(result: BaseModel<String>) {
+    override fun authCode(result: BaseBean<String>) {
     }
 
-    override fun sendMessageData(result: BaseModel<String>) {
+    override fun sendMessageData(result: BaseBean<SMS>) {
         //发送验证码
-        if (result.success && result.code == 200) {
 //            hideReTryLayout()
             time?.start()
-        } else {
-            ToastUtil.show(result.message)
-            btnMessage.text = "重新获取验证码"
-            btnMessage.isClickable = true
-            btnMessage.setBackgroundResource(R.drawable.shape_rectangle_round_red)
-//            showReTryLayout()
-        }
     }
 
     override fun initView() {

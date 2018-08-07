@@ -6,14 +6,11 @@ import android.view.View.OnClickListener
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.about.AboutActivity
 import com.cocosh.shmstore.application.SmApplication
-import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.presenter.IsSetPwdPresenter
+import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -44,14 +41,14 @@ class SettingActivity : BaseActivity() {
         isvNewMessage.setOnClickListener(this)
         rlHead.setOnClickListener(this)
         isvCache.setNoIconValue(catchSize)
-        isvPhoto.setNoIconValue(UserManager.getPhone())
+        isvPhoto.setNoIconValue(UserManager2.getLogin()?.phone)
 
         UserManager2.getMemberEntrance()?.let {
-                GlideUtils.loadHead(this, it.avatar, ivHead)
+            GlideUtils.loadHead(this, it.avatar, ivHead)
             tvName.text = it.nickname
 
         }
-        tvNo.text = (getString(R.string.no) +   UserManager2.getLogin()?.code)
+        tvNo.text = (getString(R.string.no) + UserManager2.getLogin()?.code)
     }
 
     override fun onListener(view: View) {
@@ -69,7 +66,7 @@ class SettingActivity : BaseActivity() {
             }
             resetPayPwd.id -> {
                 //判断是否设置支付密码
-                if (UserManager.getPayPwdStatus() == true) {
+                if (UserManager2.getLogin()?.paypass == "1") {
                     startActivity(Intent(this, ResetPayPasswordActivity::class.java))
                 } else {
                     showEntDialog()
@@ -111,7 +108,7 @@ class SettingActivity : BaseActivity() {
         dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
         dialog.OnClickListener = OnClickListener {
             SmApplication.getApp().activityName = this::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(this@SettingActivity)
+            CheckPayPwdMessage.start(this@SettingActivity, PayPassworType.INIT)
         }
         dialog.show()
     }

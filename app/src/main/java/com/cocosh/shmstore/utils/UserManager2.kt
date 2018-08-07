@@ -51,16 +51,16 @@ object UserManager2 {
 //    fun getPhone(): String? = getMemberEntrance()?.userName
 
 
-//    fun getCryptogramPhone(): String? {
-//        getPhone()?.let {
-//            val sb = StringBuilder()
-//            sb.append(it.substring(0, 3))
-//            sb.append("****")
-//            sb.append(it.substring(7, 11))
-//            return sb.toString()
-//        }
-//        return null
-//    }
+    fun getCryptogramPhone(): String? {
+        getLogin()?.phone?.let {
+            val sb = StringBuilder()
+            sb.append(it.substring(0, 3))
+            sb.append("****")
+            sb.append(it.substring(7, 11))
+            return sb.toString()
+        }
+        return null
+    }
 
     /**
      * 是否设置支付密码
@@ -99,9 +99,15 @@ object UserManager2 {
      *  存储我的页面数据
      */
     fun setMemberEntrance(memberEntrance: MemberEntrance2?) {
-        if (memberEntrance != null) {
-            SharedUtil.setString(MEMBERENTRANCE, Gson().toJson(memberEntrance))
+        var data = memberEntrance
+        if (data == null) {
+            data = MemberEntrance2(
+                    "0", "", "", "", "", "",
+                    "", "", "", "", "", "",
+                    "", "", ""
+            )
         }
+        SharedUtil.setString(MEMBERENTRANCE, Gson().toJson(data))
     }
 
 //    /**

@@ -135,10 +135,8 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
         UserManager2.loadMemberEntrance(getBaseActivity(), object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
             override fun onSuccess(data: BaseBean<MemberEntrance2>) {
-                data.message?.let {
-                    UserManager2.setMemberEntrance(it)
-                    updateInfo(it)
-                }
+                UserManager2.setMemberEntrance(data.message)
+                updateInfo()
             }
 
             override fun onFailed(code: String, message: String) {
@@ -217,21 +215,21 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         }
     }
 
-    private fun updateInfo(memberEntrance: MemberEntrance2) {
-        setNo(UserManager2.getLogin()?.code)
-        getLayoutView().tvName.text = memberEntrance.nickname
-        UserManager.loadBg(memberEntrance.avatar, getLayoutView().ivBg) //加载背景图
+    private fun updateInfo() {
+        UserManager2.getMemberEntrance()?.let {
+            setNo(UserManager2.getLogin()?.code)
+            getLayoutView().tvName.text = it.nickname
+            UserManager.loadBg(it.avatar, getLayoutView().ivBg) //加载背景图
 
-        memberEntrance.avatar.let {
-            if (it != "") {
-                GlideUtils.loadHead(context, it, getLayoutView().ivHead)
-            } else {
-                getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
-            }
+            it.avatar.let {
+                if (it != "") {
+                    GlideUtils.loadHead(context, it, getLayoutView().ivHead)
+                } else {
+                    getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
+                }
 //            motifyMenu(it.cityOpertorsStatus ?: "", it.partnerStatus ?: "")
-            getLayoutView().tvNo.visibility = View.VISIBLE
-
+                getLayoutView().tvNo.visibility = View.VISIBLE
+            }
         }
-
     }
 }

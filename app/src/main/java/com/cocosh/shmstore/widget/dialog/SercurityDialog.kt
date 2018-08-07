@@ -21,6 +21,7 @@ import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.SetPayPwdActivity
 import com.cocosh.shmstore.utils.DataCode
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.dialog_security_psd.*
 import java.util.*
 
 /**
+ *
  * Created by lmg on 2018/4/16.
  */
 class SercurityDialog<T> : Dialog, View.OnClickListener {
@@ -141,7 +143,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
     override fun onClick(view: View) {
         if (view.id == R.id.forget_psd) {
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext)
+            CheckPayPwdMessage.start(mContext,PayPassworType.FORGOT)
             this@SercurityDialog.dismiss()
             return
         }
@@ -251,7 +253,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
         dialog.OnClickListener = View.OnClickListener {
             //忘记密码
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext)
+            CheckPayPwdMessage.start(mContext,PayPassworType.FORGOT)
             this@SercurityDialog.dismiss()
         }
         dialog.show()
