@@ -6,6 +6,7 @@ import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.sms.model.SMS
+import com.cocosh.shmstore.sms.type.SMSType
 
 /**
  * Created by lmg on 2018/5/2.
@@ -72,7 +73,7 @@ class MineContrat {
     }
 
     interface ISendMessagePresenter : IBasePresenter {
-        fun requestSendMessageData(phone: String, boolean: Boolean)
+        fun requestSendMessageData(phone: String, smsType: SMSType)
         fun requestAuthCodeData(type: String, code: String)
     }
 

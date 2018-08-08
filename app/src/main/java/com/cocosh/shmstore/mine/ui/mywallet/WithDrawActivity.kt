@@ -15,6 +15,7 @@ import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.mine.presenter.MyWalletDrawPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BankListDialog
 import com.cocosh.shmstore.widget.dialog.SercurityDialog
@@ -240,7 +241,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
-            CheckPayPwdMessage.start(this@WithDrawActivity,PayPassworType.INIT)
+            CheckPayPwdMessage.start(this@WithDrawActivity,SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }

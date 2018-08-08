@@ -9,6 +9,9 @@ enum class SMSType(var value: String) {
     FORGOT_PASS("forgot_pass"),//忘记密码
     RESET_PASS("reset_pass"), //重置密码
     INVITE("invite"), //分享接受邀约
+    INIT_PAYPASS("init_paypass"), //设置支付密码
+    FORGOT_PAYPASS("forgot_paypass"), //忘记支付密码
     RESET_PAYPASS("reset_paypass"),//重置支付密码
-    ENT_CASH("ent_cash")//企业主提现
+    ENT_CASH("ent_cash"),//企业主提现
+    BANK("bank") //绑定银行卡自己定义的
 }

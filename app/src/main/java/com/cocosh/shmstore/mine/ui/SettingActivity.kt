@@ -11,6 +11,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.PayPassworType
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -108,7 +109,7 @@ class SettingActivity : BaseActivity() {
         dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = OnClickListener {
             SmApplication.getApp().activityName = this::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(this@SettingActivity, PayPassworType.INIT)
+            CheckPayPwdMessage.start(this@SettingActivity, SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }

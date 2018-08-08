@@ -21,8 +21,8 @@ class SendMessagePresenter(var mActivity: BaseActivity, var mView: MineContrat.I
         loader.requestAuthCodeData(type, smsKey, code)
     }
 
-    override fun requestSendMessageData(phone: String, boolean: Boolean) {
-        smsLoader.sendCode(phone, SMSType.RESET_PAYPASS, object : ApiManager2.OnResult<BaseBean<SMS>>() {
+    override fun requestSendMessageData(phone: String, smsType: SMSType) {
+        smsLoader.sendCode(phone, smsType, object : ApiManager2.OnResult<BaseBean<SMS>>() {
             override fun onSuccess(data: BaseBean<SMS>) {
                 smsKey = data.message?.smskey ?: ""
                 mView.sendMessageData(data)

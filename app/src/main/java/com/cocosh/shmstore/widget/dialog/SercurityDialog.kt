@@ -24,6 +24,7 @@ import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.SetPayPwdActivity
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.ToastUtil
@@ -143,7 +144,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
     override fun onClick(view: View) {
         if (view.id == R.id.forget_psd) {
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext,PayPassworType.FORGOT)
+            CheckPayPwdMessage.start(mContext,SMSType.FORGOT_PAYPASS)
             this@SercurityDialog.dismiss()
             return
         }
@@ -253,7 +254,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
         dialog.OnClickListener = View.OnClickListener {
             //忘记密码
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext,PayPassworType.FORGOT)
+            CheckPayPwdMessage.start(mContext,SMSType.FORGOT_PAYPASS)
             this@SercurityDialog.dismiss()
         }
         dialog.show()

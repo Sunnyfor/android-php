@@ -16,6 +16,7 @@ import com.cocosh.shmstore.mine.presenter.IsPwdRightPresenter
 import com.cocosh.shmstore.mine.ui.mywallet.AddBankCardActivity
 import com.cocosh.shmstore.mine.ui.mywallet.BankCardMangerActivity
 import com.cocosh.shmstore.mine.ui.mywallet.WithDrawActivity
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
@@ -230,7 +231,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         dialog.OnClickListener = View.OnClickListener {
             //忘记密码
             //
-            CheckPayPwdMessage.start(this@ReInputPayPwdActivity,PayPassworType.FORGOT)
+            CheckPayPwdMessage.start(this@ReInputPayPwdActivity,SMSType.FORGOT_PAYPASS)
             finish()
         }
         dialog.show()

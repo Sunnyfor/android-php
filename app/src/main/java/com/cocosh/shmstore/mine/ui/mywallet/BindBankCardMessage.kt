@@ -16,6 +16,7 @@ import com.cocosh.shmstore.mine.model.AddBankModel
 import com.cocosh.shmstore.mine.presenter.AddBankPresenter
 import com.cocosh.shmstore.mine.presenter.SendMessagePresenter
 import com.cocosh.shmstore.sms.model.SMS
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_message_check.*
@@ -60,7 +61,7 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
     override fun initView() {
         titleManager.defaultTitle("手机验证")
         map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.ADDBANK_KEY_MAP, false)
-        mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, false)
+        mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, SMSType.BANK)
         desc.text = "绑定银行卡需要短信确认，验证码已发送至手机:\n" + map?.get("cardUserPhone")!! + "，请按提示操作"
         idx = intent.getStringExtra("idx")
         time = TimeCount(60000, 1000)
@@ -90,7 +91,7 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
     override fun onListener(view: View) {
         when (view.id) {
             btnMessage.id -> {
-                mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, false)
+                mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, SMSType.BANK)
             }
             next.id -> {
                 if (isSet) {
@@ -101,7 +102,7 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
     }
 
     override fun reTryGetData() {
-        mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, false)
+        mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, SMSType.BANK)
     }
 
     internal inner class TimeCount(millisInFuture: Long, countDownInterval: Long) : CountDownTimer(millisInFuture, countDownInterval) {

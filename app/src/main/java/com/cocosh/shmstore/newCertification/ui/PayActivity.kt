@@ -21,6 +21,7 @@ import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.mywallet.ReChargeActivity
 import com.cocosh.shmstore.newCertification.CertifimInforPresenter
 import com.cocosh.shmstore.newCertification.ConfirmlnforContrat
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SercurityDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -204,7 +205,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@PayActivity.javaClass
-            CheckPayPwdMessage.start(this@PayActivity,PayPassworType.INIT)
+            CheckPayPwdMessage.start(this@PayActivity,SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_reset_password.*
 
@@ -30,7 +30,7 @@ class ResetPasswordActivity : BaseActivity() {
                     dialog.OnClickListener = View.OnClickListener {
                         startActivity(Intent(this, ResetPassCodeActivity::class.java))
                     }
-                    dialog.setDesc(UserManager.getCryptogramPhone()?:"")
+                    dialog.setDesc(UserManager2.getCryptogramPhone()?:"")
                     dialog.show()
             }
 

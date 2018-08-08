@@ -19,6 +19,7 @@ import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.presenter.BankListPresenter
 import com.cocosh.shmstore.mine.presenter.IsSetPwdPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.BankRemoveDialog
@@ -188,7 +189,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@BankCardMangerActivity.javaClass
-            CheckPayPwdMessage.start(this@BankCardMangerActivity,PayPassworType.INIT)
+            CheckPayPwdMessage.start(this@BankCardMangerActivity,SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }

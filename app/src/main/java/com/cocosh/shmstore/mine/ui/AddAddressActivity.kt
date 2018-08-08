@@ -170,7 +170,7 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
                     //通过
                     mPresenter.requestAddAddress(id
                             ?: "", name.text.toString(), phone.text.toString(), it[0],
-                            it[1],it[2],areaDescIn?:"",0)
+                            it[1],it[2],address.text.toString(),0)
                 }
 
             }

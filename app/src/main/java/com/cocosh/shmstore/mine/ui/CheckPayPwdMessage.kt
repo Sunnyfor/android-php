@@ -14,6 +14,7 @@ import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.presenter.SendMessagePresenter
 import com.cocosh.shmstore.sms.model.SMS
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_message_check_paypwd.*
 
@@ -32,26 +33,28 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
     override fun authCode(result: BaseBean<String>) {
         //校验 验证码
 
-            //判断是否实人认证
-            if (UserManager2.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-                PersonInfoCheck.start(this@CheckPayPwdMessage, "auth")
-                finish()
-            } else {
-                //实人认证
-                PersonInfoCheck.start(this@CheckPayPwdMessage, "check")
-                finish()
-            }
+        //判断是否实人认证
+        if (UserManager2.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
+            PersonInfoCheck.start(this@CheckPayPwdMessage, "auth")
+            finish()
+        } else {
+            //实人认证
+            PersonInfoCheck.start(this@CheckPayPwdMessage, "check")
+            finish()
+        }
     }
 
     override fun sendMessageData(result: BaseBean<SMS>) {
         //发送验证码
-            time?.start()
+        time?.start()
 
     }
 
     override fun initView() {
+        passType = intent.getStringExtra("type")
         titleManager.defaultTitle("设置支付密码")
-        mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone?: "", true)//"18611154535"
+        mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone
+                ?: "", SMSType.valueOf(passType))//"18611154535"
         time = TimeCount(60000, 1000)
         btnMessage.setOnClickListener(this)
         edtCode.addTextChangedListener(object : TextWatcher {
@@ -61,7 +64,15 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edtCode.text.length == 6) {
-                    mPresenter.requestAuthCodeData(passType,edtCode.text.toString())
+                    val checkType:PayPassworType = when(passType){
+                        SMSType.FORGOT_PAYPASS.value -> PayPassworType.FORGOT
+                        SMSType.INIT_PAYPASS.value -> PayPassworType.INIT
+                        SMSType.RESET_PAYPASS.value -> PayPassworType.RESET
+                        else -> {
+                            PayPassworType.INIT
+                        }
+                    }
+                    mPresenter.requestAuthCodeData(checkType.type, edtCode.text.toString())
                 }
             }
 
@@ -71,19 +82,20 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
         })
 
         desc.text = ("我们已发送 验证码 到您的手机\n" + UserManager2.getCryptogramPhone())
-        passType = intent.getStringExtra("type")
     }
 
     override fun onListener(view: View) {
         when (view.id) {
             btnMessage.id -> {
-                mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone ?: "", true)
+                mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone
+                        ?: "", SMSType.valueOf(passType))
             }
         }
     }
 
     override fun reTryGetData() {
-        mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone ?: "", true)
+        mPresenter.requestSendMessageData(UserManager2.getLogin()?.phone
+                ?: "", SMSType.valueOf(passType))
     }
 
     internal inner class TimeCount(millisInFuture: Long, countDownInterval: Long) : CountDownTimer(millisInFuture, countDownInterval) {
@@ -108,9 +120,9 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
     }
 
     companion object {
-        fun start(mContext: Context,type:PayPassworType) {
-            val intent  =Intent(mContext, CheckPayPwdMessage::class.java)
-            intent.putExtra("type",type.type)
+        fun start(mContext: Context, type: SMSType) {
+            val intent = Intent(mContext, CheckPayPwdMessage::class.java)
+            intent.putExtra("type", type.name)
             mContext.startActivity(intent)
         }
     }

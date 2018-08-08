@@ -175,7 +175,7 @@ class ResetPassCodeActivity : BaseActivity() {
                 }
                 if (codeStr.length == 6) {
                     phone?.let {
-                        //                        presenter.forgetPass(it, codeStr.toString())
+                        checkSMSCode(codeStr.toString())
                     }
                 }
             }

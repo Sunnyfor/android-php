@@ -5,6 +5,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.mine.model.PayPassworType
+import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -33,7 +34,7 @@ class ResetPayPasswordActivity : BaseActivity() {
                 dialog.OnClickListener = View.OnClickListener {
                     //跳转
                     SmApplication.getApp().activityName = this@ResetPayPasswordActivity::class.java as Class<BaseActivity>?
-                    CheckPayPwdMessage.start(this@ResetPayPasswordActivity,PayPassworType.FORGOT)
+                    CheckPayPwdMessage.start(this@ResetPayPasswordActivity, SMSType.RESET_PAYPASS)
                 }
                 dialog.show()
             }
