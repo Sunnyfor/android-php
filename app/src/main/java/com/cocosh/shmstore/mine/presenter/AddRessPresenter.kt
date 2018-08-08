@@ -9,8 +9,13 @@ import com.cocosh.shmstore.mine.data.MineLoader
  * Created by lmg on 2018/3/26.
  */
 class AddRessPresenter(var mActivity: BaseActivity, var mView: IBaseView) : MineContrat.IAddressPresenter {
+
+    override fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: Int) {
+        loader.requestAddAddress(id, receiver, phone, province, city,town,addr,default)
+    }
+
     override fun requestDeleteAddress(flag: Int, idUserAddressInfo: String) {
-        loader.requestDeleteAddress(flag, idUserAddressInfo)
+        loader.requestDeleteAddress(idUserAddressInfo)
     }
 
     override fun requestGetAddress(flag: Int) {
@@ -21,9 +26,6 @@ class AddRessPresenter(var mActivity: BaseActivity, var mView: IBaseView) : Mine
         loader.requestDefaultAddress(idUserAddressInfo)
     }
 
-    override fun requestAddAddress(idUserAddressInfo: String, addressName: String, addressPhone: String, areaCode: String, address: String) {
-        loader.requestAddAddress(idUserAddressInfo, addressName, addressPhone, areaCode, address)
-    }
 
     val loader = MineLoader(mActivity, mView)
     override fun start() {

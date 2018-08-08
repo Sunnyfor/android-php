@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.utils.IntentCode
@@ -23,23 +23,19 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
     var mPresenter = AddRessPresenter(this, this)
     var nameIn: String? = null
     var phoneIn: String? = null
-    var areaIn: String? = null
+    var addressCode: String? = null
     var areaDescIn: String? = null
     var id: String? = null
     var areaNameIn: String? = null
     private lateinit var mPickerViewUtils: PickerViewUtils
     override fun setLayout(): Int = R.layout.activity_add_address
 
-    override fun addAddress(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            ToastUtil.show("添加成功")
-            if (intent.getStringExtra("type") ?: "" == "web") {
-                setResult(IntentCode.IS_INPUT)
-            }
-            finish()
-        } else {
-            ToastUtil.show(result.message)
+    override fun addAddress(result: BaseBean<String>) {
+        ToastUtil.show("添加成功")
+        if (intent.getStringExtra("type") ?: "" == "web") {
+            setResult(IntentCode.IS_INPUT)
         }
+        finish()
     }
 
     override fun initView() {
@@ -48,7 +44,7 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
         save.setOnClickListener(this)
         nameIn = intent.getStringExtra("name")
         phoneIn = intent.getStringExtra("phone")
-        areaIn = intent.getStringExtra("area")
+        addressCode = intent.getStringExtra("area")
         areaDescIn = intent.getStringExtra("areaDesc")
         id = intent.getStringExtra("id")
         areaNameIn = intent.getStringExtra("areaName")
@@ -149,7 +145,7 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
                 mPickerViewUtils.showAddress(object : PickerViewUtils.OnAddressResultListener {
                     override fun onPickerViewResult(address: String, code: String) {
                         chooseAddress.setText(address)
-                        areaIn = code
+                        addressCode = code
                     }
                 })
             }
@@ -170,10 +166,13 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
                     ToastUtil.show("请输入正确的详细地址")
                     return
                 }
-                //通过
-                mPresenter.requestAddAddress(id
-                        ?: "", name.text.toString(), phone.text.toString(), areaIn
-                        ?: "", address.text.toString())
+                 addressCode?.split("-")?.let {
+                    //通过
+                    mPresenter.requestAddAddress(id
+                            ?: "", name.text.toString(), phone.text.toString(), it[0],
+                            it[1],it[2],areaDescIn?:"",0)
+                }
+
             }
         }
     }

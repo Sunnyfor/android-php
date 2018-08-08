@@ -38,16 +38,13 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     var isShow = false //判断是否需要直接弹窗
     override fun setLayout(): Int = R.layout.activity_address_manger
 
-    override fun deleteAddress(result: BaseModel<String>) =
-            if (result.success && result.code == 200) {
+    override fun deleteAddress(result: BaseBean<String>) =
 //                val data = list.first {
 //                    it.idUserAddressInfo == id
 //                }
 //                list.remove(data)
                 recyclerView.adapter.notifyDataSetChanged()
-            } else {
-                ToastUtil.show(result.message)
-            }
+
 
     override fun getAddress(result: BaseBean<ArrayList<Address>>) {
                 list.clear()
@@ -77,8 +74,8 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
     }
 
-    override fun defaultAddress(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
+    override fun defaultAddress(result: BaseBean<String>) {
+        list.findLast { it.default == defaultId }?.default ="1"
 //            list.forEach {
 //                if (it.idUserAddressInfo == defaultId) {
 //                    it.isDefault = "1"
@@ -87,9 +84,6 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 //                }
 //            }
             recyclerView.adapter.notifyDataSetChanged()
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun initView() {
@@ -126,16 +120,16 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
             override fun checkedChange(index: Int) {
                 //default
-//                defaultId = list[index].idUserAddressInfo ?: ""
-//                mPresenter.requestDefaultAddress(list[index].idUserAddressInfo ?: "")
+                defaultId = list[index].default
+                mPresenter.requestDefaultAddress(list[index].id)
             }
 
             override fun onEdit(position: Int) {
-//                AddAddressActivity.start(this@AddressMangerActivity, list[position].addressName
-//                        ?: "", list[position].addressPhone ?: ""
-//                        , list[position].areaCode ?: "", list[position].address
-//                        ?: "", list[position].idUserAddressInfo ?: ""
-//                        , list[position].areaName ?: "")
+//                AddAddressActivity.start(this@AddressMangerActivity, list[position].receiver
+//                       ,list[position].phone
+//                        , list[position].addr, list[position].addr
+//                        ?: "", list[position].id
+//                        , list[position].addr ?: "")
             }
 
             override fun onDelete(position: Int) {

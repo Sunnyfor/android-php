@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
@@ -205,7 +206,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        updateInfo()
+        loadDate()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

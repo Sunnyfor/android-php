@@ -59,6 +59,10 @@ object Constant {
     const val COMMON_UPLOADS= "$VERSION/common/uploads" //上传文件
 
     const val ADDRESS_LIST = "$VERSION/address/list" //收货地址列表
+    const val ADDRESS_SAVE = "$VERSION/address/save" //保存收货地址
+    const val ADDRESS_DELETE = "$VERSION/address/delete" //删除收货地址
+    const val ADDRESS_SETDEF = "$VERSION/address/setdef" //设置默认
+
 
     const val CERT_DO = "$VERSION/cert/do" //个人认证
 

@@ -214,6 +214,7 @@ class AuthActivity : BaseActivity() {
      */
     private fun llmedia() {
         //UNCERTIFIED("未认证"),PRE_DRAFT("认证中"), PRE_PASS("已认证")  PRE_AUTH:认证中
+        cityOpertorsStatus = AuthenStatus.UNCERTIFIED.type
         when (cityOpertorsStatus) {
             AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
             AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
@@ -241,7 +242,8 @@ class AuthActivity : BaseActivity() {
      * 新媒人认证
      */
     private fun llparnter() {
-        if (personStatus == AuthenStatus.PERSION_OK.type) {
+        partnerStatus = AuthenStatus.UNCERTIFIED.type
+//        if (personStatus == AuthenStatus.PERSION_OK.type) {
             //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
             when (partnerStatus) {
                 AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
@@ -249,18 +251,18 @@ class AuthActivity : BaseActivity() {
                 AuthenStatus.PRE_PASS.type -> NewCertificationActivity.start(this)
                 AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
             }
-        } else {
-            val dialog = SmediaDialog(this)
-            dialog.setTitle("请先完成实人认证")
-            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-
-            dialog.OnClickListener = View.OnClickListener {
-                val intent = Intent(this, ScanIdCardActivity::class.java)
-                intent.putExtra("type", "实人认证")
-                startActivity(intent)
-            }
-            dialog.show()
-        }
+//        } else {
+//            val dialog = SmediaDialog(this)
+//            dialog.setTitle("请先完成实人认证")
+//            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+//
+//            dialog.OnClickListener = View.OnClickListener {
+//                val intent = Intent(this, ScanIdCardActivity::class.java)
+//                intent.putExtra("type", "实人认证")
+//                startActivity(intent)
+//            }
+//            dialog.show()
+//        }
     }
 
     companion object {

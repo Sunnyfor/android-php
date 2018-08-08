@@ -214,7 +214,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 校验 验证码
      */
-    fun requestAuthCodeData(target: String,smskey:String,code: String) {
+    fun requestAuthCodeData(target: String, smskey: String, code: String) {
         val map = HashMap<String, String>()
         map["target"] = target
         map["smscode"] = code
@@ -545,19 +545,19 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 删除地址
      */
-    fun requestDeleteAddress(flag: Int, idUserAddressInfo: String) {
-        var map = HashMap<String, String>()
-        map["idUserAddressInfo"] = idUserAddressInfo
-        ApiManager.post(activity, map, Constant.DELETE_ADDRESS, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+    fun requestDeleteAddress(idUserAddressInfo: String) {
+        val map = HashMap<String, String>()
+        map["id"] = idUserAddressInfo
+        ApiManager2.post(activity, map, Constant.ADDRESS_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.IAddressView).deleteAddress(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -584,23 +584,26 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 更改 新增地址
      */
-    fun requestAddAddress(idUserAddressInfo: String, addressName: String, addressPhone: String, areaCode: String, address: String) {
-        var map = HashMap<String, String>()
-        map["idUserAddressInfo"] = idUserAddressInfo
-        map["addressName"] = addressName
-        map["addressPhone"] = addressPhone
-        map["areaCode"] = areaCode
-        map["address"] = address
-        ApiManager.post(activity, map, Constant.UPDATE_ADDRESS, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+    fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: Int) {
+        val map = HashMap<String, String>()
+        map["id"] = id
+        map["receiver"] = receiver
+        map["phone"] = phone
+        map["province"] = province
+        map["city"] = city
+        map["town"] = town
+        map["addr"] = addr
+        map["default"] = default.toString()
+        ApiManager2.post(activity, map, Constant.ADDRESS_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.IAddAddressView).addAddress(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -610,18 +613,18 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 更改 默认地址
      */
     fun requestDefaultAddress(idUserAddressInfo: String) {
-        var map = HashMap<String, String>()
-        map["idUserAddressInfo"] = idUserAddressInfo
-        ApiManager.post(activity, map, Constant.DEFAULT_ADDRESS, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        val map = HashMap<String, String>()
+        map["id"] = idUserAddressInfo
+        ApiManager2.post(activity, map, Constant.DEFAULT_ADDRESS, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.IAddressView).defaultAddress(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })

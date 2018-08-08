@@ -185,20 +185,20 @@ class MineContrat {
      * 地址管理
      */
     interface IAddressView : IBaseView {
-        fun deleteAddress(result: BaseModel<String>)
+        fun deleteAddress(result: BaseBean<String>)
         fun getAddress(result: BaseBean<ArrayList<Address>>)
-        fun defaultAddress(result: BaseModel<String>)
+        fun defaultAddress(result: BaseBean<String>)
     }
 
     interface IAddAddressView : IBaseView {
-        fun addAddress(result: BaseModel<String>)
+        fun addAddress(result: BaseBean<String>)
     }
 
     interface IAddressPresenter : IBasePresenter {
         fun requestDeleteAddress(flag: Int, idUserAddressInfo: String)
         fun requestGetAddress(flag: Int)
         fun requestDefaultAddress(idUserAddressInfo: String)
-        fun requestAddAddress(idUserAddressInfo: String, addressName: String, addressPhone: String, areaCode: String, address: String)
+        fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String,town:String,addr:String,default:Int)
     }
 
     /**
