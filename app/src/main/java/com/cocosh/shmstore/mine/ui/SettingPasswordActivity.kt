@@ -13,6 +13,7 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.ResetPass
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.DigestUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_setting_password.*
@@ -111,7 +112,7 @@ class SettingPasswordActivity : BaseActivity() {
         SmApplication.getApp().getData<ResetPass>(DataCode.RESETPASS, false)?.apply {
             params["ticket"] = ticket
             params["ts"] = ts
-            params["pwd"] = edtPasswordOne.text.toString()
+            params["pwd"] = DigestUtils.md5(edtPasswordOne.text.toString())
         }
 
         ApiManager2.post(this, params, Constant.PASS_SET, object : ApiManager2.OnResult<BaseBean<String>>() {

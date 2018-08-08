@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.CompoundButton
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
@@ -15,10 +16,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.ResetPass
-import com.cocosh.shmstore.utils.DigestUtils
-import com.cocosh.shmstore.utils.PermissionCode
-import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_old_modify_pass.*
 
@@ -101,6 +99,7 @@ class OldModifyPasswordActivity : BaseActivity() {
             params["oldpwd"] = DigestUtils.md5(edtPassword.text.toString())
             ApiManager2.post(this, params, Constant.OLDCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
                 override fun onSuccess(data: BaseBean<ResetPass>) {
+                    SmApplication.getApp().setData(DataCode.RESETPASS,data.message)
                     val intent = Intent(this@OldModifyPasswordActivity, SettingPasswordActivity::class.java)
                     startActivity(intent)
                 }
