@@ -199,7 +199,7 @@ class MineContrat {
         fun requestDeleteAddress(flag: Int, idUserAddressInfo: String)
         fun requestGetAddress(flag: Int)
         fun requestDefaultAddress(idUserAddressInfo: String)
-        fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String,town:String,addr:String,default:Int)
+        fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String,town:String,addr:String,default:String)
     }
 
     /**

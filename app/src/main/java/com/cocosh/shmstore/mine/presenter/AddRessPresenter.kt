@@ -10,7 +10,7 @@ import com.cocosh.shmstore.mine.data.MineLoader
  */
 class AddRessPresenter(var mActivity: BaseActivity, var mView: IBaseView) : MineContrat.IAddressPresenter {
 
-    override fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: Int) {
+    override fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: String) {
         loader.requestAddAddress(id, receiver, phone, province, city,town,addr,default)
     }
 

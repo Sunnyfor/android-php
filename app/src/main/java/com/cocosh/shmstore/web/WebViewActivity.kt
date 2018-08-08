@@ -153,7 +153,7 @@ class WebViewActivity : BaseActivity() {
             jsonObject.put("idUserAddressInfo",data?.getStringExtra("idUserAddressInfo"))
             jsonObject.put("addressName",data?.getStringExtra("addressName"))
             jsonObject.put("addressPhone",data?.getStringExtra("addressPhone"))
-            jsonObject.put("address",data?.getStringExtra("address"))
+            jsonObject.put("mAddress",data?.getStringExtra("mAddress"))
             jsonObject.put("areaName",data?.getStringExtra("areaName"))
             webView.loadUrl("javascript:getAddressInfo($jsonObject)")
         }

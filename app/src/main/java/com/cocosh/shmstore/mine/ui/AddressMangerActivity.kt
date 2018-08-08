@@ -5,22 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.RadioButton
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.mine.adapter.AddressListAdapter
-import com.cocosh.shmstore.mine.adapter.SpaceHItem
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.Address
-import com.cocosh.shmstore.mine.model.AddressListModel
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.utils.IntentCode
-import com.cocosh.shmstore.utils.LogUtil
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_address_manger.*
 
@@ -39,9 +32,11 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     override fun setLayout(): Int = R.layout.activity_address_manger
 
     override fun deleteAddress(result: BaseBean<String>){
-        val data = list.find { it.id  == id}
-        list.remove(data)
-        recyclerView.adapter.notifyDataSetChanged()
+//        val data = list.find { it.id  == id}
+//        list.remove(data)
+//        recyclerView.adapter.notifyDataSetChanged()
+        mPresenter.requestGetAddress(1)
+
     }
 //                val data = list.first {
 //                    it.idUserAddressInfo == id
@@ -67,7 +62,7 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 //                            data.putExtra("idUserAddressInfo", list.last().idUserAddressInfo)
 //                            data.putExtra("addressName", list.last().addr)
 //                            data.putExtra("addressPhone", list.last().phone)
-//                            data.putExtra("address", list.last().address)
+//                            data.putExtra("mAddress", list.last().mAddress)
 //                            data.putExtra("areaName", list.last().areaName)
                             setResult(Activity.RESULT_OK, data)
                             finish()
@@ -79,7 +74,9 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
     override fun defaultAddress(result: BaseBean<String>) {
-        list.find { it.default == defaultId }?.default ="1"
+//        list.find{it.default == "1"}?.default = "0"
+//        list.find { it.id == defaultId }?.default ="1"
+            mPresenter.requestGetAddress(1)
 //            list.forEach {
 //                if (it.idUserAddressInfo == defaultId) {
 //                    it.isDefault = "1"
@@ -107,12 +104,12 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
                 if (type != null && type == "web") {
                     SmediaDialog(this@AddressMangerActivity).let {
                         it.setTitle("当前选择的收货地址")
-//                        it.setDesc(list[index].areaName + "-" + list[index].address)
+//                        it.setDesc(list[index].areaName + "-" + list[index].mAddress)
 //                        it.OnClickListener = View.OnClickListener {
 //                            data.putExtra("idUserAddressInfo", list[index].idUserAddressInfo)
 //                            data.putExtra("addressName", list[index].addressName)
 //                            data.putExtra("addressPhone", list[index].addressPhone)
-//                            data.putExtra("address", list[index].address)
+//                            data.putExtra("mAddress", list[index].mAddress)
 //                            data.putExtra("areaName", list[index].areaName)
 //                            setResult(Activity.RESULT_OK, data)
 //                            finish()
@@ -124,20 +121,16 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
             override fun checkedChange(index: Int) {
                 //default
-                defaultId = list[index].default
+                defaultId = list[index].id
                 mPresenter.requestDefaultAddress(list[index].id)
             }
 
-            override fun onEdit(position: Int) {
-//                AddAddressActivity.start(this@AddressMangerActivity, list[position].receiver
-//                       ,list[position].phone
-//                        , list[position].addr, list[position].addr
-//                        ?: "", list[position].id
-//                        , list[position].addr ?: "")
+            override fun onEdit(index: Int) {
+                AddAddressActivity.start(this@AddressMangerActivity,list[index])
             }
 
-            override fun onDelete(position: Int) {
-                showDeleteDialog(list[position].id)
+            override fun onDelete(index: Int) {
+                showDeleteDialog(list[index].id)
             }
         })
     }

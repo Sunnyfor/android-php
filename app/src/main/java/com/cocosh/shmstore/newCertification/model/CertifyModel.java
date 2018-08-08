@@ -8,7 +8,7 @@ public class CertifyModel {
 
     /**
      * code : 0
-     * entity : {"address":"string","applyTime":"string","cardAddress":"string","faceRecognition":"string","idBack":"string","idFront":"string","idNo":"string","issuingAgency":"string","money":0,"partnerStatus":"string","realName":"string","sex":"string","smCode":"string","userName":"string","validityPeriodEndTime":"string","validityPeriodStartTime":"string"}
+     * entity : {"mAddress":"string","applyTime":"string","cardAddress":"string","faceRecognition":"string","idBack":"string","idFront":"string","idNo":"string","issuingAgency":"string","money":0,"partnerStatus":"string","realName":"string","sex":"string","smCode":"string","userName":"string","validityPeriodEndTime":"string","validityPeriodStartTime":"string"}
      * message : string
      * success : true
      */
@@ -52,7 +52,7 @@ public class CertifyModel {
 
     public static class EntityBean {
         /**
-         * address : string
+         * mAddress : string
          * applyTime : string
          * cardAddress : string
          * faceRecognition : string

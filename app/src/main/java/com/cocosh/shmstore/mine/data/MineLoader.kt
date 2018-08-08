@@ -584,7 +584,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 更改 新增地址
      */
-    fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: Int) {
+    fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: String) {
         val map = HashMap<String, String>()
         map["id"] = id
         map["receiver"] = receiver
@@ -593,7 +593,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         map["city"] = city
         map["town"] = town
         map["addr"] = addr
-        map["default"] = default.toString()
+        map["default"] = default
         ApiManager2.post(activity, map, Constant.ADDRESS_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }
@@ -615,7 +615,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestDefaultAddress(idUserAddressInfo: String) {
         val map = HashMap<String, String>()
         map["id"] = idUserAddressInfo
-        ApiManager2.post(activity, map, Constant.DEFAULT_ADDRESS, object : ApiManager2.OnResult<BaseBean<String>>() {
+        ApiManager2.post(activity, map, Constant.ADDRESS_SETDEF, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }
 
@@ -634,7 +634,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取红包列表信息
      */
     fun requestRedWalletWater(flag: Int, idUserAccountRecord: String, begTime: String, showCount: String, sort: String, sortType: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["idUserAccountRecord"] = idUserAccountRecord
         map["begTime"] = begTime
         map["showCount"] = showCount

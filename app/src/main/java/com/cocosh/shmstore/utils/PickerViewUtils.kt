@@ -43,27 +43,34 @@ class PickerViewUtils(val activity: BaseActivity) {
     private var disposable: Disposable? = null
 
     //民族选择器
-    fun showEthnic(onPickerViewResultListener: OnPickerViewResultListener) {
+    fun showEthnic(onPickerViewResultListener: OnPickerViewResultListener, ethnicList: ArrayList<Ethnic>?) {
 
         if (ethnicOptionsPickerView != null) {
             ethnicOptionsPickerView?.show()
             return
         }
-        val ethnicList = ArrayList<Ethnic>()
+
+        var ethnicListList = ethnicList
+
         activity.showLoading()
         disposable = Observable.create<String> {
-            ethnicList.addAll(
-                    ApiManager2.gson.fromJson<java.util.ArrayList<Ethnic>>(GetJsonDataUtil.getJson("ethnic.json"),
-                            object : TypeToken<java.util.ArrayList<Ethnic>>() {}.type))
+            if (ethnicListList == null) {
+                ethnicListList = arrayListOf()
+                ethnicListList?.addAll(
+                        ApiManager2.gson.fromJson<java.util.ArrayList<Ethnic>>(GetJsonDataUtil.getJson("ethnic.json"),
+                                object : TypeToken<java.util.ArrayList<Ethnic>>() {}.type))
+                it.onNext("ok")
+            }
 
-            it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     activity.hideLoading()
                     ethnicOptionsPickerView = OptionsPickerBuilder(activity, OnOptionsSelectListener { options1, _, _, _ ->
-                        onPickerViewResultListener.onPickerViewResult(ethnicList[options1].id + "-" + ethnicList[options1].name)
+                        ethnicListList?.let {
+                            onPickerViewResultListener.onPickerViewResult(it[options1].id + "-" + it[options1].name)
+                        }
                     })
                             .setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色

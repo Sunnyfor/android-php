@@ -245,10 +245,10 @@ object Constant {
     const val CHECK_PERSON_INFO = "account/pwd/auth/identity"//校验身份信息
 
     //地址管理
-    const val DELETE_ADDRESS = "ucenter/address/deleteAddressInfo"//删除
-    const val GET_ADDRESS = "ucenter/address/getAddressInfo"//获取地址列表
-    const val UPDATE_ADDRESS = "ucenter/address/saveOrUpdateAddressInfo"//新增或比编辑地址
-    const val DEFAULT_ADDRESS = "ucenter/address/setDefaultAddressInfo"//默认地址
+    const val DELETE_ADDRESS = "ucenter/mAddress/deleteAddressInfo"//删除
+    const val GET_ADDRESS = "ucenter/mAddress/getAddressInfo"//获取地址列表
+    const val UPDATE_ADDRESS = "ucenter/mAddress/saveOrUpdateAddressInfo"//新增或比编辑地址
+    const val DEFAULT_ADDRESS = "ucenter/mAddress/setDefaultAddressInfo"//默认地址
 
     const val RED_WALLET_WATER = "account/account/redPacketBalance/flow"//红包流水
 

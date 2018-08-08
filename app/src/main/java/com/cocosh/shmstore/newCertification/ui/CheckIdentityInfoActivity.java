@@ -51,6 +51,9 @@ public class CheckIdentityInfoActivity extends BaseActivity {
     private IDCard idCard;
     String message = "";
     private PickerViewUtils pickerViewUtils;
+
+    private ArrayList<Ethnic> ethnicList;
+
     @Override
     public int setLayout() {
         return R.layout.activity_check_identity_info;
@@ -58,6 +61,9 @@ public class CheckIdentityInfoActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ethnicList = ApiManager2.INSTANCE.getGson().fromJson(GetJsonDataUtil.INSTANCE.getJson("ethnic.json"),
+                new TypeToken<java.util.ArrayList<Ethnic>>() {
+                }.getType());
 
         pickerViewUtils = new PickerViewUtils(this);
 
@@ -163,10 +169,9 @@ public class CheckIdentityInfoActivity extends BaseActivity {
                     @Override
                     public void onPickerViewResult(@NotNull String value) {
                         String[] result = value.split("-");
-                        dataBinding.etNation.setTag(result[0]);
                         dataBinding.etNation.setText(result[1]);
                     }
-                });
+                }, ethnicList);
 //                final BottomDialog dialog = DialogHelper.showNationChooseDialog(CheckIdentityInfoActivity.this, ethnicList);
 //                dialog.setOnCompleteListener(new BottomDialog.OnCompleteListener() {
 //
@@ -284,13 +289,21 @@ public class CheckIdentityInfoActivity extends BaseActivity {
                 front.getGender().setWords(dataBinding.etSex.getText() != null ? dataBinding.etSex.getText().toString() : "");
             }
 
+            String ethnicCode = null;
+            //反查民族Code
+            for (int i = 0, size = ethnicList.size(); i < size; i++) {
+                if (ethnicList.get(i).getName().equals(dataBinding.etNation.getText().toString())) {
+                    ethnicCode= ethnicList.get(i).getId();
+                    break;
+                }
+            }
+
             if (front.getEthnic() == null) {
                 Word ethnic = new Word();
-                ethnic.setWords(dataBinding.etNation.getText() != null ? dataBinding.etNation.getText().toString() : "");
+                ethnic.setWords(ethnicCode);
                 front.setEthnic(ethnic);
             } else {
-                String ethnic = (String) dataBinding.etNation.getTag();
-                front.getEthnic().setWords(ethnic != null ? ethnic : "");
+                front.getEthnic().setWords(ethnicCode);
             }
 
 

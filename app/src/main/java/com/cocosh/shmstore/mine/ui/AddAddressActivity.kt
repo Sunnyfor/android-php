@@ -9,6 +9,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.Address
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.PickerViewUtils
@@ -21,12 +22,11 @@ import kotlinx.android.synthetic.main.activity_add_address.*
  */
 class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
     var mPresenter = AddRessPresenter(this, this)
-    var nameIn: String? = null
-    var phoneIn: String? = null
-    var addressCode: String? = null
-    var areaDescIn: String? = null
-    var id: String? = null
-    var areaNameIn: String? = null
+    var mAddress:Address? = null
+    var addressCode = ""
+    var default = "0"
+    var id = "0"
+
     private lateinit var mPickerViewUtils: PickerViewUtils
     override fun setLayout(): Int = R.layout.activity_add_address
 
@@ -42,21 +42,29 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
         mPickerViewUtils = PickerViewUtils(this)
         chooseAddress.setOnClickListener(this)
         save.setOnClickListener(this)
-        nameIn = intent.getStringExtra("name")
-        phoneIn = intent.getStringExtra("phone")
-        addressCode = intent.getStringExtra("area")
-        areaDescIn = intent.getStringExtra("areaDesc")
-        id = intent.getStringExtra("id")
-        areaNameIn = intent.getStringExtra("areaName")
 
-        this.name.setText(nameIn ?: "")
-        this.phone.setText(phoneIn ?: "")
-        this.chooseAddress.setText(areaNameIn ?: "")
-        this.address.setText(areaDescIn ?: "")
+        mAddress = intent.getSerializableExtra("mAddress") as Address?
+
+//        nameIn = intent.getStringExtra("name")
+//        phoneIn = intent.getStringExtra("phone")
+//        addressCode = intent.getStringExtra("area")
+//        areaDescIn = intent.getStringExtra("areaDesc")
+//        id = intent.getStringExtra("id")
+//        areaNameIn = intent.getStringExtra("areaName")
+
+        mAddress?.let {
+            name.setText(it.receiver)
+            phone.setText(it.phone)
+            chooseAddress.setText(it.district)
+            address.setText(it.addr)
+            addressCode = it.province+"-"+it.city+"-"+it.town
+            id = it.id
+            default = it.default
+        }
 
         initlistener()
 
-        if (nameIn != null) {
+        if (mAddress != null) {
             titleManager.defaultTitle("编辑收货地址")
             checkData()
         } else {
@@ -166,11 +174,11 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
                     ToastUtil.show("请输入正确的详细地址")
                     return
                 }
-                 addressCode?.split("-")?.let {
+
+                 addressCode.split("-").let {
                     //通过
-                    mPresenter.requestAddAddress(id
-                            ?: "", name.text.toString(), phone.text.toString(), it[0],
-                            it[1],it[2],address.text.toString(),0)
+                    mPresenter.requestAddAddress(id, name.text.toString(), phone.text.toString(), it[0],
+                            it[1],it[2], address.text.toString(),default)
                 }
 
             }
@@ -186,8 +194,8 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
             mContext.startActivity(Intent(mContext, AddAddressActivity::class.java))
         }
 
-        fun start(mContext: Context, name: String, phone: String, area: String, areaDesc: String, id: String, areaName: String) {
-            mContext.startActivity(Intent(mContext, AddAddressActivity::class.java).putExtra("id", id).putExtra("name", name).putExtra("phone", phone).putExtra("area", area).putExtra("areaDesc", areaDesc).putExtra("areaName", areaName))
+        fun start(mContext: Context,address:Address) {
+            mContext.startActivity(Intent(mContext, AddAddressActivity::class.java).putExtra("mAddress", address))
         }
     }
 }
