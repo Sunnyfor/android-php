@@ -3,6 +3,7 @@ package com.cocosh.shmstore.utils;
 import android.content.Context;
 
 import com.cocosh.shmstore.R;
+import com.cocosh.shmstore.mine.model.Ethnic;
 import com.cocosh.shmstore.widget.dialog.BottomDialog;
 import com.cocosh.shmstore.widget.wheel.ArrayWheelAdapter2;
 import com.cocosh.shmstore.widget.wheel.TimePickerView;
@@ -43,7 +44,7 @@ public class DialogHelper {
      * @param context
      * @return
      */
-    public static BottomDialog showNationChooseDialog(Context context, ArrayList<String> list) {
+    public static BottomDialog showNationChooseDialog(Context context, ArrayList<Ethnic> list) {
         BottomDialog dialog = new BottomDialog(context);
         dialog.setTitle("选择民族");
         ArrayWheelAdapter2 adapter = new ArrayWheelAdapter2(list, list.size());

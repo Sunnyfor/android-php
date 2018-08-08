@@ -7,6 +7,7 @@ import android.view.View;
 import com.baidu.ocr.sdk.model.IDCardParams;
 import com.baidu.ocr.sdk.model.IDCardResult;
 import com.baidu.ocr.sdk.model.Word;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.cocosh.shmstore.R;
 import com.cocosh.shmstore.application.SmApplication;
 import com.cocosh.shmstore.baiduFace.ui.FaceMainActivity;
@@ -18,14 +19,20 @@ import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseActiveActivity;
 import com.cocosh.shmstore.enterpriseCertification.ui.UpLoadAgreementActivity;
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel;
 import com.cocosh.shmstore.http.ApiManager;
+import com.cocosh.shmstore.http.ApiManager2;
 import com.cocosh.shmstore.http.Constant;
+import com.cocosh.shmstore.mine.model.Ethnic;
 import com.cocosh.shmstore.utils.DataCode;
 import com.cocosh.shmstore.utils.DialogHelper;
+import com.cocosh.shmstore.utils.GetJsonDataUtil;
 import com.cocosh.shmstore.utils.IDCard;
 import com.cocosh.shmstore.utils.LogUtil;
+import com.cocosh.shmstore.utils.PickerViewUtils;
 import com.cocosh.shmstore.utils.ToastUtil;
 import com.cocosh.shmstore.widget.dialog.BottomDialog;
 import com.cocosh.shmstore.widget.dialog.SmediaDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.commonsdk.debug.E;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,13 +45,12 @@ import java.util.Map;
 public class CheckIdentityInfoActivity extends BaseActivity {
     private ActivityCheckIdentityInfoBinding dataBinding;
     private ArrayList<String> sexList = new ArrayList<>();
-    private ArrayList<String> nationList = new ArrayList<>();
     private String type;
     private boolean isAgent = false;
     private IDCardResult front, back;
     private IDCard idCard;
     String message = "";
-
+    private PickerViewUtils pickerViewUtils;
     @Override
     public int setLayout() {
         return R.layout.activity_check_identity_info;
@@ -52,6 +58,9 @@ public class CheckIdentityInfoActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        pickerViewUtils = new PickerViewUtils(this);
+
         type = getIntent().getStringExtra("type");
         isAgent = getIntent().getBooleanExtra("isAgent", false);
         dataBinding = getDataBinding();
@@ -68,9 +77,6 @@ public class CheckIdentityInfoActivity extends BaseActivity {
     private void initData() {
         sexList.add("男");
         sexList.add("女");
-
-        String[] nations = getResources().getStringArray(R.array.nations);
-        nationList.addAll(Arrays.asList(nations));
 
         //获取身份证扫描结果
         if (isAgent && "代办人".equals(type)) {
@@ -153,16 +159,25 @@ public class CheckIdentityInfoActivity extends BaseActivity {
 
                 break;
             case R.id.rlNation:
-                final BottomDialog dialog = DialogHelper.showNationChooseDialog(CheckIdentityInfoActivity.this, nationList);
-                dialog.setOnCompleteListener(new BottomDialog.OnCompleteListener() {
-
+                pickerViewUtils.showEthnic(new PickerViewUtils.OnPickerViewResultListener() {
                     @Override
-                    public void onComplete() {
-                        int index = dialog.wvSex.getCurrentItem();
-                        dataBinding.etNation.setText(nationList.get(index));
+                    public void onPickerViewResult(@NotNull String value) {
+                        String[] result = value.split("-");
+                        dataBinding.etNation.setTag(result[0]);
+                        dataBinding.etNation.setText(result[1]);
                     }
-
                 });
+//                final BottomDialog dialog = DialogHelper.showNationChooseDialog(CheckIdentityInfoActivity.this, ethnicList);
+//                dialog.setOnCompleteListener(new BottomDialog.OnCompleteListener() {
+//
+//                    @Override
+//                    public void onComplete() {
+//                        int index = dialog.wvSex.getCurrentItem();
+//                        dataBinding.etNation.setTag(ethnicList.get(index).getId());
+//                        dataBinding.etNation.setText(ethnicList.get(index).getName());
+//                    }
+//
+//                });
 
                 break;
             case R.id.itvBirth:
@@ -274,7 +289,8 @@ public class CheckIdentityInfoActivity extends BaseActivity {
                 ethnic.setWords(dataBinding.etNation.getText() != null ? dataBinding.etNation.getText().toString() : "");
                 front.setEthnic(ethnic);
             } else {
-                front.getEthnic().setWords(dataBinding.etNation.getText() != null ? dataBinding.etNation.getText().toString() : "");
+                String ethnic = (String) dataBinding.etNation.getTag();
+                front.getEthnic().setWords(ethnic != null ? ethnic : "");
             }
 
 
@@ -295,29 +311,29 @@ public class CheckIdentityInfoActivity extends BaseActivity {
             }
         }
         if (back != null) {
-                if (back.getSignDate() == null){
-                    Word signDate = new Word();
-                    signDate.setWords(dataBinding.etDateStart.getText() != null ? dataBinding.etDateStart.getText().toString() : "");
-                    back.setSignDate(signDate);
-                }else {
-                    back.getSignDate().setWords(dataBinding.etDateStart.getText() != null ? dataBinding.etDateStart.getText().toString() : "");
-                }
+            if (back.getSignDate() == null) {
+                Word signDate = new Word();
+                signDate.setWords(dataBinding.etDateStart.getText() != null ? dataBinding.etDateStart.getText().toString() : "");
+                back.setSignDate(signDate);
+            } else {
+                back.getSignDate().setWords(dataBinding.etDateStart.getText() != null ? dataBinding.etDateStart.getText().toString() : "");
+            }
 
-                if (back.getExpiryDate() == null){
-                    Word expiryDate = new Word();
-                    expiryDate.setWords(dataBinding.etDateEnd.getText() != null ? dataBinding.etDateEnd.getText().toString() : "");
-                    back.setExpiryDate(expiryDate);
-                }else {
-                    back.getExpiryDate().setWords(dataBinding.etDateEnd.getText() != null ? dataBinding.etDateEnd.getText().toString() : "");
-                }
+            if (back.getExpiryDate() == null) {
+                Word expiryDate = new Word();
+                expiryDate.setWords(dataBinding.etDateEnd.getText() != null ? dataBinding.etDateEnd.getText().toString() : "");
+                back.setExpiryDate(expiryDate);
+            } else {
+                back.getExpiryDate().setWords(dataBinding.etDateEnd.getText() != null ? dataBinding.etDateEnd.getText().toString() : "");
+            }
 
-              if (back.getIssueAuthority() == null){
-                  Word issueAuthority = new Word();
-                  issueAuthority.setWords(dataBinding.etOrganization.getText() != null ? dataBinding.etOrganization.getText().toString() : "");
-                  back.setIssueAuthority(issueAuthority);
-              }else {
-                  back.getIssueAuthority().setWords(dataBinding.etOrganization.getText() != null ? dataBinding.etOrganization.getText().toString() : "");
-              }
+            if (back.getIssueAuthority() == null) {
+                Word issueAuthority = new Word();
+                issueAuthority.setWords(dataBinding.etOrganization.getText() != null ? dataBinding.etOrganization.getText().toString() : "");
+                back.setIssueAuthority(issueAuthority);
+            } else {
+                back.getIssueAuthority().setWords(dataBinding.etOrganization.getText() != null ? dataBinding.etOrganization.getText().toString() : "");
+            }
         }
     }
 

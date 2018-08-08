@@ -7,13 +7,15 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bigkoo.pickerview.view.TimePickerView
+import com.cocosh.shmstore.R
+import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.mine.model.BankModel
+import com.cocosh.shmstore.mine.model.BankTypeModel
+import com.cocosh.shmstore.mine.model.Ethnic
 import com.cocosh.shmstore.model.City
 import com.cocosh.shmstore.model.District
 import com.cocosh.shmstore.model.Province
-import com.cocosh.shmstore.R
-import com.cocosh.shmstore.mine.model.BankModel
-import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.mine.model.BankTypeModel
 import com.cocosh.shmstore.model.ProvinceModel
 import com.cocosh.shmstore.widget.dialog.BankListDialog
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
@@ -35,10 +37,43 @@ import kotlin.collections.ArrayList
 class PickerViewUtils(val activity: BaseActivity) {
 
     private var addressOptionsPickerView: OptionsPickerView<ProvinceModel>? = null
+    private var ethnicOptionsPickerView: OptionsPickerView<Ethnic>? = null
     private var bankOptionsPickerView: OptionsPickerView<String>? = null
     private var timePickerView: TimePickerView? = null
     private var disposable: Disposable? = null
 
+    //民族选择器
+    fun showEthnic(onPickerViewResultListener: OnPickerViewResultListener) {
+
+        if (ethnicOptionsPickerView != null) {
+            ethnicOptionsPickerView?.show()
+            return
+        }
+        val ethnicList = ArrayList<Ethnic>()
+        activity.showLoading()
+        disposable = Observable.create<String> {
+            ethnicList.addAll(
+                    ApiManager2.gson.fromJson<java.util.ArrayList<Ethnic>>(GetJsonDataUtil.getJson("ethnic.json"),
+                            object : TypeToken<java.util.ArrayList<Ethnic>>() {}.type))
+
+            it.onNext("ok")
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    activity.hideLoading()
+                    ethnicOptionsPickerView = OptionsPickerBuilder(activity, OnOptionsSelectListener { options1, _, _, _ ->
+                        onPickerViewResultListener.onPickerViewResult(ethnicList[options1].id + "-" + ethnicList[options1].name)
+                    })
+                            .setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
+                            .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
+                            .setTitleText("选择民族")
+                            .build()
+                    ethnicOptionsPickerView?.setPicker(ethnicList)
+                    ethnicOptionsPickerView?.show()
+                    disposable?.dispose()
+                }
+    }
 
     //显示年月
     fun showDateYYMM(onPickerViewResultListener: OnPickerViewResultListener) {
