@@ -5,6 +5,12 @@ import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
+import com.google.gson.TypeAdapterFactory
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonToken
+import com.google.gson.stream.JsonWriter
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -43,7 +49,7 @@ object ApiManager2 {
 
     fun getHost(): String {
         host = if (Constant.isDebug()) "http://test.api.shoumeiapp.com" else "http://api.shoumeiapp.com"
-        return "http://test.api.shoumeiapp.com"
+        return "http://test.api.shoumeiapp.com:8081"
     }
 
 
@@ -109,13 +115,13 @@ object ApiManager2 {
                         if (e is SocketTimeoutException || e is TimeoutException) {
 
                             ToastUtil.show("网络请求超时,请稍后重试！")
-                            onResult.onFailed("0","网络请求超时,请稍后重试")
+                            onResult.onFailed("0", "网络请求超时,请稍后重试")
                             return
                         }
 
                         if (e is ConnectException) {
                             ToastUtil.show("无法连接到服务器！")
-                            onResult.onFailed("0","无法连接到服务器！")
+                            onResult.onFailed("0", "无法连接到服务器！")
                             return
                         }
                     }
@@ -222,6 +228,7 @@ object ApiManager2 {
 
 
 
+
     @Suppress("UNCHECKED_CAST")
     private fun <T> parserJson(flag: Int, baseActivity: BaseActivity, json: String, onResult: OnResult<T>) {
         if (onResult.tag == STRING) {
@@ -237,7 +244,7 @@ object ApiManager2 {
                     } else {
                         val message = jsonObj.opt("message").toString()
                         onResult.onFailed(status, message)
-                        if (status != "5000002"){  //暂无数据
+                        if (status != "5000002") {  //暂无数据
                             ToastUtil.show(message)
                         }
                     }

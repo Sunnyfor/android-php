@@ -13,8 +13,10 @@ import android.view.View
 import android.widget.CompoundButton
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.model.ApplyPartner
 import com.cocosh.shmstore.term.ServiceTermActivity
@@ -121,11 +123,15 @@ class PartnerSplashActivity : BaseActivity() {
      * 获取邀请码
      */
     fun getCode() {
-        ApiManager.get(1, this, hashMapOf(), Constant.PARTNER_INVITE_CODE, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-                    data.entity?.let {
-                        if (it.isNotEmpty()) {
+        ApiManager2.get(1, this, hashMapOf(), Constant.NEW_CERT_INVITEE, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+            override fun onFailed(code: String, message: String) {
+                
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
+                    data.message?.let {
+                        if (it != "") {
                             inviteCode = it
                             tvInviteCode.text = inviteCode
                         } else {
@@ -133,14 +139,10 @@ class PartnerSplashActivity : BaseActivity() {
                             edtInviteCode.visibility = View.VISIBLE
                         }
                     }
-                }
             }
 
-            override fun onFailed(e: Throwable) {
 
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
 
             }
 

@@ -102,7 +102,7 @@ object UserManager2 {
         var data = memberEntrance
         if (data == null) {
             data = MemberEntrance2(
-                    "0", "", "", "", "", "",
+                    0, "", "", "", "", "",
                     "", "", "", "", "", "",
                     "", "", ""
             )

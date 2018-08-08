@@ -196,7 +196,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             isvAddress.setValue(it.district)
             isvCompany.setValue(it.company)
             isvWork.setValue(it.industry_name)
-            progressBar_big.progress = (it.degree.toInt())
+            progressBar_big.progress = (it.degree)
             progressBar_big.invalidate()
         }
     }

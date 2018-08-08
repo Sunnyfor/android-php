@@ -105,7 +105,7 @@ class SettingActivity : BaseActivity() {
 
     private fun showEntDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
+        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = OnClickListener {
             SmApplication.getApp().activityName = this::class.java as Class<BaseActivity>?
             CheckPayPwdMessage.start(this@SettingActivity, PayPassworType.INIT)

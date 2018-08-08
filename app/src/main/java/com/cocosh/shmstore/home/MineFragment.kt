@@ -205,7 +205,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        loadDate()
+        updateInfo()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -215,6 +215,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         }
     }
 
+
     private fun updateInfo() {
         UserManager2.getMemberEntrance()?.let {
             setNo(UserManager2.getLogin()?.code)
@@ -222,10 +223,10 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             UserManager.loadBg(it.avatar, getLayoutView().ivBg) //加载背景图
 
             it.avatar.let {
-                if (it != "") {
-                    GlideUtils.loadHead(context, it, getLayoutView().ivHead)
-                } else {
+                if (it.isNullOrEmpty()) {
                     getLayoutView().ivHead.setImageResource(R.drawable.bg_update_head)
+                } else {
+                    GlideUtils.loadHead(context, it, getLayoutView().ivHead)
                 }
 //            motifyMenu(it.cityOpertorsStatus ?: "", it.partnerStatus ?: "")
                 getLayoutView().tvNo.visibility = View.VISIBLE

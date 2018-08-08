@@ -62,6 +62,9 @@ object Constant {
 
     const val CERT_DO = "$VERSION/cert/do" //个人认证
 
+    const val NEW_CERT_INVITEE = "$VERSION/new_cert/invitee" //新媒人-被邀约信息
+
+
     /**
      * 首页
      * */

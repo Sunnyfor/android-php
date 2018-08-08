@@ -5,8 +5,8 @@ package com.cocosh.shmstore.mine.model
  * Created by zhangye on 2018/8/6.
  */
 data class MemberEntrance2(
-        var degree: String, //25, // 完善度,百分比整数
-        var avatar: String, //个人头像
+        var degree: Int, //25, // 完善度,百分比整数
+        var avatar: String?, //个人头像
         var nickname: String, //昵称
         var realname: String, //真实姓名
         var birth: String, // 生日,格式:'Y-m-d'

@@ -14,7 +14,6 @@ import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.presenter.SendMessagePresenter
 import com.cocosh.shmstore.sms.model.SMS
-import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_message_check_paypwd.*
 
@@ -34,7 +33,7 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
         //校验 验证码
 
             //判断是否实人认证
-            if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
+            if (UserManager2.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
                 PersonInfoCheck.start(this@CheckPayPwdMessage, "auth")
                 finish()
             } else {
