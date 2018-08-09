@@ -216,6 +216,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
     }
 
     override fun onRegister(result: BaseBean<Login2>) {
+        setResult(IntentCode.FINISH)
         finish()
     }
 

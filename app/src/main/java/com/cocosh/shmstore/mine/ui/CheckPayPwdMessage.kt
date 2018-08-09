@@ -34,7 +34,7 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
         //校验 验证码
 
         //判断是否实人认证
-        if (UserManager2.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
+        if (UserManager2.getCommonData()?.cert?.r == AuthenStatus.PERSION_OK.type) {
             PersonInfoCheck.start(this@CheckPayPwdMessage, "auth")
             finish()
         } else {

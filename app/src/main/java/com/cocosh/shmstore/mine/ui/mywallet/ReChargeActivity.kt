@@ -157,7 +157,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         }
 
         if (!tvMoney.text.isNullOrEmpty()) {
-            presenter.getCharge(type, tvMoney.text.toString(), AuthenStatus.RECHARGE.type, "")
+//            presenter.getCharge(type, tvMoney.text.toString(), AuthenStatus.RECHARGE.type, "")
         } else {
             ToastUtil.show("支付失败，稍后重试！")
         }

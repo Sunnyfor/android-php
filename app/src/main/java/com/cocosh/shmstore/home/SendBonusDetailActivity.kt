@@ -144,7 +144,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
                     val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)
                     it.putExtra("amount", intent.getStringExtra("money"))
                     it.putExtra("runningNumber", SmApplication.getApp().getData<BonusConfig>(DataCode.BONUS_CONFIG, false)?.orderNumber)
-                    it.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
+//                    it.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
                     startActivity(it)
                     setResult(IntentCode.FINISH)
                     finish()

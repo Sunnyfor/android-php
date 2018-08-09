@@ -83,16 +83,16 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
         tv_conserve_img.paint.isAntiAlias = true//抗锯齿
         val info = UserManager.getMemberEntrance()
 
-        if(type == null){
-            //type H:新媒人 Y:服务商
-            if (info?.partnerStatus == AuthenStatus.PRE_PASS.type || info?.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-                type = if (info.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-                    "3"
-                } else {
-                    "2"
-                }
-            }
-        }
+//        if(type == null){
+//            //type H:新媒人 Y:服务商
+//            if (info?.partnerStatus == AuthenStatus.PRE_PASS.type || info?.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
+//                type = if (info.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
+//                    "3"
+//                } else {
+//                    "2"
+//                }
+//            }
+//        }
         type?.let {
             persenter.requestInviteCodeData(1,UserManager.getUserId(), it)
         }

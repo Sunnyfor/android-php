@@ -8,6 +8,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseActiveActivity
 import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity
@@ -15,10 +16,13 @@ import com.cocosh.shmstore.facilitator.ui.FacilitatorFailActivity
 import com.cocosh.shmstore.facilitator.ui.FacilitatorInformationActivity
 import com.cocosh.shmstore.facilitator.ui.FacilitatorSplashActivity
 import com.cocosh.shmstore.facilitator.ui.PayFranchiseFeeActivity
+import com.cocosh.shmstore.home.model.CommentData
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.MemberEntrance
+import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.newCertification.ui.NewCertificationActivity
 import com.cocosh.shmstore.newCertification.ui.PartherPendingPayActivity
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
@@ -38,13 +42,13 @@ import java.util.*
  */
 class AuthActivity : BaseActivity() {
     override fun reTryGetData() {
-        getState(1)
+        getState()
     }
 
-    var partnerStatus = ""
-    var personStatus = ""
-    var cityOpertorsStatus = ""
-    var entStatus = ""
+    var newMatchmakerStatus = 0  //新媒人状态
+    var personStatus = 0 //个人状态
+    var serverDealerStatus = 0 //服务商状态
+    var entStatus = 0
     override fun setLayout(): Int = R.layout.activity_author
 
     override fun initView() {
@@ -61,7 +65,6 @@ class AuthActivity : BaseActivity() {
 
     }
 
-    var flag = 1
     override fun onResume() {
         super.onResume()
 
@@ -73,38 +76,17 @@ class AuthActivity : BaseActivity() {
                 GlideUtils.loadHead(this, it.avatar, top_new_title.ivHead)
             }
         }
-
-//        getState(flag)
+        getState()
     }
 
-    private fun getState(flag: Int) {
-        val map = HashMap<String, String>()
-        //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-        ApiManager.get(flag, this, map, Constant.CHECK_AUTH, object : ApiManager.OnResult<BaseModel<MemberEntrance>>() {
-            override fun onSuccess(data: BaseModel<MemberEntrance>) {
-                data.entity?.let {
-                    UserManager.setMemberEntrance(it)
-                    partnerStatus = it.partnerStatus ?: AuthenStatus.UNCERTIFIED.type  //新媒人认证
-                    when (partnerStatus) {
-                        AuthenStatus.UNCERTIFIED.type -> {
-                            tvPartnerState.text = "未认证"
-                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren))
-                        }
-                        AuthenStatus.PRE_PASS.type -> {
-                            tvPartnerState.text = "已认证"
-                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren_chenggong))
-                        }
-                        AuthenStatus.PRE_DRAFT.type -> {
-                            tvPartnerState.text = "待付款"
-                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren))
-                        }
-                        AuthenStatus.PRE_AUTH.type -> {
-                            tvPartnerState.text = "认证中"
-                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren))
-                        }
-                    }
+    //加载认证状态
+    private fun getState() {
+        UserManager2.loadCommonData(1,this,object :ApiManager2.OnResult<BaseBean<CommonData>>(){
+            override fun onSuccess(data: BaseBean<CommonData>) {
+                data.message?.let {
+                    UserManager2.setCommonData(it)
 
-                    personStatus = it.personStatus ?: AuthenStatus.UNCERTIFIED.type  //个人认证
+                    personStatus = it.cert.r //个人认证
                     when (personStatus) {
                         AuthenStatus.PERSION_NO.type -> {
                             tvPersonState.text = "未认证"
@@ -116,67 +98,60 @@ class AuthActivity : BaseActivity() {
                         }
                     }
 
-                    cityOpertorsStatus = it.cityOpertorsStatus ?: AuthenStatus.UNCERTIFIED.type//服务商认证
-                    when (cityOpertorsStatus) {
-                        AuthenStatus.UNCERTIFIED.type -> {
+
+                    newMatchmakerStatus = it.cert.x //新媒人认证
+                    when (newMatchmakerStatus) {
+                        AuthenStatus.NEW_MATCHMAKER_NO.type -> {
+                            tvPartnerState.text = "未认证"
+                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren))
+                        }
+                        AuthenStatus.NEW_MATCHMAKER_OK.type -> {
+                            tvPartnerState.text = "已认证"
+                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren_chenggong))
+                        }
+                        AuthenStatus.NEW_MATCHMAKER_WAIT.type -> {
+                            tvPartnerState.text = "待付款"
+                            ivPartner.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.xinmeiren))
+                        }
+                    }
+
+                    serverDealerStatus = it.cert.f //服务商认证
+                    when (serverDealerStatus) {
+                        AuthenStatus.SERVER_DEALER_NO.type -> {
                             tvMediaState.text = "未认证"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
                         }
-                        AuthenStatus.PRE_PASS.type -> {
+                        AuthenStatus.SERVER_DEALER_OK.type -> {
                             tvMediaState.text = "已认证"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang_ok))
                         }
-                        AuthenStatus.PRE_DRAFT.type -> {
-                            tvMediaState.text = "待付款"
-                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-                        }
-                        AuthenStatus.PRE_AUTH.type -> {
+//                        AuthenStatus.SERVER_DEALER_ING.type -> {
+//                            tvMediaState.text = "待付款"
+//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
+//                        }
+                        AuthenStatus.SERVER_DEALER_ING.type -> {
                             tvMediaState.text = "认证中"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
                         }
-                        AuthenStatus.AUTH_FAILED.type -> {
-                            tvMediaState.text = "认证失败"
-                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-                        }
-                        AuthenStatus.REJECT.type -> {
-                            tvMediaState.text = "认证失败"
-                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-                        }
-                    }
-                    entStatus = it.entStatus ?: AuthenStatus.NOT_ACTIVE.type //企业主
-                    when (entStatus) {
-                        AuthenStatus.NOT_ACTIVE.type -> {
-                            tvCompanyState.text = "待激活"
-                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
-                        }
-                        AuthenStatus.AUDIT.type -> {
-                            tvCompanyState.text = "审核中"
-                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
-                        }
-                        AuthenStatus.ALREADY_ACTIVATED.type -> {
-                            tvCompanyState.text = "已激活"
-                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_ok))
-                        }
-                        AuthenStatus.AUTH_FAILED.type, AuthenStatus.REJECT.type -> {
-                            tvCompanyState.text = "激活失败"
-                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
-                        }
+//                        AuthenStatus.AUTH_FAILED.type -> {
+//                            tvMediaState.text = "认证失败"
+//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
+//                        }
 //                        AuthenStatus.REJECT.type -> {
-//                            tvCompanyState.text = "审核驳回"
-//                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
+//                            tvMediaState.text = "认证失败"
+//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
 //                        }
                     }
+
                 }
             }
-
-            override fun onFailed(e: Throwable) {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: BaseModel<MemberEntrance>) {
+            override fun onCatch(data: BaseBean<CommonData>) {
             }
 
         })
-        this.flag = 0
     }
 
     //
@@ -194,9 +169,6 @@ class AuthActivity : BaseActivity() {
      * 个人认证
      */
     private fun llpersion() {
-
-        personStatus = AuthenStatus.PERSION_NO.type
-
         if (personStatus == AuthenStatus.PERSION_OK.type) {
             startActivity(Intent(this, PersonRsultActivity::class.java))
         }
@@ -213,15 +185,11 @@ class AuthActivity : BaseActivity() {
      * 认证状态(1-未认证 2-待付款 3-已注销 4-已作废 5-已认证 6 认证失败)
      */
     private fun llmedia() {
-        //UNCERTIFIED("未认证"),PRE_DRAFT("认证中"), PRE_PASS("已认证")  PRE_AUTH:认证中
-        cityOpertorsStatus = AuthenStatus.UNCERTIFIED.type
-        when (cityOpertorsStatus) {
-            AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
-            AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
-            AuthenStatus.PRE_PASS.type -> FacilitatorInformationActivity.start(this, -1)
-//            AuthenStatus.PRE_AUTH.type -> PayFranchiseFeeActivity.start(this, 666)
-            AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(this, -1)
-//            AuthenStatus.REJECT.type -> FacilitatorFailActivity.start(this, -1)
+        when (serverDealerStatus) {
+            AuthenStatus.SERVER_DEALER_NO.type -> FacilitatorSplashActivity.start(this)
+            AuthenStatus.SERVER_DEALER_ING.type -> PayFranchiseFeeActivity.start(this, 666)
+            AuthenStatus.SERVER_DEALER_FAIL.type -> FacilitatorFailActivity.start(this, -1)
+            AuthenStatus.SERVER_DEALER_OK.type -> FacilitatorInformationActivity.start(this, -1)
         }
     }
 
@@ -230,7 +198,7 @@ class AuthActivity : BaseActivity() {
      * 企业主认证
      */
     private fun llcompany() {
-        if (entStatus == AuthenStatus.UNCERTIFIED.type) {
+        if (entStatus == AuthenStatus.BUSINESS_NO.type) {
             startActivity(Intent(this, EnterpriseCertificationActivity::class.java))
         } else {
             EnterpriseActiveActivity.start(this)
@@ -242,27 +210,24 @@ class AuthActivity : BaseActivity() {
      * 新媒人认证
      */
     private fun llparnter() {
-        partnerStatus = AuthenStatus.UNCERTIFIED.type
-//        if (personStatus == AuthenStatus.PERSION_OK.type) {
-            //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-            when (partnerStatus) {
-                AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
-                AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
-                AuthenStatus.PRE_PASS.type -> NewCertificationActivity.start(this)
-                AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+        if (personStatus == AuthenStatus.PERSION_OK.type) {
+            when (newMatchmakerStatus) {
+                AuthenStatus.NEW_MATCHMAKER_NO.type -> PartnerSplashActivity.start(this)
+                AuthenStatus.NEW_MATCHMAKER_WAIT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+                AuthenStatus.NEW_MATCHMAKER_OK.type -> NewCertificationActivity.start(this)
             }
-//        } else {
-//            val dialog = SmediaDialog(this)
-//            dialog.setTitle("请先完成实人认证")
-//            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-//
-//            dialog.OnClickListener = View.OnClickListener {
-//                val intent = Intent(this, ScanIdCardActivity::class.java)
-//                intent.putExtra("type", "实人认证")
-//                startActivity(intent)
-//            }
-//            dialog.show()
-//        }
+        } else {
+            val dialog = SmediaDialog(this)
+            dialog.setTitle("请先完成实人认证")
+            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+
+            dialog.OnClickListener = View.OnClickListener {
+                val intent = Intent(this, ScanIdCardActivity::class.java)
+                intent.putExtra("type", "实人认证")
+                startActivity(intent)
+            }
+            dialog.show()
+        }
     }
 
     companion object {
@@ -271,9 +236,5 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    //更新状态
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        getState(flag)
-    }
+
 }

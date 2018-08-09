@@ -10,6 +10,7 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.mine.model.MemberEntrance2
+import com.cocosh.shmstore.model.CommonData
 import com.google.gson.Gson
 import jp.wasabeef.glide.transformations.BlurTransformation
 
@@ -23,7 +24,9 @@ object UserManager2 {
     //存储用户信息
     private const val LOGIN = "login"
     //我的页面入口数据
-    private const val MEMBERENTRANCE = "memberentrance"
+    private const val MEMBERENTRANCE = "memberentrance" //个人档案
+
+    private const val COMMENDATA = "commendata" //认证状态
 
     private var bitmap_topbg: Bitmap? = null
     private var default_bg: Bitmap? = null
@@ -99,15 +102,9 @@ object UserManager2 {
      *  存储我的页面数据
      */
     fun setMemberEntrance(memberEntrance: MemberEntrance2?) {
-        var data = memberEntrance
-        if (data == null) {
-            data = MemberEntrance2(
-                    0, "", "", "", "", "",
-                    "", "", "", "", "", "",
-                    "", "", ""
-            )
+        memberEntrance?.let {
+            SharedUtil.setString(MEMBERENTRANCE, Gson().toJson(memberEntrance))
         }
-        SharedUtil.setString(MEMBERENTRANCE, Gson().toJson(data))
     }
 
 //    /**
@@ -118,6 +115,27 @@ object UserManager2 {
 //        data?.personStatus = value
 //        setMemberEntrance(data)
 //    }
+
+
+    fun setCommonData(commonData: CommonData?){
+        commonData?.let {
+            getLogin()?.let {
+                it.phone = commonData.phone
+                setLogin(it)
+            }
+            SharedUtil.setString(COMMENDATA, Gson().toJson(commonData))
+        }
+    }
+
+
+    fun getCommonData():CommonData?{
+        val json = SharedUtil.getString(COMMENDATA)
+        if (json != "") {
+            return Gson().fromJson(json, CommonData::class.java)
+        }
+        return null
+    }
+
 
     /**
      * 获取我的页面数据
@@ -164,12 +182,17 @@ object UserManager2 {
     /**
      * 加载我的页面数据
      */
-    fun loadMemberEntrance(baseActivity: BaseActivity,onResult: ApiManager2.OnResult<BaseBean<MemberEntrance2>>) {
-        ApiManager2.get(0, baseActivity, null, Constant.PROFILE,onResult)
+    fun loadMemberEntrance(baseActivity: BaseActivity, onResult: ApiManager2.OnResult<BaseBean<MemberEntrance2>>) {
+        ApiManager2.get(0, baseActivity, null, Constant.PROFILE, onResult)
     }
 
     //更新用户资料
     fun updateMemberEntrance(baseActivity: BaseActivity, params: HashMap<String, String>, onResult: ApiManager2.OnResult<BaseBean<String>>) {
         ApiManager2.post(baseActivity, params, Constant.PROFILE_UPDATE, onResult)
+    }
+
+    //加载APP通用数据（认证状态）
+    fun loadCommonData(flag:Int,baseActivity: BaseActivity, onResult: ApiManager2.OnResult<BaseBean<CommonData>>) {
+        ApiManager2.get(flag, baseActivity, hashMapOf(), Constant.COMMON_DATA, onResult)
     }
 }

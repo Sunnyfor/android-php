@@ -10,13 +10,11 @@ import android.view.View
 import android.view.Window
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity
 import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.login.ILoginContract
 import com.cocosh.shmstore.login.LoginPresenter
 import com.cocosh.shmstore.login.model.Login
-import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.login.model.LoginHistory
 import com.cocosh.shmstore.register.RegisterActivity
 import com.cocosh.shmstore.utils.*
@@ -141,7 +139,7 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
 
             }
             llReg.id -> {
-                startActivity(Intent(this, RegisterActivity::class.java))
+                startActivityForResult(Intent(this, RegisterActivity::class.java),IntentCode.IS_REGIST)
             }
 
             tvForgetPsd.id -> {
@@ -254,7 +252,7 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IntentCode.IS_REGIST && resultCode == IntentCode.IS_REGIST) {
+        if (requestCode == IntentCode.IS_REGIST && resultCode == IntentCode.FINISH) {
             finish()
         }
     }

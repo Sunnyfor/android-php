@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
@@ -23,6 +22,7 @@ import com.cocosh.shmstore.mine.ui.authentication.FacilitatorInComeActivity
 import com.cocosh.shmstore.mine.ui.authentication.SendPackageActivity
 import com.cocosh.shmstore.mine.ui.enterprisewallet.EnterPriseWalletActivity
 import com.cocosh.shmstore.mine.ui.mywallet.MyWalletActivity
+import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -113,7 +113,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                     putExtra("OPEN_TYPE", OpenType.Help.name)
                 }
                 startActivity(intent)
-//              startActivity(Intent(context, HelpActivity::class.java))
+//              startActivity(Intent(context, HelpActivity::class.java)) //本地页面
             }
             "发出的红包" -> SendPackageActivity.start(activity)
         }
@@ -160,37 +160,54 @@ class MineFragment : BaseFragment(), OnItemClickListener {
     /**
      * 根据认证状态修改菜单顺序
      */
-    private fun motifyMenu(cityOpertorsStatus: String, partnerStatus: String) {
-        if (cityOpertorsStatus == "" && partnerStatus == "") {
-            return
-        }
-        val newBottomTitles = arrayListOf(
-                MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
+    private fun motifyMenu() {
+
+        UserManager2.loadCommonData(0, getBaseActivity(), object : ApiManager2.OnResult<BaseBean<CommonData>>() {
+            override fun onSuccess(data: BaseBean<CommonData>) {
+                data.message?.let {
+
+                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_NO.type && it.cert.f == AuthenStatus.SERVER_DEALER_NO.type) {
+                        return
+                    }
+
+                    val newBottomTitles = arrayListOf(
+                            MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
 //                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
-                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
-                MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
-                MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
-                MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
+                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
+                            MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
+                            MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
+                            MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
 
-        if (cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-            newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
-            val index = newBottomTitles.indexOfFirst {
-                it.title == "钱包"
+                    if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
+                        newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
+                        val index = newBottomTitles.indexOfFirst {
+                            it.title == "钱包"
+                        }
+                        newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
+                    }
+
+                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
+                        newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
+                    }
+
+                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type || it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
+                        newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconInvite), "邀请码"))
+                    }
+
+                    val bottomNavAdapter = MineBottomNavAdapter(newBottomTitles)
+                    getLayoutView().recycleBottomNav.adapter = bottomNavAdapter
+                    bottomNavAdapter.setOnItemClickListener(this@MineFragment)
+                }
+
             }
-            newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
-        }
 
-        if (partnerStatus == AuthenStatus.PRE_PASS.type) {
-            newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
-        }
+            override fun onFailed(code: String, message: String) {
+            }
 
-        if (cityOpertorsStatus == AuthenStatus.PRE_PASS.type || partnerStatus == AuthenStatus.PRE_PASS.type) {
-            newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconInvite), "邀请码"))
-        }
+            override fun onCatch(data: BaseBean<CommonData>) {
+            }
 
-        val bottomNavAdapter = MineBottomNavAdapter(newBottomTitles)
-        getLayoutView().recycleBottomNav.adapter = bottomNavAdapter
-        bottomNavAdapter.setOnItemClickListener(this)
+        })
     }
 
 
@@ -229,9 +246,10 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                 } else {
                     GlideUtils.loadHead(context, it, getLayoutView().ivHead)
                 }
-//            motifyMenu(it.cityOpertorsStatus ?: "", it.partnerStatus ?: "")
-                getLayoutView().tvNo.visibility = View.VISIBLE
             }
+
+            motifyMenu()
+            getLayoutView().tvNo.visibility = View.VISIBLE
         }
     }
 }

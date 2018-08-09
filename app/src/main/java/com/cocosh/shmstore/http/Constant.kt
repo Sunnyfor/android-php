@@ -27,6 +27,7 @@ object Constant {
 
 
     /*新版PHP接口*/
+    const val COMMON_DATA = "$VERSION/common/data" //通用接口（认证状态）
 
     const val REGISTER_SEND_CODE = "$VERSION/common/sms" //注册发送验证码
 
@@ -65,8 +66,10 @@ object Constant {
 
 
     const val CERT_DO = "$VERSION/cert/do" //个人认证
+    const val CERT_RESULT = "$VERSION/cert/result" //个人认证回显
 
     const val NEW_CERT_INVITEE = "$VERSION/new_cert/invitee" //新媒人-被邀约信息
+    const val NEW_CERT_DO = "$VERSION/new_cert/do" //新媒人-认证
 
 
     /**

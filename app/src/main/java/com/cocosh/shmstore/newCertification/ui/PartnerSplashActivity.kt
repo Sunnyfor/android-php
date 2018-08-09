@@ -22,6 +22,7 @@ import com.cocosh.shmstore.newCertification.model.ApplyPartner
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.OpenType
+import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.partner_splash_activity.*
 
@@ -126,19 +127,19 @@ class PartnerSplashActivity : BaseActivity() {
         ApiManager2.get(1, this, hashMapOf(), Constant.NEW_CERT_INVITEE, object : ApiManager2.OnResult<BaseBean<String>>() {
 
             override fun onFailed(code: String, message: String) {
-                
+
             }
 
             override fun onSuccess(data: BaseBean<String>) {
-                    data.message?.let {
-                        if (it != "") {
-                            inviteCode = it
-                            tvInviteCode.text = inviteCode
-                        } else {
-                            tvInviteCode.visibility = View.GONE
-                            edtInviteCode.visibility = View.VISIBLE
-                        }
+                data.message?.let {
+                    if (it != "") {
+                        inviteCode = it
+                        tvInviteCode.text = inviteCode
+                    } else {
+                        tvInviteCode.visibility = View.GONE
+                        edtInviteCode.visibility = View.VISIBLE
                     }
+                }
             }
 
 
@@ -153,30 +154,26 @@ class PartnerSplashActivity : BaseActivity() {
      * 开始认证
      */
     private fun authen(inviteCode: String) {
+
+        if (inviteCode.length < 5) {
+            ToastUtil.show("邀请码长度不能小于5位")
+            return
+        }
         val params = hashMapOf<String, String>()
-        params["beInviteCode"] = inviteCode
-        ApiManager.post(this, params, Constant.APPLY_PARTNER, object : ApiManager.OnResult<BaseModel<ApplyPartner>>() {
-            override fun onSuccess(data: BaseModel<ApplyPartner>) {
-                if (data.success) {
-                    val intent = Intent(this@PartnerSplashActivity, PartherPendingPayActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val dialog = SmediaDialog(this@PartnerSplashActivity)
-                    dialog.setTitle(data.message)
-                    dialog.singleButton()
-                    dialog.show()
-                }
+        params["code"] = inviteCode
+        ApiManager2.post(this, params, Constant.NEW_CERT_DO, object : ApiManager2.OnResult<BaseBean<ApplyPartner>>() {
+            override fun onFailed(code: String, message: String) {
 
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onCatch(data: BaseBean<ApplyPartner>) {
 
             }
 
-            override fun onCatch(data: BaseModel<ApplyPartner>) {
-
+            override fun onSuccess(data: BaseBean<ApplyPartner>) {
+                val intent = Intent(this@PartnerSplashActivity, PartherPendingPayActivity::class.java)
+                startActivity(intent)
             }
-
         })
     }
 }

@@ -88,20 +88,20 @@ class FacilitatorInformationActivity : BaseActivity(), FacilitatorContrat.IView 
 
     private fun updateView(data: FacilitatorInfoModel) {
         //认证信息
-        when (data.status) {
-            AuthenStatus.UNCERTIFIED.type -> {
-
-            }
-            AuthenStatus.PRE_PASS.type -> {
-                isvStatus.setNoIconValue("已认证")
-            }
-            AuthenStatus.PRE_DRAFT.type -> {
-
-            }
-            AuthenStatus.PRE_AUTH.type -> {
-
-            }
-        }
+//        when (data.status) {
+//            AuthenStatus.UNCERTIFIED.type -> {
+//
+//            }
+//            AuthenStatus.PRE_PASS.type -> {
+//                isvStatus.setNoIconValue("已认证")
+//            }
+//            AuthenStatus.PRE_DRAFT.type -> {
+//
+//            }
+//            AuthenStatus.PRE_AUTH.type -> {
+//
+//            }
+//        }
         isvTime.setNoIconValue(data.authTime)
         isvShouMeiNumber.setNoIconValue(UserManager.getLogin()?.smCode) //首媒号
         isvEntAccount.setNoIconValue(UserManager.getPhone()) //认证账号

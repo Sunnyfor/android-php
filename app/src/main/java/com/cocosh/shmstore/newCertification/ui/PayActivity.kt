@@ -76,20 +76,20 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             }
             if (result.entity?.status == 12 || result.entity?.status == 14) {
                 //失败
-                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
-                }
+//                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+//                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+//                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+//                }
                 return
             }
             if (result.entity?.status == 13) {
                 //成功
-                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-                    setResult(IntentCode.IS_INPUT)
-                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
-                    finish()
-                }
+//                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+//                    setResult(IntentCode.IS_INPUT)
+//                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+//                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+//                    finish()
+//                }
                 return
             }
         } else {
@@ -229,18 +229,18 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 mDialog?.dismiss()
                 if (boolean) {
                     //成功
-                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
-                        setResult(IntentCode.IS_INPUT)
-                        finish()
-                    }
+//                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+//                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+//                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+//                        setResult(IntentCode.IS_INPUT)
+//                        finish()
+//                    }
                 } else {
                     //失败
-                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
-                    }
+//                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+//                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+//                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+//                    }
                 }
             }
         })

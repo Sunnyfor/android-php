@@ -76,7 +76,7 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
         LogUtil.d(result.toString())
         if (result.code == 200 && result.success) {
 //            val bizCode = result.entity?.bizCode
-            val money = result.entity?.money
+//            val money = result.entity?.money
 //            if (bizCode != null && money != null) {
 //                SmApplication.getApp().setData("bizCode", bizCode)
 //                SmApplication.getApp().setData("money", money)

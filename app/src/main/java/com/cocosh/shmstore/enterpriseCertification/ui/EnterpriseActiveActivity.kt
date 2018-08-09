@@ -50,103 +50,103 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
     }
 
     private fun updateView() {
-        if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
-            if (infoModel?.entIdentityStatus == "0") {
-                tv_identity.text = "待完善"
-            } else {
-                tv_identity.text = "已完善"
-            }
-
-            if (infoModel?.entBankcardStatus == "0") {
-                tv_bankcard.text = "待完善"
-            } else {
-                tv_bankcard.text = "已完善"
-            }
-
-            if (infoModel?.entLicenseStatus == "0") {
-                tv_license.text = "待完善"
-            } else {
-                tv_license.text = "已完善"
-            }
-        } else {
-            tv_identity.text = "查看"
-            tv_bankcard.text = "查看"
-            tv_license.text = "查看"
-        }
-
-        //认证信息改变UI
-        when (infoModel?.status) {
-            AuthenStatus.NOT_ACTIVE.type -> {
-                btActive.visibility = View.VISIBLE
-                btn_again.visibility = View.GONE
-                tv_success.visibility = View.GONE
-                tv_notice.visibility = View.GONE
-                rlEnt.visibility = View.GONE
-                tv_status_indicate.visibility = View.VISIBLE
-                tv_status_title.visibility = View.GONE
-                tv_status_desc.visibility = View.GONE
-            }
-            AuthenStatus.AUDIT.type -> {
-                btActive.visibility = View.GONE
-                btn_again.visibility = View.GONE
-                tv_notice.visibility = View.GONE
-                tv_success.visibility = View.GONE
-                rlEnt.visibility = View.VISIBLE
-                tv_status_title.setText(R.string.ent_prise_ing)
-                tv_review.text = ("审核情况会通过您提交的手机号：13810001010\n" +
-                        "短信通知您！如有疑问请拨打首媒\n" +
-                        "客服热线：400-966-1168 ")
-                tv_review.visibility = View.VISIBLE
-                tv_status_indicate.visibility = View.GONE
-                tv_status_title.visibility = View.VISIBLE
-                tv_status_desc.visibility = View.GONE
-            }
-            AuthenStatus.ALREADY_ACTIVATED.type -> {
-                btActive.visibility = View.GONE
-                btn_again.visibility = View.GONE
-                tv_success.visibility = View.VISIBLE
-                tv_notice.visibility = View.GONE
-                rlEnt.visibility = View.VISIBLE
-                rlTitle.visibility = View.GONE
-            }
-            AuthenStatus.AUTH_FAILED.type -> {
-                btActive.visibility = View.GONE
-                tv_success.visibility = View.GONE
-                btn_again.text = "修改认证信息"
-                btn_again.visibility = View.VISIBLE
-                tv_notice.visibility = View.VISIBLE
-                if (TextUtils.isEmpty(infoModel?.authReason)) {
-                    tv_notice.text = ("如有疑问致电首媒：400-966-1168")
-                } else {
-                    tv_notice.text = ("失败原因:\n" + infoModel?.authReason + "\n" +
-                            "如有疑问致电首媒：400-966-1168")
-                }
-                rlEnt.visibility = View.VISIBLE
-                tv_status_title.setText(R.string.ent_error)
-                tv_status_desc.text = "首媒平台审核未通过"
-                tv_status_indicate.visibility = View.GONE
-                tv_status_title.visibility = View.VISIBLE
-                tv_status_desc.visibility = View.VISIBLE
-            }
-            AuthenStatus.REJECT.type -> {
-                btActive.visibility = View.GONE
-                btn_again.text = "重新填写"
-                tv_success.visibility = View.GONE
-                btn_again.visibility = View.VISIBLE
-                tv_notice.visibility = View.VISIBLE
-                tv_notice.text = ("请查看是否为以下情况:\n" +
-                        " ①贵公司其他员工已完成企业主认证；\n" +
-                        " ②企业资料填写有误；\n" +
-                        " ③其他原因。 \n" +
-                        "如有疑问致电首媒：400-966-1168")
-                rlEnt.visibility = View.VISIBLE
-                tv_status_title.setText(R.string.ent_error)
-                tv_status_desc.text = "该企业（${infoModel?.authReason}）已被认证且激活"
-                tv_status_indicate.visibility = View.GONE
-                tv_status_title.visibility = View.VISIBLE
-                tv_status_desc.visibility = View.VISIBLE
-            }
-        }
+//        if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
+//            if (infoModel?.entIdentityStatus == "0") {
+//                tv_identity.text = "待完善"
+//            } else {
+//                tv_identity.text = "已完善"
+//            }
+//
+//            if (infoModel?.entBankcardStatus == "0") {
+//                tv_bankcard.text = "待完善"
+//            } else {
+//                tv_bankcard.text = "已完善"
+//            }
+//
+//            if (infoModel?.entLicenseStatus == "0") {
+//                tv_license.text = "待完善"
+//            } else {
+//                tv_license.text = "已完善"
+//            }
+//        } else {
+//            tv_identity.text = "查看"
+//            tv_bankcard.text = "查看"
+//            tv_license.text = "查看"
+//        }
+//
+//        //认证信息改变UI
+//        when (infoModel?.status) {
+//            AuthenStatus.NOT_ACTIVE.type -> {
+//                btActive.visibility = View.VISIBLE
+//                btn_again.visibility = View.GONE
+//                tv_success.visibility = View.GONE
+//                tv_notice.visibility = View.GONE
+//                rlEnt.visibility = View.GONE
+//                tv_status_indicate.visibility = View.VISIBLE
+//                tv_status_title.visibility = View.GONE
+//                tv_status_desc.visibility = View.GONE
+//            }
+//            AuthenStatus.AUDIT.type -> {
+//                btActive.visibility = View.GONE
+//                btn_again.visibility = View.GONE
+//                tv_notice.visibility = View.GONE
+//                tv_success.visibility = View.GONE
+//                rlEnt.visibility = View.VISIBLE
+//                tv_status_title.setText(R.string.ent_prise_ing)
+//                tv_review.text = ("审核情况会通过您提交的手机号：13810001010\n" +
+//                        "短信通知您！如有疑问请拨打首媒\n" +
+//                        "客服热线：400-966-1168 ")
+//                tv_review.visibility = View.VISIBLE
+//                tv_status_indicate.visibility = View.GONE
+//                tv_status_title.visibility = View.VISIBLE
+//                tv_status_desc.visibility = View.GONE
+//            }
+//            AuthenStatus.ALREADY_ACTIVATED.type -> {
+//                btActive.visibility = View.GONE
+//                btn_again.visibility = View.GONE
+//                tv_success.visibility = View.VISIBLE
+//                tv_notice.visibility = View.GONE
+//                rlEnt.visibility = View.VISIBLE
+//                rlTitle.visibility = View.GONE
+//            }
+//            AuthenStatus.AUTH_FAILED.type -> {
+//                btActive.visibility = View.GONE
+//                tv_success.visibility = View.GONE
+//                btn_again.text = "修改认证信息"
+//                btn_again.visibility = View.VISIBLE
+//                tv_notice.visibility = View.VISIBLE
+//                if (TextUtils.isEmpty(infoModel?.authReason)) {
+//                    tv_notice.text = ("如有疑问致电首媒：400-966-1168")
+//                } else {
+//                    tv_notice.text = ("失败原因:\n" + infoModel?.authReason + "\n" +
+//                            "如有疑问致电首媒：400-966-1168")
+//                }
+//                rlEnt.visibility = View.VISIBLE
+//                tv_status_title.setText(R.string.ent_error)
+//                tv_status_desc.text = "首媒平台审核未通过"
+//                tv_status_indicate.visibility = View.GONE
+//                tv_status_title.visibility = View.VISIBLE
+//                tv_status_desc.visibility = View.VISIBLE
+//            }
+//            AuthenStatus.REJECT.type -> {
+//                btActive.visibility = View.GONE
+//                btn_again.text = "重新填写"
+//                tv_success.visibility = View.GONE
+//                btn_again.visibility = View.VISIBLE
+//                tv_notice.visibility = View.VISIBLE
+//                tv_notice.text = ("请查看是否为以下情况:\n" +
+//                        " ①贵公司其他员工已完成企业主认证；\n" +
+//                        " ②企业资料填写有误；\n" +
+//                        " ③其他原因。 \n" +
+//                        "如有疑问致电首媒：400-966-1168")
+//                rlEnt.visibility = View.VISIBLE
+//                tv_status_title.setText(R.string.ent_error)
+//                tv_status_desc.text = "该企业（${infoModel?.authReason}）已被认证且激活"
+//                tv_status_indicate.visibility = View.GONE
+//                tv_status_title.visibility = View.VISIBLE
+//                tv_status_desc.visibility = View.VISIBLE
+//            }
+//        }
     }
 
     override fun initView() {
@@ -163,51 +163,51 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
     override fun onListener(view: View) {
         when (view.id) {
             rlID.id -> {
-                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
-                    if (infoModel?.entIdentityStatus == "0") {
-                        //身份信息填写页
-                        AuthenticationMainActivity.start(this)
-
-                    } else {
-                        //展示数据_可以重新填写
-                        BusinessAuthenInfoActivity.start(this, -1)
-                    }
-                } else {
-                    //展示数据_不可以重新填写
-                    BusinessAuthenInfoActivity.start(this, 888)
-                }
+//                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
+//                    if (infoModel?.entIdentityStatus == "0") {
+//                        //身份信息填写页
+//                        AuthenticationMainActivity.start(this)
+//
+//                    } else {
+//                        //展示数据_可以重新填写
+//                        BusinessAuthenInfoActivity.start(this, -1)
+//                    }
+//                } else {
+//                    //展示数据_不可以重新填写
+//                    BusinessAuthenInfoActivity.start(this, 888)
+//                }
             }
             rlBL.id -> {
-                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
-                    if (infoModel?.entLicenseStatus == "1") {
-                        //展示数据_可以重新填写
-                        BusinessLisenceActivity.start(this, 111)
-                    } else {
-                        //营业执照填写页
-                        startActivity(Intent(this, ScanLicenseActivity::class.java))
-                    }
-                } else {
-                    //展示数据_不可以重新填写
-                    BusinessLisenceActivity.start(this, -1)
-                }
+//                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
+//                    if (infoModel?.entLicenseStatus == "1") {
+//                        //展示数据_可以重新填写
+//                        BusinessLisenceActivity.start(this, 111)
+//                    } else {
+//                        //营业执照填写页
+//                        startActivity(Intent(this, ScanLicenseActivity::class.java))
+//                    }
+//                } else {
+//                    //展示数据_不可以重新填写
+//                    BusinessLisenceActivity.start(this, -1)
+//                }
             }
             rlPA.id -> {
-                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
-                    if (infoModel?.entBankcardStatus == "1") {
-                        //展示数据_可以重新填写
-                        CorporateAccountShowActivty.start(this, 111)
-                    } else {
-                        //对公账户填写页
-                        if (infoModel?.entLicenseStatus == "0") {
-                            showChangeDialog()
-                        } else {
-                            CorporateAccountActivty.start(this)
-                        }
-                    }
-                } else {
-                    //展示数据_不可以重新填写
-                    CorporateAccountShowActivty.start(this, -1)
-                }
+//                if (infoModel?.status == AuthenStatus.NOT_ACTIVE.type) {
+//                    if (infoModel?.entBankcardStatus == "1") {
+//                        //展示数据_可以重新填写
+//                        CorporateAccountShowActivty.start(this, 111)
+//                    } else {
+//                        //对公账户填写页
+//                        if (infoModel?.entLicenseStatus == "0") {
+//                            showChangeDialog()
+//                        } else {
+//                            CorporateAccountActivty.start(this)
+//                        }
+//                    }
+//                } else {
+//                    //展示数据_不可以重新填写
+//                    CorporateAccountShowActivty.start(this, -1)
+//                }
             }
             rlEnt.id -> {
                 //认证信息

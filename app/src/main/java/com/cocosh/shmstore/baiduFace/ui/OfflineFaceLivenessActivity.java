@@ -31,6 +31,7 @@ import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.mine.model.AuthenStatus;
 import com.cocosh.shmstore.mine.model.MemberEntrance2;
 import com.cocosh.shmstore.mine.ui.SetPayPwdActivity;
+import com.cocosh.shmstore.model.CommonData;
 import com.cocosh.shmstore.person.PersonSuccessActivity;
 import com.cocosh.shmstore.utils.DataCode;
 import com.cocosh.shmstore.utils.LogUtil;
@@ -253,14 +254,15 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
             @Override
             public void onSuccess(BaseBean<String> data) {
                 //  AuthActivity.Companion.start(OfflineFaceLivenessActivity.this);
-                UserManager.INSTANCE.setPersonStatus(AuthenStatus.PERSION_OK.getType());
+               CommonData commonData =  UserManager2.INSTANCE.getCommonData();
+                assert commonData != null;
+                commonData.getCert().setR(AuthenStatus.PERSION_OK.getType());
                 //跳转设置密码页
                 if (SmApplication.Companion.getApp().getActivityName() != null) {
                     ToastUtil.INSTANCE.show("实人认证成功");
                     MemberEntrance2 memberEntrance = UserManager2.INSTANCE.getMemberEntrance();
                     assert memberEntrance != null;
                     memberEntrance.setRealname(front.getName().toString());
-                    memberEntrance.setPersonStatus(AuthenStatus.PERSION_OK.getType());
                     UserManager2.INSTANCE.setMemberEntrance(memberEntrance);
                     SetPayPwdActivity.Companion.start(OfflineFaceLivenessActivity.this);
                     return;

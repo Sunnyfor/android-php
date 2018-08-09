@@ -72,43 +72,43 @@ class WebActivity : BaseActivity() {
     }
 
     override fun onListener(view: View) {
-        when (view.id) {
-            btnSure.id -> {
-                when (type) {
-                    OpenType.Cer.name -> {
-
-                        if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-                            //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-                            when (status) {
-                                AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
-                                AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
-                                AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.CERTIFICATION_INCOME.type)
-                                AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
-                            }
-                        } else {
-                            val dialog = SmediaDialog(this)
-                            dialog.setTitle("请先完成实人认证")
-                            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-
-                            dialog.OnClickListener = View.OnClickListener {
-                                val intent = Intent(this, ScanIdCardActivity::class.java)
-                                intent.putExtra("type", "实人认证")
-                                startActivity(intent)
-                            }
-                            dialog.show()
-                        }
-                    }
-                    OpenType.Fac.name -> {
-                        when (status) {
-                            AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
-                            AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
-                            AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
-                            AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(this, -1)
-                        }
-                    }
-                }
-            }
-        }
+//        when (view.id) {
+//            btnSure.id -> {
+//                when (type) {
+//                    OpenType.Cer.name -> {
+//
+//                        if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
+//                            //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
+//                            when (status) {
+//                                AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
+//                                AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+//                                AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.CERTIFICATION_INCOME.type)
+//                                AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+//                            }
+//                        } else {
+//                            val dialog = SmediaDialog(this)
+//                            dialog.setTitle("请先完成实人认证")
+//                            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+//
+//                            dialog.OnClickListener = View.OnClickListener {
+//                                val intent = Intent(this, ScanIdCardActivity::class.java)
+//                                intent.putExtra("type", "实人认证")
+//                                startActivity(intent)
+//                            }
+//                            dialog.show()
+//                        }
+//                    }
+//                    OpenType.Fac.name -> {
+//                        when (status) {
+//                            AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
+//                            AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
+//                            AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
+//                            AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(this, -1)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "AddJavascriptInterface")

@@ -74,33 +74,33 @@ class IncomeFragment : BaseFragment() {
                 startActivity(Intent(activity, ArchiveActivity::class.java))
             }
             getLayoutView().cerRl.id -> {
-                if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-                    //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-                    when (cerValue) {
-                        AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(activity)
-                        AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
-                        AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.CERTIFICATION_INCOME.type)
-                        AuthenStatus.PRE_AUTH.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
-                    }
-                } else {
-                    val dialog = SmediaDialog(activity)
-                    dialog.setTitle("请先完成实人认证")
-                    dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-
-                    dialog.OnClickListener = View.OnClickListener {
-                        val intent = Intent(activity, ScanIdCardActivity::class.java)
-                        intent.putExtra("type", "实人认证")
-                        startActivity(intent)
-                    }
-                    dialog.show()
-                }
+//                if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
+//                    //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
+//                    when (cerValue) {
+//                        AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(activity)
+//                        AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
+//                        AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.CERTIFICATION_INCOME.type)
+//                        AuthenStatus.PRE_AUTH.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
+//                    }
+//                } else {
+//                    val dialog = SmediaDialog(activity)
+//                    dialog.setTitle("请先完成实人认证")
+//                    dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+//
+//                    dialog.OnClickListener = View.OnClickListener {
+//                        val intent = Intent(activity, ScanIdCardActivity::class.java)
+//                        intent.putExtra("type", "实人认证")
+//                        startActivity(intent)
+//                    }
+//                    dialog.show()
+//                }
             }
             getLayoutView().facRl.id -> {
                 when (facValue) {
-                    AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(activity)
-                    AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(activity, 666)
-                    AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.FACILITATOR_INCOME.type)
-                    AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(activity, -1)
+//                    AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(activity)
+//                    AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(activity, 666)
+//                    AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.FACILITATOR_INCOME.type)
+//                    AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(activity, -1)
                 }
             }
             getLayoutView().whatFac.id -> {
@@ -134,7 +134,7 @@ class IncomeFragment : BaseFragment() {
             return
         }
 
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         ApiManager.get(flag, activity as BaseActivity, map, Constant.USER_INCOME, object : ApiManager.OnResult<BaseModel<UserInCome>>() {
             override fun onSuccess(data: BaseModel<UserInCome>) {
                 if (data.success && data.code == 200) {

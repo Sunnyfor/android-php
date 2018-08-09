@@ -7,8 +7,6 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenEnter
@@ -79,7 +77,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             }
 
             isvName.id -> {
-                if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_NO.type) {
+                if (UserManager2.getCommonData()?.cert?.r == AuthenStatus.PERSION_NO.type) {
                     val dialog = SmediaDialog(this)
                     dialog.setTitle("真实姓名需要进行实人认证")
                     dialog.setPositiveText("实人认证")

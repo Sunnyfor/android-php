@@ -4,8 +4,10 @@ import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.model.PendingPay
 import com.cocosh.shmstore.utils.IntentCode
@@ -33,30 +35,28 @@ class PartherPendingPayActivity : BaseActivity() {
     }
 
     private fun initData() {
-        ApiManager.get(1, this, hashMapOf(), Constant.GETINFOR, object : ApiManager.OnResult<BaseModel<PendingPay>>() {
-            override fun onCatch(data: BaseModel<PendingPay>) {
-
-            }
-
-            override fun onFailed(e: Throwable) {
-                ToastUtil.show(e.message)
-            }
-
-            override fun onSuccess(data: BaseModel<PendingPay>) {
-                if (data.code == 200 && data.success) {
-                    data.entity?.let {
-                        money = it.money?:""
-                        tv_money.text = ("支付金额：￥${it.money}")
-                        bizCode = it.bizCode?:""
-                        isv_personName.setNoIconValue(it.realName)
-                        isv_idcard.setNoIconValue(it.idNo)
-                        isv_partherName.setNoIconValue(it.operatorName)
-                        isv_partherAddress.setNoIconValue(it.operatorArea)
-                        isv_person.setNoIconValue(it.operatorLegalName)
-                    }
-                }
-            }
-        })
+//        ApiManager2.get(1, this, hashMapOf(), Constant.GETINFOR, object : ApiManager2.OnResult<BaseBean<PendingPay>>() {
+//            override fun onCatch(data: BaseModel<PendingPay>) {
+//
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                ToastUtil.show(e.message)
+//            }
+//
+//            override fun onSuccess(data: BaseBean<PendingPay>) {
+//                    data.message?.let {
+//                        money = it.money?:""
+//                        tv_money.text = ("支付金额：￥${it.money}")
+//                        bizCode = it.bizCode?:""
+//                        isv_personName.setNoIconValue(it.realName)
+//                        isv_idcard.setNoIconValue(it.idNo)
+//                        isv_partherName.setNoIconValue(it.operatorName)
+//                        isv_partherAddress.setNoIconValue(it.operatorArea)
+//                        isv_person.setNoIconValue(it.operatorLegalName)
+//                    }
+//            }
+//        })
     }
 
     override fun onListener(view: View) {

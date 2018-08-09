@@ -40,13 +40,13 @@ class AuthenticationAvtiveInfoActivity : BaseActivity(), EntCertificationActiveC
     }
 
     private fun updateView(data: EntActiveShowData?) {
-        if (data?.status == AuthenStatus.AUDIT.type) {
-            isvEntStatus.setNoIconValue("审核中")
-        } else if (data?.status == AuthenStatus.ALREADY_ACTIVATED.type) {
-            isvEntStatus.setNoIconValue("已认证")
-        } else {
-            isvEntStatus.setNoIconValue("审核失败")
-        }
+//        if (data?.status == AuthenStatus.BUSINESS_EXAMINE.type) {
+//            isvEntStatus.setNoIconValue("审核中")
+//        } else if (data?.status == AuthenStatus.ALREADY_ACTIVATED.type) {
+//            isvEntStatus.setNoIconValue("已认证")
+//        } else {
+//            isvEntStatus.setNoIconValue("审核失败")
+//        }
         isvEntTime.setNoIconValue(data?.authTime)
         isvEntNo.setNoIconValue(data?.smCode)
         isvEntAccount.setNoIconValue(data?.phone)

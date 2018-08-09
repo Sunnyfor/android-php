@@ -60,7 +60,7 @@ class SendRedPackageListAdapter(var activity:BaseActivity,list: ArrayList<SendBo
                 val intent = Intent(activity, PayActivity::class.java)
                 intent.putExtra("amount", getData(position).redPacketMoney)
                 intent.putExtra("runningNumber", getData(position).orderNumber)
-                intent.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
+//                intent.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
                 activity.startActivityForResult(intent,IntentCode.IS_INPUT)
             }
 

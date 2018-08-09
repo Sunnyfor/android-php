@@ -56,12 +56,12 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
         tvName.filters = mFilters
 
         presenter.getData(1)
-        val openType = intent.getIntExtra(AuthenStatus.ENT_OPEN_TYPE.type, -1)
-        if (openType == 111) {
-            btnChange.visibility = View.VISIBLE
-        } else {
-            btnChange.visibility = View.GONE
-        }
+//        val openType = intent.getIntExtra(AuthenStatus.ENT_OPEN_TYPE.type, -1)
+//        if (openType == 111) {
+//            btnChange.visibility = View.VISIBLE
+//        } else {
+//            btnChange.visibility = View.GONE
+//        }
         initListener()
     }
 
@@ -90,7 +90,7 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
 
     companion object {
         fun start(context: Context, openType: Int) {
-            context.startActivity(Intent(context, CorporateAccountShowActivty::class.java).putExtra(AuthenStatus.ENT_OPEN_TYPE.type, openType))
+//            context.startActivity(Intent(context, CorporateAccountShowActivty::class.java).putExtra(AuthenStatus.ENT_OPEN_TYPE.type, openType))
         }
     }
 

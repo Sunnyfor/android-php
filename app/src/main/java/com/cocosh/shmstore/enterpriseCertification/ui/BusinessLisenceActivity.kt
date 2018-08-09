@@ -56,7 +56,7 @@ class BusinessLisenceActivity : BaseActivity(), EntLicenseContrat.IShowView {
     }
 
     private fun updateView() {
-        openType = intent.getIntExtra(AuthenStatus.ENT_OPEN_TYPE.type, -1)
+//        openType = intent.getIntExtra(AuthenStatus.ENT_OPEN_TYPE.type, -1)
         if (openType == 111) {
             //未激活_可以重新填写
             btnChange.visibility = View.VISIBLE
@@ -77,7 +77,7 @@ class BusinessLisenceActivity : BaseActivity(), EntLicenseContrat.IShowView {
 
     companion object {
         fun start(context: Context, entOpenType: Int) {
-            context.startActivity(Intent(context, BusinessLisenceActivity::class.java).putExtra(AuthenStatus.ENT_OPEN_TYPE.type, entOpenType))
+//            context.startActivity(Intent(context, BusinessLisenceActivity::class.java).putExtra(AuthenStatus.ENT_OPEN_TYPE.type, entOpenType))
         }
     }
 
