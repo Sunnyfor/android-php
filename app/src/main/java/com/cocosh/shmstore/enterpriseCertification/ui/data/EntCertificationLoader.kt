@@ -2,6 +2,7 @@ package com.cocosh.shmstore.enterpriseCertification.ui.data
 
 import android.text.TextUtils
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
@@ -9,6 +10,7 @@ import com.cocosh.shmstore.enterpriseCertification.ui.model.BankShowBean
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.model.InviteCodeModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.LogUtil
 
@@ -22,25 +24,22 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
      * companyName:公司名
      * inviteCode:邀请码
      */
-    fun pushData(id: Long, companyName: String, inviteCode: String) {
-        var map = HashMap<String, String>()
-        if (id != 0L) {
-            map["id"] = id.toString()
-        }
-        map["companyName"] = companyName
+    fun pushData(companyName: String, inviteCode: String) {
+        val map = HashMap<String, String>()
+        map["company"] = companyName
         if (!TextUtils.isEmpty(inviteCode)) {
-            map["invitationCode"] = inviteCode
+            map["invitee_code"] = inviteCode
         }
-        ApiManager.post(mActivity, map, Constant.ENTERPRISE_INFO_REGISTER, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        ApiManager2.post(mActivity, map, Constant.ENT_CERT_DO, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (mView as EntCertificationContrat.IView).setData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -50,17 +49,17 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
      * 获取邀请码信息
      */
     fun getCodeData(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, mActivity, map, Constant.ENTERPRISE_INVITE_CODE, object : ApiManager.OnResult<BaseModel<InviteCodeModel>>() {
-            override fun onSuccess(data: BaseModel<InviteCodeModel>) {
+        val map = HashMap<String, String>()
+        ApiManager2.get(flag, mActivity, map, Constant.ENT_CERT_INVITEE, object : ApiManager2.OnResult<BaseBean<InviteCodeModel>>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onSuccess(data: BaseBean<InviteCodeModel>) {
                 (mView as EntCertificationContrat.IView).setCodeData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<InviteCodeModel>) {
+            override fun onCatch(data: BaseBean<InviteCodeModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -77,8 +76,8 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
         map["bankAccountName"] = bankAccountName
         map["mobilePhoneNumber"] = mobilePhoneNumber
         map["bankCardType"] = bankCardType
-        ApiManager.post(mActivity, map, Constant.ENTERPRISE_INFO_BANKCARD, object : ApiManager.OnResult<BaseModel<EntActiveInfoModel>>() {
-            override fun onSuccess(data: BaseModel<EntActiveInfoModel>) {
+        ApiManager.post(mActivity, map, Constant.ENTERPRISE_INFO_BANKCARD, object : ApiManager.OnResult<BaseBean<EntActiveInfoModel>>() {
+            override fun onSuccess(data: BaseBean<EntActiveInfoModel>) {
                 (mView as EntCertificationContrat.IBankView).setData(data)
             }
 
@@ -86,7 +85,7 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
                 LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseModel<EntActiveInfoModel>) {
+            override fun onCatch(data: BaseBean<EntActiveInfoModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -97,8 +96,8 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
      */
     fun getBankData(flag: Int) {
         var map = HashMap<String, String>()
-        ApiManager.get(flag, mActivity, map, Constant.ENTERPRISE_INFO_BANKCARD_SHOW, object : ApiManager.OnResult<BaseModel<BankShowBean>>() {
-            override fun onSuccess(data: BaseModel<BankShowBean>) {
+        ApiManager.get(flag, mActivity, map, Constant.ENTERPRISE_INFO_BANKCARD_SHOW, object : ApiManager.OnResult<BaseBean<BankShowBean>>() {
+            override fun onSuccess(data: BaseBean<BankShowBean>) {
                 (mView as EntCertificationContrat.IBankShowView).setData(data)
             }
 
@@ -106,7 +105,7 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
                 LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseModel<BankShowBean>) {
+            override fun onCatch(data: BaseBean<BankShowBean>) {
                 LogUtil.d(data.toString())
             }
         })

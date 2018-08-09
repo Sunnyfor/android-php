@@ -6,6 +6,7 @@ import android.text.InputFilter
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.BankShowBean
@@ -27,12 +28,8 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
 
     var presenter = EntBankShowPresenter(this, this)
 
-    override fun setData(data: BaseModel<BankShowBean>) {
-        if (data.success && data.code == 200) {
-            initData(data.entity)
-        } else {
-            ToastUtil.show("网络故障！")
-        }
+    override fun setData(data: BaseBean<BankShowBean>) {
+            initData(data.message)
     }
 
     override fun setLayout(): Int = R.layout.activity_public_account_show

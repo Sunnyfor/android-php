@@ -17,7 +17,7 @@ class EntCertificationPresenter(var mActivity: BaseActivity, var mView: EntCerti
 
     }
 
-    override fun pushData(id: Long, companyName: String, inviteCode: String) {
-        loader.pushData(id, companyName, inviteCode)
+    override fun pushData( companyName: String, inviteCode: String) {
+        loader.pushData(companyName, inviteCode)
     }
 }

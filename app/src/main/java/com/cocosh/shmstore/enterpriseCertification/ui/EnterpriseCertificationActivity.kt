@@ -2,16 +2,14 @@ package com.cocosh.shmstore.enterpriseCertification.ui
 
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.InviteCodeModel
 import com.cocosh.shmstore.enterpriseCertification.ui.presenter.EntCertificationPresenter
 import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_enterprise_certification.*
 
@@ -25,40 +23,24 @@ class EnterpriseCertificationActivity : BaseActivity(), EntCertificationContrat.
     }
 
     var presenter = EntCertificationPresenter(this, this)
-    override fun setCodeData(result: BaseModel<InviteCodeModel>) {
-        if (result.success && result.code == 200) {
-            if (!TextUtils.isEmpty(result.entity?.invitedCode)) {
-                edtCode.keyListener = null
-                edtCode.setText(result.entity?.invitedCode)
-                if (!TextUtils.isEmpty(result.entity?.entName)) {
-                    edtName.setText(result.entity?.entName)
-                }
-            }
-        } else {
-            //错误处理
-            ToastUtil.show(result.message)
+    override fun setCodeData(result: BaseBean<InviteCodeModel>) {
+
+        result.message?.let {
+            edtCode.keyListener = null
+            edtCode.setText(it.code)
         }
+//        if (!TextUtils.isEmpty(result.entity?.invitedCode)) {
+//            edtCode.keyListener = null
+//            edtCode.setText(result.entity?.invitedCode)
+//            if (!TextUtils.isEmpty(result.entity?.entName)) {
+//                edtName.setText(result.entity?.entName)
+//            }
+//        }
     }
 
-    override fun setData(result: BaseModel<String>) {
-        //返回数据
-        if (result.success) {
-            when (result.code) {
-                200 -> {
-                    //下一步
-                    if (!TextUtils.isEmpty(result.entity.toString())) {
-//                        UserManager.setEntId(result.entity.toString())
-                    }
-                    startActivity(Intent(this, EnterpriseCertiSuccessActivity::class.java))
-                    finish()
-                }
-                3028 -> {
-                    showErrorDialog()
-                }
-            }
-        } else {
-            showMessage(result.message)
-        }
+    override fun setData(result: BaseBean<String>) {
+        startActivity(Intent(this, EnterpriseCertiSuccessActivity::class.java))
+        finish()
     }
 
     override fun setLayout(): Int = R.layout.activity_enterprise_certification
@@ -82,7 +64,7 @@ class EnterpriseCertificationActivity : BaseActivity(), EntCertificationContrat.
 //                    ToastUtil.show("请填写邀请码！")
 //                    return
 //                }
-                presenter.pushData(0L, edtName.text.toString(), edtCode.text.toString())
+                presenter.pushData(edtName.text.toString(), edtCode.text.toString())
             }
         }
     }

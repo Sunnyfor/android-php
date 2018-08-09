@@ -10,6 +10,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
@@ -32,13 +33,9 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
     var isClick = false
     var openType = -1
     var presenter = EntBankPresenter(this, this)
-    override fun setData(data: BaseModel<EntActiveInfoModel>) {
-        if (data.success && data.code == 200) {
-            SmApplication.getApp().setData(DataCode.ACTIVE_INFO, data.entity!!)
+    override fun setData(data: BaseBean<EntActiveInfoModel>) {
+            SmApplication.getApp().setData(DataCode.ACTIVE_INFO, data.message!!)
             EnterpriseActiveActivity.start(this)
-        } else {
-            ToastUtil.show(data.message)
-        }
     }
 
     override fun afterTextChanged(s: Editable?) {
