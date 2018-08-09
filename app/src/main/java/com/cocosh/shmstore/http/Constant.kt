@@ -57,7 +57,7 @@ object Constant {
 
     const val INDUSTRY = "$VERSION/common/industry" //行业列表
 
-    const val COMMON_UPLOADS= "$VERSION/common/uploads" //上传文件
+    const val COMMON_UPLOADS = "$VERSION/common/uploads" //上传文件
 
     const val ADDRESS_LIST = "$VERSION/address/list" //收货地址列表
     const val ADDRESS_SAVE = "$VERSION/address/save" //保存收货地址
@@ -74,7 +74,7 @@ object Constant {
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证
     const val ENT_CERT_RESULT = "$VERSION/ent_cert/result" //企业主认证结果
-
+    const val ENT_CERT_ACTIVE = "$VERSION/ent_cert/active" //企业主激活
 
 
     /**

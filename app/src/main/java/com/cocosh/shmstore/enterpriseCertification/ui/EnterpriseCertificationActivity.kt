@@ -29,13 +29,6 @@ class EnterpriseCertificationActivity : BaseActivity(), EntCertificationContrat.
             edtCode.keyListener = null
             edtCode.setText(it.code)
         }
-//        if (!TextUtils.isEmpty(result.entity?.invitedCode)) {
-//            edtCode.keyListener = null
-//            edtCode.setText(result.entity?.invitedCode)
-//            if (!TextUtils.isEmpty(result.entity?.entName)) {
-//                edtName.setText(result.entity?.entName)
-//            }
-//        }
     }
 
     override fun setData(result: BaseBean<String>) {
@@ -59,11 +52,6 @@ class EnterpriseCertificationActivity : BaseActivity(), EntCertificationContrat.
                     ToastUtil.show("请填写公司名称！")
                     return
                 }
-
-//                if (edtCode.text.isEmpty()) {
-//                    ToastUtil.show("请填写邀请码！")
-//                    return
-//                }
                 presenter.pushData(edtName.text.toString(), edtCode.text.toString())
             }
         }

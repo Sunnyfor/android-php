@@ -81,7 +81,7 @@ class AuthActivity : BaseActivity() {
 
     //加载认证状态
     private fun getState() {
-        UserManager2.loadCommonData(1,this,object :ApiManager2.OnResult<BaseBean<CommonData>>(){
+        UserManager2.loadCommonData(1, this, object : ApiManager2.OnResult<BaseBean<CommonData>>() {
             override fun onSuccess(data: BaseBean<CommonData>) {
                 data.message?.let {
                     UserManager2.setCommonData(it)
@@ -133,18 +133,34 @@ class AuthActivity : BaseActivity() {
                             tvMediaState.text = "认证中"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
                         }
-//                        AuthenStatus.AUTH_FAILED.type -> {
-//                            tvMediaState.text = "认证失败"
-//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-//                        }
-//                        AuthenStatus.REJECT.type -> {
-//                            tvMediaState.text = "认证失败"
-//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-//                        }
+                        AuthenStatus.SERVER_DEALER_FAIL.type -> {
+                            tvMediaState.text = "认证失败"
+                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
+                        }
                     }
 
+                    entStatus = it.cert.b
+                    when (entStatus) {
+                        AuthenStatus.BUSINESS_ACTIVE.type -> {
+                            tvCompanyState.text = "待激活"
+                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
+                        }
+                        AuthenStatus.BUSINESS_EXAMINE.type -> {
+                            tvCompanyState.text = "审核中"
+                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
+                        }
+                        AuthenStatus.BUSINESS_OK.type -> {
+                            tvCompanyState.text = "已激活"
+                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_ok))
+                        }
+                        AuthenStatus.BUSINESS_FAIL.type -> {
+                            tvCompanyState.text = "激活失败"
+                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
+                        }
+                    }
                 }
             }
+
             override fun onFailed(code: String, message: String) {
             }
 

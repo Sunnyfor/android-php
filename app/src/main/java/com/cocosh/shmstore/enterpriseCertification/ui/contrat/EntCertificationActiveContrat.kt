@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.enterpriseCertification.ui.contrat
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -11,8 +12,8 @@ import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveShowData
  */
 interface EntCertificationActiveContrat {
     interface IView : IBaseView {
-        fun setInfoData(result: BaseModel<EntActiveInfoModel>)
-        fun setResultData(result: BaseModel<EntActiveInfoModel>)
+        fun setInfoData(result: BaseBean<EntActiveInfoModel>)
+        fun setResultData(result: BaseBean<String>)
     }
 
     interface IShowView : IBaseView {

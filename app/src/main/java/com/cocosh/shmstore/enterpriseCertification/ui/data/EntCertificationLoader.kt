@@ -3,7 +3,6 @@ package com.cocosh.shmstore.enterpriseCertification.ui.data
 import android.text.TextUtils
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.BankShowBean
