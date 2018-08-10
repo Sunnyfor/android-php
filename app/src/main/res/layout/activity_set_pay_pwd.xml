@@ -25,7 +25,7 @@
             android:id="@+id/showPhoneNumber"
             style="@style/text_nomal_small"
             android:layout_gravity="center"
-            android:text="请为账号 163******37"
+            android:text="请为账号 "
             android:textSize="@dimen/h48" />
 
         <TextView

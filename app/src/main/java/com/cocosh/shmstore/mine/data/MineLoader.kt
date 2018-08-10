@@ -279,7 +279,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 银行卡类型列表
      */
     fun requestBankTypeData(flag: Int) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         ApiManager.get(flag, activity, map, Constant.GET_BANK_TYPE, object : ApiManager.OnResult<BaseModel<ArrayList<BankTypeModel>>>() {
             override fun onSuccess(data: BaseModel<ArrayList<BankTypeModel>>) {
                 (view as MineContrat.IBankTypeView).bankType(data)
@@ -299,7 +299,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 添加银行卡
      */
     fun requestAddBankData(idUserBankInfo: String, messageCode: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["idUserBankInfo"] = idUserBankInfo
         map["messageCode"] = messageCode
         ApiManager.post(activity, map, Constant.ADD_BANK, object : ApiManager.OnResult<BaseModel<AddBankModel>>() {
@@ -359,37 +359,16 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         })
     }
 
-    /**
-     * 设置支付密码
-     */
-    fun requestSavePwdData(pwd: String, repwd: String) {
-        var map = HashMap<String, String>()
-        map["pwd"] = pwd
-        map["repwd"] = repwd
-        ApiManager.post(activity, map, Constant.SET_NEW_PWD_BY_PHONENUM, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-            override fun onSuccess(data: BaseModel<Boolean>) {
-                (view as MineContrat.IIsPwdRightView).savePwdData(data)
-            }
-
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<Boolean>) {
-                LogUtil.d(data.toString())
-            }
-        })
-    }
 
     /**
      * 修改支付密码
      */
-    fun requestModifyPwdData(pwd: String, repwd: String) {
+    fun requestModifyPwdData(pwd: String) {
         val map = HashMap<String, String>()
         val resetPass = SmApplication.getApp().getData<ResetPass>(DataCode.RESET_PAY_PASS, false)
         map["ticket"] = resetPass?.ticket ?: ""
         map["ts"] = resetPass?.ts ?: ""
-        map["paypwd"] = pwd
+        map["paypwd"] = DigestUtils.md5(pwd)
         ApiManager2.post(activity, map, Constant.PAYPASS_SET, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
                 (view as MineContrat.IIsPwdRightView).modifyPwdData(data)
@@ -526,17 +505,16 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestCheckPersonInfoData(name: String, idCardNum: String) {
         val map = HashMap<String, String>()
         map["name"] = name
-        map["idCardNum"] = idCardNum
-        ApiManager.post(activity, map, Constant.CHECK_PERSON_INFO, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        map["idno"] = idCardNum
+        ApiManager2.post(activity, map, Constant.PAYPASS_CERTCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ResetPass>) {
                 (view as MineContrat.ICheckPersonInfoView).checkPersonInfo(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<ResetPass>) {
                 LogUtil.d(data.toString())
             }
         })

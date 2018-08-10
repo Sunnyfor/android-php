@@ -9,6 +9,9 @@ public class DataCode {
     public static final String LOCATION = "location"; //定位信息
     public static final String CHANGE_USER = "changeUser"; //更改用户
     public static final String AUTHER_ENTER = "autherEnter"; //认证入口
+
+    public static final String ENT_AUTHER_DATA = "entAutheData"; //企业认证数据
+
     public static final String BONUS_ID = "bonusID"; //红包排行榜专用
     public static final String BONUS_MONEY = "bonusMoney"; //红包
     public static final String BONUS_OPEN = "bonusOpen"; //开启红包

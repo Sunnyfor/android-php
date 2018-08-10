@@ -33,8 +33,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
     var isClick = false
     var openType = -1
     var presenter = EntBankPresenter(this, this)
-    override fun setData(data: BaseBean<EntActiveInfoModel>) {
-            SmApplication.getApp().setData(DataCode.ACTIVE_INFO, data.message!!)
+    override fun setData(data: BaseBean<String>) {
             EnterpriseActiveActivity.start(this)
     }
 
@@ -123,7 +122,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                             && edtPhoneNumber.text.length == 11
                             && !TextUtils.isEmpty(edtBankAccount.text)
                             && !TextUtils.isEmpty(edtBankName.text)) {
-                        var map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false) as HashMap<String, String>
+                        val map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false) as HashMap<String, String>
                         map.put("companyBankName", edtBankName.text.toString())
                         map.put("companyBankCard", edtBankAccount.text.toString())
                         map.put("companyPhone", edtPhoneNumber.text.toString())

@@ -8,21 +8,17 @@ import com.baidu.ocr.sdk.OCR
 import com.baidu.ocr.sdk.OnResultListener
 import com.baidu.ocr.sdk.exception.OCRError
 import com.baidu.ocr.sdk.model.AccessToken
-import com.baidu.ocr.sdk.model.IDCardResult
 import com.baidu.ocr.ui.camera.CameraActivity
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.baiduFace.utils.FileUtil
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.enterpriseCertification.ui.CompanyInformationActivity
-import com.cocosh.shmstore.enterpriseCertification.ui.CorporateAccountActivty
-import com.cocosh.shmstore.newCertification.contrat.CertificationContrat
-import com.cocosh.shmstore.newCertification.presenter.CertificationPresenter
-import com.cocosh.shmstore.utils.GlideUtils
 import com.cocosh.shmstore.utils.NetworkUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_scan_lisence.*
 
 /**
+ *
  * Created by lmg on 2018/3/23.
  */
 class ScanLicenseActivity : BaseActivity() {
@@ -50,7 +46,7 @@ class ScanLicenseActivity : BaseActivity() {
     }
 
     private fun startCamera() {
-        var intent = Intent(this@ScanLicenseActivity, CameraActivity::class.java)
+        val intent = Intent(this@ScanLicenseActivity, CameraActivity::class.java)
         licensePath = FileUtil.getSaveFile(application, System.currentTimeMillis().toString()).absolutePath
         intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, licensePath)
         intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL)

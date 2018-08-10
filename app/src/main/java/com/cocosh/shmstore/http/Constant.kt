@@ -45,6 +45,8 @@ object Constant {
 
     const val PAYPASS_SMSCHECK = "$VERSION/paypass/smscheck" //支付密码-短信检测
 
+    const val PAYPASS_CERTCHECK = "$VERSION/paypass/certcheck" //支付密码实名检测
+
     const val PAYPASS_SET = "$VERSION/paypass/set" //支付密码-设置
 
     const val PASS_SET = "$VERSION/pass/set" //登录密码-更新
@@ -75,6 +77,8 @@ object Constant {
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证
     const val ENT_CERT_RESULT = "$VERSION/ent_cert/result" //企业主认证结果
     const val ENT_CERT_ACTIVE = "$VERSION/ent_cert/active" //企业主激活
+    const val ENT_CERT_LICENCE = "$VERSION/ent_cert/licence" //企业主提交营业执照
+    const val ENT_CERT_ACCT = "$VERSION/ent_cert/acct" //企业主提交对公帐号
 
 
     /**

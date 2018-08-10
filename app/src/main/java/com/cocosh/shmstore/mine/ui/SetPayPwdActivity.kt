@@ -12,6 +12,7 @@ import com.cocosh.shmstore.mine.ui.mywallet.BankCardMangerActivity
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_set_pay_pwd.*
 import java.util.*
 import java.util.regex.Pattern
@@ -42,7 +43,7 @@ class SetPayPwdActivity : BaseActivity() {
         pwd_s.add(pwd_4)
         pwd_s.add(pwd_5)
         pwd_s.add(pwd_6)
-        showPhoneNumber.text = "请为账号 " + UserManager.getPhone()
+        showPhoneNumber.text = ("请为账号 " + UserManager2.getCommonData()?.phone)
         type = intent.getStringExtra("type")
     }
 

@@ -1,18 +1,15 @@
 package com.cocosh.shmstore.enterpriseCertification.ui.data
 
-import android.text.TextUtils
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBaseView
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntLicenseContrat
-import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.model.LicenseShowBean
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.LogUtil
-import com.cocosh.shmstore.utils.ToastUtil
-import org.json.JSONException
-import org.json.JSONObject
 
 /**
  *
@@ -23,52 +20,25 @@ class EntLicenseLoader(var mActivity: BaseActivity, var mView: IBaseView) {
      * 获取概要信息
      */
     fun pushData(map: HashMap<String, String>) {
-        ApiManager.post(mActivity, map, Constant.ENTERPRISE_INFO_LICENSE, object : ApiManager.OnResult<BaseModel<EntActiveInfoModel>>() {
-            override fun onSuccess(data: BaseModel<EntActiveInfoModel>) {
+        ApiManager2.post(mActivity, map, Constant.ENT_CERT_LICENCE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (mView as EntLicenseContrat.IView).setResultData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<EntActiveInfoModel>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })
     }
 
     //获取七牛token
-    fun getQINIUToken() {
-        mActivity.showLoading()
-        val map = java.util.HashMap<String, String>()
-        map["dataType"] = "1"
-        ApiManager.get(0,mActivity, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
-
-            override fun onCatch(data: String) {}
-
-            override fun onFailed(e: Throwable) {
-                mActivity.hideLoading()
-                LogUtil.d("获取token失败" + e)
-            }
-
-            override fun onSuccess(data: String) {
-                mActivity.hideLoading()
-                LogUtil.d("获取七牛Token结果：" + data)
-                try {
-                    val jsonObject = JSONObject(data)
-                    val token = jsonObject.optString("token")
-                    if (TextUtils.isEmpty(token)) {
-                        ToastUtil.show("七牛Token为空")
-                    } else {
-                        (mView as EntLicenseContrat.IView).setQINIUToken(jsonObject.optString("token"))
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    LogUtil.d("获取token失败" + e)
-                }
-            }
-        })
+    fun updatePhoto() {
+        (mView as EntLicenseContrat.IView).updatePhoto()
     }
 
     /**

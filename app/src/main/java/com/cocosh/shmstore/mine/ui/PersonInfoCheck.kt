@@ -9,14 +9,17 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.ResetPass
 import com.cocosh.shmstore.mine.presenter.CheckPersonInfoPresenter
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_check_person_info.*
 
 /**
+ *
  * Created by lmg on 2018/5/4.
  */
 class PersonInfoCheck : BaseActivity(), MineContrat.ICheckPersonInfoView {
@@ -27,12 +30,9 @@ class PersonInfoCheck : BaseActivity(), MineContrat.ICheckPersonInfoView {
     var type = ""
     var mPresenter = CheckPersonInfoPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_check_person_info
-    override fun checkPersonInfo(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
+    override fun checkPersonInfo(result: BaseBean<ResetPass>) {
+            SmApplication.getApp().setData(DataCode.RESET_PAY_PASS,result.message)
             SetPayPwdActivity.start(this)
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun initView() {

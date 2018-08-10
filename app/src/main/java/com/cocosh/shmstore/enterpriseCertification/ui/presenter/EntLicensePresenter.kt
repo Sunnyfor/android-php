@@ -8,8 +8,8 @@ import com.cocosh.shmstore.enterpriseCertification.ui.data.EntLicenseLoader
  * Created by lmg on 2018/3/26.
  */
 class EntLicensePresenter(var mActivity: BaseActivity, var mView: EntLicenseContrat.IView) : EntLicenseContrat.IPresenter {
-    override fun getQINNIUToken() {
-        loader.getQINIUToken()
+    override fun getUpdateResult() {
+        loader.updatePhoto()
     }
 
     override fun pushData(map: HashMap<String, String>) {

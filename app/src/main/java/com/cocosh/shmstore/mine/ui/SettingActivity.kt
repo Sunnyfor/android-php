@@ -67,7 +67,7 @@ class SettingActivity : BaseActivity() {
             }
             resetPayPwd.id -> {
                 //判断是否设置支付密码
-                if (UserManager2.getLogin()?.paypass == "1") {
+                if (UserManager2.getCommonData()?.paypass == 1) {
                     startActivity(Intent(this, ResetPayPasswordActivity::class.java))
                 } else {
                     showEntDialog()

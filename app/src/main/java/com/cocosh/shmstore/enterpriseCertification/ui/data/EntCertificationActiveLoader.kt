@@ -34,7 +34,7 @@ class EntCertificationActiveLoader(private var mActivity: BaseActivity, var mVie
 
 
             override fun onCatch(data: BaseBean<EntActiveInfoModel>) {
-                LogUtil.d(data.toString())
+
             }
         })
     }

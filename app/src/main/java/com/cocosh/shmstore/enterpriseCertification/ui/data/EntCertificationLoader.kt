@@ -68,23 +68,24 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
      * 提交对公账号信息
      */
     fun pushBankData(bankCardImg: String, bankAccountNumber: String, accountOpeningBank: String, bankAccountName: String, mobilePhoneNumber: String, bankCardType: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["bankCardImg"] = bankCardImg
         map["bankAccountNumber"] = bankAccountNumber
         map["accountOpeningBank"] = accountOpeningBank
         map["bankAccountName"] = bankAccountName
         map["mobilePhoneNumber"] = mobilePhoneNumber
         map["bankCardType"] = bankCardType
-        ApiManager.post(mActivity, map, Constant.ENTERPRISE_INFO_BANKCARD, object : ApiManager.OnResult<BaseBean<EntActiveInfoModel>>() {
-            override fun onSuccess(data: BaseBean<EntActiveInfoModel>) {
+        ApiManager2.post(mActivity, map, Constant.ENT_CERT_ACCT, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
                 (mView as EntCertificationContrat.IBankView).setData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseBean<EntActiveInfoModel>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })

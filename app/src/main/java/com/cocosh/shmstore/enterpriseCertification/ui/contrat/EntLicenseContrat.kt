@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.enterpriseCertification.ui.contrat
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -11,8 +12,8 @@ import com.cocosh.shmstore.enterpriseCertification.ui.model.LicenseShowBean
  */
 interface EntLicenseContrat {
     interface IView : IBaseView {
-        fun setResultData(result: BaseModel<EntActiveInfoModel>)
-        fun setQINIUToken(result: String)
+        fun setResultData(result: BaseBean<String>)
+        fun updatePhoto()
     }
 
     interface IShowView : IBaseView {
@@ -21,7 +22,7 @@ interface EntLicenseContrat {
 
     interface IPresenter : IBasePresenter {
         fun pushData(map: HashMap<String, String>)
-        fun getQINNIUToken()
+        fun getUpdateResult()
     }
 
     interface IShowPresenter : IBasePresenter {

@@ -10,7 +10,6 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.model.ResetPass
 import com.cocosh.shmstore.mine.presenter.IsPwdRightPresenter
 import com.cocosh.shmstore.mine.ui.mywallet.AddBankCardActivity
@@ -19,7 +18,7 @@ import com.cocosh.shmstore.mine.ui.mywallet.WithDrawActivity
 import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_set_pay_pwd_again.*
 import java.util.*
@@ -54,7 +53,10 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         if (result.success && result.code == 200) {
             ToastUtil.show("支付密码设置成功")
             //更新缓存状态
-            UserManager.setPayPwdStatus(true)
+            UserManager2.getCommonData()?.let {
+                it.paypass = 1
+                UserManager2.setCommonData(it)
+            }
             if (SmApplication.getApp().activityName != null) {
                 if (SmApplication.getApp().activityName?.simpleName == BankCardMangerActivity::class.java.simpleName ||
                         SmApplication.getApp().activityName?.simpleName == WithDrawActivity::class.java.simpleName) {
@@ -150,7 +152,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         })
     }
 
-    fun input(value: String) {
+    private fun input(value: String) {
         if (mPwdCountNum < 6) {
             mPwdCountNum++
             showPwdImages(mPwdCountNum)
@@ -159,7 +161,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
         if (mPwdCountNum == 6) {
             if (type == "reInput") {
                 if (mPassWord == pwd) {
-                    mPresenter.requestSavePwdData(pwd, mPassWord)
+                    mPresenter.requestModifyPwdData(pwd)
                 } else {
                     ToastUtil.show("密码不一致，请重新输入")
 //                    onBackPressed()
@@ -168,7 +170,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
                 mPresenter.requestIsPwdRightData(mPassWord)
             } else if (type == "modify") {
                 if (mPassWord == pwd) {
-                    mPresenter.requestModifyPwdData(pwd, mPassWord)
+                    mPresenter.requestModifyPwdData(pwd)
                 } else {
                     ToastUtil.show("密码不一致，请重新输入")
 //                    onBackPressed()

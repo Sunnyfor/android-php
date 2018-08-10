@@ -23,7 +23,7 @@ interface EntCertificationContrat {
     }
 
     interface IBankView : IBaseView {
-        fun setData(data: BaseBean<EntActiveInfoModel>)
+        fun setData(data: BaseBean<String>)
     }
 
     interface IBankPresenter : IBasePresenter {

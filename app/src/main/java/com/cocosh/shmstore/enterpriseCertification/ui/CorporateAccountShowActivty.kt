@@ -5,13 +5,16 @@ import android.content.Intent
 import android.text.InputFilter
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.BankShowBean
+import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.presenter.EntBankShowPresenter
 import com.cocosh.shmstore.mine.model.AuthenStatus
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_public_account_show.*
@@ -29,7 +32,7 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
     var presenter = EntBankShowPresenter(this, this)
 
     override fun setData(data: BaseBean<BankShowBean>) {
-            initData(data.message)
+//            initData(data.message)
     }
 
     override fun setLayout(): Int = R.layout.activity_public_account_show
@@ -52,22 +55,23 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
         mFilters[tvName.filters.size - 2] = filter2
         tvName.filters = mFilters
 
-        presenter.getData(1)
-//        val openType = intent.getIntExtra(AuthenStatus.ENT_OPEN_TYPE.type, -1)
-//        if (openType == 111) {
-//            btnChange.visibility = View.VISIBLE
-//        } else {
-//            btnChange.visibility = View.GONE
-//        }
+//        presenter.getData(1)
+        val openType = intent.getIntExtra("type", -1)
+        if (openType == 111) {
+            btnChange.visibility = View.VISIBLE
+        } else {
+            btnChange.visibility = View.GONE
+        }
         initListener()
-    }
 
-    private fun initData(bean: BankShowBean?) {
-        tvName.setText(bean?.corpFname)
-        tvLayerName.setText(bean?.legalRepresentative)
-        edtBankAccount.setText(bean?.bankAccountNumber)
-        edtBankName.setText(bean?.accountOpeningBank)
-        edtPhoneNumber.setText(bean?.mobilePhoneNumber)
+        SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.apply {
+            tvName.setText(base.name)
+            tvLayerName.setText(base.legal)
+            edtBankAccount.setText(base.account)
+            edtBankName.setText(base.bank)
+            edtPhoneNumber.setText(base.tel)
+            edtContacts.setText(base.linker)
+        }
     }
 
     private fun initListener() {
@@ -86,8 +90,9 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
     }
 
     companion object {
-        fun start(context: Context, openType: Int) {
-//            context.startActivity(Intent(context, CorporateAccountShowActivty::class.java).putExtra(AuthenStatus.ENT_OPEN_TYPE.type, openType))
+        fun start(context: Context, openType: Int,infoModel: EntActiveInfoModel?) {
+            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA,infoModel)
+            context.startActivity(Intent(context, CorporateAccountShowActivty::class.java).putExtra("type", openType))
         }
     }
 

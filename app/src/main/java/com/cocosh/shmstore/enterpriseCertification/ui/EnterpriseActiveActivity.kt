@@ -61,7 +61,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 tv_license.text = "已完善"
             }
         } else {
-            tv_identity.text = "查看"
+//            tv_identity.text = "查看"
             tv_bankcard.text = "查看"
             tv_license.text = "查看"
         }
@@ -98,7 +98,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 btn_again.visibility = View.GONE
                 tv_success.visibility = View.VISIBLE
                 tv_notice.visibility = View.GONE
-                rlEnt.visibility = View.VISIBLE
+//                rlEnt.visibility = View.VISIBLE
                 rlTitle.visibility = View.GONE
             }
             AuthenStatus.BUSINESS_FAIL.type -> {
@@ -113,7 +113,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                     tv_notice.text = ("失败原因:\n" + infoModel?.cert?.reason + "\n" +
                             "如有疑问致电首媒：400-966-1168")
                 }
-                rlEnt.visibility = View.VISIBLE
+//                rlEnt.visibility = View.VISIBLE
                 tv_status_title.setText(R.string.ent_error)
                 tv_status_desc.text = "首媒平台审核未通过"
                 tv_status_indicate.visibility = View.GONE
@@ -143,7 +143,6 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
 
     override fun initView() {
         titleManager.defaultTitle("企业主认证激活")
-        presenter.getInfoData(1)
         rlID.setOnClickListener(this) //身份认证
         rlBL.setOnClickListener(this) //营业执照
         rlPA.setOnClickListener(this)//对公账户
@@ -173,21 +172,21 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
                     if (infoModel?.base?.uscc != null) {
                         //展示数据_可以重新填写
-                        BusinessLisenceActivity.start(this, 111)
+                        BusinessLisenceActivity.start(this, 111,infoModel)
                     } else {
                         //营业执照填写页
                         startActivity(Intent(this, ScanLicenseActivity::class.java))
                     }
                 } else {
                     //展示数据_不可以重新填写
-                    BusinessLisenceActivity.start(this, -1)
+                    BusinessLisenceActivity.start(this, -1,infoModel)
                 }
             }
             rlPA.id -> {
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
                     if (infoModel?.base?.bank != null) {
                         //展示数据_可以重新填写
-                        CorporateAccountShowActivty.start(this, 111)
+                        CorporateAccountShowActivty.start(this, 111,infoModel)
                     } else {
                         //对公账户填写页
                         if (infoModel?.base?.uscc != null) {
@@ -198,13 +197,13 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                     }
                 } else {
                     //展示数据_不可以重新填写
-                    CorporateAccountShowActivty.start(this, -1)
+                    CorporateAccountShowActivty.start(this, -1,infoModel)
                 }
             }
-            rlEnt.id -> {
-                //认证信息
-                AuthenticationAvtiveInfoActivity.start(this)
-            }
+//            rlEnt.id -> {
+//                //认证信息
+//                AuthenticationAvtiveInfoActivity.start(this)
+//            }
 
             btActive.id -> {
                 //激活
@@ -234,16 +233,16 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
     }
 
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        val activeInfo = SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ACTIVE_INFO, true)
-        if (activeInfo != null) {
-            this.infoModel = activeInfo
-            //刷新UI
-            updateView()
-        }
-        clearData()
-    }
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        val activeInfo = SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ACTIVE_INFO, true)
+//        if (activeInfo != null) {
+//            this.infoModel = activeInfo
+//            //刷新UI
+//            updateView()
+//        }
+//        clearData()
+//    }
 
 
     //清理身份认证存储的数据
@@ -272,5 +271,10 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
         fun start(mContext: Context) {
             mContext.startActivity(Intent(mContext, EnterpriseActiveActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getInfoData(1)
     }
 }

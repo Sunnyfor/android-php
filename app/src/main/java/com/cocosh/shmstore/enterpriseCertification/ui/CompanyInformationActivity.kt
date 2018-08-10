@@ -1,21 +1,13 @@
 package com.cocosh.shmstore.enterpriseCertification.ui
 
-import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.FileProvider
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.TextView
 import com.baidu.ocr.sdk.OCR
@@ -27,12 +19,14 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduFace.utils.FileUtil
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntLicenseContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.model.LicenseBean
 import com.cocosh.shmstore.enterpriseCertification.ui.presenter.EntLicensePresenter
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.ui.CertificationAddressActivity
 import com.cocosh.shmstore.utils.*
@@ -40,12 +34,11 @@ import com.cocosh.shmstore.utils.ocr.RecognizeService
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.google.gson.Gson
-import com.qiniu.android.http.ResponseInfo
-import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_company_info.*
 import java.io.File
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -58,7 +51,9 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
         showLoading()
         licensePath = file.absolutePath
         GlideUtils.loadFullScreen(this, licensePath, iv_img)
-        initAccessToken(licensePath!!)
+        licensePath?.let {
+            initAccessToken(it)
+        }
     }
 
     override fun onTopClick() {
@@ -86,40 +81,15 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
     var licenseKey = ""
     private lateinit var cameraUtils: CameraPhotoUtils
     var preserter = EntLicensePresenter(this, this)
-    override fun setResultData(result: BaseModel<EntActiveInfoModel>) {
+    override fun setResultData(result: BaseBean<String>) {
         hideLoading()
-        if (result.success && result.code == 200) {
-            //回传结果 刷新导航页
-            SmApplication.getApp().setData(DataCode.COMPANY_NAME, licenseBean.getWords_result()?.单位名称?.words!!)
-            SmApplication.getApp().setData(DataCode.LAYER_NAME, licenseBean.getWords_result()?.法人?.words!!)
-            SmApplication.getApp().setData(DataCode.ACTIVE_INFO, result.entity!!)
-            EnterpriseActiveActivity.start(this)
-            finish()
-        } else {
-            ToastUtil.show(result.message)
-        }
+        EnterpriseActiveActivity.start(this)
+        finish()
     }
 
-    override fun setQINIUToken(result: String) {
-        val licenseImg = UserManager.getUserId() + System.currentTimeMillis() + "license.jpg"//身份证背面图片
-
+    override fun updatePhoto() {
+        chackData() //提交资料
         //上传营业执照
-        showLoading()
-        UploadManager().put(licensePath, licenseImg, result, { key, info, _ ->
-            runOnUiThread {
-                if (info.isOK) {
-                    //存储图片路径（用于接口提交数据）
-                    licenseKey = Constant.QINIU_KEY_HEAD + key
-                    chackData()
-                } else {
-                    hideLoading()
-                    if (info.statusCode == ResponseInfo.InvalidToken) {
-                        SmApplication.getApp().removeData(DataCode.QINIU_TOKEN)
-                    }
-                    ToastUtil.show("提交失败，请稍后重试！")
-                }
-            }
-        }, null)
     }
 
     override fun setLayout(): Int = R.layout.activity_company_info
@@ -164,7 +134,10 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
         if (!TextUtils.isEmpty(licensePath)) {
             showLoading()
             GlideUtils.loadFullScreen(this, licensePath, iv_img)
-            pullData(licensePath!!)
+            licensePath?.let {
+                pullData(it)
+            }
+
         } else {
             showScanErrorDialog()
         }
@@ -197,7 +170,7 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
         btn_input.setOnClickListener {
             //检查数据
             if (isFastClick()) {
-                preserter.getQINNIUToken()
+                preserter.getUpdateResult()
             }
             showLoading()
         }
@@ -213,11 +186,10 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
     }
 
     private fun chackData() {
-        hideLoading()
-        if (TextUtils.isEmpty(licenseKey)) {
-            ToastUtil.show("请上传营业执图片！")
-            return
-        }
+//        if (TextUtils.isEmpty(licenseKey)) {
+//            ToastUtil.show("请上传营业执图片！")
+//            return
+//        }
         if (TextUtils.isEmpty(edt_code.text) || edt_code.text.length !in 17..21) {
             ToastUtil.show("请输入正确的统一社会信用代码！")
             return
@@ -247,36 +219,44 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
             ToastUtil.show("请输入成立日期！")
             return
         }
+        licensePath?.let {
+            ApiManager2.postImage(this, it, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+                override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                    data.message?.let {
+                        licenseKey = it[0]
+                        //上传数据
+                        val map = HashMap<String, String>()
+                        map["image"] = licenseKey
+                        map["uscc"] = edt_code.text.toString()
+                        map["name"] = edt_name.text.toString()
+                        //        map["addr"] = "" //营业执照住址
+                        map["legal"] = edt_layer_name.text.toString()
+                        map["found"] = tv_create.text.toString().replace("年","-").replace("月","-").replace("日","")//成立日期
+                        map["addr"] = edt_address.text.toString()//住所
+                        map["capital"] = edt_money.text.toString()//注册资本
+                        map["kind"] = edt_type.text.toString()//注册类型
+                        map["beg_time"] = tv_start_time.text.toString().replace("年","-").replace("月","-").replace("日","") //营业执照有效期 开始
+                        map["end_time"] = tv_end_time.text.toString().replace("年","-").replace("月","-").replace("日","") //营业执照有效期 结束
 
-        showLoading()
-        //上传数据
-        val map = HashMap<String, String>()
-        map["licenceImg"] = licenseKey
-        map["corpTax"] = edt_code.text.toString()
-        map["corpFname"] = edt_name.text.toString()
-        map["bizAddress"] = "" //营业执照住址
-        map["legalRepresentative"] = edt_layer_name.text.toString()
-        map["foundingTime"] = tv_create.text.toString()//成立日期
-        map["domicile"] = edt_address.text.toString()//住所
-        map["registeredCapital"] = edt_money.text.toString()//注册资本
-        map["registeredType"] = edt_type.text.toString()//注册类型
-        map["scope"] = ""
-        if (pageType == 222) {
-            map["startTime"] = tv_start_time.text.toString() //营业执照有效期 开始
-            map["endTime"] = tv_end_time.text.toString() //营业执照有效期 结束
-            //跳转地址选择页（服务商），并保存数据，带到下一页
-            SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
-            numAuth(edt_code.text.toString())
-        } else {
-            if (tv_end_time.text.isNullOrEmpty()) {
-                map["bizValidityPeriod"] = tv_start_time.text.toString() //营业执照有效期
-            } else {
-                map["bizValidityPeriod"] = tv_start_time.text.toString() + "至" + tv_end_time.text //营业执照有效期
-            }
-            //提交信息（企业主）
-            preserter.pushData(map)
+                        if (pageType == 222) {
+                            //跳转地址选择页（服务商），并保存数据，带到下一页
+                            SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
+                            numAuth(edt_code.text.toString())
+                        } else {
+                            //提交信息（企业主）
+                            preserter.pushData(map)
+                        }
+
+                    }
+                }
+
+                override fun onFailed(code: String, message: String) {
+                }
+
+                override fun onCatch(data: BaseBean<ArrayList<String>>) {
+                }
+            })
         }
-
     }
 
     override fun onListener(view: View) {
@@ -312,7 +292,10 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
         if (requestCode == IntentCode.REQUEST_CODE_BUSINESS_LICENSE && resultCode == Activity.RESULT_OK) {
             showLoading()
             GlideUtils.loadFullScreen(this, licensePath, iv_img)
-            initAccessToken(licensePath!!)
+            licensePath?.let {
+                initAccessToken(it)
+            }
+
         } else {
             cameraUtils.onActivityResult(requestCode, resultCode, data)
         }
@@ -484,7 +467,7 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
     private val MIN_DELAY_TIME = 1000  // 两次点击间隔不能少于1000ms
     private var lastClickTime: Long = 0
 
-    fun isFastClick(): Boolean {
+    private fun isFastClick(): Boolean {
         var flag = true
         val currentClickTime = System.currentTimeMillis()
         if (currentClickTime - lastClickTime <= MIN_DELAY_TIME) {

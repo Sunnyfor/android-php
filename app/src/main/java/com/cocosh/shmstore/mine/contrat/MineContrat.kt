@@ -99,8 +99,7 @@ class MineContrat {
 
     interface IIsPwdRightPresenter : IBasePresenter {
         fun requestIsPwdRightData(pwd: String)
-        fun requestSavePwdData(pwd: String, repwd: String)
-        fun requestModifyPwdData(pwd: String, repwd: String)
+        fun requestModifyPwdData(pwd: String)
     }
 
     /**
@@ -175,7 +174,7 @@ class MineContrat {
      * 校验身份信息
      */
     interface ICheckPersonInfoView : IBaseView {
-        fun checkPersonInfo(result: BaseModel<String>)
+        fun checkPersonInfo(result: BaseBean<ResetPass>)
     }
 
     interface ICheckPersonInfoPresenter : IBasePresenter {
