@@ -12,7 +12,6 @@ import com.cocosh.shmstore.newCertification.model.AddressServiceModel
 import com.cocosh.shmstore.newCertification.ui.CertificationAddressActivity
 import com.cocosh.shmstore.widget.DividerGridItemDecoration
 import kotlinx.android.synthetic.main.activity_certification_address.*
-import kotlinx.android.synthetic.main.dialog_ok.*
 import kotlinx.android.synthetic.main.fragment_sheng.view.*
 
 @SuppressLint("ValidFragment")
@@ -38,12 +37,11 @@ class CertificationAddressShengFragment(var list: ArrayList<AddressServiceModel>
 
         adapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                if (list[index].addOperator == false && (activity as CertificationAddressActivity).openType == 333) {
+                if (list[index].full == 0 && (activity as CertificationAddressActivity).openType == 333) {
                     //弹出服务商已满弹框
                     (activity as CertificationAddressActivity).rl.visibility = View.VISIBLE
                 } else {
-                    (activity as CertificationAddressActivity).chooseSheng(list[index].areaName
-                            ?: "", list[index].code ?: 0, index)
+                    (activity as CertificationAddressActivity).chooseSheng(list[index].name,list[index].code.toInt(), index)
                 }
             }
         })

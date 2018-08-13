@@ -60,7 +60,6 @@ class AuthActivity : BaseActivity() {
         llPartner.setOnClickListener(this)
         llMedia.setOnClickListener(this)
         llCompany.setOnClickListener(this)
-
         top_new_title.tvNo.text = (getString(R.string.no) + UserManager2.getLogin()?.code)
 
     }
@@ -252,5 +251,13 @@ class AuthActivity : BaseActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+       intent?.getStringExtra("type")?.let {
+           if (it == "x"){
+               startActivity(Intent(this, PartherPendingPayActivity::class.java))
+           }
+       }
+    }
 
 }

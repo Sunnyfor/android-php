@@ -10,6 +10,7 @@ import com.coco_sh.shmstore.mine.adapter.AddressShiAdapter
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.CorporateAccountActivty
 import com.cocosh.shmstore.newCertification.adapter.AddressAdapter
@@ -45,6 +46,8 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
     var shengIndex = -1
     var shiIndex = -1
     var openType = -1
+    var prov:Int = 0
+    var city:Int = 0
     private lateinit var fragmentList: ArrayList<Fragment>
     private lateinit var titleList: ArrayList<String>
     private lateinit var mAdapter: AddressListAdapter
@@ -90,23 +93,21 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
     }
 
     val presenter = AddressPresenter(this, this)
-    override fun addressResult(result: BaseModel<ArrayList<AddressServiceModel>>) {
+    override fun addressResult(prov:Int,result: BaseBean<ArrayList<AddressServiceModel>>?) {
         com.cocosh.shmstore.utils.LogUtil.d(result.toString())
-        if (result.code == 200) {
-            if (isCity == 0) {
+            if (prov == 0) {
                 list.clear()
-                if (result.entity != null) {
-                    list.addAll(result.entity!!)
+                if (result?.message != null) {
+                    list.addAll(result.message!!)
                 }
                 fragmentSheng.notifyData()
             } else {
                 shiList.clear()
-                if (result.entity != null) {
-                    shiList.addAll(result.entity!!)
+                if (result?.message != null) {
+                    shiList.addAll(result.message!!)
                 }
                 fragmentShi.notifyData()
             }
-        }
     }
 
     override fun setLayout(): Int = R.layout.activity_certification_address
@@ -156,7 +157,8 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
 
                 //先择服务器地址
                 val it = Intent(this, SelectServiceActivity::class.java)
-                it.putExtra("addressCode", address)
+                it.putExtra("prov", prov)
+                it.putExtra("city",city)
                 startActivityForResult(it, IntentCode.FINISH)
             }
 
@@ -167,13 +169,13 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
     }
 
     private fun request(position: Int) {
-        val code = list[position].code?:0
-        isCity = 1
-        if (openType == 333) {
-            presenter.requestFacilitatorAddress(1, code)
-        } else {
-            presenter.requestAddress(1, code)
-        }
+//        val code = list[position].code?:0
+//        isCity = 1
+//        if (openType == 333) {
+//            presenter.requestFacilitatorAddress(1, code)
+//        } else {
+//            presenter.requestAddress(1, code)
+//        }
     }
 
     private fun initList() {
@@ -212,6 +214,7 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
     }
 
     fun chooseSheng(shengStr: String, code: Int, index: Int) {
+        this.prov = code
         main_tab.getTabAt(0)?.text = shengStr
         main_tab.getTabAt(1)?.text = "选择市/区"
         bt_next2.isClickable = false
@@ -221,9 +224,11 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
         money_text.text = ""
         request(index)
         main_viewpager.setCurrentItem(1, true)
+        presenter.requestAddress(1,code)
     }
 
     fun chooseShi(shiStr: String, money: String, code: Int) {
+        this.city = code
         bt_next.isClickable = true
         bt_next.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
         bt_next2.isClickable = true

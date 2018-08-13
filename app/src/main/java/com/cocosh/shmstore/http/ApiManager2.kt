@@ -244,12 +244,11 @@ object ApiManager2 {
                     } else {
                         val message = jsonObj.opt("message").toString()
                         onResult.onFailed(status, message)
-                        if (status != "5000002") {  //暂无数据
-                            ToastUtil.show(message)
-                        }
+                        ToastUtil.show(message)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
+                    onResult.onFailed("000000", "数据解析错误")
                 }
             } else {
                 onResult.onSuccess(gson.fromJson(json, onResult.typeToken))

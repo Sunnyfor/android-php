@@ -34,12 +34,11 @@ class CertificationAddressShiFragment(var list: ArrayList<AddressServiceModel>) 
         adapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
                 if ((activity as CertificationAddressActivity).openType == 333) {
-                    if (list[index].addOperator == false) {
+                    if (list[index].full == 0) {
                         //弹出服务商已满弹框
                         (activity as CertificationAddressActivity).rl.visibility = View.VISIBLE
                     } else {
-                        (activity as CertificationAddressActivity).chooseShi(list[index].areaName
-                                ?: "", list[index].money ?: "", list[index].code ?: 0)
+                        (activity as CertificationAddressActivity).chooseShi(list[index].name,list[index].fee, list[index].code.toInt())
                     }
                 } else {
                     for (m in 0..(list.size - 1)) {
@@ -48,8 +47,7 @@ class CertificationAddressShiFragment(var list: ArrayList<AddressServiceModel>) 
                         } else {
                             list[m].isChecked = 0
                         }
-                        (activity as CertificationAddressActivity).chooseShi(list[index].areaName
-                                ?: "", list[index].money ?: "", list[index].code ?: 0)
+                        (activity as CertificationAddressActivity).chooseShi(list[index].name, list[index].fee, list[index].code.toInt())
                         notifyData()
                     }
                 }

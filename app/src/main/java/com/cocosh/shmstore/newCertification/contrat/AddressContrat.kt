@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.newCertification.contrat
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -12,7 +13,7 @@ import com.cocosh.shmstore.newCertification.model.ApplyPartner
  */
 interface AddressContrat {
     interface IView : IBaseView {
-        fun addressResult(result: BaseModel<ArrayList<AddressServiceModel>>)
+        fun addressResult(prov:Int,result: BaseBean<ArrayList<AddressServiceModel>>?)
         fun commitAddressResult(result: BaseModel<ApplyPartner>)
         fun addressFacResult(result: BaseModel<ArrayList<AddressServiceModel>>)
     }

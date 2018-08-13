@@ -19,9 +19,9 @@ import com.cocosh.shmstore.newCertification.model.AddressServiceModel
 class AddressShiAdapter(list: ArrayList<AddressServiceModel>, var type: Int) : BaseRecycleAdapter<AddressServiceModel>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         val childrensBean = getData(position)
-        holder.getView<TextView>(R.id.sheng).text = childrensBean.areaName + ""
+        holder.getView<TextView>(R.id.sheng).text = childrensBean.name
         if (type == 333) {
-            if (childrensBean.addOperator == false) {
+            if (childrensBean.full == 0) {
                 holder.getView<TextView>(R.id.sheng).setTextColor(Color.parseColor("#999999"))
                 holder.getView<ImageView>(R.id.iv).visibility = View.GONE
             } else {
