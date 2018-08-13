@@ -438,30 +438,30 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
     }
 
     private fun numAuth(licenseNo: String) {
-        val params = HashMap<String, String>()
-        params["licenseNo"] = licenseNo
-        ApiManager.get(0, this, params, Constant.FACILITOTAAR_AUTH_NUM, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-            override fun onSuccess(data: BaseModel<Boolean>) {
-                hideLoading()
-                if (data.success && data.code == 200) {
-                    if (data.entity == true) {
+//        val params = HashMap<String, String>()
+//        params["licenseNo"] = licenseNo
+//        ApiManager.get(0, this, params, Constant.FACILITOTAAR_AUTH_NUM, object : ApiManager.OnResult<BaseModel<Boolean>>() {
+//            override fun onSuccess(data: BaseModel<Boolean>) {
+//                hideLoading()
+//                if (data.success && data.code == 200) {
+//                    if (data.entity == true) {
                         startActivity(Intent(this@CompanyInformationActivity, CertificationAddressActivity::class.java).putExtra("FACILITATOR_TYPE", 333))
-                    } else {
-                        ToastUtil.show("营业执照号已注册！")
-                    }
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-                hideLoading()
-            }
-
-            override fun onCatch(data: BaseModel<Boolean>) {
-            }
-
-        })
+//                    } else {
+//                        ToastUtil.show("营业执照号已注册！")
+//                    }
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                hideLoading()
+//            }
+//
+//            override fun onCatch(data: BaseModel<Boolean>) {
+//            }
+//
+//        })
     }
 
     private val MIN_DELAY_TIME = 1000  // 两次点击间隔不能少于1000ms

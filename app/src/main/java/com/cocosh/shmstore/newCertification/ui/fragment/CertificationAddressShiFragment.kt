@@ -34,7 +34,7 @@ class CertificationAddressShiFragment(var list: ArrayList<AddressServiceModel>) 
         adapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
                 if ((activity as CertificationAddressActivity).openType == 333) {
-                    if (list[index].full == 0) {
+                    if (list[index].full == 1) {
                         //弹出服务商已满弹框
                         (activity as CertificationAddressActivity).rl.visibility = View.VISIBLE
                     } else {

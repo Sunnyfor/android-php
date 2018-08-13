@@ -8,7 +8,9 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.facilitator.ui.contrat.FacilitatorContrat
 import com.cocosh.shmstore.facilitator.ui.model.FacilitatorInfoModel
 import com.cocosh.shmstore.facilitator.ui.presenter.FacilitatorCommitPresenter
@@ -33,22 +35,14 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
     val presenter = FacilitatorCommitPresenter(this, this)
     var map: HashMap<String, String>? = null
     var openType = -1 //666 代表认证中 其他未认证
-    override fun setShowData(result: BaseModel<FacilitatorInfoModel>) {
-        if (result.success && result.code == 200) {
-            tv_fee.text = "￥" + result.entity?.money
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun setShowData(result: BaseBean<EntActiveInfoModel>) {
+            tv_fee.text = ("￥" + result.message?.cert?.fee)
     }
 
 
-    override fun setResultData(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
+    override fun setResultData(result: BaseBean<String>) {
             startActivity(Intent(this, AuthActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun initView() {
@@ -64,7 +58,7 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
             presenter.getShowData(1)
         } else {
             map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)
-            tv_fee.text = "￥" + map!!["money"]
+            tv_fee.text = ("￥" + map!!["money"])
         }
         btn_show.setOnClickListener(this)
         btn_input.setOnClickListener(this)
@@ -80,27 +74,29 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
                 startActivity(Intent(this@PayFranchiseFeeActivity, FacilitatorInformationActivity::class.java).putExtra("OPEN_TYPE", 555))
             }
             btn_input.id -> {
-                //跳转 状态主页
-                var paramMap = HashMap<String, String>()
-                paramMap["areaCode"] = map!!["areaCode"].toString()
-                paramMap["areaName"] = map!!["areaName"].toString()
-                paramMap["companyBankCard"] = map!!["companyBankCard"].toString()
-                paramMap["companyBankName"] = map!!["companyBankName"].toString()
-                paramMap["companyLegal"] = map!!["legalRepresentative"].toString()
-                paramMap["companyName"] = map!!["corpFname"].toString()
-                paramMap["companyPhone"] = map!!["companyPhone"].toString()
-                paramMap["licenceImg"] = map!!["licenceImg"].toString()
-                paramMap["licenseAddress"] = map!!["domicile"].toString()
-                paramMap["licenseBegTime"] = map!!["startTime"].toString()
-                paramMap["licenseEndTime"] = map!!["endTime"].toString()
-                paramMap["licenseLegalName"] = map!!["legalRepresentative"].toString()
-                paramMap["licenseName"] = map!!["corpFname"].toString()
-                paramMap["licenseNo"] = map!!["corpTax"].toString()
-                paramMap["licenseStartTime"] = map!!["foundingTime"].toString()
-                paramMap["licenseType"] = map!!["registeredType"].toString()
-                paramMap["licenseWealth"] = map!!["registeredCapital"].toString()
-                paramMap["money"] = map!!["money"].toString()
-                presenter.commitData(paramMap)
+//                //跳转 状态主页
+//                var paramMap = HashMap<String, String>()
+//                paramMap["areaCode"] = map!!["areaCode"].toString()
+//                paramMap["areaName"] = map!!["areaName"].toString()
+//                paramMap["companyBankCard"] = map!!["companyBankCard"].toString()
+//                paramMap["companyBankName"] = map!!["companyBankName"].toString()
+//                paramMap["companyLegal"] = map!!["legalRepresentative"].toString()
+//                paramMap["companyName"] = map!!["corpFname"].toString()
+//                paramMap["companyPhone"] = map!!["companyPhone"].toString()
+//                paramMap["licenceImg"] = map!!["licenceImg"].toString()
+//                paramMap["licenseAddress"] = map!!["domicile"].toString()
+//                paramMap["licenseBegTime"] = map!!["startTime"].toString()
+//                paramMap["licenseEndTime"] = map!!["endTime"].toString()
+//                paramMap["licenseLegalName"] = map!!["legalRepresentative"].toString()
+//                paramMap["licenseName"] = map!!["corpFname"].toString()
+//                paramMap["licenseNo"] = map!!["corpTax"].toString()
+//                paramMap["licenseStartTime"] = map!!["foundingTime"].toString()
+//                paramMap["licenseType"] = map!!["registeredType"].toString()
+//                paramMap["licenseWealth"] = map!!["registeredCapital"].toString()
+//                paramMap["money"] = map!!["money"].toString()
+                map?.let {
+                    presenter.commitData(it)
+                }
             }
             btn_loading.id -> {
                 startActivity(Intent(this, HomeActivity::class.java))

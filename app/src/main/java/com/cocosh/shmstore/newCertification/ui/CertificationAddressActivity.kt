@@ -55,29 +55,27 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
     private lateinit var fragmentSheng: CertificationAddressShengFragment
     private lateinit var fragmentShi: CertificationAddressShiFragment
 
-    override fun addressFacResult(result: BaseModel<ArrayList<AddressServiceModel>>) {
+    override fun addressFacResult(prov: Int,result: BaseBean<ArrayList<AddressServiceModel>>) {
         //服务商
         com.cocosh.shmstore.utils.LogUtil.d(result.toString())
-        if (result.code == 200) {
-            if (isCity == 0) {
+            if (prov == 0) {
                 list.clear()
-                if (result.entity != null) {
-                    list.addAll(result.entity!!)
+                if (result.message != null) {
+                    list.addAll(result.message!!)
                 }
                 fragmentSheng.notifyData()
             } else {
                 shiList.clear()
-                if (result.entity != null) {
-                    shiList.addAll(result.entity!!)
+                if (result.message != null) {
+                    shiList.addAll(result.message!!)
                 }
                 fragmentShi.notifyData()
             }
-        }
     }
 
-    override fun commitAddressResult(result: BaseModel<ApplyPartner>) {
+    override fun commitAddressResult(result: BaseBean<ApplyPartner>) {
         LogUtil.d(result.toString())
-        if (result.code == 200 && result.success) {
+//        if (result.code == 200 && result.success) {
 //            val bizCode = result.entity?.bizCode
 //            val money = result.entity?.money
 //            if (bizCode != null && money != null) {
@@ -87,9 +85,9 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
 //            } else {
 //                ToastUtil.show("信息提交失败")
 //            }
-        } else {
-            ToastUtil.show(result.message)
-        }
+//        } else {
+//            ToastUtil.show(result.message)
+//        }
     }
 
     val presenter = AddressPresenter(this, this)
@@ -141,9 +139,10 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
                 //对公账户页 并且存储
                 val map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)
                 map?.let {
-                    it["areaCode"] = address
+                    it["province"] = prov.toString()
+                    it["city"] = city.toString()
                     it["money"] = money_text.text.toString()
-                    it["areaName"] = main_tab.getTabAt(0)?.text.toString() + "-" + main_tab.getTabAt(1)?.text.toString()
+//                    it["areaName"] = main_tab.getTabAt(0)?.text.toString() + "-" + main_tab.getTabAt(1)?.text.toString()
                     SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
                     CorporateAccountActivty.start(this, 444)
                 }
@@ -224,7 +223,12 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
         money_text.text = ""
         request(index)
         main_viewpager.setCurrentItem(1, true)
-        presenter.requestAddress(1,code)
+        if (openType == 333) {
+            presenter.requestFacilitatorAddress(1,code)
+        }else{
+            presenter.requestAddress(1,code)
+        }
+
     }
 
     fun chooseShi(shiStr: String, money: String, code: Int) {

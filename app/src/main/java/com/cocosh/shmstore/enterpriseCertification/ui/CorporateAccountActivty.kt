@@ -94,8 +94,8 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
         titleManager.defaultTitle("填写企业对公账户")
         openType = intent.getIntExtra("ACCOUNT_TYPE", -1)
         if (openType == 444) {
-            tvName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["corpFname"])
-            tvLayerName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["legalRepresentative"])
+            tvName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["name"])
+            tvLayerName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["legal"])
         } else {
             SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.apply {
                 tvName.setText(base.name)
@@ -125,9 +125,10 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                             && !TextUtils.isEmpty(edtBankAccount.text)
                             && !TextUtils.isEmpty(edtBankName.text)) {
                         val map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false) as HashMap<String, String>
-                        map["companyBankName"] = edtBankName.text.toString()
-                        map["companyBankCard"] = edtBankAccount.text.toString()
-                        map["companyPhone"] = edtPhoneNumber.text.toString()
+                        map["bank"] = edtBankName.text.toString()
+                        map["account"] = edtBankAccount.text.toString()
+                        map["tel"] = edtPhoneNumber.text.toString()
+                        map["linker"] = edtPerson.text.toString()
                         SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
                         //下一页 金额确认页
                         startActivity(Intent(this@CorporateAccountActivty, PayFranchiseFeeActivity::class.java))

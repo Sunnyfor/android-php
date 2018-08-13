@@ -20,7 +20,7 @@ class AddressAdapter(list: ArrayList<AddressServiceModel>, var type: Int) : Base
         val entityItem = getData(position)
         holder.getView<TextView>(R.id.sheng).text = (entityItem.name + "")
         if (type == 333) {
-            if (entityItem.full == 0) {
+            if (entityItem.full == 1) {
                 holder.getView<TextView>(R.id.sheng).setTextColor(Color.parseColor("#999999"))
                 holder.getView<ImageView>(R.id.iv).visibility = View.GONE
             } else {

@@ -6,6 +6,7 @@ import com.cocosh.shmstore.facilitator.ui.contrat.FacilitatorContrat
 import com.cocosh.shmstore.facilitator.ui.data.FacilitatorLoader
 
 /**
+ *
  * Created by lmg on 2018/4/2.
  */
 class FacilitatorCommitPresenter(var mActivity: BaseActivity, var mView: FacilitatorContrat.ICommitView) : FacilitatorContrat.ICommitPresenter {

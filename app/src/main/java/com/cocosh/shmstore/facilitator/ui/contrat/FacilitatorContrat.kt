@@ -1,22 +1,21 @@
 package com.cocosh.shmstore.facilitator.ui.contrat
 
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
-import com.cocosh.shmstore.facilitator.ui.model.FacilitatorInfoModel
+import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 
 /**
  * Created by lmg on 2018/4/2.
  */
 interface FacilitatorContrat {
     interface IView : IBaseView {
-        fun setShowData(result: BaseModel<FacilitatorInfoModel>)
+        fun setShowData(result: BaseBean<EntActiveInfoModel>)
     }
 
     interface ICommitView : IBaseView {
-        fun setResultData(result: BaseModel<String>)
-        fun setShowData(result: BaseModel<FacilitatorInfoModel>)
-
+        fun setResultData(result: BaseBean<String>)
+        fun setShowData(result: BaseBean<EntActiveInfoModel>)
     }
 
     interface IPresenter : IBasePresenter {

@@ -78,6 +78,10 @@ object Constant {
     const val SERVICE_REGION = "$VERSION/service/region" //新媒人/服务商-区域选择
     const val SERVICE_LIST = "$VERSION/service/list" //新媒人/服务商-区域选择
 
+    const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
+
+    const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
+
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证
     const val ENT_CERT_RESULT = "$VERSION/ent_cert/result" //企业主认证结果

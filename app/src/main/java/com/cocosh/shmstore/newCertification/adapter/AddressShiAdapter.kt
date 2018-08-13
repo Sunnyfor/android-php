@@ -21,7 +21,7 @@ class AddressShiAdapter(list: ArrayList<AddressServiceModel>, var type: Int) : B
         val childrensBean = getData(position)
         holder.getView<TextView>(R.id.sheng).text = childrensBean.name
         if (type == 333) {
-            if (childrensBean.full == 0) {
+            if (childrensBean.full == 1) {
                 holder.getView<TextView>(R.id.sheng).setTextColor(Color.parseColor("#999999"))
                 holder.getView<ImageView>(R.id.iv).visibility = View.GONE
             } else {

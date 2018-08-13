@@ -14,8 +14,8 @@ import com.cocosh.shmstore.newCertification.model.ApplyPartner
 interface AddressContrat {
     interface IView : IBaseView {
         fun addressResult(prov:Int,result: BaseBean<ArrayList<AddressServiceModel>>?)
-        fun commitAddressResult(result: BaseModel<ApplyPartner>)
-        fun addressFacResult(result: BaseModel<ArrayList<AddressServiceModel>>)
+        fun commitAddressResult(result: BaseBean<ApplyPartner>)
+        fun addressFacResult(prov: Int,result: BaseBean<ArrayList<AddressServiceModel>>)
     }
 
     interface IPresenter : IBasePresenter {

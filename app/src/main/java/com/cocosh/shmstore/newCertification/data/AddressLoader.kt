@@ -61,22 +61,26 @@ class AddressLoader(val activity: BaseActivity, val addressView: AddressContrat.
 //        })
     }
 
-    fun requestFacilitatorAddress(flag: Int, code: Int) {
+    fun requestFacilitatorAddress(flag: Int, prov: Int) {
         val map = HashMap<String, String>()
-        map["parentCode"] = code.toString()
-        ApiManager.get(flag, activity, map, Constant.FACILITOTAAR_INFO_ADDRESS, object : ApiManager.OnResult<BaseModel<ArrayList<AddressServiceModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<AddressServiceModel>>) {
-                addressView.addressFacResult(data)
+        map["user_type"] = "f" //用户类型 (必填,'x'-新媒人,'f'-服务商; 2选1)
+        map["prov"] = prov.toString()
+
+        ApiManager2.post(flag, activity, map, Constant.SERVICE_REGION, object : ApiManager2.OnResult<BaseBean<ArrayList<AddressServiceModel>>>() {
+            override fun onFailed(code: String, message: String) {
+                addressView.addressResult(prov,null)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onSuccess(data: BaseBean<ArrayList<AddressServiceModel>>) {
+                addressView.addressFacResult(prov,data)
             }
 
-            override fun onCatch(data: BaseModel<ArrayList<AddressServiceModel>>) {
+
+            override fun onCatch(data: BaseBean<ArrayList<AddressServiceModel>>) {
                 LogUtil.d(data.toString())
             }
 
         })
+
     }
 }
