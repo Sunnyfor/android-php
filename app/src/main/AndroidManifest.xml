@@ -451,6 +451,8 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".mine.ui.HelpActivity" />
+
+        <activity android:name=".mine.ui.InterestingActivity"/>
     </application>
 
 </manifest>

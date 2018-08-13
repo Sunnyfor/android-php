@@ -44,7 +44,7 @@ class EntCertificationActiveLoader(private var mActivity: BaseActivity, var mVie
      */
     fun pushData() {
         val map = HashMap<String, String>()
-        ApiManager2.get(0, mActivity, map, Constant.ENT_CERT_ACTIVE, object : ApiManager2.OnResult<BaseBean<String>>() {
+        ApiManager2.post(0, mActivity, map, Constant.ENT_CERT_ACTIVE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }
 

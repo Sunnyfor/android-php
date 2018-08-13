@@ -3,6 +3,7 @@ package com.cocosh.shmstore.enterpriseCertification.ui
 import android.content.Context
 import android.content.Intent
 import android.text.InputFilter
+import android.text.InputType
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -25,6 +26,9 @@ import java.util.regex.Pattern
  * 对公账户
  */
 class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBankShowView {
+
+    private var infoModel:EntActiveInfoModel? = null
+
     override fun reTryGetData() {
         presenter.getData(1)
     }
@@ -65,9 +69,10 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
         initListener()
 
         SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.apply {
+            infoModel = this
             tvName.setText(base.name)
             tvLayerName.setText(base.legal)
-            edtBankAccount.setText(base.account)
+            textBankAccount.text = base.account
             edtBankName.setText(base.bank)
             edtPhoneNumber.setText(base.tel)
             edtContacts.setText(base.linker)
@@ -102,6 +107,7 @@ class CorporateAccountShowActivty : BaseActivity(), EntCertificationContrat.IBan
         dialog.show()
         dialog.OnClickListener = View.OnClickListener {
             //对公账户填写页
+            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA,infoModel)
             startActivity(Intent(this@CorporateAccountShowActivty, CorporateAccountActivty::class.java))
         }
     }

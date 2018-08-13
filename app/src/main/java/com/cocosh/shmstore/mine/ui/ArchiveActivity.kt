@@ -33,6 +33,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     private var uploadManager = UploadManager()
     private var file: File? = null
     private var token: String? = null
+    private var interest:String? = null
 
     override fun reTryGetData() {
         hideReTryLayout()
@@ -129,7 +130,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             }
         //兴趣爱好
             isvInteresting.id -> {
-                startActivityForResult(Intent(this@ArchiveActivity, ArchiveInterestingActivity::class.java), IntentCode.IS_INPUT)
+                startActivityForResult(Intent(this@ArchiveActivity,InterestingActivity::class.java).putExtra("hobby",interest), IntentCode.IS_INPUT)
             }
 
         }
@@ -196,6 +197,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             isvWork.setValue(it.industry_name)
             progressBar_big.progress = (it.degree)
             progressBar_big.invalidate()
+            interest = it.hobby
         }
     }
 
@@ -336,4 +338,6 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
         super.onNewIntent(intent)
         loadData()
     }
+
+
 }

@@ -12,8 +12,8 @@ import com.cocosh.shmstore.enterpriseCertification.ui.data.EntLicenseLoader
  * Created by lmg on 2018/3/26.
  */
 class EntBankPresenter(var mActivity: BaseActivity, var mView: EntCertificationContrat.IBankView) : EntCertificationContrat.IBankPresenter {
-    override fun pushData(bankCardImg: String, bankAccountNumber: String, accountOpeningBank: String, bankAccountName: String, mobilePhoneNumber: String, bankCardType: String) {
-        loader.pushBankData(bankCardImg, bankAccountNumber, accountOpeningBank, bankAccountName, mobilePhoneNumber, bankCardType)
+    override fun pushData(bank: String, account: String, tel: String, linker: String) {
+        loader.pushBankData(bank, account, tel, linker)
     }
 
     val loader = EntCertificationLoader(mActivity, mView)

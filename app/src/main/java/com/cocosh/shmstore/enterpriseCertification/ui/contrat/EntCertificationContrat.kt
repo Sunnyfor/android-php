@@ -27,7 +27,7 @@ interface EntCertificationContrat {
     }
 
     interface IBankPresenter : IBasePresenter {
-        fun pushData(bankCardImg: String, bankAccountNumber: String, accountOpeningBank: String, bankAccountName: String, mobilePhoneNumber: String, bankCardType: String)
+        fun pushData(bank: String, account: String, tel: String, linker: String)
     }
 
     interface IBankShowView : IBaseView {

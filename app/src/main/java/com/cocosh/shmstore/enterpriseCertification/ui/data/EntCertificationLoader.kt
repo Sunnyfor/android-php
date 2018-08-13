@@ -67,14 +67,12 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
     /**
      * 提交对公账号信息
      */
-    fun pushBankData(bankCardImg: String, bankAccountNumber: String, accountOpeningBank: String, bankAccountName: String, mobilePhoneNumber: String, bankCardType: String) {
+    fun pushBankData(bank: String, account: String, tel: String, linker: String) {
         val map = HashMap<String, String>()
-        map["bankCardImg"] = bankCardImg
-        map["bankAccountNumber"] = bankAccountNumber
-        map["accountOpeningBank"] = accountOpeningBank
-        map["bankAccountName"] = bankAccountName
-        map["mobilePhoneNumber"] = mobilePhoneNumber
-        map["bankCardType"] = bankCardType
+        map["bank"] = bank
+        map["account"] = account
+        map["tel"] = tel
+        map["linker"] = linker
         ApiManager2.post(mActivity, map, Constant.ENT_CERT_ACCT, object : ApiManager2.OnResult<BaseBean<String>>() {
 
             override fun onFailed(code: String, message: String) {

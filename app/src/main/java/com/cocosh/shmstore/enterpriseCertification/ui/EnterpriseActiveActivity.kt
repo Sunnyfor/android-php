@@ -49,16 +49,16 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
 //                tv_identity.text = "已完善"
 //            }
 
-            if (infoModel?.base?.uscc == null) {
-                tv_bankcard.text = "待完善"
-            } else {
-                tv_bankcard.text = "已完善"
-            }
-
-            if (infoModel?.base?.bank == null) {
+            if (infoModel?.base?.uscc == null || infoModel?.base?.uscc == "") {
                 tv_license.text = "待完善"
             } else {
                 tv_license.text = "已完善"
+            }
+
+            if (infoModel?.base?.bank == null || infoModel?.base?.bank =="") {
+                tv_bankcard.text = "待完善"
+            } else {
+                tv_bankcard.text = "已完善"
             }
         } else {
 //            tv_identity.text = "查看"
@@ -73,7 +73,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 btn_again.visibility = View.GONE
                 tv_success.visibility = View.GONE
                 tv_notice.visibility = View.GONE
-                rlEnt.visibility = View.GONE
+//                rlEnt.visibility = View.GONE
                 tv_status_indicate.visibility = View.VISIBLE
                 tv_status_title.visibility = View.GONE
                 tv_status_desc.visibility = View.GONE
@@ -83,9 +83,9 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 btn_again.visibility = View.GONE
                 tv_notice.visibility = View.GONE
                 tv_success.visibility = View.GONE
-                rlEnt.visibility = View.VISIBLE
+//                rlEnt.visibility = View.VISIBLE
                 tv_status_title.setText(R.string.ent_prise_ing)
-                tv_review.text = ("审核情况会通过您提交的手机号：13810001010\n" +
+                tv_review.text = ("审核情况会通过您提交的手机号：${infoModel?.base?.tel}\n" +
                         "短信通知您！如有疑问请拨打首媒\n" +
                         "客服热线：400-966-1168 ")
                 tv_review.visibility = View.VISIBLE
@@ -170,7 +170,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
             }
             rlBL.id -> {
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
-                    if (infoModel?.base?.uscc != null) {
+                    if (infoModel?.base?.uscc != null && infoModel?.base?.uscc!= "") {
                         //展示数据_可以重新填写
                         BusinessLisenceActivity.start(this, 111,infoModel)
                     } else {
@@ -183,14 +183,20 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 }
             }
             rlPA.id -> {
+
+                if (infoModel?.base?.uscc == null) {
+                    ToastUtil.show("请先认证营业执照")
+                    return
+                }
+
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
-                    if (infoModel?.base?.bank != null) {
+                    if (infoModel?.base?.bank != null && infoModel?.base?.bank != "") {
                         //展示数据_可以重新填写
                         CorporateAccountShowActivty.start(this, 111,infoModel)
                     } else {
                         //对公账户填写页
-                        if (infoModel?.base?.uscc != null) {
-                            CorporateAccountActivty.start(this)
+                        if (infoModel?.base?.uscc != null && infoModel?.base?.uscc !="") {
+                            CorporateAccountActivty.start(this,infoModel)
                         } else {
                             showChangeDialog()
                         }

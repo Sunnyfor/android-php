@@ -123,6 +123,7 @@ object ApiManager {
 
                         if (e is HttpException) {
                             val body = e.response().errorBody()?.string()
+                            ToastUtil.show("code:${e.code()} 错误信息:$body")
                             LogUtil.e("errorBody :" + body)
                             if (body.isNullOrEmpty()) {
                                 onResult.onFailed(e)

@@ -97,8 +97,10 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
             tvName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["corpFname"])
             tvLayerName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["legalRepresentative"])
         } else {
-            tvName.setText(SmApplication.getApp().getData<String>(DataCode.COMPANY_NAME, false))
-            tvLayerName.setText(SmApplication.getApp().getData<String>(DataCode.LAYER_NAME, false))
+            SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.apply {
+                tvName.setText(base.name)
+                tvLayerName.setText(base.legal)
+            }
         }
         initListener()
     }
@@ -123,9 +125,9 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                             && !TextUtils.isEmpty(edtBankAccount.text)
                             && !TextUtils.isEmpty(edtBankName.text)) {
                         val map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false) as HashMap<String, String>
-                        map.put("companyBankName", edtBankName.text.toString())
-                        map.put("companyBankCard", edtBankAccount.text.toString())
-                        map.put("companyPhone", edtPhoneNumber.text.toString())
+                        map["companyBankName"] = edtBankName.text.toString()
+                        map["companyBankCard"] = edtBankAccount.text.toString()
+                        map["companyPhone"] = edtPhoneNumber.text.toString()
                         SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
                         //下一页 金额确认页
                         startActivity(Intent(this@CorporateAccountActivty, PayFranchiseFeeActivity::class.java))
@@ -136,7 +138,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                             && edtPhoneNumber.text.length == 11
                             && !TextUtils.isEmpty(edtBankAccount.text)
                             && !TextUtils.isEmpty(edtBankName.text)) {
-                        presenter.pushData("", edtBankAccount.text.toString(), edtBankName.text.toString(), "", edtPhoneNumber.text.toString(), "")
+                        presenter.pushData(tvBank.text.toString(), edtBankAccount.text.toString(), edtPhoneNumber.text.toString(), edtPerson.text.toString())
                     }
                 }
             }
@@ -146,7 +148,8 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
     }
 
     companion object {
-        fun start(context: Context) {
+        fun start(context: Context,infoModel: EntActiveInfoModel?) {
+            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA,infoModel)
             context.startActivity(Intent(context, CorporateAccountActivty::class.java))
         }
 

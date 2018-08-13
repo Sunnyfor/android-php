@@ -192,7 +192,7 @@
 
         <com.cocosh.shmstore.widget.eidttext.SmEditText
             android:id="@+id/edtPerson"
-            style="@style/PhoneEidttextStyle"
+            style="@style/EidttextStyle"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@null"

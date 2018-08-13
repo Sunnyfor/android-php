@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w75"
+        android:layout_marginTop="@dimen/w86"
+        android:text="选择你感兴趣的标签"
+        android:textSize="@dimen/w55" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/w27"
+        android:text="至少选择1个兴趣标签  可随时调整"
+        android:layout_marginLeft="@dimen/w72"
+        android:textSize="@dimen/w40" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/w70"
+        android:paddingLeft="@dimen/w36"
+        android:paddingRight="@dimen/w36"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@id/btnNext"
+        android:layout_width="@dimen/w726"
+        android:layout_height="@dimen/h115"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/w115"
+        android:layout_marginTop="@dimen/w50"
+        android:background="@drawable/shape_interesting_gray"
+        android:text="选好啦"
+        android:textColor="@color/grayText" />
+</LinearLayout>

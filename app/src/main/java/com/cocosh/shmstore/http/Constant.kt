@@ -29,6 +29,8 @@ object Constant {
     /*新版PHP接口*/
     const val COMMON_DATA = "$VERSION/common/data" //通用接口（认证状态）
 
+    const val COMMON_HOBBY = "$VERSION/common/hobby" //兴趣爱好列表
+
     const val REGISTER_SEND_CODE = "$VERSION/common/sms" //注册发送验证码
 
     const val REGISTER = "$VERSION/portal/register" //注册
