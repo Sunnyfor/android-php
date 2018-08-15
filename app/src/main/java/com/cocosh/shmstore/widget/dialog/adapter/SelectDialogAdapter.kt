@@ -21,13 +21,13 @@ class SelectDialogAdapter(list: ArrayList<IndustryModel>) : BaseRecycleAdapter<I
         holder.getView<TextView>(R.id.tvName).text = getData(position).name
 //
 //        if(index == position){
-//            holder.getView<RelativeLayout>(R.id.rlayoutBg).setBackgroundResource(R.color.red)
-//            holder.getView<View>(R.id.ivLine).visibility = View.GONE
-//            holder.getView<TextView>(R.id.tvName).setTextColor(ContextCompat.getColor(activity,R.color.white))
+//            holder.getView<RelativeLayout>(R.comment_id.rlayoutBg).setBackgroundResource(R.color.red)
+//            holder.getView<View>(R.comment_id.ivLine).visibility = View.GONE
+//            holder.getView<TextView>(R.comment_id.tvName).setTextColor(ContextCompat.getColor(activity,R.color.white))
 //        }else{
-//            holder.getView<RelativeLayout>(R.id.rlayoutBg).setBackgroundResource(R.color.white)
-//            holder.getView<View>(R.id.ivLine).visibility = View.VISIBLE
-//            holder.getView<TextView>(R.id.tvName).setTextColor(ContextCompat.getColor(activity,R.color.textGray))
+//            holder.getView<RelativeLayout>(R.comment_id.rlayoutBg).setBackgroundResource(R.color.white)
+//            holder.getView<View>(R.comment_id.ivLine).visibility = View.VISIBLE
+//            holder.getView<TextView>(R.comment_id.tvName).setTextColor(ContextCompat.getColor(activity,R.color.textGray))
 //        }
     }
 

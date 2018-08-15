@@ -48,7 +48,7 @@ class ReportDialog(var context: BaseActivity, var id: String, var type: String) 
 
         tvName.setOnClickListener {
             val intent = Intent(context, ReportActivity::class.java)
-            intent.putExtra("id",id)
+            intent.putExtra("comment_id",id)
             intent.putExtra("type",type)
             context.startActivity(intent)
             dismiss()

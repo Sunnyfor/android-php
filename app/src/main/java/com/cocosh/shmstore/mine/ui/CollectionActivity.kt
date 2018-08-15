@@ -83,7 +83,7 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
                 val intent = Intent(this@CollectionActivity, BonusWebActivity::class.java)
                 SmApplication.getApp().setData(DataCode.BONUS_ID, listDatas[position].redPacketId)
                 intent.putExtra("title", listDatas[position].redPacketName)
-                intent.putExtra("id", listDatas[position].idRedPacketOrderInfo)
+                intent.putExtra("comment_id", listDatas[position].idRedPacketOrderInfo)
                 if (listDatas[position].redPacketMoneyStatus == "1") {//未打开
                     intent.putExtra("state", "SEIZE")
                 }

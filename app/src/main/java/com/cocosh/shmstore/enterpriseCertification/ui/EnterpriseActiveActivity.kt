@@ -206,7 +206,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                     CorporateAccountShowActivty.start(this, -1,infoModel)
                 }
             }
-//            rlEnt.id -> {
+//            rlEnt.comment_id -> {
 //                //认证信息
 //                AuthenticationAvtiveInfoActivity.start(this)
 //            }

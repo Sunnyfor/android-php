@@ -60,7 +60,7 @@ class MessageReplyFragment : BaseFragment() {
     fun getMessage(flag: Int, boolean: Boolean, messageId: String?) {
         getBaseActivity().isShowLoading = true
         val map = HashMap<String, String>()
-        map["id"] = messageId ?: ""
+        map["comment_id"] = messageId ?: ""
         map["showCount"] = getLayoutView().recyclerView.pageCount.toString()
         ApiManager.get(flag, getBaseActivity(), map, Constant.MSG_REPLY, object : ApiManager.OnResult<BaseModel<ArrayList<MsgModel>>>() {
             override fun onSuccess(data: BaseModel<ArrayList<MsgModel>>) {

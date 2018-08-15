@@ -16,60 +16,62 @@ import kotlinx.android.synthetic.main.item_shoumei_brand.view.*
  * 我的顶部导航适配器
  * Created by zhangye on 2018/3/13.
  */
-class ShouMeiBrandAdapter(list: ArrayList<SMCompanyThemeData.SubCompanyTheme>) : BaseRecycleAdapter<SMCompanyThemeData.SubCompanyTheme>(list) {
+class ShouMeiBrandAdapter(list: ArrayList<SMCompanyThemeData>) : BaseRecycleAdapter<SMCompanyThemeData>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvTime.text = list[position].createTime
-        holder.itemView.tvDesc.text = list[position].themeTitle
-        holder.itemView.showNumber.text = list[position].readNumber
-        holder.itemView.commentNumber.text = list[position].commentsNumber
+//        holder.itemView.tvTime.text = list[position].createTime
+        holder.itemView.tvDesc.text = list[position].posts.title
+        holder.itemView.showNumber.text = list[position].posts.views
+//        holder.itemView.commentNumber.text = list[position].commentsNumber
 
-        if (list[position].isTop == "-1") {
-            holder.itemView.tvTop.visibility = View.VISIBLE
-        } else {
-            holder.itemView.tvTop.visibility = View.GONE
-        }
+//        if (list[position].isTop == "-1") {
+//            holder.itemView.tvTop.visibility = View.VISIBLE
+//        } else {
+//            holder.itemView.tvTop.visibility = View.GONE
+//        }
+//
+//        if (list[position].isRead == "1") {
+//            holder.itemView.lookIcon.setTextColor(context.resources.getColor(R.color.red))
+//        } else {
+//            holder.itemView.lookIcon.setTextColor(context.resources.getColor(R.color.grayText))
+//        }
+//
+//        if (list[position].isEssence == "1") {
+//            holder.itemView.tvName.visibility = View.VISIBLE
+//        } else {
+//            holder.itemView.tvName.visibility = View.GONE
+//        }
+        list[position].posts.images.let {
+            if (it.isNotEmpty()) {
+                if (it.size == 1) {
+                    holder.itemView.imageOne.visibility = View.VISIBLE
+                    holder.itemView.imageTwo.visibility = View.GONE
+                    holder.itemView.imageThree.visibility = View.GONE
+                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
+                }
+                if (it.size == 2) {
+                    holder.itemView.imageOne.visibility = View.VISIBLE
+                    holder.itemView.imageTwo.visibility = View.VISIBLE
+                    holder.itemView.imageThree.visibility = View.GONE
+                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
+                    GlideUtils.load(context, it[1], holder.itemView.imageTwo)
+                }
+                if (it.size == 3) {
+                    holder.itemView.imageOne.visibility = View.VISIBLE
+                    holder.itemView.imageTwo.visibility = View.VISIBLE
+                    holder.itemView.imageThree.visibility = View.VISIBLE
+                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
+                    GlideUtils.load(context, it[1], holder.itemView.imageTwo)
+                    GlideUtils.load(context, it[2], holder.itemView.imageThree)
+                }
 
-        if (list[position].isRead == "1") {
-            holder.itemView.lookIcon.setTextColor(context.resources.getColor(R.color.red))
-        } else {
-            holder.itemView.lookIcon.setTextColor(context.resources.getColor(R.color.grayText))
-        }
-
-        if (list[position].isEssence == "1") {
-            holder.itemView.tvName.visibility = View.VISIBLE
-        } else {
-            holder.itemView.tvName.visibility = View.GONE
-        }
-
-        if (list[position].imageUrl != null && list[position].imageUrl?.size != 0) {
-            if (list[position].imageUrl?.size == 1) {
-                holder.itemView.imageOne.visibility = View.VISIBLE
+            } else {
+                holder.itemView.imageOne.visibility = View.GONE
                 holder.itemView.imageTwo.visibility = View.GONE
                 holder.itemView.imageThree.visibility = View.GONE
-                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
             }
-            if (list[position].imageUrl?.size == 2) {
-                holder.itemView.imageOne.visibility = View.VISIBLE
-                holder.itemView.imageTwo.visibility = View.VISIBLE
-                holder.itemView.imageThree.visibility = View.GONE
-                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
-                GlideUtils.load(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
-            }
-            if (list[position].imageUrl?.size == 3) {
-                holder.itemView.imageOne.visibility = View.VISIBLE
-                holder.itemView.imageTwo.visibility = View.VISIBLE
-                holder.itemView.imageThree.visibility = View.VISIBLE
-                GlideUtils.load(context, list[position].imageUrl!![0], holder.itemView.imageOne)
-                GlideUtils.load(context, list[position].imageUrl!![1], holder.itemView.imageTwo)
-                GlideUtils.load(context, list[position].imageUrl!![2], holder.itemView.imageThree)
-            }
-
-        } else {
-            holder.itemView.imageOne.visibility = View.GONE
-            holder.itemView.imageTwo.visibility = View.GONE
-            holder.itemView.imageThree.visibility = View.GONE
         }
+
 //        holder.itemView.detailLL.setOnClickListener {
         //新闻详情
 //            ShoumeiDetailActivity.start(context)

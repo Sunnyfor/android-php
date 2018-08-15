@@ -14,7 +14,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivLogo"
             android:layout_width="@dimen/w138"
-            android:layout_height="@dimen/h138"
+            android:layout_height="@dimen/w138"
             android:layout_marginBottom="@dimen/h35"
             android:layout_marginLeft="@dimen/w35"
             android:layout_marginTop="@dimen/h35"

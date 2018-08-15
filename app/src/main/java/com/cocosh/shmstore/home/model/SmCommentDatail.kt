@@ -5,7 +5,7 @@ package com.cocosh.shmstore.home.model
  */
 data class SmCommentDatail(var currentPage: String?,
                            var currentResult: String?,
-                           var data: ArrayList<CommentData.SubComment>?,
+                           var data: ArrayList<CommentData>?,
                            var end: String?,
                            var order: String?,
                            var showCount: String?,

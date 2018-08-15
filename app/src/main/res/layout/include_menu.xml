@@ -101,7 +101,7 @@
 
 
         <!--<RelativeLayout-->
-            <!--android:id="@+id/rlShoumei"-->
+            <!--andrcomment_idd:idcomment_id@+id/rlShoumei"-->
             <!--android:layout_width="@dimen/w170"-->
             <!--android:layout_height="@dimen/h170"-->
             <!--android:layout_gravity="bottom"-->

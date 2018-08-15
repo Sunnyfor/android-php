@@ -90,6 +90,16 @@ object Constant {
     const val ENT_CERT_ACCT = "$VERSION/ent_cert/acct" //企业主提交对公帐号
 
 
+    const val EHOME_FOLLOW_LIST = "$VERSION/ehome/follow/list"//首媒之家关注企业主列表
+    const val EHOME_FOLLOW_POSTS = "$VERSION/ehome/follow/posts" //首媒之家关注页帖子
+
+    const val EHOME_COMMENTS = "$VERSION/ehome/comments" //帖子的评论列表
+    const val EHOME_COMMENT_CREATE = "$VERSION/ehome/comment/create" //发送评论
+    const val EHOME_REPLIES = "$VERSION/ehome/replies" //评论的回复列表
+    const val EHOME_REPLY_CREATE = "$VERSION/ehome/reply/create" //回复评论
+    const val EHOME_COMMENT_DELETE = "$VERSION/ehome/comment/delete" //删除评论
+    const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
+
     /**
      * 首页
      * */

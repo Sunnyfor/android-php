@@ -178,7 +178,7 @@ public class CheckIdentityInfoActivity extends BaseActivity {
 //                    @Override
 //                    public void onComplete() {
 //                        int index = dialog.wvSex.getCurrentItem();
-//                        dataBinding.etNation.setTag(ethnicList.get(index).getId());
+//                        dataBinding.etNation.setTag(ethnicList.get(index).getComment_id());
 //                        dataBinding.etNation.setText(ethnicList.get(index).getName());
 //                    }
 //

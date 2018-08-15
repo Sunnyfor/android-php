@@ -62,10 +62,10 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
         super.initView();
         titleManager.goneTitle();
 
-        codeMap.put("id number format error", "身份证格式错误，请检查后重新输入");
-        codeMap.put("id number and name not match or id number not exist", "身份证号码与姓名不匹配，或无法找到此身份证号码");
-        codeMap.put("id number format error", "身份证格式错误，请检查后重新输入");
-        codeMap.put("id number format error", "身份证格式错误，请检查后重新输入");
+        codeMap.put("comment_id number format error", "身份证格式错误，请检查后重新输入");
+        codeMap.put("comment_id number and name not match or comment_id number not exist", "身份证号码与姓名不匹配，或无法找到此身份证号码");
+        codeMap.put("comment_id number format error", "身份证格式错误，请检查后重新输入");
+        codeMap.put("comment_id number format error", "身份证格式错误，请检查后重新输入");
 
         initFaceSDK();
     }

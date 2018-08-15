@@ -18,7 +18,7 @@ import com.cocosh.shmstore.utils.ToastUtil
  */
 class FacilitatorLoader(var mActivity: BaseActivity, var mView: IBaseView) {
     fun getShowData(flag: Int) {
-        ApiManager2.get(flag, mActivity, HashMap<String, String>(), Constant.FACILITOTAAR_INFO_SHOW, object : ApiManager2.OnResult<BaseBean<EntActiveInfoModel>>() {
+        ApiManager2.get(flag, mActivity, HashMap(), Constant.SVC_CERT_RESULT, object : ApiManager2.OnResult<BaseBean<EntActiveInfoModel>>() {
 
             override fun onFailed(code: String, message: String) {
             }

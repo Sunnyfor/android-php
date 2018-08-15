@@ -5,7 +5,7 @@
     android:background="@color/white">
 
     <!--<com.cocosh.shmstore.widget.textview.ICONTextView-->
-    <!--android:id="@+id/icon"-->
+    <!--andrcomment_idd:idcomment_id@+id/icon"-->
     <!--android:text="@string/iconComplet"-->
     <!--android:textSize="@dimen/h317"-->
     <!--android:textColor="@color/red"-->

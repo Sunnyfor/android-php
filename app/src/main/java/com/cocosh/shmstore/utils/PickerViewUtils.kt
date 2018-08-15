@@ -257,16 +257,16 @@ class PickerViewUtils(val activity: BaseActivity) {
 //
 //                if (it.name != "全国") {
 //                    val childdList = arrayListOf<ProvinceModel>()
-//                    childdList.add(ProvinceModel("", it.id, null))
-//                    cityList?.add(0, ProvinceModel("全部", it.id, childdList))
+//                    childdList.add(ProvinceModel("", it.comment_id, null))
+//                    cityList?.add(0, ProvinceModel("全部", it.comment_id, childdList))
 //                }
 //
 //                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
 //                cityList?.forEach {
 //                    if (it.name != "全部" && it.name != "" && !it.name.contains("北京") && !it.name.contains("天津") && !it.name.contains("上海") && !it.name.contains("重庆")) {
 //                        val childdList = arrayListOf<ProvinceModel>()
-//                        childdList.add(ProvinceModel("", it.id, null))
-//                        it.childrens?.add(0, ProvinceModel("全部", it.id, childdList))
+//                        childdList.add(ProvinceModel("", it.comment_id, null))
+//                        it.childrens?.add(0, ProvinceModel("全部", it.comment_id, childdList))
 //                    }
 //                    it.childrens?.let {
 //                        provinceAreaList.add(it)

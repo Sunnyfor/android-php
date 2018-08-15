@@ -12,11 +12,12 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.ShouMeiCommentAdapter
 import com.cocosh.shmstore.home.model.CommentData
-import com.cocosh.shmstore.home.model.SmCommentDatail
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.utils.GlideUtils
@@ -28,20 +29,23 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.observer.ObserverManager
 import kotlinx.android.synthetic.main.activity_shoumei_comment.*
 import kotlinx.android.synthetic.main.item_shoumei_comment_top.view.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 
 
 /**
  * Created by lmg on 2018/6/4.
  */
 class ShouMeiCommentActivity : BaseActivity() {
-    var isPop = false
-    var id: String? = ""
+    //    var isPop = false
+    var comment_id: String? = ""
     var totalComment: Int = 0
     var currentPage = 1
     var replyId = -1
     var lastTimeStamp: String? = ""
     val historyMap = hashMapOf<String, String>()
-    val mList = arrayListOf<CommentData.SubComment>()
+    val mList = arrayListOf<CommentData.Portion>()
     lateinit var headView: LinearLayout
     private lateinit var adapter: ShouMeiCommentAdapter
     var isSend = false
@@ -50,8 +54,8 @@ class ShouMeiCommentActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_shoumei_comment
 
     override fun initView() {
-        id = intent.getStringExtra("themeId")
-        themeId = intent.getStringExtra("id")
+        comment_id = intent.getStringExtra("comment_id")
+        themeId = intent.getStringExtra("comment_id")
         var headUrl: String? = intent.getStringExtra("headUrl")
         var name: String? = intent.getStringExtra("name")
         var time: String? = intent.getStringExtra("time")
@@ -60,18 +64,18 @@ class ShouMeiCommentActivity : BaseActivity() {
         var blackType: String? = intent.getStringExtra("blackType")
 
         titleManager.rightText("评论", "举报", View.OnClickListener {
-            val dialog = ReportDialog(this, id ?: "", "2")
+            val dialog = ReportDialog(this, comment_id ?: "", "2")
             dialog.show()
         }, false)
 
         //禁言
-        if (blackType == "1") {
-            etcontent.isFocusable = false
-            tvError.visibility = View.VISIBLE
-        } else {
-            etcontent.isFocusable = true
-            tvError.visibility = View.GONE
-        }
+//        if (blackType == "1") {
+//            etcontent.isFocusable = false
+//            tvError.visibility = View.VISIBLE
+//        } else {
+        etcontent.isFocusable = true
+        tvError.visibility = View.GONE
+//        }
 
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_comment_top, all, false) as LinearLayout
         recyclerView.recyclerView.addHeaderView(headView)
@@ -83,7 +87,7 @@ class ShouMeiCommentActivity : BaseActivity() {
 
         recyclerView.recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.recyclerView.addItemDecoration(SpaceVItem(0, 0))
-        adapter = ShouMeiCommentAdapter(this, id ?: "", mList)
+        adapter = ShouMeiCommentAdapter(this, comment_id ?: "", mList)
         recyclerView.recyclerView.adapter = adapter
         adapter.setOnSubBtnClickListener(object : ShouMeiCommentAdapter.OnSubBtnClickListener {
             override fun itemOnClick(position: Int) {
@@ -91,8 +95,7 @@ class ShouMeiCommentActivity : BaseActivity() {
                     showDialog()
                     return
                 }
-
-                etcontent.hint = "回复 " + mList[position].nickName
+//                etcontent.hint = "回复 " + mList[position].nickName
                 replyId = position
                 showSoftInputFromWindow(etcontent)
             }
@@ -105,12 +108,14 @@ class ShouMeiCommentActivity : BaseActivity() {
         recyclerView.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
                 currentPage = page
-                getCommentDetail(true, currentPage, lastTimeStamp ?: "", id ?: "")
+                getCommentDetail()
             }
 
             override fun onLoadMore(page: Int) {
-                currentPage = page
-                getCommentDetail(false, currentPage, lastTimeStamp ?: "", id ?: "")
+                mList.last().id?.let {
+                    currentPage = it.toInt()
+                }
+                getCommentDetail()
             }
         }
 
@@ -139,13 +144,13 @@ class ShouMeiCommentActivity : BaseActivity() {
                 KeyEvent.ACTION_DOWN -> {
                 }
                 KeyEvent.ACTION_UP -> {
-                    replyId = -1
                     if (followType == "0") {
                         showDialog()
                         return@setOnTouchListener true
                     }
                 }
                 else -> {
+
                 }
             }
 
@@ -158,16 +163,7 @@ class ShouMeiCommentActivity : BaseActivity() {
                 }
                 KeyEvent.ACTION_UP -> {
                     if (isSend) {
-                        if (replyId == -1) {
-                            sendComment(themeId ?: "", etcontent.text.toString(), id ?: "")
-                            historyMap.remove(id ?: "")
-                        } else {
-                            sendComment(themeId
-                                    ?: "", etcontent.text.toString(), mList[replyId].idCompanyHomeThemeComment
-                                    ?: "")
-                            historyMap.remove(mList[replyId].idCompanyHomeThemeComment
-                                    ?: "")
-                        }
+                        sendRervet(etcontent.text.toString())
                         etcontent.text = null
                     }
                 }
@@ -179,25 +175,25 @@ class ShouMeiCommentActivity : BaseActivity() {
 
         SoftKeyBoardListener.setListener(this, object : SoftKeyBoardListener.OnSoftKeyBoardChangeListener {
             override fun keyBoardShow(height: Int) {
-                isPop = true
+//                isPop = true
                 if (replyId == -1) {
-                    etcontent.setText(historyMap[id ?: ""])
+                    etcontent.hint = getString(R.string.comment_def)
                 } else {
-                    etcontent.setText(historyMap[mList[replyId].idCompanyHomeThemeComment ?: ""])
+                    etcontent.hint = "回复:" + mList[replyId].user?.nickname
                 }
+
             }
 
             override fun keyBoardHide(height: Int) {
-                if (replyId == -1) {
-                    historyMap.put(id ?: "", etcontent.text.toString().trim())
-                } else {
-                    historyMap.put(mList[replyId].idCompanyHomeThemeComment
-                            ?: "", etcontent.text.toString().trim())
+                launch(UI) {
+                    delay(100)
+                    etcontent.hint = getString(R.string.comment_def)
+                    etcontent.text = null
+                    replyId = -1
                 }
-                etcontent.hint = "说说你的看法..."
             }
         })
-        getCommentDetail(true, currentPage, lastTimeStamp ?: "", id ?: "")
+        getCommentDetail()
     }
 
     override fun onListener(view: View) {
@@ -217,13 +213,12 @@ class ShouMeiCommentActivity : BaseActivity() {
 
 
     companion object {
-        fun start(mContext: Context, id: String, headUrl: String, name: String, time: String, desc: String, themeId: String, followType: String, blackType: String) {
-            mContext.startActivity(Intent(mContext, ShouMeiCommentActivity::class.java).putExtra("themeId", id)
+        fun start(mContext: Context, id: String, headUrl: String, name: String, time: String, desc: String, followType: String, blackType: String) {
+            mContext.startActivity(Intent(mContext, ShouMeiCommentActivity::class.java).putExtra("comment_id", id)
                     .putExtra("headUrl", headUrl)
                     .putExtra("name", name)
                     .putExtra("time", time)
                     .putExtra("desc", desc)
-                    .putExtra("id", themeId)
                     .putExtra("followType", followType)
                     .putExtra("blackType", blackType))
         }
@@ -237,111 +232,103 @@ class ShouMeiCommentActivity : BaseActivity() {
         dialog.show()
         dialog.OnClickListener = View.OnClickListener {
             //删除评论
-            deleteComment(mList[position].idCompanyHomeThemeComment ?: "", position)
+            deleteComment(mList[position].id ?: "", position)
         }
     }
 
     private fun deleteComment(idCompanyHomeThemeComment: String, index: Int) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeThemeComment"] = idCompanyHomeThemeComment
-        ApiManager.post(this, params, Constant.SM_DELETE_COMMENT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        params["reply_id"] = idCompanyHomeThemeComment
+        ApiManager2.post(this, params, Constant.EHOME_REPLY_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
-                if (data.success) {
-                    mList.removeAt(index)
-                    adapter.notifyItemRemoved(index)
-                    if (index != mList.size) {
-                        adapter.notifyItemRangeChanged(index, mList.size - index);
-                    }
+            }
 
-                    //更改评论回复数
-                    totalComment -= 1
-                    ObserverManager.getInstance().notifyObserver(2, id
-                            ?: "", totalComment as Any, mList as Any)
-                } else {
-                    ToastUtil.show(data.message)
+            override fun onSuccess(data: BaseBean<String>) {
+                isShowLoading = false
+                mList.removeAt(index)
+                adapter.notifyItemRemoved(index)
+                if (index != mList.size) {
+                    adapter.notifyItemRangeChanged(index, mList.size - index)
                 }
+                //更改评论回复数
+                totalComment -= 1
+                ObserverManager.getInstance().notifyObserver(2, comment_id
+                        ?: "", totalComment as Any, mList as Any)
             }
 
-            override fun onFailed(e: Throwable) {
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
     }
 
-    private fun sendComment(idCompanyHomeTheme: String, commentDesc: String, replyId: String) {
+    private fun sendRervet(commentDesc: String) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["replyId"] = replyId
-        params["commentDesc"] = commentDesc
-        params["idCompanyHomeTheme"] = idCompanyHomeTheme
-        params["commentUserType"] = "2"
-        ApiManager.post(this, params, Constant.SM_ADD_COMMENT, object : ApiManager.OnResult<BaseModel<CommentData.SubComment>>() {
-            override fun onSuccess(data: BaseModel<CommentData.SubComment>) {
+        params["comment_id"] = comment_id.toString()
+        if (replyId != -1) {
+            params["parent"] = (mList[replyId].id ?: "0")
+        }
+        params["content"] = commentDesc
+        ApiManager2.post(this, params, Constant.EHOME_REPLY_CREATE, object : ApiManager2.OnResult<BaseBean<CommentData.Portion>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
-                if (data.success) {
-                    mList.add(data.entity!!)
+            }
+
+            override fun onSuccess(data: BaseBean<CommentData.Portion>) {
+                isShowLoading = false
+                data.message?.let {
+                    mList.add(it)
                     adapter.notifyDataSetChanged()
                     //更改评论回复数
                     totalComment += 1
-                    ObserverManager.getInstance().notifyObserver(2, id
+                    ObserverManager.getInstance().notifyObserver(2, comment_id
                             ?: "", totalComment as Any, mList as Any)
-                } else {
-                    ToastUtil.show(data.message)
                 }
+
             }
 
-            override fun onFailed(e: Throwable) {
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<CommentData.SubComment>) {
+            override fun onCatch(data: BaseBean<CommentData.Portion>) {
             }
 
         })
     }
 
-    private fun getCommentDetail(boolean: Boolean, currentPage: Int, timeStamp: String, idCompanyHomeThemeComment: String) {
+    private fun getCommentDetail() {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["currentPage"] = currentPage.toString()
-        params["showCount"] = 20.toString()
-        params["timeStamp"] = timeStamp
-        params["idCompanyHomeThemeComment"] = idCompanyHomeThemeComment
-        ApiManager.get(0, this, params, Constant.SM_COMMONT_DETAIL, object : ApiManager.OnResult<BaseModel<SmCommentDatail>>() {
-            override fun onSuccess(data: BaseModel<SmCommentDatail>) {
+
+        params["comment_id"] = comment_id ?: ""
+        if (replyId != 1) {
+            params["reply_id"] = currentPage.toString()
+        }
+        params["num"] = "20"
+        ApiManager2.post(0, this, params, Constant.EHOME_REPLIES, object : ApiManager2.OnResult<BaseBean<ArrayList<CommentData.Portion>>>() {
+            override fun onFailed(code: String, message: String) {
+                isShowLoading = false
+                recyclerView.update(null)
+                recyclerView.loadMore<CommentData.Portion>(null)
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<CommentData.Portion>>) {
                 isShowLoading = false
                 recyclerView.isRefreshing = false
-                if (data.success) {
-                    if (boolean) {
-                        totalComment = data.entity?.totalResult?.toInt() ?: 0
-                        ObserverManager.getInstance().notifyObserver(2, id
-                                ?: "", totalComment as Any, mList as Any)
-                        mList.clear()
-                        recyclerView.update(data.entity?.data)
-                    } else {
-                        recyclerView.loadMore(data.entity?.data)
-                    }
-                    lastTimeStamp = data.entity?.timeStamp
-                    mList.addAll(data.entity?.data
-                            ?: arrayListOf())
-                    adapter.notifyDataSetChanged()
+                if (currentPage == 1) {
+//                        totalComment = data.message?.totalResult?.toInt() ?: 0
+//                        ObserverManager.getInstance().notifyObserver(2, this@ShouMeiCommentActivity.comment_id
+//                                ?: "", totalComment as Any, mList as Any)
+                    mList.clear()
+                    recyclerView.update(data.message)
                 } else {
-                    ToastUtil.show(data.message)
+                    recyclerView.loadMore(data.message)
                 }
+                mList.addAll(data.message ?: arrayListOf())
+                adapter.notifyDataSetChanged()
             }
 
-            override fun onFailed(e: Throwable) {
-                recyclerView.isRefreshing = false
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<SmCommentDatail>) {
+            override fun onCatch(data: BaseBean<ArrayList<CommentData.Portion>>) {
             }
 
         })
@@ -351,21 +338,21 @@ class ShouMeiCommentActivity : BaseActivity() {
      * EditText获取焦点并显示软键盘
      */
     fun showSoftInputFromWindow(editText: EditText) {
-        if (isPop) {
-            hideKeyboard(editText.windowToken)
-            etcontent.hint = "说说你的看法..."
-            etcontent.text = null
-            isPop = false
-        } else {
-            editText.requestFocus()
-            showKeyboard(editText)
-        }
+//        if (isPop) {
+//            hideKeyboard(editText.windowToken)
+//            etcontent.hint = "说说你的看法..."
+//            etcontent.text = null
+//            isPop = false
+//        } else {
+        editText.requestFocus()
+        showKeyboard(editText)
+//        }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        id = intent?.getStringExtra("themeId")
-        themeId = intent?.getStringExtra("id")
+        comment_id = intent?.getStringExtra("themeId")
+        themeId = intent?.getStringExtra("comment_id")
         var headUrl: String? = intent?.getStringExtra("headUrl")
         var name: String? = intent?.getStringExtra("name")
         var time: String? = intent?.getStringExtra("time")
@@ -379,14 +366,14 @@ class ShouMeiCommentActivity : BaseActivity() {
         headView.tvTopDesc.text = desc
 
         //禁言
-        if (blackType == "1") {
-            etcontent.isFocusable = false
-            tvError.visibility = View.VISIBLE
-        } else {
+//        if (blackType == "1") {
+//            etcontent.isFocusable = false
+//            tvError.visibility = View.VISIBLE
+//        } else {
             etcontent.isFocusable = true
             tvError.visibility = View.GONE
-        }
+//        }
 
-        getCommentDetail(true, currentPage, lastTimeStamp ?: "", id ?: "")
+        getCommentDetail()
     }
 }

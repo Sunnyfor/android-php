@@ -10,7 +10,7 @@
     <!--android:orientation="vertical">-->
 
     <!--<com.cocosh.shmstore.widget.SMediaWebView-->
-    <!--android:id="@+id/webView"-->
+    <!--andrcomment_idd:idcomment_id@+id/webView"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="@dimen/h1920" />-->
 
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="@dimen/w38"
                 android:layout_marginTop="@dimen/h30"
                 android:background="@drawable/shape_bg_gray_stroke"
-                android:hint="说说你的看法......"
+                android:hint="@string/comment_def"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:minLines="2"

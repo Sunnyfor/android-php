@@ -18,51 +18,51 @@ import kotlinx.android.synthetic.main.item_shoumei_detail.view.*
  * 我的顶部导航适配器
  * Created by zhangye on 2018/3/13.
  */
-class ShouMeiDetailAdapter(var mContext: Context, list: ArrayList<CommentData.SubComment>) : BaseRecycleAdapter<CommentData.SubComment>(list) {
+class ShouMeiDetailAdapter(var mContext: Context, list: ArrayList<CommentData>) : BaseRecycleAdapter<CommentData>(list) {
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        GlideUtils.loadRound(2,mContext, list[position].headImg, holder.itemView.ivLogo)
-        holder.itemView.tvName.text = list[position].nickName
-        holder.itemView.tvTime.text = list[position].commentCreateTime
-        holder.itemView.tvDesc.text = list[position].commentDesc
+        GlideUtils.loadRound(2,mContext, list[position].user.avatar, holder.itemView.ivLogo)
+        holder.itemView.tvName.text = list[position].user.nickname
+        holder.itemView.tvTime.text = list[position].time
+        holder.itemView.tvDesc.text = list[position].content
 
-        //评论回复
-        if (list[position].childResThemeCommentVoList != null && list[position].childResThemeCommentVoList?.size!! > 0) {
+//        //评论回复
+        if (list[position].portion.size > 0) {
             holder.itemView.subLL.visibility = View.VISIBLE
-            if (list[position].childResThemeCommentVoList?.size == 1) {
+            if (list[position].portion.size == 1) {
                 holder.itemView.tvOneTip.visibility = View.VISIBLE
                 holder.itemView.tvTwoTip.visibility = View.GONE
                 holder.itemView.tvNumber.visibility = View.GONE
-                if (list[position].childResThemeCommentVoList!![0].replayNickName.isNullOrEmpty()) {
-                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName} :</font>" + list[position].childResThemeCommentVoList!![0].commentDesc)
+                if (list[position].portion[0].parent_user?.nickname.isNullOrEmpty()) {
+                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[0].user?.nickname} :</font>" + list[position].portion[0].content)
                 } else {
-                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName}:</font>" + " 回复 " +
-                            list[position].childResThemeCommentVoList!![0].replayNickName + ":" +
-                            list[position].childResThemeCommentVoList!![0].commentDesc)
+                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[0].user?.nickname}:</font>" + " 回复 " +
+                            "<font color='#2587ec'>"+list[position].portion[0].parent_user?.nickname + "</font'>:" +
+                            list[position].portion[0].content)
                 }
 
             }
-            if (list[position].childResThemeCommentVoList?.size!! >= 2) {
+            if (list[position].portion.size >= 2) {
                 holder.itemView.tvOneTip.visibility = View.VISIBLE
                 holder.itemView.tvTwoTip.visibility = View.VISIBLE
-                if (list[position].childResThemeCommentVoList!![0].replayNickName.isNullOrEmpty()) {
-                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName}:</font>" + list[position].childResThemeCommentVoList!![0].commentDesc)
+                if (list[position].portion[0].parent_user?.nickname.isNullOrEmpty()) {
+                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[0].user?.nickname}:</font>" + list[position].portion[0].content)
                 } else {
-                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName}:</font>" + " 回复 " +
-                            list[position].childResThemeCommentVoList!![0].replayNickName + ":" +
-                            list[position].childResThemeCommentVoList!![0].commentDesc)
+                    holder.itemView.tvOneTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[0].user?.nickname}:</font>" + " 回复 " +
+                            "<font color='#2587ec'>"+list[position].portion[0].parent_user?.nickname + "</font'>:" +
+                            list[position].portion[0].content)
                 }
 
-                if (list[position].childResThemeCommentVoList!![1].replayNickName.isNullOrEmpty()) {
-                    holder.itemView.tvTwoTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName}:</font>" + list[position].childResThemeCommentVoList!![1].commentDesc)
+                if (list[position].portion[1].parent_user?.nickname.isNullOrEmpty()) {
+                    holder.itemView.tvTwoTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[1].user?.nickname}:</font>" + list[position].portion[1].content)
                 } else {
-                    holder.itemView.tvTwoTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].childResThemeCommentVoList!![0].nickName}:</font>" + " 回复 " +
-                            list[position].childResThemeCommentVoList!![1].replayNickName + ":" +
-                            list[position].childResThemeCommentVoList!![1].commentDesc)
+                    holder.itemView.tvTwoTip.text = Html.fromHtml("<font color='#2587ec'>${list[position].portion[1].user?.nickname}:</font>" + " 回复 " +
+                            "<font color='#2587ec'>"+list[position].portion[1].parent_user?.nickname + "</font'>:" +
+                            list[position].portion[1].content)
                 }
-                if (list[position].childResThemeCommentVoList?.size!! > 2) {
+                if (list[position].replies.toInt() > 2) {
                     holder.itemView.tvNumber.visibility = View.VISIBLE
-                    holder.itemView.tvNumber.text = Html.fromHtml("<font color='#2587ec'>查看更多评论(${list[position].numberOfReplies})</font>")
+                    holder.itemView.tvNumber.text = Html.fromHtml("<font color='#2587ec'>查看更多评论(${list[position].replies})</font>")
                 } else {
                     holder.itemView.tvNumber.visibility = View.GONE
                 }
@@ -70,6 +70,7 @@ class ShouMeiDetailAdapter(var mContext: Context, list: ArrayList<CommentData.Su
         } else {
             holder.itemView.subLL.visibility = View.GONE
         }
+
 
         holder.itemView?.tvMore?.setOnClickListener {
             mOnSubBtnClickListener?.moreClick(position)

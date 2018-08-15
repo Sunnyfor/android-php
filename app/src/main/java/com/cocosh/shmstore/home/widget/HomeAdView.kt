@@ -262,7 +262,7 @@ class HomeAdView : LinearLayout {
 
     fun intentWeb(it: Banner.Data, state: String) {
         val intentWeb = Intent(context, BonusWebActivity::class.java)
-        intentWeb.putExtra("id", it.redPacketOrderId.toString())
+        intentWeb.putExtra("comment_id", it.redPacketOrderId.toString())
         intentWeb.putExtra("title", it.redPacketName)
         intentWeb.putExtra("htmUrl", it.advertisementUrl)
         intentWeb.putExtra("downUrl", it.androidUrl)

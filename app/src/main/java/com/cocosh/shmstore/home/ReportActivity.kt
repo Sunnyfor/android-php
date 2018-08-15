@@ -36,7 +36,7 @@ class ReportActivity: BaseActivity() {
             return
         }
         val params = hashMapOf<String, String>()
-        params["connectId"] = intent.getStringExtra("id")?:""
+        params["connectId"] = intent.getStringExtra("comment_id")?:""
         params["reportType"] = intent.getStringExtra("type")?:""
         params["reportContent"] = edtDesc.text.toString()
         ApiManager.post(this, params, Constant.REPORT, object : ApiManager.OnResult<BaseModel<String>>() {

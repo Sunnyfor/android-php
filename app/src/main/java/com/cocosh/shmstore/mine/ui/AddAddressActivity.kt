@@ -49,7 +49,7 @@ class AddAddressActivity : BaseActivity(), MineContrat.IAddAddressView {
 //        phoneIn = intent.getStringExtra("phone")
 //        addressCode = intent.getStringExtra("area")
 //        areaDescIn = intent.getStringExtra("areaDesc")
-//        id = intent.getStringExtra("id")
+//        comment_id = intent.getStringExtra("comment_id")
 //        areaNameIn = intent.getStringExtra("areaName")
 
         mAddress?.let {

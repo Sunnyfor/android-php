@@ -26,7 +26,7 @@ themeTitle (string, optional): 主题标题
  *
  */
 data class SMThemeData(var resCompanyHomeBrandExclusiveVO: SubCompanyHomeBrandExclusive?,
-                       var themeInfoVOS: ArrayList<SMCompanyThemeData.SubCompanyTheme>?,
+                       var themeInfoVOS: ArrayList<SMCompanyThemeData>?,
                        var timeStamp: String?) {
     data class SubCompanyHomeBrandExclusive(var announcement: String?,
                                             var followCount: String?,

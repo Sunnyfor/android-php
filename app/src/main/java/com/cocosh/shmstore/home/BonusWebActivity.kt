@@ -84,7 +84,7 @@ class BonusWebActivity : BaseActivity() {
         btnSure.setOnClickListener(this)
         btnOpen.setOnClickListener(this)
 
-        id = intent.getStringExtra("id")
+        id = intent.getStringExtra("comment_id")
         title = intent.getStringExtra("title")
         state = intent.getStringExtra("state")
         htmlURL = intent.getStringExtra("htmUrl")
@@ -138,7 +138,7 @@ class BonusWebActivity : BaseActivity() {
 
                 if (typeInfo == "1") {
                     titleManager.rightText(title ?: "", "分享", View.OnClickListener {
-                        //                        val diaolog = ReportDialog(this, id.toString(), "1")
+                        //                        val diaolog = ReportDialog(this, comment_id.toString(), "1")
 //                        diaolog.show()
                         share(true)
                     })
@@ -184,7 +184,7 @@ class BonusWebActivity : BaseActivity() {
 
     private fun openBonus(){
         val intent = Intent(this, BonusDetailActivity::class.java)
-        intent.putExtra("id", id)
+        intent.putExtra("comment_id", id)
         intent.putExtra("typeInfo", typeInfo)
         intent.putExtra("title", intent.getStringExtra("title"))
         intent.putExtra("companyLogo", companyLogo)

@@ -42,7 +42,7 @@ class BonusOpenActivity : BaseActivity() {
         when (view.id) {
             ivRanking.id -> {
                 val intent = Intent(this, BonusRankingActivity::class.java)
-                intent.putExtra("id",this.intent.getStringExtra("id"))
+                intent.putExtra("comment_id",this.intent.getStringExtra("comment_id"))
                 startActivity(intent)
             }
             btnShare.id -> {

@@ -25,7 +25,7 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
             holder.itemView.tvFollow.visibility = View.VISIBLE
         }
 
-        if (list[position].followStatus == "0") {
+        if (list[position].follow == "0") {
             holder.itemView.tvFollow.text = "+关注"
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_red)
         } else {
@@ -33,8 +33,8 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
         }
 
-        GlideUtils.loadRound(1, context, list[position].forumHeadImg, holder.itemView.ivLogo)
-        holder.itemView.tvName.text = list[position].forumName
+        GlideUtils.loadRound(1, context, list[position].logo, holder.itemView.ivLogo)
+        holder.itemView.tvName.text = list[position].company
 
         holder.itemView.tvFollow.setOnClickListener {
             mOnFollowClick?.follow(position)
@@ -42,7 +42,7 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
 
         holder.itemView.setOnClickListener {
             //品牌专属论坛
-            ShouMeiBrandActivity.start(context, list[position].idCompanyHomeBaseInfo ?: "")
+            ShouMeiBrandActivity.start(context, list[position].eid)
         }
     }
 

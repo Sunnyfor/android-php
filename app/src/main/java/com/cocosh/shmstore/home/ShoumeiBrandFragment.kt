@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_shoumei_follow.view.*
  */
 class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
     var currentPage = 1
-    var list = arrayListOf<SMCompanyThemeData.SubCompanyTheme>()
+    var list = arrayListOf<SMCompanyThemeData>()
     var lastTimeStamp: String? = ""
     var followType: String? = ""
     var blackType: String? = ""
@@ -35,12 +35,12 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
         if (type == 1) {
             list.let {
-                var index = it.indexOfFirst {
-                    it.idCompanyHomeTheme == data as String
+                val index = it.indexOfFirst {
+                    it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].commentsNumber = content.toString()
-                    adapter?.notifyItemChanged(index)
+//                    it[index].commentsNumber = content.toString()
+                    adapter.notifyItemChanged(index)
                 }
             }
         }
@@ -48,8 +48,8 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
         if (type == 3) {
             list.let {
                 list.forEach {
-                    if (it.resCompanyHomeInfoVO?.idCompanyHomeBaseInfo == data as String) {
-                        it.resCompanyHomeInfoVO?.followStatus = content as String
+                    if (it.bbs.id == data as String) {
+                        it.bbs.follow = content as String
                     }
                 }
             }
@@ -67,22 +67,18 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
         adapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
                 //更改状态
-                var oldNumber = list[index].readNumber?.toInt()
-                var number = (oldNumber ?: 1) + 1
-                list[index].readNumber = number.toString()
-                list[index].isRead = "1"
+                val oldNumber = list[index].posts.views?.toInt()
+                val number = (oldNumber) + 1
+                list[index].posts.views = number.toString()
+//                list[index].isRead = "1"
                 adapter?.notifyItemChanged(index)
-                readAccount(list[index].idCompanyHomeTheme ?: "")
+                readAccount(list[index].posts.id ?: "")
                 //跳转内容详情页
-                ShoumeiDetailActivity.start(activity, followType
-                        ?: "", blackType
-                        ?: "", list[index].idCompanyHomeTheme
-                        ?: "", list[index].themePageUrl
-                        ?: "", list[index]?.resCompanyHomeInfoVO?.idCompanyHomeBaseInfo ?: "")
+                ShoumeiDetailActivity.start(activity, "跳转的url", list[index].posts.id)
                 //浏览数
-                list[index].readNumber = (list[index].readNumber ?: "0".toInt()+1).toString()
+                list[index].posts.views = (list[index].posts.views.toInt()+1).toString()
                 adapter.notifyItemChanged(index)
-                ObserverManager.getInstance().notifyObserver(4, list[index].idCompanyHomeTheme
+                ObserverManager.getInstance().notifyObserver(4, list[index].posts.id
                         ?: "", "", "")
             }
         })

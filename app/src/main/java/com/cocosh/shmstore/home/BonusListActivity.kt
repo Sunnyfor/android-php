@@ -263,7 +263,7 @@ class BonusListActivity : BaseActivity() {
 
     fun intentWeb(it: BonusModel.Data, state: String) {
         val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
-        intentWeb.putExtra("id", it.redPacketOrderId.toString())
+        intentWeb.putExtra("comment_id", it.redPacketOrderId.toString())
         intentWeb.putExtra("title", it.redPacketName)
         intentWeb.putExtra("htmUrl", it.htmlUrl)
         intentWeb.putExtra("downUrl", it.androidUrl)

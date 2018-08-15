@@ -29,7 +29,7 @@ class BonusRankingActivity : BaseActivity() {
     override fun initView() {
         titleManager.defaultTitle("红包排行榜")
         isShowLoading = false
-        idRedPacketBaseInfo = intent.getStringExtra("id")
+        idRedPacketBaseInfo = intent.getStringExtra("comment_id")
 
         refreshLayout.recyclerView.layoutManager = LinearLayoutManager(this)
 

@@ -129,7 +129,7 @@ class AuthActivity : BaseActivity() {
 //                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
 //                        }
                         AuthenStatus.SERVER_DEALER_ING.type -> {
-                            tvMediaState.text = "认证中"
+                            tvMediaState.text = "待付款"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
                         }
                         AuthenStatus.SERVER_DEALER_FAIL.type -> {

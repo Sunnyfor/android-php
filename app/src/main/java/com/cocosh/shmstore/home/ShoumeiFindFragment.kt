@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_shoumei_follow.view.*
 class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     var currentPage = 1
     var companyList = arrayListOf<SMCompanyData>()
-    var companyThemeList = arrayListOf<SMCompanyThemeData.SubCompanyTheme>()
+    var companyThemeList = arrayListOf<SMCompanyThemeData>()
     lateinit var adapter: ShouMeiVAdapter
     override fun setLayout(): Int = R.layout.fragment_shoumei_follow
     var isInit = false
@@ -33,10 +33,10 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         if (type == 1) {
             companyThemeList.let {
                 var index = it.indexOfFirst {
-                    it.idCompanyHomeTheme == data as String
+                    it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].commentsNumber = content.toString()
+//                    it[index].commentsNumber = content.toString()
                     adapter?.notifyItemChanged(index + 1)
                 }
             }
@@ -48,10 +48,10 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         if (type == 4) {
             companyThemeList.let {
                 var index = it.indexOfFirst {
-                    it.idCompanyHomeTheme == data as String
+                    it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].readNumber = (it[index].readNumber ?: "0".toInt()+1).toString()
+                    it[index].posts.views = (it[index].posts.views.toInt()+1).toString()
                     adapter?.notifyItemChanged(index + 1)
                 }
             }
@@ -80,25 +80,25 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
 
         adapter.setOnFollowClick(object : ShouMeiVAdapter.OnFollowClick {
             override fun read(type: Int?, themeCompanyIndex: Int?) {
-                readAccount(companyThemeList[themeCompanyIndex ?: 0].idCompanyHomeTheme ?: "")
+                readAccount(companyThemeList[themeCompanyIndex ?: 0].posts.id ?: "")
             }
 
             override fun follow(type: Int?, themeCompanyIndex: Int?) {
                 if (type == 1) {
-                    if (companyList[themeCompanyIndex!!].followStatus == "0") {
-                        cancelOrConfirm(companyList[themeCompanyIndex].idCompanyHomeBaseInfo
+                    if (companyList[themeCompanyIndex!!].follow == "0") {
+                        cancelOrConfirm(companyList[themeCompanyIndex].eid
                                 ?: "", "1")
                         return
                     }
-                    cancelOrConfirm(companyList[themeCompanyIndex].idCompanyHomeBaseInfo
+                    cancelOrConfirm(companyList[themeCompanyIndex].eid
                             ?: "", "0")
                 } else {
-                    if (companyThemeList[themeCompanyIndex!!].resCompanyHomeInfoVO?.followStatus == "0") {
-                        cancelOrConfirm(companyThemeList[themeCompanyIndex].resCompanyHomeInfoVO?.idCompanyHomeBaseInfo
+                    if (companyThemeList[themeCompanyIndex!!].bbs?.follow == "0") {
+                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id
                                 ?: "", "1")
                         return
                     }
-                    cancelOrConfirm(companyThemeList[themeCompanyIndex].resCompanyHomeInfoVO?.idCompanyHomeBaseInfo
+                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id
                             ?: "", "0")
                 }
             }
@@ -180,12 +180,12 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
                 if (data.success) {
                     if (boolean) {
                         companyThemeList.clear()
-                        getLayoutView().vRecyclerView.update(data.entity?.themeInfoVOList)
+//                        getLayoutView().vRecyclerView.update(data.entity)
                     } else {
-                        getLayoutView().vRecyclerView.loadMore(data.entity?.themeInfoVOList)
+//                        getLayoutView().vRecyclerView.loadMore(data.entity)
                     }
-                    lastTimeStamp = data.entity?.timeStamp
-                    companyThemeList.addAll(data.entity?.themeInfoVOList ?: arrayListOf())
+//                    lastTimeStamp = data.entity?.timeStamp
+//                    companyThemeList.addAll(data.entity?.themeInfoVOList ?: arrayListOf())
                     adapter.notifyDataSetChanged()
                 } else {
                     ToastUtil.show(data.message)
@@ -230,13 +230,13 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
 
     fun notifyFollowStatus(id: String, status: String) {
         companyList.forEach {
-            if (it.idCompanyHomeBaseInfo == id) {
-                it.followStatus = status
+            if (it.eid == id) {
+                it.follow = status
             }
         }
         companyThemeList.forEach {
-            if (it.resCompanyHomeInfoVO?.idCompanyHomeBaseInfo == id) {
-                it.resCompanyHomeInfoVO?.followStatus = status
+            if (it.bbs?.id == id) {
+                it.bbs?.follow= status
             }
         }
         adapter.notifyDataSetChanged()

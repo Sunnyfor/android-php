@@ -51,7 +51,7 @@ class BonusDetailActivity : BaseActivity() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 val intent = Intent(this@BonusDetailActivity, BonusOpenActivity::class.java)
-                intent.putExtra("id", id)
+                intent.putExtra("comment_id", id)
                 intent.putExtra(DataCode.BONUS_MONEY, bonusOpen)
                 startActivity(intent)
                 SmApplication.getApp().setData(DataCode.BONUS, BonusAction.OPEN)
@@ -72,7 +72,7 @@ class BonusDetailActivity : BaseActivity() {
             startActivity(intent)
         })
 
-        id = intent.getStringExtra("id")
+        id = intent.getStringExtra("comment_id")
 
         type = intent.getStringExtra("typeInfo")
         type?.let {

@@ -32,14 +32,14 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     override fun setLayout(): Int = R.layout.activity_address_manger
 
     override fun deleteAddress(result: BaseBean<String>){
-//        val data = list.find { it.id  == id}
+//        val data = list.find { it.comment_id  == comment_id}
 //        list.remove(data)
 //        recyclerView.adapter.notifyDataSetChanged()
         mPresenter.requestGetAddress(1)
 
     }
 //                val data = list.first {
-//                    it.idUserAddressInfo == id
+//                    it.idUserAddressInfo == comment_id
 //                }
 //                list.remove(data)
 
@@ -75,7 +75,7 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun defaultAddress(result: BaseBean<String>) {
 //        list.find{it.default == "1"}?.default = "0"
-//        list.find { it.id == defaultId }?.default ="1"
+//        list.find { it.comment_id == defaultId }?.default ="1"
             mPresenter.requestGetAddress(1)
 //            list.forEach {
 //                if (it.idUserAddressInfo == defaultId) {

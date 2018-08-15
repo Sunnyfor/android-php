@@ -28,32 +28,25 @@ replyId (integer, optional): 是评论还是回复 replyId 0：评论 其他：�
 totalComment 评论总数
  *
  */
-data class CommentData(var pageInfo: SubData?,
-                       var timeStamp: String?,
-                       var totalComment: String?,
-                       var sortType: String?) {
-    data class SubData(var showCount: String?,
-                       var totalPage: String?,
-                       var totalResult: String?,
-                       var currentPage: String?,
-                       var currentResult: String?,
-                       var timeStamp: String?,
-                       var sortField: String?,
-                       var order: String?,
-                       var data: ArrayList<SubComment>?)
+data class CommentData(var id: String,
+                       var floor: String,
+                       var content: String,
+                       var portion:ArrayList<Portion>,
+                        var replies:String,
+                       var user:User,
+                       var time:String) {
 
-    data class SubComment(var childResThemeCommentVoList: ArrayList<SubComment>?,
-                          var commentCreateTime: String?,
-                          var commentDesc: String?,
-                          var commentUserId: String?,
-                          var commentUserType: String?,
-                          var floorId: String?,
-                          var replayNickName: String?,
-                          var idCompanyHomeThemeComment: String?,
-                          var logo: String?,
-                          var headImg:String?,
-                          var numberOfReplies: String?,
-                          var myselfComment: String?,//是否是自己发的评论或者回复 1:是 0:否 ,
-                          var nickName: String?,
-                          var replyId: String?)
+    data class Portion(var id: String?,
+                       var parent: String?,
+                       var parent_user: User?,
+                       var content: String?,
+                       var user: User?,
+                       var time: String?)
+
+    data class User(
+            var smno:String,
+            var nickname:String,
+            var avatar:String
+
+    )
 }

@@ -525,7 +525,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestDeleteAddress(idUserAddressInfo: String) {
         val map = HashMap<String, String>()
-        map["id"] = idUserAddressInfo
+        map["comment_id"] = idUserAddressInfo
         ApiManager2.post(activity, map, Constant.ADDRESS_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }
@@ -564,7 +564,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestAddAddress(id: String, receiver: String, phone: String, province: String, city: String, town: String, addr: String, default: String) {
         val map = HashMap<String, String>()
-        map["id"] = id
+        map["comment_id"] = id
         map["receiver"] = receiver
         map["phone"] = phone
         map["province"] = province
@@ -592,7 +592,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestDefaultAddress(idUserAddressInfo: String) {
         val map = HashMap<String, String>()
-        map["id"] = idUserAddressInfo
+        map["comment_id"] = idUserAddressInfo
         ApiManager2.post(activity, map, Constant.ADDRESS_SETDEF, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }

@@ -41,12 +41,12 @@ class ShouMeiSearchActivity : BaseActivity() {
         recyclerView.recyclerView.adapter = adapter
         adapter.setOnSubBtnClickListener(object : ShouMeiSearchAdapter.OnSubBtnClickListener {
             override fun followClick(position: Int) {
-                if (companyList[position].followStatus == "0") {
-                    cancelOrConfirm(companyList[position].idCompanyHomeBaseInfo
+                if (companyList[position].follow == "0") {
+                    cancelOrConfirm(companyList[position].eid
                             ?: "", "1", position)
                     return
                 }
-                cancelOrConfirm(companyList[position].idCompanyHomeBaseInfo
+                cancelOrConfirm(companyList[position].eid
                         ?: "", "0", position)
             }
         })
@@ -155,7 +155,7 @@ class ShouMeiSearchActivity : BaseActivity() {
             override fun onSuccess(data: BaseModel<String>) {
                 isShowLoading = false
                 if (data.success && data.code == 200) {
-                    companyList[position].followStatus = isFollow
+                    companyList[position].follow = isFollow
                     adapter.notifyItemChanged(position)
                     ObserverManager.getInstance().notifyObserver(3, idCompanyHomeBaseInfo, isFollow, "")
                 } else {
