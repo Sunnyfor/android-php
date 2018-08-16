@@ -55,7 +55,7 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
                     it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].posts.views = (it[index].posts.views.toInt()+1).toString()
+                    it[index].posts.views = (it[index].posts.views?:"0".toInt() + 1).toString()
                     adapter.notifyItemChanged(index + 1)
                 }
             }
@@ -77,29 +77,29 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
             }
 
             override fun onLoadMore(page: Int) {
-                currentPage = companyThemeList.last().bbs.eid.toInt()
+                currentPage = (companyThemeList.last().bbs.eid?:"0").toInt()
                 getThemeList(false)
             }
         }
 
         adapter.setOnFollowClick(object : ShouMeiVAdapter.OnFollowClick {
             override fun read(type: Int?, themeCompanyIndex: Int?) {
-                readAccount(companyThemeList[themeCompanyIndex ?: 0].posts.id)
+//                readAccount(companyThemeList[themeCompanyIndex ?: 0].posts.id?:"")
             }
 
             override fun follow(type: Int?, themeCompanyIndex: Int?) {
                 if (type == 1) {
-                    if (companyList[themeCompanyIndex!!].follow == "0") {
-                        cancelOrConfirm(companyList[themeCompanyIndex].eid, "1")
+                    if (companyThemeList[themeCompanyIndex!!].bbs.follow == "0") {
+                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.eid?:"", "1")
                         return
                     }
-                    cancelOrConfirm(companyList[themeCompanyIndex].eid, "0")
+                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.follow?:"", "0")
                 } else {
                     if (companyThemeList[themeCompanyIndex!!].bbs.follow == "0") {
-                        cancelOrConfirm(companyThemeList[themeCompanyIndex].posts.id,"1")
+                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.eid?:"", "1")
                         return
                     }
-                    cancelOrConfirm(companyThemeList[themeCompanyIndex].posts.id, "0")
+                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.eid?:"", "0")
                 }
             }
         })
@@ -143,9 +143,9 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {
                 getBaseActivity().isShowLoading = false
-                    companyList.clear()
-                    companyList.addAll(data.message ?: arrayListOf())
-                    adapter.hNotify()
+                companyList.clear()
+                companyList.addAll(data.message ?: arrayListOf())
+                adapter.hNotify()
             }
 
             override fun onCatch(data: BaseBean<ArrayList<SMCompanyData>>) {
@@ -156,7 +156,7 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
     private fun getThemeList(boolean: Boolean) {
         getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
-        if (currentPage != 1){
+        if (currentPage != 1) {
             params["eid"] = currentPage.toString()
         }
         params["num"] = "20"
@@ -169,18 +169,18 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
                 getBaseActivity().isShowLoading = false
                 getLayoutView().vRecyclerView.isRefreshing = false
-                    if (boolean) {
-                        companyThemeList.clear()
-                        getLayoutView().vRecyclerView.update(data.message)
-                    } else {
-                        getLayoutView().vRecyclerView.loadMore(data.message)
-                    }
-                    companyThemeList.addAll(data.message ?: arrayListOf())
-                    adapter.notifyDataSetChanged()
+                if (boolean) {
+                    companyThemeList.clear()
+                    getLayoutView().vRecyclerView.update(data.message)
+                } else {
+                    getLayoutView().vRecyclerView.loadMore(data.message)
+                }
+                companyThemeList.addAll(data.message ?: arrayListOf())
+                adapter.notifyDataSetChanged()
             }
 
 
-            override fun onCatch(data:BaseBean<ArrayList<SMCompanyThemeData>>) {
+            override fun onCatch(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
             }
 
         })
@@ -189,39 +189,30 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
     private fun cancelOrConfirm(idCompanyHomeBaseInfo: String, isFollow: String) {
         getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = idCompanyHomeBaseInfo
-        params["isFollow"] = isFollow
-        ApiManager.post(activity as BaseActivity, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-                    notifyFollowStatus(idCompanyHomeBaseInfo, isFollow)
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+        params["eid"] = idCompanyHomeBaseInfo
+        params["op"] = if (isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
+        ApiManager2.post(activity as BaseActivity, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 getBaseActivity().isShowLoading = false
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onSuccess(data: BaseBean<String>) {
+                getBaseActivity().isShowLoading = false
+                notifyFollowStatus(idCompanyHomeBaseInfo, isFollow)
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
     }
 
     fun notifyFollowStatus(id: String, status: String) {
-        companyList.forEach {
-            if (it.eid == id) {
-                it.follow = status
-            }
-        }
-        companyThemeList.forEach {
-            if (it.posts.id == id) {
-                it.bbs.follow = status
-            }
-        }
+        companyList.find { it.eid  == id }?.follow = status
+
+        companyThemeList.find { it.bbs.eid == id }?.bbs?.follow = status
+
         adapter.notifyDataSetChanged()
         adapter.hNotify()
     }

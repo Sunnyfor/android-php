@@ -68,15 +68,16 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
             override fun onItemClick(v: View, index: Int) {
                 //更改状态
                 val oldNumber = list[index].posts.views?.toInt()
-                val number = (oldNumber) + 1
+                val number = (oldNumber)?:0 + 1
                 list[index].posts.views = number.toString()
+
+                adapter.notifyItemChanged(index)
 //                list[index].isRead = "1"
-                adapter?.notifyItemChanged(index)
-                readAccount(list[index].posts.id ?: "")
+//                readAccount(list[index].posts.id ?: "")
                 //跳转内容详情页
-                ShoumeiDetailActivity.start(activity, "跳转的url", list[index].posts.id)
+                ShoumeiDetailActivity.start(activity, list[index].posts.url?:"", list[index].posts.id?:"")
                 //浏览数
-                list[index].posts.views = (list[index].posts.views.toInt()+1).toString()
+                list[index].posts.views = (list[index].posts.views?:"0".toInt()+1).toString()
                 adapter.notifyItemChanged(index)
                 ObserverManager.getInstance().notifyObserver(4, list[index].posts.id
                         ?: "", "", "")

@@ -4,12 +4,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.ShouMeiVAdapter
 import com.cocosh.shmstore.home.model.SMCompanyData
 import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
@@ -32,12 +34,12 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
         if (type == 1) {
             companyThemeList.let {
-                var index = it.indexOfFirst {
+                val index = it.indexOfFirst {
                     it.posts.id == data as String
                 }
                 if (index != -1) {
 //                    it[index].commentsNumber = content.toString()
-                    adapter?.notifyItemChanged(index + 1)
+                    adapter.notifyItemChanged(index + 1)
                 }
             }
         }
@@ -47,12 +49,12 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
 
         if (type == 4) {
             companyThemeList.let {
-                var index = it.indexOfFirst {
+                val index = it.indexOfFirst {
                     it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].posts.views = (it[index].posts.views.toInt()+1).toString()
-                    adapter?.notifyItemChanged(index + 1)
+                    it[index].posts.views = (it[index].posts.views?:"0".toInt() + 1).toString()
+                    adapter.notifyItemChanged(index + 1)
                 }
             }
         }
@@ -68,13 +70,14 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
 
             override fun onUpdate(page: Int) {
                 currentPage = page
-                getThemeList(true, currentPage, "", "0")
-                getCompanyList("", "0", "")
+                getThemeList()
+                getCompanyList()
             }
 
             override fun onLoadMore(page: Int) {
                 currentPage = page
-                getThemeList(false, currentPage, lastTimeStamp ?: "", "0")
+//                getThemeList()
+
             }
         }
 
@@ -86,25 +89,21 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
             override fun follow(type: Int?, themeCompanyIndex: Int?) {
                 if (type == 1) {
                     if (companyList[themeCompanyIndex!!].follow == "0") {
-                        cancelOrConfirm(companyList[themeCompanyIndex].eid
-                                ?: "", "1")
+                        cancelOrConfirm(companyList[themeCompanyIndex].eid, "1")
                         return
                     }
-                    cancelOrConfirm(companyList[themeCompanyIndex].eid
-                            ?: "", "0")
+                    cancelOrConfirm(companyList[themeCompanyIndex].eid, "0")
                 } else {
-                    if (companyThemeList[themeCompanyIndex!!].bbs?.follow == "0") {
-                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id
-                                ?: "", "1")
+                    if (companyThemeList[themeCompanyIndex!!].bbs.follow == "0") {
+                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id?:"", "1")
                         return
                     }
-                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id
-                            ?: "", "0")
+                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id?:"", "0")
                 }
             }
         })
-        getThemeList(true, currentPage, "", "0")
-        getCompanyList("", "0", "")
+        getThemeList()
+        getCompanyList()
         (activity as BaseActivity).showLoading()
         isInit = true
 
@@ -114,8 +113,8 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
 
     override fun reTryGetData() {
         if (isInit) {
-            getThemeList(true, currentPage, "", "0")
-            getCompanyList("", "0", "")
+            getThemeList()
+            getCompanyList()
             (activity as BaseActivity).showLoading()
         }
     }
@@ -131,73 +130,59 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && isInit) {
-            getThemeList(true, currentPage, "", "0")
-            getCompanyList("", "0", "")
+            getThemeList()
+            getCompanyList()
         }
     }
 
-    private fun getCompanyList(timeStamp: String, followType: String, companyName: String) {
+    private fun getCompanyList() {
         getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
-        params["showCount"] = "20"
-        params["timeStamp"] = timeStamp
-        params["followType"] = followType
-        params["companyName"] = companyName
-        ApiManager.get(0, activity as BaseActivity, params, Constant.SM_COMPANY_LIST, object : ApiManager.OnResult<BaseModel<ArrayList<SMCompanyData>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<SMCompanyData>>) {
-                getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-                    companyList.clear()
-                    companyList.addAll(data.entity ?: arrayListOf())
-                    adapter.hNotify()
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+        ApiManager2.post(0, activity as BaseActivity, params, Constant.EHOME_DISCOVERY_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
+            override fun onFailed(code: String, message: String) {
                 getLayoutView().vRecyclerView.isRefreshing = false
                 getBaseActivity().isShowLoading = false
             }
 
-            override fun onCatch(data: BaseModel<ArrayList<SMCompanyData>>) {
+            override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {
+                getLayoutView().vRecyclerView.isRefreshing = false
+                getBaseActivity().isShowLoading = false
+                companyList.clear()
+                companyList.addAll(data.message ?: arrayListOf())
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<SMCompanyData>>) {
             }
         })
     }
 
-    private fun getThemeList(boolean: Boolean, currentPage: Int, timeStamp: String, followType: String) {
+    private fun getThemeList() {
         getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
-        params["currentPage"] = currentPage.toString()
-        params["showCount"] = "20"
-        params["timeStamp"] = timeStamp
-        params["followType"] = followType
-        ApiManager.get(0, activity as BaseActivity, params, Constant.SM_COMMON_LIST, object : ApiManager.OnResult<BaseModel<SMCompanyThemeData>>() {
-            override fun onSuccess(data: BaseModel<SMCompanyThemeData>) {
+        ApiManager2.post(0, activity as BaseActivity, params, Constant.EHOME_DISCOVERY_POSTS, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyThemeData>>>() {
+            override fun onFailed(code: String, message: String) {
                 getLayoutView().vRecyclerView.isRefreshing = false
                 getBaseActivity().isShowLoading = false
-                if (data.success) {
-                    if (boolean) {
-                        companyThemeList.clear()
-//                        getLayoutView().vRecyclerView.update(data.entity)
-                    } else {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
+                getLayoutView().vRecyclerView.isRefreshing = false
+                getBaseActivity().isShowLoading = false
+//                    if (boolean) {
+                companyThemeList.clear()
+                getLayoutView().vRecyclerView.update(data.message)
+                getLayoutView().vRecyclerView.loadMore<SMCompanyThemeData>(arrayListOf())
+//                    } else {
 //                        getLayoutView().vRecyclerView.loadMore(data.entity)
-                    }
+//                    }
 //                    lastTimeStamp = data.entity?.timeStamp
-//                    companyThemeList.addAll(data.entity?.themeInfoVOList ?: arrayListOf())
-                    adapter.notifyDataSetChanged()
-                } else {
-                    ToastUtil.show(data.message)
-                }
+                companyThemeList.addAll(data.message ?: arrayListOf())
+                adapter.notifyDataSetChanged()
             }
 
-            override fun onFailed(e: Throwable) {
-                getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
-            }
+            override fun onCatch(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
 
-            override fun onCatch(data: BaseModel<SMCompanyThemeData>) {
             }
 
         })
@@ -206,23 +191,19 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     private fun cancelOrConfirm(idCompanyHomeBaseInfo: String, isFollow: String) {
         getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = idCompanyHomeBaseInfo
-        params["isFollow"] = isFollow
-        ApiManager.post(activity as BaseActivity, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-                    notifyFollowStatus(idCompanyHomeBaseInfo, isFollow)
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+        params["eid"] = idCompanyHomeBaseInfo
+        params["op"] = if(isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
+        ApiManager2.post(activity as BaseActivity, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 getBaseActivity().isShowLoading = false
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onSuccess(data: BaseBean<String>) {
+                getBaseActivity().isShowLoading = false
+                notifyFollowStatus(idCompanyHomeBaseInfo, isFollow)
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
@@ -236,7 +217,7 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         }
         companyThemeList.forEach {
             if (it.bbs?.id == id) {
-                it.bbs?.follow= status
+                it.bbs?.follow = status
             }
         }
         adapter.notifyDataSetChanged()

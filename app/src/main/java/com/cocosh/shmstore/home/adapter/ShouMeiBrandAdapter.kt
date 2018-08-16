@@ -41,7 +41,7 @@ class ShouMeiBrandAdapter(list: ArrayList<SMCompanyThemeData>) : BaseRecycleAdap
 //        } else {
 //            holder.itemView.tvName.visibility = View.GONE
 //        }
-        list[position].posts.images.let {
+        list[position].posts.images?.let {
             if (it.isNotEmpty()) {
                 if (it.size == 1) {
                     holder.itemView.imageOne.visibility = View.VISIBLE

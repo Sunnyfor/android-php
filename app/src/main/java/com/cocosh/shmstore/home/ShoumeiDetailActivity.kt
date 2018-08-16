@@ -165,7 +165,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                         if (replyPosition == -1) {
                             sendComment( etcontent.text.toString())
                         } else {
-                            sendRervet(mList[replyPosition].id,etcontent.text.toString())
+                            sendRervet(mList[replyPosition].id?:"",etcontent.text.toString())
                         }
                         etcontent.text = null
                     }
@@ -183,11 +183,11 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 
             override fun subCommentClick(position: Int) {
                 //跳转评论详情
-                ShouMeiCommentActivity.start(this@ShoumeiDetailActivity, mList[position].id
-                        , mList[position].user.avatar
-                       , mList[position].user.nickname
-                        , mList[position].time
-                       , mList[position].content
+                ShouMeiCommentActivity.start(this@ShoumeiDetailActivity, mList[position].id?:""
+                        , mList[position].user?.avatar?:""
+                       , mList[position].user?.nickname?:""
+                        , mList[position].time?:""
+                       , mList[position].content?:""
                       ,followType ?: "", "")
             }
 
@@ -198,7 +198,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                 }
 
                 //回复或者删除 弹窗
-                if (mList[position].user.smno == UserManager2.getLogin()?.code) {
+                if (mList[position].user?.smno == UserManager2.getLogin()?.code) {
                     showReplyDialog(false, position)
                     return
                 }
@@ -213,7 +213,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 //                    etcontent.setText(historyMap["main"])
             } else {
 //                    etcontent.setText(historyMap[mList[replyPosition].comment_id])
-                etcontent.hint = "回复:"+mList[replyPosition].user.nickname
+                etcontent.hint = "回复:"+mList[replyPosition].user?.nickname
             }
 
             override fun keyBoardHide(height: Int) {
@@ -333,7 +333,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         dialog.setDesc("删除后该评论下的所有回复也将被删除")
         dialog.OnClickListener = View.OnClickListener {
             //删除评论
-            deleteComment(mList[position].id, position)
+            deleteComment(mList[position].id?:"", position)
         }
         dialog.cancelOnClickListener = View.OnClickListener {
 
@@ -396,8 +396,8 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
             override fun onSuccess(data: BaseBean<CommentData.Portion>) {
                 //回复
                 data.message?.let {
-                    mList[replyPosition].portion.add(0,it)
-                    mList[replyPosition].replies = (mList[replyPosition].replies.toInt() + 1).toString()
+                    mList[replyPosition].portion?.add(0,it)
+                    mList[replyPosition].replies = (mList[replyPosition].replies?:"0".toInt() + 1).toString()
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -473,9 +473,9 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 
             override fun onSuccess(data: BaseBean<String>) {
                 isShowLoading = false
-                    totalComment = totalComment!! - mList[index].replies.toInt() - 1
-                    ObserverManager.getInstance().notifyObserver(1, id
-                            ?: "", totalComment as Any, "")
+//                    totalComment = totalComment - mList[index].replies?:"0".toInt() - 1
+//                    ObserverManager.getInstance().notifyObserver(1, id
+//                            ?: "", totalComment as Any, "")
                     mList.removeAt(index)
                     adapter.notifyItemRemoved(index)
                     if (index != mList.size) {

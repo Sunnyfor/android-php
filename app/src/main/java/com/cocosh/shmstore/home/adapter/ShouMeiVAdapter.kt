@@ -1,6 +1,7 @@
 package com.cocosh.shmstore.home.adapter
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
@@ -52,15 +53,17 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                 with(list[position - 1]) {
                     GlideUtils.loadRound(1, mContext, bbs.logo, holder.itemView.ivLogo)
                     holder.itemView.tvName.text = bbs.name
-//                    holder.itemView.tvTime.text = createTime
-                    holder.itemView.tvDesc.text = posts.title
-                    holder.itemView.showNumber.text = posts.views
-//                    holder.itemView.commentNumber.text = commentsNumber
+                    holder.itemView.tvTime.text = posts.time
+                    holder.itemView.tvDesc.text = posts.title       //帖子标题
+                    holder.itemView.showNumber.text = posts.views   //浏览次数
+                    holder.itemView.commentNumber.text = posts.sum  //评论数量
                     if (bbs.follow == "0") {
                         holder.itemView.tvStatus.text = "+关注"
+                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.white))
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
                     } else {
                         holder.itemView.tvStatus.text = "已关注"
+                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.blackText))
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
                     }
 
@@ -84,30 +87,32 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
     //                        holder.itemView.tvType.text = "用户"
     //                    }
     //                }
-                    posts.images.let {
+                    posts.images?.let {
                         if (it.isNotEmpty()) {
                             when {
                                 it.size == 1 -> {
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.GONE
                                     holder.itemView.imageThree.visibility = View.GONE
-                                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
                                 }
 
                                 it.size == 2 -> {
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.VISIBLE
                                     holder.itemView.imageThree.visibility = View.GONE
-                                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
-                                    GlideUtils.load(context, it[1], holder.itemView.imageTwo)
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
+                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo,0)
                                 }
                                 else -> {
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.VISIBLE
                                     holder.itemView.imageThree.visibility = View.VISIBLE
-                                    GlideUtils.load(context, it[0], holder.itemView.imageOne)
-                                    GlideUtils.load(context, it[1], holder.itemView.imageTwo)
-                                    GlideUtils.load(context, it[2], holder.itemView.imageThree)
+
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
+                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo,0)
+                                    GlideUtils.loadPhoto(context, it[2], holder.itemView.imageThree,0)
+
                                 }
                             }
 
@@ -121,13 +126,13 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
 
                     holder.itemView.detailLL.setOnClickListener {
                         //新闻详情
-                        val oldNumber = posts.views.toInt()
-                        val number = (oldNumber + 1)
+                        val oldNumber = posts.views?.toInt()
+                        val number = (oldNumber?:0 + 1)
                         posts.views = number.toString()
 //                        isRead = "1"
                         notifyItemChanged(position)
                         mOnFollowClick?.read(10, position - 1)
-                        ShoumeiDetailActivity.start(context,"页面URL",posts.id)
+                        ShoumeiDetailActivity.start(context,posts.url?:"",posts.id?:"")
                     }
                     holder.itemView.ivLogo.setOnClickListener {
                         //品牌专属论坛
@@ -136,8 +141,7 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                     }
                     holder.itemView.nameLl.setOnClickListener {
                         //品牌专属论坛
-                        ShouMeiBrandActivity.start(context, bbs.id
-                                ?: "")
+                        ShouMeiBrandActivity.start(context, bbs.id?:"")
                     }
                     holder.itemView.tvStatus.setOnClickListener {
                         mOnFollowClick?.follow(2, position - 1)
@@ -147,18 +151,16 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View {
         if (viewType == 1) {
-            if (type == -1) {
-                return LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_t, parent, false)
+            return if (type == -1) {
+                LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_t, parent, false)
             } else {
-                return LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_t_s, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_t_s, parent, false)
             }
         }
         return LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_v, parent, false)
     }
 
-    override fun getItemCount(): Int {
-        return list.size + 1
-    }
+    override fun getItemCount(): Int = list.size + 1
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {

@@ -113,7 +113,7 @@
             <ImageView
                 android:id="@+id/imageOne"
                 android:layout_width="@dimen/w318"
-                android:layout_height="@dimen/h230" />
+                android:layout_height="@dimen/h230"/>
 
             <ImageView
                 android:id="@+id/imageTwo"
@@ -170,7 +170,7 @@
                 style="@style/text_nomal_min"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/w40"
-                android:text="25"
+                android:text="0"
                 android:textColor="@color/grayText" />
 
         </LinearLayout>

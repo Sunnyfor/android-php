@@ -37,7 +37,7 @@ object ApiManager2 {
     private lateinit var apiService: ApiService
     private lateinit var retrofit: Retrofit
     private lateinit var okHttpClient: OkHttpClient
-    val gson = Gson()
+    var gson = GsonBuilder().serializeNulls().create()
     private lateinit var host: String
 
     const val STRING = 0X1

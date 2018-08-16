@@ -10,5 +10,5 @@
         android:id="@+id/hRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/h300"
-        android:background="@color/white"></android.support.v7.widget.RecyclerView>
+        android:background="@color/white"/>
 </LinearLayout>

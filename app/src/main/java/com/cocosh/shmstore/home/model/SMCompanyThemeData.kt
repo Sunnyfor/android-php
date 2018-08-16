@@ -26,21 +26,22 @@ userType (integer, optional): 论坛用户类型(1-企业主 2-新媒人 3-服�
 data class SMCompanyThemeData(var bbs: BBS,
                               var posts: Posts) {
 
-    data class BBS(var id: String,  // 论坛id
-                   var eid: String, // 企业id
-                   var name: String,// 论坛名称
-                   var logo: String, //论坛logo
-                   var desc: String, // 论坛公告
-                   var follow: String, //是否关注
-                   var follow_nums: String,//关注人数
-                   var isBlack:String
+    data class BBS(var id: String?,  // 论坛id
+                   var eid: String?, // 企业id
+                   var name: String?,// 论坛名称
+                   var logo: String?, //论坛logo
+                   var desc: String?, // 论坛公告
+                   var follow: String?, //是否关注
+                   var follow_nums: String?,//关注人数
+                   var isBlack:String?
     )
 
-    data class Posts(var id: String, //帖子ID
-                     var title: String, // 帖子主题
-                     var images:ArrayList<String>,//帖子图片
-                     var views: String,
-                     var sum: String?,
-                     var time:String
+    data class Posts(var id: String?, //帖子ID
+                     var title: String?, // 帖子主题
+                     var images:ArrayList<String>?,//帖子图片
+                     var url:String?, //链接地址URL
+                     var views: String?, // 该帖浏览量计数
+                     var sum: String?,  // 该帖回复计数 = 回复数 + 评论数
+                     var time:String? // 发布时间
     )
 }
