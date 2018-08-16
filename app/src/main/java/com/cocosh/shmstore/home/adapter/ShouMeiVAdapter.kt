@@ -132,16 +132,15 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
 //                        isRead = "1"
                         notifyItemChanged(position)
                         mOnFollowClick?.read(10, position - 1)
-                        ShoumeiDetailActivity.start(context,posts.url?:"",posts.id?:"")
+                        ShoumeiDetailActivity.start(context,posts.title?:"",posts.url?:"",posts.id?:"")
                     }
                     holder.itemView.ivLogo.setOnClickListener {
                         //品牌专属论坛
-                        ShouMeiBrandActivity.start(context, bbs.id
-                                ?: "")
+                        ShouMeiBrandActivity.start(context,bbs)
                     }
                     holder.itemView.nameLl.setOnClickListener {
                         //品牌专属论坛
-                        ShouMeiBrandActivity.start(context, bbs.id?:"")
+                        ShouMeiBrandActivity.start(context, bbs)
                     }
                     holder.itemView.tvStatus.setOnClickListener {
                         mOnFollowClick?.follow(2, position - 1)

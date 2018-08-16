@@ -35,6 +35,7 @@ import kotlinx.coroutines.experimental.launch
 
 
 /**
+ *
  * Created by lmg on 2018/6/4.
  */
 class ShouMeiCommentActivity : BaseActivity() {
@@ -48,13 +49,11 @@ class ShouMeiCommentActivity : BaseActivity() {
     lateinit var headView: LinearLayout
     private lateinit var adapter: ShouMeiCommentAdapter
     var isSend = false
-    var themeId: String? = ""
     var followType: String? = ""
     override fun setLayout(): Int = R.layout.activity_shoumei_comment
 
     override fun initView() {
         comment_id = intent.getStringExtra("comment_id")
-        themeId = intent.getStringExtra("comment_id")
         val headUrl: String? = intent.getStringExtra("headUrl")
         val name = intent.getStringExtra("name")
         val time: String? = intent.getStringExtra("time")
@@ -63,7 +62,7 @@ class ShouMeiCommentActivity : BaseActivity() {
         var blackType: String? = intent.getStringExtra("blackType")
 
         titleManager.rightText("评论", "举报", View.OnClickListener {
-            val dialog = ReportDialog(this, comment_id ?: "", "2")
+            val dialog = ReportDialog(this, comment_id ?: "", "1")
             dialog.show()
         }, false)
 
@@ -347,12 +346,11 @@ class ShouMeiCommentActivity : BaseActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        comment_id = intent?.getStringExtra("themeId")
-        themeId = intent?.getStringExtra("comment_id")
-        var headUrl: String? = intent?.getStringExtra("headUrl")
-        var name: String? = intent?.getStringExtra("name")
-        var time: String? = intent?.getStringExtra("time")
-        var desc: String? = intent?.getStringExtra("desc")
+        comment_id = intent?.getStringExtra("comment_id")
+        val headUrl: String? = intent?.getStringExtra("headUrl")
+        val name: String? = intent?.getStringExtra("name")
+        val time: String? = intent?.getStringExtra("time")
+        val desc: String? = intent?.getStringExtra("desc")
         followType = intent?.getStringExtra("followType")
         var blackType: String? = intent?.getStringExtra("blackType")
 

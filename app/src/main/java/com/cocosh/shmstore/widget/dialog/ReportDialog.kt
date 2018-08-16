@@ -9,6 +9,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.*
 import com.cocosh.shmstore.home.ReportActivity
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.dialog_report.*
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.layout_select_item.view.*
  * 举报dialog
  * Created by zhangye on 2018/6/12.
  * @param id  内容关联id
- * @param type 业务类型 1红包 2首媒之家贴子
+ * @param type 业务类型 1首媒之家贴子 2红包
  */
 class ReportDialog(var context: BaseActivity, var id: String, var type: String) : Dialog(context) {
     var datas = arrayListOf<String>()
@@ -48,14 +49,14 @@ class ReportDialog(var context: BaseActivity, var id: String, var type: String) 
 
         tvName.setOnClickListener {
             val intent = Intent(context, ReportActivity::class.java)
-            intent.putExtra("comment_id",id)
-            intent.putExtra("type",type)
+            intent.putExtra("comment_id", id)
+            intent.putExtra("type", type)
             context.startActivity(intent)
             dismiss()
         }
 
         btnNext.setOnClickListener {
-            if ((adapter?.text?:"").isEmpty()){
+            if ((adapter?.text ?: "").isEmpty()) {
                 return@setOnClickListener
             }
             commit()
@@ -83,21 +84,20 @@ class ReportDialog(var context: BaseActivity, var id: String, var type: String) 
 
     private fun commit() {
         val params = hashMapOf<String, String>()
-        params["connectId"] = id
-        params["reportType"] = type
-        params["reportContent"] = adapter?.text ?: ""
-        ApiManager.post(context, params, Constant.REPORT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-                    dismiss()
-                }
-                ToastUtil.show(data.message)
+        params["conn_id"] = id
+        params["type"] = type
+        params["content"] = adapter?.text ?: ""
+        ApiManager2.post(context, params, Constant.EHOME_REPORT, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onSuccess(data: BaseBean<String>) {
+                dismiss()
+                ToastUtil.show("提交成功")
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+
+            override fun onCatch(data: BaseBean<String>) {
             }
         })
     }

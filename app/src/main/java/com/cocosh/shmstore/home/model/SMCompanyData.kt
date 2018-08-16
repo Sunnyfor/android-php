@@ -9,7 +9,15 @@ forumName (string, optional): 公司名称 ,
 idCompanyHomeBaseInfo (integer, optional): 论坛基础id ,
 userType (integer, optional): 论坛用户类型(1-企业主 2-新媒人 3-服务商 4-用户)
  */
-data class SMCompanyData(var eid: String,
-                         var company: String,
-                         var logo: String,
-                         var follow: String)
+data class SMCompanyData(
+        var id: String,
+        var eid: String,
+        var company: String,
+        var name:String,
+        var logo: String,
+        var desc: String,
+        var attention: String,
+        var silence: String,
+        var follow: String,
+        var follow_nums: String
+)

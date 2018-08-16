@@ -7,11 +7,16 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.ShoumeiListAdapter
+import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.GlideUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.ViewUtil
@@ -20,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_shoumei_brand.*
 
 
 /**
+ * 首媒之家
  * Created by lmg on 2018/6/4.
  */
 class ShouMeiBrandActivity : BaseActivity() {
@@ -27,36 +33,41 @@ class ShouMeiBrandActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_shoumei_brand
 
     override fun initView() {
-        titleManager.defaultTitle("品牌论坛")
-        val titleList = arrayListOf<String>()
-        titleList.add("全部")
-        titleList.add("精华")
-        baseId = intent.getStringExtra("baseId")
-        var fragmentList = arrayListOf<Fragment>()
-        var fragment1 = ShoumeiBrandFragment()
-        var b1 = Bundle()
-        b1.putString("TYPE", "全部")
-        fragment1.arguments = b1
-        var fragment2 = ShoumeiBrandFragment()
-        var b2 = Bundle()
-        b2.putString("TYPE", "精华")
-        fragment2.arguments = b2
-        fragmentList.add(fragment1)
-        fragmentList.add(fragment2)
+        SmApplication.getApp().getData<SMCompanyThemeData.BBS>(DataCode.BBS, true)?.let {
+            baseId = it.eid
+            setData(it.logo ?: "", it.name ?: "", it.follow_nums ?: "", it.desc ?: "", it.follow
+                    ?: "")
 
-        //设置tab的模式
-        tabs.tabMode = TabLayout.MODE_FIXED
-        //添加tab选项卡s
-        titleList.forEach {
-            tabs.addTab(tabs.newTab().setText(it))
+            val titleList = arrayListOf<String>()
+            titleList.add("全部")
+            titleList.add("精华")
+            val fragmentList = arrayListOf<Fragment>()
+            val fragment1 = ShoumeiBrandFragment()
+            val b1 = Bundle()
+            b1.putString("TYPE", "全部")
+            b1.putString("EID", baseId ?: "")
+            fragment1.arguments = b1
+            val fragment2 = ShoumeiBrandFragment()
+            val b2 = Bundle()
+            b2.putString("TYPE", "精华")
+            b2.putString("EID", baseId ?: "")
+            fragment2.arguments = b2
+            fragmentList.add(fragment1)
+            fragmentList.add(fragment2)
+
+            //设置tab的模式
+            tabs.tabMode = TabLayout.MODE_FIXED
+            //添加tab选项卡s
+            titleList.forEach {
+                tabs.addTab(tabs.newTab().setText(it))
+            }
+            //给ViewPager绑定Adapter
+            view_pager.adapter = ShoumeiListAdapter(this, supportFragmentManager, fragmentList, titleList)
+            //把TabLayout和ViewPager关联起来
+            tabs.setupWithViewPager(view_pager)
+            initListener()
         }
-        //给ViewPager绑定Adapter
-        view_pager.adapter = ShoumeiListAdapter(this, supportFragmentManager, fragmentList, titleList)
 
-        //把TabLayout和ViewPager关联起来
-        tabs.setupWithViewPager(view_pager)
-
-        initListener()
     }
 
     override fun onListener(view: View) {
@@ -64,7 +75,7 @@ class ShouMeiBrandActivity : BaseActivity() {
 
     private fun initListener() {
         appbar.let {
-            it.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            it.addOnOffsetChangedListener { _, verticalOffset ->
                 if (Math.abs(verticalOffset) >= it.totalScrollRange) {
 
                 } else {
@@ -94,18 +105,19 @@ class ShouMeiBrandActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(mContext: Context, id: String) {
-            mContext.startActivity(Intent(mContext, ShouMeiBrandActivity::class.java).putExtra("baseId", id))
+        fun start(mContext: Context, bbs: SMCompanyThemeData.BBS) {
+            SmApplication.getApp().setData(DataCode.BBS, bbs)
+            mContext.startActivity(Intent(mContext, ShouMeiBrandActivity::class.java))
         }
     }
 
     var status: String? = ""
     fun setData(url: String, name: String, number: String, content: String, status: String) {
         GlideUtils.loadRound(1, this, url, ivLogo)
-//        titleManager.defaultTitle(name)
+        titleManager.defaultTitle(name)
         tvName.text = name
-        tvNumber.text = "关注人数：$number 人"
-        desc.setText(content)
+        tvNumber.text = ("关注人数：$number 人")
+        desc.text = content
         this.status = status
         if (status == "0") {
             tvStatus.text = "+关注"
@@ -122,12 +134,15 @@ class ShouMeiBrandActivity : BaseActivity() {
     private fun cancelOrConfirm(idCompanyHomeBaseInfo: String, isFollow: String) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = idCompanyHomeBaseInfo
-        params["isFollow"] = isFollow
-        ApiManager.post(this, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        params["eid"] = idCompanyHomeBaseInfo
+        params["op"] = if(isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
+        ApiManager2.post(this, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
-                if (data.success && data.code == 200) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
+                isShowLoading = false
                     if (isFollow == "0") {
                         tvStatus.text = "+关注"
                         status = "0"
@@ -138,22 +153,12 @@ class ShouMeiBrandActivity : BaseActivity() {
                         tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
                     }
                     ObserverManager.getInstance().notifyObserver(3, baseId ?: "", isFollow, "")
-                } else {
-                    ToastUtil.show(data.message)
-                }
             }
 
-            override fun onFailed(e: Throwable) {
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-    }
 }

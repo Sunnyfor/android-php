@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.item_shoumei_serach.view.*
 class ShouMeiSearchAdapter(var mContext: Context, list: ArrayList<SMCompanyData>) : BaseRecycleAdapter<SMCompanyData>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         GlideUtils.loadHead(mContext, list[position].logo, holder.itemView.ivLogo)
-        holder.itemView.tvName.text = list[position].company
+
+        holder.itemView.tvName.text = list[position].name
         if (list[position].follow == "0") {
             holder.itemView.tvFollow.text = "+关注"
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_red)
@@ -32,9 +33,8 @@ class ShouMeiSearchAdapter(var mContext: Context, list: ArrayList<SMCompanyData>
         }
     }
 
-    override fun setLayout(parent: ViewGroup, viewType: Int): View {
-        return LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_serach, parent, false)
-    }
+    override fun setLayout(parent: ViewGroup, viewType: Int): View =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_shoumei_serach, parent, false)
 
     interface OnSubBtnClickListener {
         fun followClick(position: Int)

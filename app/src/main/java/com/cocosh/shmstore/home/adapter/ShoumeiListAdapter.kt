@@ -13,6 +13,7 @@ import com.cocosh.shmstore.R
 
 
 /**
+ *
  * Created by lmg on 2018/1/17.
  */
 class ShoumeiListAdapter(var context: Context, fm: FragmentManager, list: List<Fragment>, var mName: List<String>) : FragmentPagerAdapter(fm) {

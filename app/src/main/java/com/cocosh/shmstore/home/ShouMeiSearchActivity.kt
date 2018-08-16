@@ -10,10 +10,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.ShouMeiSearchAdapter
 import com.cocosh.shmstore.home.model.SMCompanyData
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.utils.ToastUtil
@@ -34,7 +36,7 @@ class ShouMeiSearchActivity : BaseActivity() {
 
 
     override fun initView() {
-        titleManager.defaultTitle("关注")
+        titleManager.defaultTitle("搜索")
         recyclerView.recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.recyclerView.addItemDecoration(SpaceVItem(resources.getDimension(R.dimen.w45).toInt(), resources.getDimension(R.dimen.w45).toInt()))
         adapter = ShouMeiSearchAdapter(this, companyList)
@@ -42,12 +44,10 @@ class ShouMeiSearchActivity : BaseActivity() {
         adapter.setOnSubBtnClickListener(object : ShouMeiSearchAdapter.OnSubBtnClickListener {
             override fun followClick(position: Int) {
                 if (companyList[position].follow == "0") {
-                    cancelOrConfirm(companyList[position].eid
-                            ?: "", "1", position)
+                    cancelOrConfirm(companyList[position].eid, "1", position)
                     return
                 }
-                cancelOrConfirm(companyList[position].eid
-                        ?: "", "0", position)
+                cancelOrConfirm(companyList[position].eid, "0", position)
             }
         })
         tvClear.setOnClickListener(this)
@@ -69,8 +69,8 @@ class ShouMeiSearchActivity : BaseActivity() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (!etcontent.text.isNullOrEmpty()) {
                     companyName = etcontent.text.toString()
-                    getCompanyList(true, currentPage, "", "2", companyName ?: "")
-                    return@setOnEditorActionListener true;
+                    getCompanyList(companyName ?: "")
+                    return@setOnEditorActionListener true
                 }
             }
             return@setOnEditorActionListener false
@@ -79,12 +79,12 @@ class ShouMeiSearchActivity : BaseActivity() {
         recyclerView.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
                 currentPage = page
-                getCompanyList(true, currentPage, "", "2", companyName ?: "")
+                getCompanyList(companyName ?: "")
             }
 
             override fun onLoadMore(page: Int) {
                 currentPage = page
-                getCompanyList(false, currentPage, "", "2", companyName ?: "")
+                getCompanyList(companyName ?: "")
             }
         }
     }
@@ -93,7 +93,7 @@ class ShouMeiSearchActivity : BaseActivity() {
         when (view.id) {
             tvClear.id -> {
                 companyList.clear()
-                adapter?.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
                 etcontent.text = null
             }
             else -> {
@@ -111,37 +111,37 @@ class ShouMeiSearchActivity : BaseActivity() {
         }
     }
 
-    private fun getCompanyList(boolean: Boolean, currentPage: Int, timeStamp: String, followType: String, companyName: String) {
+    private fun getCompanyList(companyName: String) {
+        if (companyName.isEmpty()){
+            return
+        }
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["currentPage"] = currentPage.toString()
-        params["showCount"] = "20"
-        params["timeStamp"] = timeStamp
-        params["followType"] = followType
-        params["companyName"] = companyName
-        ApiManager.get(0, this, params, Constant.SM_COMPANY_LIST, object : ApiManager.OnResult<BaseModel<ArrayList<SMCompanyData>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<SMCompanyData>>) {
+        params["words"] = companyName
+        if (currentPage != 1) {
+            params["eid"] = currentPage.toString()
+        }
+        params["num"] = "20"
+
+        ApiManager2.post(0, this, params, Constant.EHOME_SEARCH, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
+            override fun onFailed(code: String, message: String) {
+                isShowLoading = false
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {
                 recyclerView.isRefreshing = false
                 isShowLoading = false
-                if (data.success && data.code == 200) {
-                    if (boolean) {
+                    if (currentPage == 1) {
                         companyList.clear()
-                        recyclerView.update(data.entity)
+                        recyclerView.update(data.message)
                     } else {
-                        recyclerView.loadMore(data.entity)
+                        recyclerView.loadMore(data.message)
                     }
-                    companyList.addAll(data.entity ?: arrayListOf())
+                    companyList.addAll(data.message ?: arrayListOf())
                     adapter.notifyDataSetChanged()
-                } else {
-                    ToastUtil.show(data.message)
-                }
             }
 
-            override fun onFailed(e: Throwable) {
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<ArrayList<SMCompanyData>>) {
+            override fun onCatch(data: BaseBean<ArrayList<SMCompanyData>>) {
             }
         })
     }
@@ -149,25 +149,21 @@ class ShouMeiSearchActivity : BaseActivity() {
     private fun cancelOrConfirm(idCompanyHomeBaseInfo: String, isFollow: String, position: Int) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = idCompanyHomeBaseInfo
-        params["isFollow"] = isFollow
-        ApiManager.post(this, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                isShowLoading = false
-                if (data.success && data.code == 200) {
-                    companyList[position].follow = isFollow
-                    adapter.notifyItemChanged(position)
-                    ObserverManager.getInstance().notifyObserver(3, idCompanyHomeBaseInfo, isFollow, "")
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+        params["eid"] = idCompanyHomeBaseInfo
+        params["op"] = if (isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
+        ApiManager2.post(this, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onSuccess(data: BaseBean<String>) {
+                isShowLoading = false
+                companyList[position].follow = isFollow
+                adapter.notifyItemChanged(position)
+                ObserverManager.getInstance().notifyObserver(3, idCompanyHomeBaseInfo, isFollow, "")
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })

@@ -3,8 +3,10 @@ package com.cocosh.shmstore.home
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_report.*
@@ -35,23 +37,24 @@ class ReportActivity: BaseActivity() {
             ToastUtil.show("请填写内容")
             return
         }
+
         val params = hashMapOf<String, String>()
-        params["connectId"] = intent.getStringExtra("comment_id")?:""
-        params["reportType"] = intent.getStringExtra("type")?:""
-        params["reportContent"] = edtDesc.text.toString()
-        ApiManager.post(this, params, Constant.REPORT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-                    finish()
-                }
-                ToastUtil.show(data.message)
+        params["conn_id"] = intent.getStringExtra("comment_id")?:""
+        params["type"] = intent.getStringExtra("type")?:""
+        params["content"] = edtDesc.text.toString()
+        ApiManager2.post(this, params, Constant.EHOME_REPORT, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onSuccess(data: BaseBean<String>) {
+                finish()
+                ToastUtil.show("提交成功")
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+
+            override fun onCatch(data: BaseBean<String>) {
             }
         })
+
     }
 }

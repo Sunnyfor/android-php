@@ -89,14 +89,14 @@ object Constant {
     const val ENT_CERT_LICENCE = "$VERSION/ent_cert/licence" //企业主提交营业执照
     const val ENT_CERT_ACCT = "$VERSION/ent_cert/acct" //企业主提交对公帐号
 
-
+    const val EHOME_SEARCH = "$VERSION/ehome/search" //企业搜索
+    const val EHOME_POSTS = "$VERSION/ehome/posts" //企业帖子列表
     const val EHOME_FOLLOW_LIST = "$VERSION/ehome/follow/list"//首媒之家关注企业主列表
     const val EHOME_FOLLOW_POSTS = "$VERSION/ehome/follow/posts" // //首媒之家关注帖子列表
     const val EHOME_DISCOVERY_LIST = "$VERSION/ehome/discovery/list" //首媒之家发现企业主列表
     const val EHOME_DISCOVERY_POSTS = "$VERSION/ehome/discovery/posts" //首媒之家发现帖子列表
-
     const val EHOME_FOLLOW_OPERATE = "$VERSION/ehome/follow/operate" //关注/取消关注
-
+    const val EHOME_REPORT = "$VERSION/ehome/report" //举报接口
     const val EHOME_COMMENTS = "$VERSION/ehome/comments" //帖子的评论列表
     const val EHOME_COMMENT_CREATE = "$VERSION/ehome/comment/create" //发送评论
     const val EHOME_REPLIES = "$VERSION/ehome/replies" //评论的回复列表

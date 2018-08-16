@@ -36,7 +36,6 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.observer.ObserverListener
 import com.cocosh.shmstore.widget.observer.ObserverManager
 import kotlinx.android.synthetic.main.activity_shoumei_detail.*
-import kotlinx.android.synthetic.main.dialog_security_psd.*
 import kotlinx.android.synthetic.main.item_shoumei_detail_webview.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
@@ -48,7 +47,6 @@ import kotlinx.coroutines.experimental.launch
  * Created by lmg on 2018/5/31.
  */
 class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
-    var totalComment: Int? = 0
     var replyPosition = -1
     var currentPage = 1
     //    val historyMap = hashMapOf<String, String>()
@@ -97,7 +95,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         tvError.visibility = View.GONE
 //        }
 
-        titleManager.defaultTitle("")
+        titleManager.defaultTitle(intent.getStringExtra("title"))
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_detail_webview, null, false) as LinearLayout
         initWebView(headView.webView, themeUrl)
         vRecyclerView.recyclerView.addHeaderView(headView)
@@ -292,8 +290,9 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     }
 
     companion object {
-        fun start(mContext: Context, themeUrl: String, commentId: String) {
+        fun start(mContext: Context, title:String,themeUrl: String, commentId: String) {
             mContext.startActivity(Intent(mContext, ShoumeiDetailActivity::class.java)
+                    .putExtra("title", title)
                     .putExtra("THEMEURL", themeUrl)
                     .putExtra("post_id", commentId))
         }
@@ -429,8 +428,6 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 
             override fun onSuccess(data: BaseBean<CommentData>) {
                 isShowLoading = false
-                totalComment = totalComment!! + 1
-
                 data.message?.let {
                     it.replies += 1
                     ObserverManager.getInstance().notifyObserver(1, post_id
@@ -522,7 +519,8 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     @JavascriptInterface
     fun jsJumpToTheme() {
         //品牌专属论坛
-        ShouMeiBrandActivity.start(this, post_id ?: "")
+//        mList.find { it.id == post_id }.
+//        ShouMeiBrandActivity.start(this, post_id ?: "")
     }
 
     override fun onDestroy() {

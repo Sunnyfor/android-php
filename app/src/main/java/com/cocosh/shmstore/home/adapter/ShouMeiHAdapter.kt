@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.home.ShouMeiBrandActivity
 import com.cocosh.shmstore.home.model.SMCompanyData
+import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.utils.GlideUtils
 import kotlinx.android.synthetic.main.item_shoumei_h.view.*
 
@@ -42,7 +43,13 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
 
         holder.itemView.setOnClickListener {
             //品牌专属论坛
-            ShouMeiBrandActivity.start(context, list[position].eid)
+            var bbs: SMCompanyThemeData.BBS? = null
+            list[position].apply {
+                bbs = SMCompanyThemeData.BBS(id, eid, name, logo, desc, follow, follow_nums, silence)
+            }
+            bbs?.let {
+                ShouMeiBrandActivity.start(context, it)
+            }
         }
     }
 
