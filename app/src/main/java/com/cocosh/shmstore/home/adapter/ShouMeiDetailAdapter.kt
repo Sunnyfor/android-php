@@ -60,7 +60,7 @@ class ShouMeiDetailAdapter(var mContext: Context, list: ArrayList<CommentData>) 
                             "<font color='#2587ec'>"+ list[position].portion!![1].parent_user?.nickname + "</font'>:" +
                             list[position].portion!![1].content)
                 }
-                if (list[position].replies?.toInt()?:0 > 2) {
+                if (list[position].replies > 2) {
                     holder.itemView.tvNumber.visibility = View.VISIBLE
                     holder.itemView.tvNumber.text = Html.fromHtml("<font color='#2587ec'>查看更多评论(${list[position].replies})</font>")
                 } else {

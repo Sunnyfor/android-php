@@ -41,7 +41,7 @@ data class SMCompanyThemeData(var bbs: BBS,
                      var images:ArrayList<String>?,//帖子图片
                      var url:String?, //链接地址URL
                      var views: String?, // 该帖浏览量计数
-                     var sum: String?,  // 该帖回复计数 = 回复数 + 评论数
+                     var sum: Int,  // 该帖回复计数 = 回复数 + 评论数
                      var time:String? // 发布时间
     )
 }

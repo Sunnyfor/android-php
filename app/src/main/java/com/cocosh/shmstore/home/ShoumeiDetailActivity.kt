@@ -36,6 +36,7 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.observer.ObserverListener
 import com.cocosh.shmstore.widget.observer.ObserverManager
 import kotlinx.android.synthetic.main.activity_shoumei_detail.*
+import kotlinx.android.synthetic.main.dialog_security_psd.*
 import kotlinx.android.synthetic.main.item_shoumei_detail_webview.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
@@ -50,7 +51,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     var totalComment: Int? = 0
     var replyPosition = -1
     var currentPage = 1
-//    val historyMap = hashMapOf<String, String>()
+    //    val historyMap = hashMapOf<String, String>()
     val mList = arrayListOf<CommentData>()
     var lastTimeStamp: String? = ""
     var isSend = false
@@ -61,17 +62,14 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
         if (type == 2) {
             mList.let {
-                var index = it.indexOfFirst {
+                val index = it.indexOfFirst {
                     it.id == data as String
                 }
                 if (index != -1) {
-//                    totalComment = totalComment!! - (it[index].numberOfReplies ?: "0").toInt()
-//                    it[index].numberOfReplies = content.toString()
-//                    totalComment = totalComment!! + (it[index].numberOfReplies ?: "0").toInt()
-//                    it[index].childResThemeCommentVoList = dataExtra as ArrayList<CommentData.SubComment>
+                    it[index].replies += content as Int
                     adapter.notifyItemRangeChanged(index, it.size - index)
-                    ObserverManager.getInstance().notifyObserver(1, id
-                            ?: "", totalComment as Any, "")
+                    ObserverManager.getInstance().notifyObserver(1, post_id
+                            ?: "", content, "")
                 }
             }
         }
@@ -163,9 +161,9 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                 KeyEvent.ACTION_UP -> {
                     if (isSend) {
                         if (replyPosition == -1) {
-                            sendComment( etcontent.text.toString())
+                            sendComment(etcontent.text.toString())
                         } else {
-                            sendRervet(mList[replyPosition].id?:"",etcontent.text.toString())
+                            sendRervet(mList[replyPosition], etcontent.text.toString())
                         }
                         etcontent.text = null
                     }
@@ -183,12 +181,12 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 
             override fun subCommentClick(position: Int) {
                 //跳转评论详情
-                ShouMeiCommentActivity.start(this@ShoumeiDetailActivity, mList[position].id?:""
-                        , mList[position].user?.avatar?:""
-                       , mList[position].user?.nickname?:""
-                        , mList[position].time?:""
-                       , mList[position].content?:""
-                      ,followType ?: "", "")
+                ShouMeiCommentActivity.start(this@ShoumeiDetailActivity, mList[position].id
+                        , mList[position].user?.avatar ?: ""
+                        , mList[position].user?.nickname ?: ""
+                        , mList[position].time ?: ""
+                        , mList[position].content ?: ""
+                        , followType ?: "", "")
             }
 
             override fun moreClick(position: Int) {
@@ -213,7 +211,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 //                    etcontent.setText(historyMap["main"])
             } else {
 //                    etcontent.setText(historyMap[mList[replyPosition].comment_id])
-                etcontent.hint = "回复:"+mList[replyPosition].user?.nickname
+                etcontent.hint = "回复:" + mList[replyPosition].user?.nickname
             }
 
             override fun keyBoardHide(height: Int) {
@@ -222,7 +220,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 //                } else {
 //                    historyMap[mList[replyPosition].comment_id] = etcontent.text.toString().trim()
 //                }
-                launch(UI){
+                launch(UI) {
                     delay(100)
                     etcontent.hint = getString(R.string.comment_def)
                     replyPosition = -1
@@ -333,7 +331,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         dialog.setDesc("删除后该评论下的所有回复也将被删除")
         dialog.OnClickListener = View.OnClickListener {
             //删除评论
-            deleteComment(mList[position].id?:"", position)
+            deleteComment(mList[position], position)
         }
         dialog.cancelOnClickListener = View.OnClickListener {
 
@@ -385,19 +383,22 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     }
 
 
-    private fun sendRervet(comment_id:String,content:String){
+    private fun sendRervet(comment: CommentData, content: String) {
         isShowLoading = true
 
         val params = HashMap<String, String>()
-        params["comment_id"] = comment_id
+        params["comment_id"] = comment.id
         params["content"] = content
 
-        ApiManager2.post(this,params,Constant.EHOME_REPLY_CREATE,object :ApiManager2.OnResult<BaseBean<CommentData.Portion>>(){
+        ApiManager2.post(this, params, Constant.EHOME_REPLY_CREATE, object : ApiManager2.OnResult<BaseBean<CommentData.Portion>>() {
             override fun onSuccess(data: BaseBean<CommentData.Portion>) {
                 //回复
                 data.message?.let {
-                    mList[replyPosition].portion?.add(0,it)
-                    mList[replyPosition].replies = (mList[replyPosition].replies?:"0".toInt() + 1).toString()
+                    comment.replies++
+
+                    ObserverManager.getInstance().notifyObserver(1, post_id
+                            ?: "", 1 as Any, "")
+
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -429,23 +430,16 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
             override fun onSuccess(data: BaseBean<CommentData>) {
                 isShowLoading = false
                 totalComment = totalComment!! + 1
-                ObserverManager.getInstance().notifyObserver(1, id
-                        ?: "", totalComment as Any, "")
 
                 data.message?.let {
+                    it.replies += 1
+                    ObserverManager.getInstance().notifyObserver(1, post_id
+                            ?: "", 1 as Any, "")
+
                     mList.add(0, it)
                     adapter.notifyDataSetChanged()
                     vRecyclerView.recyclerView.smoothScrollToPosition(1)
                 }
-
-//                    if (type == 1) {
-                //发表评论
-//                    } else {
-//                        //回复
-//                        mList[replyPosition].childResThemeCommentVoList?.add(0, data.entity!!)
-//                        mList[replyPosition].numberOfReplies = (mList[replyPosition].numberOfReplies!!.toInt() + 1).toString()
-//                        adapter.notifyDataSetChanged()
-//                    }
             }
 
 
@@ -464,23 +458,21 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
-    private fun deleteComment(idCompanyHomeThemeComment: String, index: Int) {
+    private fun deleteComment(commentData: CommentData, index: Int) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["comment_id"] = idCompanyHomeThemeComment
+        params["comment_id"] = commentData.id
         ApiManager2.post(this, params, Constant.EHOME_COMMENT_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
-
 
             override fun onSuccess(data: BaseBean<String>) {
                 isShowLoading = false
-//                    totalComment = totalComment - mList[index].replies?:"0".toInt() - 1
-//                    ObserverManager.getInstance().notifyObserver(1, id
-//                            ?: "", totalComment as Any, "")
-                    mList.removeAt(index)
-                    adapter.notifyItemRemoved(index)
-                    if (index != mList.size) {
-                        adapter.notifyItemRangeChanged(index, mList.size - index)
-                    }
+                ObserverManager.getInstance().notifyObserver(1, post_id
+                        ?: "", -1 as Any, "")
+                mList.removeAt(index)
+                adapter.notifyItemRemoved(index)
+                if (index != mList.size) {
+                    adapter.notifyItemRangeChanged(index, mList.size - index)
+                }
             }
 
             override fun onFailed(code: String, message: String) {

@@ -28,11 +28,11 @@ replyId (integer, optional): 是评论还是回复 replyId 0：评论 其他：�
 totalComment 评论总数
  *
  */
-data class CommentData(var id: String?,
+data class CommentData(var id: String,
                        var floor: String?,
                        var content: String?,
                        var portion:ArrayList<Portion>?,
-                        var replies:String?,
+                        var replies:Int,
                        var user:User?,
                        var time:String?) {
 

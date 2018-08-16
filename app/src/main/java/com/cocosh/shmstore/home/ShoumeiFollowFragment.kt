@@ -39,7 +39,7 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
                     it.posts.id == data as String
                 }
                 if (index != -1) {
-                    it[index].posts.sum = content.toString()
+                    it[index].posts.sum += (content as Int)
                     adapter.notifyItemChanged(index + 1)
                 }
             }

@@ -40,7 +40,6 @@ import kotlinx.coroutines.experimental.launch
 class ShouMeiCommentActivity : BaseActivity() {
     //    var isPop = false
     var comment_id: String? = ""
-    var totalComment: Int = 0
     var currentPage = 1
     var replyId = -1
     var lastTimeStamp: String? = ""
@@ -56,10 +55,10 @@ class ShouMeiCommentActivity : BaseActivity() {
     override fun initView() {
         comment_id = intent.getStringExtra("comment_id")
         themeId = intent.getStringExtra("comment_id")
-        var headUrl: String? = intent.getStringExtra("headUrl")
-        var name: String? = intent.getStringExtra("name")
-        var time: String? = intent.getStringExtra("time")
-        var desc: String? = intent.getStringExtra("desc")
+        val headUrl: String? = intent.getStringExtra("headUrl")
+        val name = intent.getStringExtra("name")
+        val time: String? = intent.getStringExtra("time")
+        val desc: String? = intent.getStringExtra("desc")
         followType = intent.getStringExtra("followType")
         var blackType: String? = intent.getStringExtra("blackType")
 
@@ -252,10 +251,8 @@ class ShouMeiCommentActivity : BaseActivity() {
                 if (index != mList.size) {
                     adapter.notifyItemRangeChanged(index, mList.size - index)
                 }
-                //更改评论回复数
-                totalComment -= 1
                 ObserverManager.getInstance().notifyObserver(2, comment_id
-                        ?: "", totalComment as Any, mList as Any)
+                        ?: "", -1 as Any, mList as Any)
             }
 
             override fun onCatch(data: BaseBean<String>) {
@@ -283,9 +280,8 @@ class ShouMeiCommentActivity : BaseActivity() {
                     mList.add(it)
                     adapter.notifyDataSetChanged()
                     //更改评论回复数
-                    totalComment += 1
                     ObserverManager.getInstance().notifyObserver(2, comment_id
-                            ?: "", totalComment as Any, mList as Any)
+                            ?: "", 1 as Any, mList as Any)
                 }
 
             }

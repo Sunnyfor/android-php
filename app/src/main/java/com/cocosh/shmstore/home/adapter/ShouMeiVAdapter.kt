@@ -56,7 +56,7 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                     holder.itemView.tvTime.text = posts.time
                     holder.itemView.tvDesc.text = posts.title       //帖子标题
                     holder.itemView.showNumber.text = posts.views   //浏览次数
-                    holder.itemView.commentNumber.text = posts.sum  //评论数量
+                    holder.itemView.commentNumber.text = posts.sum.toString()  //评论数量
                     if (bbs.follow == "0") {
                         holder.itemView.tvStatus.text = "+关注"
                         holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.white))
