@@ -7,12 +7,14 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.adapter.BonusListAdapter
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.model.Location
@@ -134,97 +136,101 @@ class BonusListActivity : BaseActivity() {
     }
 
 
-    private fun loadData(boolean: Boolean) {
-        val params = hashMapOf<String, String>()
-        if (UserManager.isLogin()){
-            if(SmApplication.getApp().getData<Location>(DataCode.LOCATION, false)?.let {
-                        params["reqUserLocationVO.lat"] = it.latitude
-                        params["reqUserLocationVO.lng"] = it.longitude
-                        params["reqUserLocationVO.locationName"] = it.city
-                        params["reqUserLocationVO.countyName"] = it.district
-                    } == null){
-                if (type == 1){
-                    SmediaDialog(this).showLocationError() //定位信息错误弹窗
-                }
-            }
-        }
-        params["currentPage"] = currentPage.toString()
-        params["showCount"] = refreshLayout.pageCount.toString()
-        params["type"] = type.toString()
-        ApiManager.get(1, this, params, Constant.BONUS_LIST, object : ApiManager.OnResult<BaseModel<BonusModel>>() {
-            override fun onSuccess(data: BaseModel<BonusModel>) {
-                if (data.success) {
+    fun loadData(boolean: Boolean){
 
-                    data.entity?.let {
-                        isShowLoading = false
-                        if (boolean) {
-                            BonusListAdapter(it.list).let {
-                                adapter = it
-                                refreshLayout.recyclerView.adapter = adapter
-                                it.setOnItemClickListener(object : OnItemClickListener {
-                                    override fun onItemClick(v: View, index: Int) {
-                                        if (type == 1 || type ==2 || type ==3 ){
-                                            if (SmApplication.getApp().getData<Location>(DataCode.LOCATION,false) == null){
-                                                SmediaDialog(this@BonusListActivity).showLocationError()
-                                                return
-                                            }
-                                            it.getData(index).let {
-                                                //精准红包和粉丝红包需要完善资料
-                                                if (it.typeInfo == 2 || it.typeInfo == 3) {
-                                                    UserManager.getArchivalCompletion()?.let {
-                                                        if (it.toFloat() < 0.22) {
-                                                            SmediaDialog(this@BonusListActivity).showArchive()
-                                                            return
-                                                        }
-                                                    }
-                                                }
-
-
-                                                when {
-                                                    it.redPacketStatus == 1 -> {
-                                                        intentWeb(it, "RECEIVE")
-                                                    }
-                                                    it.redPacketStatus == 2 -> {
-                                                        intentWeb(it, "NONE")
-                                                    }
-                                                    else -> {
-                                                        hitBonus(it)
-                                                    }
-                                                }
-                                            }
-                                        }else{
-                                            if (UserManager.isLogin()){
-                                                //扶贫需要绑定微信
-                                                if (type == 4 || type ==5){
-                                                    checkWx(it.getData(index),"")
-                                                }
-                                            }else{
-                                                SmediaDialog(this@BonusListActivity).showLogin()
-                                            }
-                                        }
-                                    }
-                                })
-                                refreshLayout.update(it.list)
-                            }
-                        } else {
-                            refreshLayout.loadMore(it.list)
-                        }
-                    }
-                }else{
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<BonusModel>) {
-
-            }
-
-        })
     }
+
+//    private fun loadData(boolean: Boolean) {
+//        val params = hashMapOf<String, String>()
+//        if (UserManager.isLogin()){
+//            if(SmApplication.getApp().getData<Location>(DataCode.LOCATION, false)?.let {
+//                        params["reqUserLocationVO.lat"] = it.latitude
+//                        params["reqUserLocationVO.lng"] = it.longitude
+//                        params["reqUserLocationVO.locationName"] = it.city
+//                        params["reqUserLocationVO.countyName"] = it.district
+//                    } == null){
+//                if (type == 1){
+//                    SmediaDialog(this).showLocationError() //定位信息错误弹窗
+//                }
+//            }
+//        }
+//        params["currentPage"] = currentPage.toString()
+//        params["showCount"] = refreshLayout.pageCount.toString()
+//        params["type"] = type.toString()
+//        ApiManager.get(1, this, params, Constant.BONUS_LIST, object : ApiManager.OnResult<BaseModel<BonusModel>>() {
+//            override fun onSuccess(data: BaseModel<BonusModel>) {
+//                if (data.success) {
+//
+//                    data.entity?.let {
+//                        isShowLoading = false
+//                        if (boolean) {
+//                            BonusListAdapter(it.list).let {
+//                                adapter = it
+//                                refreshLayout.recyclerView.adapter = adapter
+//                                it.setOnItemClickListener(object : OnItemClickListener {
+//                                    override fun onItemClick(v: View, index: Int) {
+//                                        if (type == 1 || type ==2 || type ==3 ){
+//                                            if (SmApplication.getApp().getData<Location>(DataCode.LOCATION,false) == null){
+//                                                SmediaDialog(this@BonusListActivity).showLocationError()
+//                                                return
+//                                            }
+//                                            it.getData(index).let {
+//                                                //精准红包和粉丝红包需要完善资料
+//                                                if (it.typeInfo == 2 || it.typeInfo == 3) {
+//                                                    UserManager.getArchivalCompletion()?.let {
+//                                                        if (it.toFloat() < 0.22) {
+//                                                            SmediaDialog(this@BonusListActivity).showArchive()
+//                                                            return
+//                                                        }
+//                                                    }
+//                                                }
+//
+//
+//                                                when {
+//                                                    it.redPacketStatus == 1 -> {
+//                                                        intentWeb(it, "RECEIVE")
+//                                                    }
+//                                                    it.redPacketStatus == 2 -> {
+//                                                        intentWeb(it, "NONE")
+//                                                    }
+//                                                    else -> {
+//                                                        hitBonus(it)
+//                                                    }
+//                                                }
+//                                            }
+//                                        }else{
+//                                            if (UserManager.isLogin()){
+//                                                //扶贫需要绑定微信
+//                                                if (type == 4 || type ==5){
+//                                                    checkWx(it.getData(index),"")
+//                                                }
+//                                            }else{
+//                                                SmediaDialog(this@BonusListActivity).showLogin()
+//                                            }
+//                                        }
+//                                    }
+//                                })
+//                                refreshLayout.update(it.list)
+//                            }
+//                        } else {
+//                            refreshLayout.loadMore(it.list)
+//                        }
+//                    }
+//                }else{
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<BonusModel>) {
+//
+//            }
+//
+//        })
+//    }
 
     /**
      * 抢红包（占位）

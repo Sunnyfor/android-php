@@ -5,6 +5,12 @@ package com.cocosh.shmstore.utils
 import android.text.TextUtils
 import android.util.Log
 import com.cocosh.shmstore.http.Constant
+import android.R.attr.tag
+import android.R.attr.tag
+
+
+
+
 
 /**
  * 移植xUtils日志代码
@@ -203,6 +209,25 @@ object LogUtil {
 
         }
     }
+
+
+    fun web(content: String){
+        var msg = content
+        if (allowE){
+            val caller = getCallerStackTraceElement()
+            val tag = generateTag(caller)
+
+            val maxStrlength = 2001 - tag.length
+            //大于4000时
+            while (msg.length > maxStrlength) {
+                Log.e(tag, msg.substring(0, maxStrlength))
+                msg = msg.substring(maxStrlength)
+            }
+            //剩余部分
+            Log.e(tag, msg)
+        }
+    }
+
 
 
     private fun generateTag(caller: StackTraceElement): String {

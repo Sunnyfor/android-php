@@ -102,7 +102,7 @@ object ApiManager2 {
                             baseActivity.hideReTryLayout()
                         }
                         val body = data.string()
-                        LogUtil.e("Body:$body")
+                        LogUtil.web("Body:$body")
                         parserJson(flag, baseActivity, body, onResult)
                     }
 

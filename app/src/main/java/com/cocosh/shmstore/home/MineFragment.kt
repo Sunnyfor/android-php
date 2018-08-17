@@ -165,7 +165,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         UserManager2.loadCommonData(0, getBaseActivity(), object : ApiManager2.OnResult<BaseBean<CommonData>>() {
             override fun onSuccess(data: BaseBean<CommonData>) {
                 data.message?.let {
-
+                    UserManager2.setCommonData(it)
                     if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_NO.type && it.cert.f == AuthenStatus.SERVER_DEALER_NO.type) {
                         return
                     }

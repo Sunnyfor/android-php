@@ -104,6 +104,9 @@ object Constant {
     const val EHOME_COMMENT_DELETE = "$VERSION/ehome/comment/delete" //删除评论
     const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
 
+    /*红包*/
+    const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
+
     /**
      * 首页
      * */
