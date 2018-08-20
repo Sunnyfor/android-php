@@ -2,25 +2,23 @@ package com.cocosh.shmstore.home
 
 import android.content.Intent
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.home.model.BonusAttr
 import com.cocosh.shmstore.home.model.BonusConfig
-import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.home.model.BonusParam
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
-import com.cocosh.shmstore.widget.dialog.SmediaDialog
-import com.qiniu.android.http.ResponseInfo
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_bonus_send.*
-import org.json.JSONException
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
@@ -35,18 +33,18 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     private val cameraPhotoUtils = CameraPhotoUtils(this)
     private val pickerViewUtils = PickerViewUtils(this)
     var bonusConfig: BonusConfig? = null
-    private var money: Float = 0.0f
+    private var money: Float = 1.0f
     var url: String? = null
     var file: File? = null
     var targetAreaCode: String? = null
-    var isfill = false //是否填充历史数据
+    //    var isfill = false //是否填充历史数据
+    var type: String? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
 
     override fun initView() {
 
         SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this)
-
         titleManager.defaultTitle("发红包")
         ivPhoto.setOnClickListener(this)
         cameraPhotoUtils.setAspectXY(resources.getDimension(R.dimen.w640).toInt(), resources.getDimension(R.dimen.w360).toInt())
@@ -56,7 +54,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         isvTime.setOnClickListener(this)
         isvTime.setValue("请选择时间")
         btnNext.setOnClickListener(this)
-        loadData()
+        type = intent.getStringExtra("type")
 
         edtNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -90,6 +88,8 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             }
         })
 
+        loadData()
+
     }
 
     override fun onListener(view: View) {
@@ -106,7 +106,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                         isvLocation.setValue(address)
                         LogUtil.i("选择的城市Code:$targetAreaCode")
                     }
-                })
+                }, true)
             }
             isvTime.id -> {
                 pickerViewUtils.showReleaseTime(object : PickerViewUtils.OnPickerViewResultListener {
@@ -153,7 +153,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
 
 
-                saveBonus()
+                nextBonus()
             }
         }
 
@@ -174,7 +174,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
     override fun onResult(file: File) {
         this.file = file
-        tokenRequest()
+        updateImage()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -184,175 +184,150 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == IntentCode.FINISH){
+        if (requestCode == 0 && resultCode == IntentCode.FINISH) {
             finish()
-        }else{
+        } else {
             cameraPhotoUtils.onActivityResult(requestCode, resultCode, data)
         }
     }
 
+//    fun loadData() {
+//        ApiManager.post(1, this, hashMapOf(), Constant.BONUS_PARAMS, object : ApiManager.OnResult<BaseModel<BonusConfig>>() {
+//            override fun onSuccess(data: BaseModel<BonusConfig>) {
+//                if (data.success) {
+//                    bonusConfig = data.entity
+//                    initEditConfig()
+//
+//                    if (bonusConfig?.prevAction != 0) {
+//                        val dialog = SmediaDialog(this@SendBonusActivity)
+//                        dialog.setTitle("您还有未发完的红包，\n" + "是否继续发送？")
+//                        dialog.OnClickListener = View.OnClickListener {
+//                            isfill = true
+//                            bonusConfig?.businessRedPacketInfo?.let {
+//
+//                                targetAreaCode = it.targetAreaCode
+//                                edtName.setText(it.redPacketName)
+//                                edtName.setSelection(edtName.text.length)
+//                                url = it.redPacketImg
+//                                Glide.with(this@SendBonusActivity).load(url).into(ivPhoto)
+//                                isvLocation.setValue(it.targetAreaName)
+//                                it.startTime?.split(" ")?.get(0)?.let {
+//                                        isvTime.setValue(StringUtils.isTimeOut(it))
+//                                }
+//
+//                                edtNumber.setText(it.redPacketCount.toString())
+//                            }
+//                        }
+//
+//                        dialog.cancelOnClickListener = View.OnClickListener {
+//                            bonusConfig?.let {
+//                                it.orderNumber = it.newOrderNumber
+//                            }
+//                        }
+//
+//                        dialog.show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<BonusConfig>) {
+//
+//            }
+//        })
+//
+//    }
+
     fun loadData() {
-        ApiManager.post(1, this, hashMapOf(), Constant.BONUS_PARAMS, object : ApiManager.OnResult<BaseModel<BonusConfig>>() {
-            override fun onSuccess(data: BaseModel<BonusConfig>) {
-                if (data.success) {
-                    bonusConfig = data.entity
-                    initEditConfig()
+        val params = HashMap<String, String>()
+        params["type_id"] = type ?: ""
+        ApiManager2.get(1, this, params, Constant.RP_TYPE_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusAttr>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<BonusAttr>>) {
+                data.message?.let {
+                    it.forEach {
 
-                    if (bonusConfig?.prevAction != 0) {
-                        val dialog = SmediaDialog(this@SendBonusActivity)
-                        dialog.setTitle("您还有未发完的红包，\n" + "是否继续发送？")
-                        dialog.OnClickListener = View.OnClickListener {
-                            isfill = true
-                            bonusConfig?.businessRedPacketInfo?.let {
-
-                                targetAreaCode = it.targetAreaCode
-                                edtName.setText(it.redPacketName)
-                                edtName.setSelection(edtName.text.length)
-                                url = it.redPacketImg
-                                Glide.with(this@SendBonusActivity).load(url).into(ivPhoto)
-                                isvLocation.setValue(it.targetAreaName)
-                                it.startTime?.split(" ")?.get(0)?.let {
-                                        isvTime.setValue(StringUtils.isTimeOut(it))
-                                }
-
-                                edtNumber.setText(it.redPacketCount.toString())
-                            }
+                        if (it.keyword == "price"){
+                            val jsonObj = JSONObject(it.limit[0].rules)
+                            tvPrice.text = ("￥${jsonObj.opt("<=")}元/个")
                         }
-
-                        dialog.cancelOnClickListener = View.OnClickListener {
-                            bonusConfig?.let {
-                                it.orderNumber = it.newOrderNumber
-                            }
-                        }
-
-                        dialog.show()
+//                        if (it.keyword == "total"){
+//                            val jsonObj = JSONObject(it.limit[0].rules[0].toString())
+//                            edtNumber.hint = ("红包投放数量不得小于${jsonObj.opt(">=")}")
+//                        }
                     }
+
                 }
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onFailed(code: String, message: String) {
 
             }
 
-            override fun onCatch(data: BaseModel<BonusConfig>) {
+            override fun onCatch(data: BaseBean<ArrayList<BonusAttr>>) {
 
             }
         })
 
-    }
 
-    fun initEditConfig() {
-        bonusConfig?.let {
-            edtNumber.hint = ("红包投放数量不得小于${it.minRedPacketCount}")
-            tvPrice.text = ("￥${StringUtils.insertComma(it.unitPriceRedPacket)}元/个")
-
-        }
     }
 
 
-    private fun saveBonus() {
+
+
+    private fun nextBonus() {
         val params = hashMapOf<String, String>()
-        bonusConfig?.businessRedPacketInfo?.idRedPacketOrder?.let {
-            params["idRedPacketOrder"] = it.toString()
+        params["type_id"] = type ?: ""
+
+        val paramsList = ArrayList<BonusParam>()
+        paramsList.add(BonusParam("base", "name", edtName.text.toString()))
+        paramsList.add(BonusParam("base", "image", url ?: ""))
+
+        val addressCode = targetAreaCode?.split("-")
+        addressCode?.let {
+            paramsList.add(BonusParam("base", "pos_prov", it[0]))
+            paramsList.add(BonusParam("base", "pos_city", it[1]))
         }
-        params["orderNumber"] = bonusConfig?.orderNumber.toString()
-        params["redPacketName"] = edtName.text.toString()
+        paramsList.add(BonusParam("base", "pubtime", isvTime.getValue()))
 
-        if (!url?.contains(Constant.QINIU_KEY_HEAD)!!) {
-            url = Constant.QINIU_KEY_HEAD + url
+        paramsList.add(BonusParam("base", "total", edtNumber.text.toString()))
+
+        paramsList.add(BonusParam("base", "amount", tvAmountValue.text.toString()))
+
+        SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
+
+        val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
+        startActivity(intent)
+
+    }
+
+
+    //上传图片
+    private fun updateImage() {
+        showLoading()
+        file?.let {
+            ApiManager2.postImage(this, it.path, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+                override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                    data.message?.let {
+                        Glide.with(this@SendBonusActivity).load(file).into(ivPhoto)
+                        url = it[0]
+                    }
+                }
+
+                override fun onFailed(code: String, message: String) {
+                }
+
+                override fun onCatch(data: BaseBean<ArrayList<String>>) {
+                }
+
+
+            })
+
         }
-
-        params["redPacketImg"] = url ?: ""
-        params["targetAreaCode"] = targetAreaCode ?: ""
-        params["redPacketCount"] = edtNumber.text.toString()
-        params["redPacketTotalPrice"] = money.toString()
-        params["startTime"] = isvTime.getValue() + " 00:00:00"
-        ApiManager.post(this, params, Constant.BONUS_SAVE, object : ApiManager.OnResult<BaseModel<Int>>() {
-            override fun onSuccess(data: BaseModel<Int>) {
-                if (data.success) {
-                    if (data.entity == null || data.entity == 0){
-                        ToastUtil.show("提交失败")
-                        return
-                    }
-                    bonusConfig?.businessRedPacketInfo?.idRedPacketOrder = data.entity ?: 0
-                    SmApplication.getApp().setData(DataCode.BONUS_CONFIG, bonusConfig)
-
-                    val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
-                    intent.putExtra("isfill", isfill)
-                    intent.putExtra("money", tvAmountValue.text.toString())
-                    intent.putExtra("idRedPacketOrder", data.entity.toString())
-                    startActivityForResult(intent,0)
-                } else {
-                    ToastUtil.show(data.message)
-                }
-
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<Int>) {
-
-            }
-        })
-
     }
 
-
-    //获取七牛token
-    private fun tokenRequest() {
-        showLoading()
-
-        val map = HashMap<String, String>()
-        map["dataType"] = "1"
-        ApiManager.get(0, this, map, Constant.FACE_TOKEN, object : ApiManager.OnResult<String>() {
-
-            override fun onCatch(data: String) {}
-
-            override fun onFailed(e: Throwable) {
-                hideLoading()
-                LogUtil.d("获取token失败" + e)
-            }
-
-            override fun onSuccess(data: String) {
-                hideLoading()
-                LogUtil.d("获取七牛Token结果：" + data)
-                try {
-                    val jsonObject = JSONObject(data)
-                    val mToken = jsonObject.optString("token")
-                    if (TextUtils.isEmpty(mToken)) {
-                        ToastUtil.show("七牛Token为空")
-                    } else {
-                        update(mToken)
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
-        })
-    }
-
-    /**
-     * 上传图片
-     */
-    private fun update(token: String) {
-        showLoading()
-        url = UserManager.getUserId() + System.currentTimeMillis() + "bonusPhoto.jpg"
-        UploadManager().put(file, url, token, { _, info, _ ->
-            runOnUiThread {
-                hideLoading()
-                if (info.isOK) {
-                    Glide.with(this).load(file).into(ivPhoto)
-                } else {
-                    url = null
-                    hideLoading()
-                    ToastUtil.show("提交失败,请稍后重试")
-                    LogUtil.i("七牛上传图片错误:${info.error}")
-                }
-            }
-        }, null)
-    }
 
     override fun onDestroy() {
         SmApplication.getApp().deleteActivity(DataCode.BONUS_SEND_ACTIVITYS, this)

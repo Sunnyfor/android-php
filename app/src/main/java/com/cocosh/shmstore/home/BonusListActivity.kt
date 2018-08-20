@@ -7,21 +7,14 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.adapter.BonusListAdapter
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusModel
 import com.cocosh.shmstore.http.ApiManager
-import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AuthActivity
-import com.cocosh.shmstore.model.Location
-import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.RecycleViewDivider
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.layout_bonus_list.*
@@ -103,8 +96,10 @@ class BonusListActivity : BaseActivity() {
     override fun onListener(view: View) {
         when (view.id) {
             tvSend.id -> {
-                if (UserManager.isLogin()) {
-                    startActivity(Intent(this, SendBonusActivity::class.java))
+                if (UserManager2.isLogin()) {
+                    startActivity(
+                            Intent(this, SendBonusActivity::class.java)
+                                    .putExtra("type", type.toString()))
                 } else {
                     SmediaDialog(this).showLogin()
                 }
@@ -136,7 +131,7 @@ class BonusListActivity : BaseActivity() {
     }
 
 
-    fun loadData(boolean: Boolean){
+    fun loadData(boolean: Boolean) {
 
     }
 
@@ -236,7 +231,7 @@ class BonusListActivity : BaseActivity() {
      * 抢红包（占位）
      */
     fun hitBonus(bonus: BonusModel.Data) {
-        if (!UserManager.isLogin()) {
+        if (!UserManager2.isLogin()) {
             SmediaDialog(this).showLogin()
             return
         }
@@ -277,7 +272,7 @@ class BonusListActivity : BaseActivity() {
         intentWeb.putExtra("typeInfo", type.toString())
         intentWeb.putExtra("companyLogo", it.companyLogo)
         intentWeb.putExtra("companyName", it.companyName)
-        intentWeb.putExtra("advertisementBaseType",it.advertisementBaseType)
+        intentWeb.putExtra("advertisementBaseType", it.advertisementBaseType)
         startActivity(intentWeb)
     }
 
@@ -287,14 +282,14 @@ class BonusListActivity : BaseActivity() {
     }
 
     //检查是否绑定过微信
-    fun checkWx(it: BonusModel.Data, state: String){
-        ApiManager.get(this,null,Constant.CHECK_WX,object :ApiManager.OnResult<BaseModel<Boolean>>(){
+    fun checkWx(it: BonusModel.Data, state: String) {
+        ApiManager.get(this, null, Constant.CHECK_WX, object : ApiManager.OnResult<BaseModel<Boolean>>() {
             override fun onSuccess(data: BaseModel<Boolean>) {
-                    if (data.entity == true){
-                        intentWeb(it,state)
-                    }else{
-                        ToastUtil.show("请在登录页面进行微信绑定")
-                    }
+                if (data.entity == true) {
+                    intentWeb(it, state)
+                } else {
+                    ToastUtil.show("请在登录页面进行微信绑定")
+                }
             }
 
             override fun onFailed(e: Throwable) {

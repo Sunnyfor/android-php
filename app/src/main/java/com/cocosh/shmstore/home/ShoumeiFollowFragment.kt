@@ -115,7 +115,6 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
         if (isInit) {
             getThemeList(true)
             getCompanyList()
-            (activity as BaseActivity).showLoading()
         }
     }
 
@@ -137,7 +136,7 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
 
     private fun getCompanyList() {
         getBaseActivity().isShowLoading = true
-        ApiManager2.post(0, activity as BaseActivity, hashMapOf(), Constant.EHOME_FOLLOW_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
+        ApiManager2.post(0, getBaseActivity(), hashMapOf(), Constant.EHOME_FOLLOW_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
             override fun onFailed(code: String, message: String) {
             }
 
@@ -160,14 +159,14 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
             params["eid"] = currentPage.toString()
         }
         params["num"] = "20"
-        ApiManager2.post(0, activity as BaseActivity, params, Constant.EHOME_FOLLOW_POSTS, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyThemeData>>>() {
+        ApiManager2.post(0, getBaseActivity(), params, Constant.EHOME_FOLLOW_POSTS, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyThemeData>>>() {
             override fun onFailed(code: String, message: String) {
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
                 getLayoutView().vRecyclerView.isRefreshing = false
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
                 getLayoutView().vRecyclerView.isRefreshing = false
                 if (boolean) {
                     companyThemeList.clear()

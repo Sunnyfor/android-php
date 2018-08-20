@@ -106,6 +106,8 @@ object Constant {
 
     /*红包*/
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
+    const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
+    const val RP_CREATE = "$VERSION//rp/create" //创建红包
 
     /**
      * 首页

@@ -180,9 +180,9 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, IBaseVi
     }
 
     override fun hideLoading() {
-        if (isShowLoading) {
+//        if (isShowLoading) {
             frameLoading.visibility = View.GONE
-        }
+//        }
     }
 
     override fun showReTryLayout() {

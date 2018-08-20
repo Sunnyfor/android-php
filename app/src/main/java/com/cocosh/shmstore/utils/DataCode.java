@@ -48,4 +48,6 @@ public class DataCode {
     public static final String RESET_PAY_PASS = "resetpaypass"; //修改支付密码票据
 
     public static final String BBS = "bbs"; //论坛数据
+
+    public static final String SEND_BONUS = "sendBonus"; //发送红包数据
 }

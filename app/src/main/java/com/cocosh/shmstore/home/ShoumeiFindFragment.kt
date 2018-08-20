@@ -104,7 +104,6 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         })
         getThemeList()
         getCompanyList()
-        (activity as BaseActivity).showLoading()
         isInit = true
 
         ObserverManager.getInstance().add(this)
@@ -115,7 +114,6 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         if (isInit) {
             getThemeList()
             getCompanyList()
-            (activity as BaseActivity).showLoading()
         }
     }
 
@@ -136,17 +134,14 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     }
 
     private fun getCompanyList() {
-        getBaseActivity().isShowLoading = true
         val params = HashMap<String, String>()
         ApiManager2.post(0, activity as BaseActivity, params, Constant.EHOME_DISCOVERY_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
             override fun onFailed(code: String, message: String) {
                 getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {
                 getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
                 companyList.clear()
                 companyList.addAll(data.message ?: arrayListOf())
                 adapter.notifyDataSetChanged()
@@ -163,12 +158,12 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         ApiManager2.post(0, activity as BaseActivity, params, Constant.EHOME_DISCOVERY_POSTS, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyThemeData>>>() {
             override fun onFailed(code: String, message: String) {
                 getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyThemeData>>) {
                 getLayoutView().vRecyclerView.isRefreshing = false
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
 //                    if (boolean) {
                 companyThemeList.clear()
                 getLayoutView().vRecyclerView.update(data.message)
@@ -195,11 +190,11 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
         params["op"] = if(isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
         ApiManager2.post(activity as BaseActivity, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
             }
 
             override fun onSuccess(data: BaseBean<String>) {
-                getBaseActivity().isShowLoading = false
+//                getBaseActivity().isShowLoading = false
                 notifyFollowStatus(idCompanyHomeBaseInfo, isFollow)
             }
 

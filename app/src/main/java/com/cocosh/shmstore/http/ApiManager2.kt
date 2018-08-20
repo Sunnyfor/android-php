@@ -84,6 +84,7 @@ object ApiManager2 {
     private fun <T> request(flag: Int, baseActivity: BaseActivity, observable: Observable<ResponseBody>, onResult: OnResult<T>) {
         if (!NetworkUtils.isNetworkAvaliable(baseActivity)) {
             ToastUtil.show("网络连接错误")
+            onResult.onFailed("0","网络连接错误")
 //            baseActivity.showError(0)
             baseActivity.hideLoading()
             if (flag == 1) {

@@ -179,7 +179,7 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
         disposable = Observable.create<String> {
-            parseAddressData(options1Items, options2Items, options3Items)
+            parseAddressData(options1Items, options2Items, options3Items, isDouble)
             it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
@@ -201,25 +201,27 @@ class PickerViewUtils(val activity: BaseActivity) {
                         codeText.append("-")
                         codeText.append(cityId)
 
-                        val areaText = options3Items[options1][option2][options3].name
-                        val areaId = options3Items[options1][option2][options3].id
-                        if (areaText != "") {
-                            addressText.append("-")
-                            addressText.append(areaText)
+                        if (!isDouble) {
+                            val areaText = options3Items[options1][option2][options3].name
+                            val areaId = options3Items[options1][option2][options3].id
+                            if (areaText != "") {
+                                addressText.append("-")
+                                addressText.append(areaText)
+                            }
+                            codeText.append("-")
+                            codeText.append(areaId)
                         }
-                        codeText.append("-")
-                        codeText.append(areaId)
 
                         addressresultlistener.onPickerViewResult(addressText.toString(), codeText.toString())
 
                     }).setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
                             .build()
-//                    if (isDouble) {
-//                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, null)
-//                    } else {
-                    addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
-//                    }
+                    if (isDouble) {
+                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, null)
+                    } else {
+                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
+                    }
                     addressOptionsPickerView?.show()
                     activity.hideLoading()
                     disposable?.dispose() //销毁
@@ -228,7 +230,7 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
     //地址选择器
-    fun showSendBonusAddress(addressresultlistener: OnAddressResultListener) {
+    fun showSendBonusAddress(addressresultlistener: OnAddressResultListener, isDouble: Boolean) {
 
         if (addressOptionsPickerView != null) {
             addressOptionsPickerView?.show()
@@ -236,51 +238,84 @@ class PickerViewUtils(val activity: BaseActivity) {
         }
 
         activity.showLoading()
-
         val options1Items = ArrayList<ProvinceModel>()
         val options2Items = ArrayList<ArrayList<ProvinceModel>>()
         val options3Items = ArrayList<ArrayList<ArrayList<ProvinceModel>>>()
 
         disposable = Observable.create<String> {
-            //            options1Items = parseAddressData(false)
-//
-//            val allChilddList = arrayListOf<ProvinceModel>()
-//            allChilddList.add(ProvinceModel("", "000000", null))
-//
-//            val allCitydList = arrayListOf<ProvinceModel>()
-//            allCitydList.add(ProvinceModel("", "000000", allChilddList))
-//
-//            options1Items.add(0, ProvinceModel("全国", "000000", allCitydList))
-//
-//            options1Items.forEach {
-//                val cityList = it.childrens
-//
-//                if (it.name != "全国") {
-//                    val childdList = arrayListOf<ProvinceModel>()
-//                    childdList.add(ProvinceModel("", it.comment_id, null))
-//                    cityList?.add(0, ProvinceModel("全部", it.comment_id, childdList))
-//                }
-//
-//                val provinceAreaList = ArrayList<ArrayList<ProvinceModel>>()//该省的所有地区列表（第三极）
-//                cityList?.forEach {
-//                    if (it.name != "全部" && it.name != "" && !it.name.contains("北京") && !it.name.contains("天津") && !it.name.contains("上海") && !it.name.contains("重庆")) {
-//                        val childdList = arrayListOf<ProvinceModel>()
-//                        childdList.add(ProvinceModel("", it.comment_id, null))
-//                        it.childrens?.add(0, ProvinceModel("全部", it.comment_id, childdList))
-//                    }
-//                    it.childrens?.let {
-//                        provinceAreaList.add(it)
-//                    }
-//                }
-//
-//                cityList?.let {
-//                    options2Items.add(it)
-//                }
-//
-//
-//                options3Items.add(provinceAreaList)
-//            }
-//            parseAddressData()
+
+            val provinceJson = GetJsonDataUtil.getJson("province.json")
+            val cityJson = GetJsonDataUtil.getJson("city.json")
+            val districtJson = GetJsonDataUtil.getJson("district.json")
+
+
+            val provinces = Gson().fromJson<ArrayList<Province>>(provinceJson, object : TypeToken<java.util.ArrayList<Province>>() {}.type)
+            provinces.add(0, Province(0, "0", "全国"))
+            val citys = Gson().fromJson<ArrayList<City>>(cityJson, object : TypeToken<java.util.ArrayList<City>>() {}.type)
+            citys.add(0, City(0, 0, "0", ""))
+            val districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
+            districts.add(0, District(0, 0, "0", ""))
+
+            provinces.forEach {
+                val provinceId = it.provinceID
+                val provinceName = it.provinceName
+                val provinceCode = it.divisionCode
+                options1Items.add(ProvinceModel(it.provinceName, it.divisionCode))
+
+                val cityList = ArrayList<ProvinceModel>()
+
+                val districtList = ArrayList<ArrayList<ProvinceModel>>()
+
+                if (!isDouble) {
+                    if (it.provinceName != "全国" && !provinceName.contains("北京") && !provinceName.contains("天津") && !provinceName.contains("上海") && !provinceName.contains("重庆")) {
+                        cityList.add(0, ProvinceModel("全部", it.divisionCode))
+                        val district = ArrayList<ProvinceModel>()
+                        district.add(ProvinceModel("",it.divisionCode))
+                        districtList.add(district)
+                    }
+                } else {
+                    if (it.provinceName != "全国") {
+                        cityList.add(0, ProvinceModel("全部", it.divisionCode))
+                    }
+                }
+
+
+                citys.filter { it.provinceID == provinceId }.forEach {
+                    val cityID = it.cityID
+                    val cityCode = it.divisionCode
+
+                    if (!isDouble) {
+                        cityList.add(ProvinceModel(it.cityName, it.divisionCode))
+                    } else {
+                        if (!provinceName.contains("北京") && !provinceName.contains("天津") && !provinceName.contains("上海") && !provinceName.contains("重庆")) {
+                            cityList.add(ProvinceModel(it.cityName, it.divisionCode))
+                        }
+                    }
+
+                    val district = ArrayList<ProvinceModel>()
+                     if (provinceName !="全国"){
+                         district.add(ProvinceModel("全部", cityCode))
+                     }
+
+                    districts?.filter { it.cityID == cityID }?.forEach {
+                        if (!isDouble) {
+                            district.add(ProvinceModel(it.districtName, it.divisionCode))
+                        } else {
+                            if (provinceName.contains("北京") || provinceName.contains("天津") || provinceName.contains("上海") || provinceName.contains("重庆")) {
+                                cityList.add(ProvinceModel(it.districtName, it.divisionCode))
+                            }
+                        }
+                        districtList.add(district)
+                    }
+                }
+
+                options2Items.add(cityList)
+
+                if (!isDouble) {
+                    options3Items.add(districtList)
+                }
+            }
+
             it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
@@ -289,26 +324,42 @@ class PickerViewUtils(val activity: BaseActivity) {
                     addressOptionsPickerView = OptionsPickerBuilder(activity, OnOptionsSelectListener { options1, option2, options3, _ ->
                         //返回的分别是三个级别的选中位置
                         val addressText = StringBuilder(options1Items[options1].name)
-                        val city = options2Items[options1][option2].name
+                        val codeText = StringBuilder(options1Items[options1].id)
 
-                        if (city.isNotEmpty()) {
+                        val city = options2Items[options1][option2].name
+                        val cityId = options2Items[options1][option2].id
+
+                        if (city != "") {
                             addressText.append("-")
                             addressText.append(city)
                         }
 
-                        val area = options3Items[options1][option2][options3].name
-                        if (area.isNotEmpty()) {
-                            addressText.append("-")
-                            addressText.append(area)
+                        codeText.append("-")
+                        codeText.append(cityId)
+
+                        if (!isDouble) {
+                            val areaText = options3Items[options1][option2][options3].name
+                            val areaId = options3Items[options1][option2][options3].id
+                            if (areaText != "") {
+                                addressText.append("-")
+                                addressText.append(areaText)
+                            }
+                            codeText.append("-")
+                            codeText.append(areaId)
                         }
-                        addressresultlistener.onPickerViewResult(addressText.toString(), options3Items[options1][option2][options3].id)
+                        addressresultlistener.onPickerViewResult(addressText.toString(), codeText.toString())
 
 
                     }).setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
                             .build()
 
-                    addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
+                    if (isDouble) {
+                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?)
+                    } else {
+                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
+                    }
+
 
                     addressOptionsPickerView?.show()
                     activity.hideLoading()
@@ -360,17 +411,26 @@ class PickerViewUtils(val activity: BaseActivity) {
 
     //解析地区数据
     private fun parseAddressData(options1Items: ArrayList<ProvinceModel>, options2Items: ArrayList<ArrayList<ProvinceModel>>,
-                                 options3Items: ArrayList<ArrayList<ArrayList<ProvinceModel>>>) {
+                                 options3Items: ArrayList<ArrayList<ArrayList<ProvinceModel>>>, isDouble: Boolean) {
 
         val provinceJson = GetJsonDataUtil.getJson("province.json")
         val cityJson = GetJsonDataUtil.getJson("city.json")
-        val districtJson = GetJsonDataUtil.getJson("district.json")
+        var districtJson: String? = null
+
+        if (!isDouble) {
+            districtJson = GetJsonDataUtil.getJson("district.json")
+        }
 
         val provinces = Gson().fromJson<ArrayList<Province>>(provinceJson, object : TypeToken<java.util.ArrayList<Province>>() {}.type)
 
         val citys = Gson().fromJson<ArrayList<City>>(cityJson, object : TypeToken<java.util.ArrayList<City>>() {}.type)
 
-        val districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
+
+        var districts: ArrayList<District>? = null
+        if (!isDouble) {
+            districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
+        }
+
 
         provinces.forEach {
             val provinceId = it.provinceID
@@ -385,15 +445,17 @@ class PickerViewUtils(val activity: BaseActivity) {
                 cityList.add(ProvinceModel(it.cityName, it.divisionCode))
 
                 val district = ArrayList<ProvinceModel>()
-
-                districts.filter { it.cityID == cityID }.forEach {
-                    district.add(ProvinceModel(it.districtName, it.divisionCode))
+                if (!isDouble) {
+                    districts?.filter { it.cityID == cityID }?.forEach {
+                        district.add(ProvinceModel(it.districtName, it.divisionCode))
+                    }
+                    districtList.add(district)
                 }
-                districtList.add(district)
             }
-
             options2Items.add(cityList)
-            options3Items.add(districtList)
+            if (!isDouble) {
+                options3Items.add(districtList)
+            }
         }
     }
 

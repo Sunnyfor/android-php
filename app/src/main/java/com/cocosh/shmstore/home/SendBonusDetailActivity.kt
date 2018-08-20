@@ -7,12 +7,12 @@ import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.home.model.BonusConfig
+import com.cocosh.shmstore.home.model.BonusParam
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.AuthenStatus
-import com.cocosh.shmstore.newCertification.ui.PayActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.qiniu.android.http.ResponseInfo
@@ -33,7 +33,8 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     private var bottomPhotoUrl: String? = null
     private var file: File? = null
     private var boolean = true
-    private var isfill = false
+    private var type = "1"
+    private var paramsList: ArrayList<BonusParam>? = null
 
     override fun onTopClick() {
         cameraPhotoUtils.startCamera()
@@ -54,6 +55,8 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
 
     override fun initView() {
 
+        paramsList = SmApplication.getApp().getData(DataCode.SEND_BONUS, true)
+
         SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this)
 
         titleManager.defaultTitle("发红包")
@@ -61,20 +64,22 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
         ivBonusPhoto.setOnClickListener(this)
         ivAdPhoto.setOnClickListener(this)
         cameraPhotoUtils.onResultListener = this
-        isfill = intent.getBooleanExtra("isfill", false)
+//        type = intent.getBooleanExtra("type", false)
 
-        if (isfill) {
-            val bonusConfig = SmApplication.getApp().getData<BonusConfig>(DataCode.BONUS_CONFIG, false)
-            bonusConfig?.businessADInfo?.let {
-                edtDesc.setText(it.desc)
-                edtDesc.setSelection(edtDesc.text.length)
-                topPhotoUrl = it.bannerImg?.url
-                Glide.with(this).load(topPhotoUrl).into(ivBonusPhoto)
-                bottomPhotoUrl = it.contentImg?.url
-                Glide.with(this).load(bottomPhotoUrl).into(ivAdPhoto)
-            }
+        loadData()
 
-        }
+//        if (type) {
+//            val bonusConfig = SmApplication.getApp().getData<BonusConfig>(DataCode.BONUS_CONFIG, false)
+//            bonusConfig?.businessADInfo?.let {
+//                edtDesc.setText(it.desc)
+//                edtDesc.setSelection(edtDesc.text.length)
+//                topPhotoUrl = it.bannerImg?.url
+//                Glide.with(this).load(topPhotoUrl).into(ivBonusPhoto)
+//                bottomPhotoUrl = it.contentImg?.url
+//                Glide.with(this).load(bottomPhotoUrl).into(ivAdPhoto)
+//            }
+//
+//        }
 
         tvMoney.text = ("需支付 ${intent.getStringExtra("money")}元")
     }
@@ -122,46 +127,53 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
 
 
     private fun saveAd() {
-        val parmas = HashMap<String, String>()
 
-        parmas["bannerImg.orderId"] = "0"
+        paramsList?.let {
+            it.add(BonusParam("ado", "", ""))
 
-        if (!topPhotoUrl!!.contains(Constant.QINIU_KEY_HEAD)) {
-            topPhotoUrl = Constant.QINIU_KEY_HEAD + topPhotoUrl
+
         }
-        parmas["bannerImg.url"] = topPhotoUrl ?: ""
-        parmas["contentImg.orderId"] = "0"
 
-        if (!bottomPhotoUrl!!.contains(Constant.QINIU_KEY_HEAD)) {
-            bottomPhotoUrl = Constant.QINIU_KEY_HEAD + bottomPhotoUrl
-        }
-        parmas["contentImg.url"] = bottomPhotoUrl ?: ""
-        parmas["idRedPacketOrder"] = intent.getStringExtra("idRedPacketOrder")
-        parmas["desc"] = edtDesc.text.toString()
-        ApiManager.post(this, parmas, Constant.BONUS_AD_SAVE, object : ApiManager.OnResult<BaseModel<Int>>() {
-            override fun onSuccess(data: BaseModel<Int>) {
-                if (data.success) {
-                    val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)
-                    it.putExtra("amount", intent.getStringExtra("money"))
-                    it.putExtra("runningNumber", SmApplication.getApp().getData<BonusConfig>(DataCode.BONUS_CONFIG, false)?.orderNumber)
-//                    it.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
-                    startActivity(it)
-                    setResult(IntentCode.FINISH)
-                    finish()
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<Int>) {
-
-            }
-
-        })
+//        val parmas = HashMap<String, String>()
+//
+//        parmas["bannerImg.orderId"] = "0"
+//
+//        if (!topPhotoUrl!!.contains(Constant.QINIU_KEY_HEAD)) {
+//            topPhotoUrl = Constant.QINIU_KEY_HEAD + topPhotoUrl
+//        }
+//        parmas["bannerImg.url"] = topPhotoUrl ?: ""
+//        parmas["contentImg.orderId"] = "0"
+//
+//        if (!bottomPhotoUrl!!.contains(Constant.QINIU_KEY_HEAD)) {
+//            bottomPhotoUrl = Constant.QINIU_KEY_HEAD + bottomPhotoUrl
+//        }
+//        parmas["contentImg.url"] = bottomPhotoUrl ?: ""
+//        parmas["idRedPacketOrder"] = intent.getStringExtra("idRedPacketOrder")
+//        parmas["desc"] = edtDesc.text.toString()
+//        ApiManager.post(this, parmas, Constant.BONUS_AD_SAVE, object : ApiManager.OnResult<BaseModel<Int>>() {
+//            override fun onSuccess(data: BaseModel<Int>) {
+//                if (data.success) {
+//                    val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)
+//                    it.putExtra("amount", intent.getStringExtra("money"))
+//                    it.putExtra("runningNumber", SmApplication.getApp().getData<BonusConfig>(DataCode.BONUS_CONFIG, false)?.orderNumber)
+////                    it.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
+//                    startActivity(it)
+//                    setResult(IntentCode.FINISH)
+//                    finish()
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<Int>) {
+//
+//            }
+//
+//        })
     }
 
 
@@ -207,6 +219,34 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     private fun tokenRequest() {
 
         showLoading()
+        file?.let {
+            ApiManager2.postImage(this, it.path, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+                override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                    data.message?.let {
+                        if (boolean) {
+                            topPhotoUrl = it[0]
+                        } else {
+                            bottomPhotoUrl = it[0]
+                        }
+
+
+
+                    }
+
+                }
+
+                override fun onFailed(code: String, message: String) {
+
+                }
+
+                override fun onCatch(data: BaseBean<ArrayList<String>>) {
+
+                }
+            })
+
+
+        }
+
 
         val map = java.util.HashMap<String, String>()
         map["dataType"] = "1"
@@ -238,6 +278,31 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
         })
     }
 
+    fun loadData() {
+        val param = hashMapOf<String, String>()
+        param["ad_id"] = "1"
+        param["type_id"] = type
+
+        ApiManager2.get(1, this, param, Constant.RP_AD_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusParam>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<BonusParam>>) {
+                data.message?.let {
+
+
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<BonusParam>>) {
+
+            }
+
+        })
+
+    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -253,4 +318,5 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
         SmApplication.getApp().deleteActivity(DataCode.BONUS_SEND_ACTIVITYS, this)
         super.onDestroy()
     }
+
 }
