@@ -16,10 +16,8 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
-import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_bonus_send.*
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
 import java.math.BigDecimal
 import java.util.HashMap
@@ -39,6 +37,9 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var targetAreaCode: String? = null
     //    var isfill = false //是否填充历史数据
     var type: String? = null
+    var price = "1"
+    var rules = "小于"
+    var rulesCount = "1"
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
 
@@ -76,15 +77,13 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     bonusCount = "0"
                 }
 
-                bonusConfig?.unitPriceRedPacket?.let {
-                    val bcount = BigDecimal(bonusCount)
-                    val price = BigDecimal(it.toString())
-                    money = bcount.multiply(price).toFloat()
-                    tvAmountValue.text = StringUtils.insertComma(money)
-                    tvGetBonusCountValue.text = bonusCount
-                    tvAdCountValue.text = bonusCount
-                    tvMoney.text = ("需支付 ${StringUtils.insertComma(money)}元")
-                }
+                val bcount = BigDecimal(bonusCount)
+                val bigPrice = BigDecimal(price)
+                money = bcount.multiply(bigPrice).toFloat()
+                tvAmountValue.text = StringUtils.insertComma(money)
+                tvGetBonusCountValue.text = bonusCount
+                tvAdCountValue.text = bonusCount
+                tvMoney.text = ("需支付 ${StringUtils.insertComma(money)}元")
             }
         })
 
@@ -137,21 +136,17 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     return
                 }
 
-                if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() < bonusConfig?.minRedPacketCount ?: 0) {
-                    ToastUtil.show("红名数量不能小于${bonusConfig?.minRedPacketCount}")
-                    return
-                }
-
-                bonusConfig?.maxRedPacketCount?.let {
-                    if (it != 0) {
-                        if (edtNumber.text.toString().toInt() > it) {
-                            ToastUtil.show("红名数量不能大于$it")
-                            return
-                        }
+                if (rules == "小于"){
+                    if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() < rulesCount.toInt() ) {
+                        ToastUtil.show("红名数量不能小于$rulesCount")
+                        return
+                    }
+                }else{
+                    if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() > rulesCount.toInt() ) {
+                        ToastUtil.show("红名数量不能大于$rulesCount")
+                        return
                     }
                 }
-
-
 
                 nextBonus()
             }
@@ -249,14 +244,27 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                 data.message?.let {
                     it.forEach {
 
-                        if (it.keyword == "price"){
-                            val jsonObj = JSONObject(it.limit[0].rules)
-                            tvPrice.text = ("￥${jsonObj.opt("<=")}元/个")
+                        if (it.keyword == "price") {
+                            val jsonArray = JSONArray(it.limit[0].rules)
+                            price = jsonArray.optString(0)
+                            tvPrice.text = ("￥${price}元/个")
                         }
-//                        if (it.keyword == "total"){
-//                            val jsonObj = JSONObject(it.limit[0].rules[0].toString())
-//                            edtNumber.hint = ("红包投放数量不得小于${jsonObj.opt(">=")}")
-//                        }
+
+                        if (it.keyword == "total") {
+
+                            val jsonArray = JSONArray(it.limit[0].rules)
+                            val jsonObj = jsonArray.getJSONObject(0)
+                            if (jsonObj.optString(">=") != "") {
+                                rules = "小于"
+                                rulesCount = jsonObj.optString(">=")
+                            }
+
+                            if (jsonObj.optString("<=") != "") {
+                                rules = "大于"
+                                rulesCount = jsonObj.optString("<=")
+                            }
+                            edtNumber.hint = ("红包投放数量不得$rules$rulesCount")
+                        }
                     }
 
                 }
@@ -273,8 +281,6 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
 
     }
-
-
 
 
     private fun nextBonus() {
@@ -299,7 +305,9 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
 
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
-        startActivity(intent)
+        intent.putExtra("money",tvAmountValue.text.toString())
+        intent.putExtra("type",type)
+        startActivityForResult(intent,0)
 
     }
 

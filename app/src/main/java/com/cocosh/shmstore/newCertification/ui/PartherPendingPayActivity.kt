@@ -35,28 +35,26 @@ class PartherPendingPayActivity : BaseActivity() {
     }
 
     private fun initData() {
-//        ApiManager2.get(1, this, hashMapOf(), Constant.GETINFOR, object : ApiManager2.OnResult<BaseBean<PendingPay>>() {
-//            override fun onCatch(data: BaseModel<PendingPay>) {
-//
-//            }
-//
-//            override fun onFailed(e: Throwable) {
-//                ToastUtil.show(e.message)
-//            }
-//
-//            override fun onSuccess(data: BaseBean<PendingPay>) {
-//                    data.message?.let {
-//                        money = it.money?:""
-//                        tv_money.text = ("支付金额：￥${it.money}")
-//                        bizCode = it.bizCode?:""
-//                        isv_personName.setNoIconValue(it.realName)
-//                        isv_idcard.setNoIconValue(it.idNo)
-//                        isv_partherName.setNoIconValue(it.operatorName)
-//                        isv_partherAddress.setNoIconValue(it.operatorArea)
-//                        isv_person.setNoIconValue(it.operatorLegalName)
-//                    }
-//            }
-//        })
+
+        ApiManager2.get(1,this,null,Constant.NEW_CERT_RESULT,object :ApiManager2.OnResult<BaseBean<PendingPay>>(){
+            override fun onSuccess(data: BaseBean<PendingPay>) {
+                    data.message?.let {
+                        tv_money.text = ("支付金额：￥${it.cert?.fee}")
+                        isv_personName.setNoIconValue(it.cert?.name)
+                        isv_idcard.setNoIconValue(it.cert?.idno)
+                        isv_partherName.setNoIconValue(it.svc.name)
+                        isv_partherAddress.setNoIconValue(it.svc.province +"-"+it.svc.city)
+                        isv_person.setNoIconValue(it.svc.legal)
+                    }
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<PendingPay>) {
+            }
+
+        })
     }
 
     override fun onListener(view: View) {

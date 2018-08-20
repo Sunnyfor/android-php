@@ -74,6 +74,7 @@ object Constant {
 
     const val NEW_CERT_INVITEE = "$VERSION/new_cert/invitee" //新媒人-被邀约信息
     const val NEW_CERT_DO = "$VERSION/new_cert/do" //新媒人-认证
+    const val NEW_CERT_RESULT = "$VERSION/new_cert/result" //新媒人认证结果
 
     const val SERVICE_REGION = "$VERSION/service/region" //新媒人/服务商-区域选择
     const val SERVICE_LIST = "$VERSION/service/list" //新媒人/服务商-区域选择
@@ -105,6 +106,7 @@ object Constant {
     const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
 
     /*红包*/
+    const val RP_LIST = "$VERSION/rp/list"
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
     const val RP_CREATE = "$VERSION//rp/create" //创建红包

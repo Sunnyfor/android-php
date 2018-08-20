@@ -13,7 +13,7 @@ data class BonusAttr(
         var keyword: String,
         var limit: ArrayList<Limit>,
         var desc: String,  // 属性说明,eg:全角字符,最大不得超过设置值,仅可输入正整数,系统自动算出,...
-        var style: String, //客户端属性展示风格,eg:"readonly"---是否只读,不能编辑,"auto"---是否自动计算,"display"---初始化页面时,是否显示或隐藏,"toggle":"ad_pos"---针对(关键词为ad_pos的)属性切换状态
+//        var style: String, //客户端属性展示风格,eg:"readonly"---是否只读,不能编辑,"auto"---是否自动计算,"display"---初始化页面时,是否显示或隐藏,"toggle":"ad_pos"---针对(关键词为ad_pos的)属性切换状态
         var required: String, //是否为必填属性,即:属性值不能为空值
         var hidden: String,  // 是否为隐藏属性,在UI层不展示,客户端ajax提交时上送,eg:广告轮播图的<主图>
         var save: String, //存档入库方式:'0'-不存档,'1'-当前属性(子属性合并,json格式)存档,'2'-子属性分别存档
@@ -22,7 +22,7 @@ data class BonusAttr(
     data class Limit(
             var name: String,   // 限定类型名称,eg:可选位置,可选类型,显示格式,...
             var custom: String, // 自定义选取的系统限制词汇,eg:"region"-区域,"industry"-行业,"hobby"-兴趣爱好,"ad"-广告对象(不弹窗),"ad_pos"-广告位置(不弹窗),...
-            var rules: String,  // 限制规则,为空表示不限定,json格式,eg:{"<=":20},["Y-m-d H:i:s"],["jpeg","png"],...
+            var rules:String,  // 限制规则,为空表示不限定,json格式,eg:{"<=":20},["Y-m-d H:i:s"],["jpeg","png"],...
             var desc: String // 属性说明,用于客户端展示
     )
 }

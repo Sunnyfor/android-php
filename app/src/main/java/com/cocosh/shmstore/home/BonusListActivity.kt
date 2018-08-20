@@ -7,11 +7,14 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.BonusListAdapter
+import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.utils.*
@@ -25,11 +28,12 @@ import kotlinx.android.synthetic.main.layout_bonus_list.*
  * Created by zhangye on 2018/4/19.
  */
 class BonusListActivity : BaseActivity() {
-    var currentPage = 1
+    var currentPage = "1"
     var type = 1
     var title: String? = null
     var adapter: BonusListAdapter? = null
     var selectIndex = -2
+    var mList = ArrayList<Bonus2>()
 
     override fun setLayout(): Int = R.layout.layout_bonus_list
 
@@ -69,18 +73,20 @@ class BonusListActivity : BaseActivity() {
 
         refreshLayout.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
-                currentPage = page
-                loadData(true)
+                currentPage = page.toString()
+                loadData()
             }
 
             override fun onLoadMore(page: Int) {
-                currentPage = page
-                loadData(false)
+                currentPage = mList.last().no
+                loadData()
             }
 
         }
 
-        loadData(true)
+        adapter = BonusListAdapter(mList)
+
+        loadData()
 
     }
 
@@ -110,11 +116,7 @@ class BonusListActivity : BaseActivity() {
     override fun reTryGetData() {
         isShowLoading = true
         hideReTryLayout()
-        if (currentPage == 1) {
-            loadData(true)
-        } else {
-            loadData(false)
-        }
+        loadData()
     }
 
     private fun showDialog() {
@@ -131,7 +133,33 @@ class BonusListActivity : BaseActivity() {
     }
 
 
-    fun loadData(boolean: Boolean) {
+    fun loadData() {
+        val params = HashMap<String, String>()
+        params["type"] = type.toString()
+        if (currentPage != "1") {
+            params["no"] = currentPage
+        }
+        params["num"] = "20"
+
+        ApiManager2.post(1, this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
+
+                data.message?.let {
+                    if (currentPage == "1") {
+                        mList.clear()
+                    }
+                    mList.addAll(it)
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<Bonus2>>) {
+            }
+
+        })
 
     }
 

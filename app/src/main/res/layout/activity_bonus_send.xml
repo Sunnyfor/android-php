@@ -168,7 +168,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/w50"
-                        android:text="￥1.00元/个"
+                        android:text="￥0.00元/个"
                         android:textColor="@color/blackText"
                         android:textSize="@dimen/w43" />
 
