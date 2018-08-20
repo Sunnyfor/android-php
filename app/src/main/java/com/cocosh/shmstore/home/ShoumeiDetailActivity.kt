@@ -55,6 +55,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     var isSend = false
     lateinit var headView: LinearLayout
     private lateinit var adapter: ShouMeiDetailAdapter
+    var silence:String = "0"
     override fun setLayout(): Int = R.layout.activity_shoumei_detail
 
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
@@ -87,13 +88,13 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         post_id = intent.getStringExtra("post_id")
         val themeUrl = intent.getStringExtra("THEMEURL")
         //禁言
-//        if (blackType == "1") {
-//            etcontent.isFocusable = false
-//            tvError.visibility = View.VISIBLE
-//        } else {
+        if (silence == "1") {
+            etcontent.isFocusable = false
+            tvError.visibility = View.VISIBLE
+        } else {
         etcontent.isFocusable = true
         tvError.visibility = View.GONE
-//        }
+        }
 
         titleManager.defaultTitle(intent.getStringExtra("title"))
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_detail_webview, null, false) as LinearLayout
@@ -139,7 +140,6 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                 KeyEvent.ACTION_DOWN -> {
                 }
                 KeyEvent.ACTION_UP -> {
-                    replyPosition = -1
                     if (followType == "0") {
                         showDialog()
                         return@setOnTouchListener true
@@ -184,7 +184,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                         , mList[position].user?.nickname ?: ""
                         , mList[position].time ?: ""
                         , mList[position].content ?: ""
-                        , followType ?: "", "")
+                        , followType ?: "", silence)
             }
 
             override fun moreClick(position: Int) {
@@ -290,11 +290,14 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     }
 
     companion object {
-        fun start(mContext: Context, title:String,themeUrl: String, commentId: String) {
+        fun start(mContext: Context, title: String, themeUrl: String, commentId: String,followType:String ,silence: String) {
             mContext.startActivity(Intent(mContext, ShoumeiDetailActivity::class.java)
                     .putExtra("title", title)
                     .putExtra("THEMEURL", themeUrl)
-                    .putExtra("post_id", commentId))
+                    .putExtra("post_id", commentId)
+                    .putExtra("followType",followType)
+                    .putExtra("silence", silence))  //是否禁言
+
         }
     }
 
@@ -394,7 +397,9 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                 //回复
                 data.message?.let {
                     comment.replies++
-
+                    if (comment.portion?.size ?: 0 < 2) {
+                        comment.portion?.add(it)
+                    }
                     ObserverManager.getInstance().notifyObserver(1, post_id
                             ?: "", 1 as Any, "")
 
@@ -531,12 +536,12 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         followType = intent?.getStringExtra("FOLLOWTYPE")
-        val blackType = intent?.getStringExtra("BLACKTYPE")
+        silence = intent?.getStringExtra("silence")?:"0"
         id = intent?.getStringExtra("baseId")
         post_id = intent?.getStringExtra("post_id")
         val themeUrl = intent?.getStringExtra("THEMEURL")
         //禁言
-        if (blackType == "1") {
+        if (silence == "1") {
             etcontent.isFocusable = false
             tvError.visibility = View.VISIBLE
         } else {

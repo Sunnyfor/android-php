@@ -59,34 +59,34 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                     holder.itemView.commentNumber.text = posts.sum.toString()  //评论数量
                     if (bbs.follow == "0") {
                         holder.itemView.tvStatus.text = "+关注"
-                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.white))
+                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.white))
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
                     } else {
                         holder.itemView.tvStatus.text = "已关注"
-                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.blackText))
+                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.blackText))
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
                     }
 
-    //                if (isRead == "1") {
-    //                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.red))
-    //                } else {
-    //                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.grayText))
-    //                }
+                    //                if (isRead == "1") {
+                    //                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.red))
+                    //                } else {
+                    //                    holder.itemView.lookIcon.setTextColor(mContext.resources.getColor(R.color.grayText))
+                    //                }
 
-    //                when (resCompanyHomeInfoVO?.userType) {
-    //                    "1" -> {
-    //                        holder.itemView.tvType.text = "企业主"
-    //                    }
-    //                    "2" -> {
-    //                        holder.itemView.tvType.text = "新媒人"
-    //                    }
-    //                    "3" -> {
-    //                        holder.itemView.tvType.text = "服务商"
-    //                    }
-    //                    "4" -> {
-    //                        holder.itemView.tvType.text = "用户"
-    //                    }
-    //                }
+                    //                when (resCompanyHomeInfoVO?.userType) {
+                    //                    "1" -> {
+                    //                        holder.itemView.tvType.text = "企业主"
+                    //                    }
+                    //                    "2" -> {
+                    //                        holder.itemView.tvType.text = "新媒人"
+                    //                    }
+                    //                    "3" -> {
+                    //                        holder.itemView.tvType.text = "服务商"
+                    //                    }
+                    //                    "4" -> {
+                    //                        holder.itemView.tvType.text = "用户"
+                    //                    }
+                    //                }
                     posts.images?.let {
                         if (it.isNotEmpty()) {
                             when {
@@ -94,24 +94,24 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.GONE
                                     holder.itemView.imageThree.visibility = View.GONE
-                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne, 0)
                                 }
 
                                 it.size == 2 -> {
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.VISIBLE
                                     holder.itemView.imageThree.visibility = View.GONE
-                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
-                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo,0)
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne, 0)
+                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo, 0)
                                 }
                                 else -> {
                                     holder.itemView.imageOne.visibility = View.VISIBLE
                                     holder.itemView.imageTwo.visibility = View.VISIBLE
                                     holder.itemView.imageThree.visibility = View.VISIBLE
 
-                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
-                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo,0)
-                                    GlideUtils.loadPhoto(context, it[2], holder.itemView.imageThree,0)
+                                    GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne, 0)
+                                    GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo, 0)
+                                    GlideUtils.loadPhoto(context, it[2], holder.itemView.imageThree, 0)
 
                                 }
                             }
@@ -127,16 +127,18 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                     holder.itemView.detailLL.setOnClickListener {
                         //新闻详情
                         val oldNumber = posts.views?.toInt()
-                        val number = (oldNumber?:0 + 1)
+                        val number = (oldNumber ?: 0+1)
                         posts.views = number.toString()
 //                        isRead = "1"
-                        notifyItemChanged(position)
+                        notifyItemChanged(position -1)
                         mOnFollowClick?.read(10, position - 1)
-                        ShoumeiDetailActivity.start(context,posts.title?:"",posts.url?:"",posts.id?:"")
+                        ShoumeiDetailActivity.start(context, posts.title ?: "", posts.url
+                                ?: "", posts.id ?: "", getData(position -1).bbs.follow
+                                ?: "0", getData(position - 1).bbs.silence ?: "0")
                     }
                     holder.itemView.ivLogo.setOnClickListener {
                         //品牌专属论坛
-                        ShouMeiBrandActivity.start(context,bbs)
+                        ShouMeiBrandActivity.start(context, bbs)
                     }
                     holder.itemView.nameLl.setOnClickListener {
                         //品牌专属论坛

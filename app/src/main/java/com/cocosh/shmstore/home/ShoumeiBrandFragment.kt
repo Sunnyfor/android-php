@@ -24,14 +24,13 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
     var list = arrayListOf<SMThemeData>()
     var lastTimeStamp: String? = ""
     var followType: String? = ""
-    var blackType: String? = ""
+    var silence: String? = ""
     var baseId: String? = ""
     var themePageUrl: String? = ""
     lateinit var adapter: ShouMeiBrandAdapter
 
     var type: String? = null
     var eid: String? = null
-
     override fun setLayout(): Int = R.layout.fragment_shoumei_follow
 
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
@@ -64,6 +63,8 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
         val bundle = arguments//从activity传过来的Bundle
         type = bundle?.getString("TYPE", "全部")
         eid = bundle?.getString("EID", "")
+        followType = bundle?.getString("followType", "0")
+        silence = bundle?.getString("silence", "0")
 
         getLayoutView().vRecyclerView.recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = ShouMeiBrandAdapter(list)
@@ -80,7 +81,7 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
 //                readAccount(list[index].posts.id ?: "")
                 //跳转内容详情页
                 ShoumeiDetailActivity.start(activity, list[index].title ?: "", list[index].url
-                        ?: "", list[index].id ?: "")
+                        ?: "", list[index].id ?: "", followType?:"0",silence?:"0")
                 //浏览数
                 list[index].views = (list[index].views ?: "0".toInt()+1).toString()
                 adapter.notifyItemChanged(index)
@@ -143,7 +144,7 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
 //                        list.clear()
 //                        getLayoutView().vRecyclerView.update(data.entity?.themeInfoVOS)
 //                        followType = data.entity?.resCompanyHomeBrandExclusiveVO?.followStatus
-//                        blackType = data.entity?.resCompanyHomeBrandExclusiveVO?.isBlack
+//                        silence = data.entity?.resCompanyHomeBrandExclusiveVO?.isBlack
 //                    } else {
 //                        getLayoutView().vRecyclerView.loadMore(data.entity?.themeInfoVOS)
 //                    }
@@ -210,6 +211,7 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
                     } else {
                         getLayoutView().vRecyclerView.loadMore(data.message)
                     }
+
                     list.addAll(it)
                     adapter.notifyDataSetChanged()
                 }

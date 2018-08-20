@@ -12,6 +12,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenEnter
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.IndustryModel
+import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.person.PersonRsultActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
@@ -33,7 +34,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     private var uploadManager = UploadManager()
     private var file: File? = null
     private var token: String? = null
-    private var interest:String? = null
+    private var interest: String? = null
 
     override fun reTryGetData() {
         hideReTryLayout()
@@ -130,7 +131,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             }
         //兴趣爱好
             isvInteresting.id -> {
-                startActivityForResult(Intent(this@ArchiveActivity,InterestingActivity::class.java).putExtra("hobby",interest), IntentCode.IS_INPUT)
+                startActivityForResult(Intent(this@ArchiveActivity, InterestingActivity::class.java).putExtra("hobby", interest), IntentCode.IS_INPUT)
             }
 
         }
@@ -184,21 +185,47 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
 
 
     private fun loadData() {
+        UserManager2.loadMemberEntrance(this, object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
+            override fun onSuccess(data: BaseBean<MemberEntrance2>) {
+                data.message?.let {
+                    UserManager2.setMemberEntrance(data.message)
+                    GlideUtils.loadHead(baseContext, it.avatar, ivHead) //头像
+                    isvNickname.setValue(it.nickname) //昵称
+                    isvName.setValue(it.realname)
+                    isvBirthday.setValue(it.birth)
+                    isvSex.setValue(it.gender)
+                    isvAddress.setValue(it.district)
+                    isvCompany.setValue(it.company)
+                    isvWork.setValue(it.industry_name)
+                    progressBar_big.progress = (it.degree)
+                    progressBar_big.invalidate()
+                    interest = it.hobby
+                }
+            }
 
-        val memberEntrance2 = UserManager2.getMemberEntrance()
-        memberEntrance2?.let {
-            GlideUtils.loadHead(baseContext, it.avatar, ivHead) //头像
-            isvNickname.setValue(it.nickname) //昵称
-            isvName.setValue(it.realname)
-            isvBirthday.setValue(it.birth)
-            isvSex.setValue(it.gender)
-            isvAddress.setValue(it.district)
-            isvCompany.setValue(it.company)
-            isvWork.setValue(it.industry_name)
-            progressBar_big.progress = (it.degree)
-            progressBar_big.invalidate()
-            interest = it.hobby
-        }
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<MemberEntrance2>) {
+
+            }
+        })
+
+//        val memberEntrance2 = UserManager2.getMemberEntrance()
+//        memberEntrance2?.let {
+//            GlideUtils.loadHead(baseContext, it.avatar, ivHead) //头像
+//            isvNickname.setValue(it.nickname) //昵称
+//            isvName.setValue(it.realname)
+//            isvBirthday.setValue(it.birth)
+//            isvSex.setValue(it.gender)
+//            isvAddress.setValue(it.district)
+//            isvCompany.setValue(it.company)
+//            isvWork.setValue(it.industry_name)
+//            progressBar_big.progress = (it.degree)
+//            progressBar_big.invalidate()
+//            interest = it.hobby
+//        }
     }
 
 
@@ -259,39 +286,39 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
 
         UserManager2.updateMemberEntrance(this, params, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
-                when (type) {
-                    "头像" -> {
-                        UserManager2.getMemberEntrance()?.let {
-                            it.avatar = value
-                            UserManager2.setMemberEntrance(it)
-                        }
-                    }
-                    "生日" -> {
-                        UserManager2.getMemberEntrance()?.let {
-                            it.birth = value
-                            UserManager2.setMemberEntrance(it)
-                        }
-                    }
-                    "性别" -> {
-                        UserManager2.getMemberEntrance()?.let {
-                            it.gender = value
-                            UserManager2.setMemberEntrance(it)
-                        }
-                    }
-                    "所属行业" -> {
-                        UserManager2.getMemberEntrance()?.let {
-                            it.industry_name = value.split("-")[1]
-                            UserManager2.setMemberEntrance(it)
-                        }
-                    }
-                    "地区" -> {
-                        UserManager2.getMemberEntrance()?.let {
-                            it.district = isvAddress.tag.toString()
-                            UserManager2.setMemberEntrance(it)
-                        }
-                    }
-
-                }
+//                when (type) {
+//                    "头像" -> {
+//                        UserManager2.getMemberEntrance()?.let {
+//                            it.avatar = value
+//                            UserManager2.setMemberEntrance(it)
+//                        }
+//                    }
+//                    "生日" -> {
+//                        UserManager2.getMemberEntrance()?.let {
+//                            it.birth = value
+//                            UserManager2.setMemberEntrance(it)
+//                        }
+//                    }
+//                    "性别" -> {
+//                        UserManager2.getMemberEntrance()?.let {
+//                            it.gender = value
+//                            UserManager2.setMemberEntrance(it)
+//                        }
+//                    }
+//                    "所属行业" -> {
+//                        UserManager2.getMemberEntrance()?.let {
+//                            it.industry_name = value.split("-")[1]
+//                            UserManager2.setMemberEntrance(it)
+//                        }
+//                    }
+//                    "地区" -> {
+//                        UserManager2.getMemberEntrance()?.let {
+//                            it.district = isvAddress.tag.toString()
+//                            UserManager2.setMemberEntrance(it)
+//                        }
+//                    }
+//
+//                }
                 loadData()
             }
 

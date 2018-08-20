@@ -211,8 +211,8 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
             }
         }
         companyThemeList.forEach {
-            if (it.bbs?.id == id) {
-                it.bbs?.follow = status
+            if (it.bbs.id == id) {
+                it.bbs.follow = status
             }
         }
         adapter.notifyDataSetChanged()

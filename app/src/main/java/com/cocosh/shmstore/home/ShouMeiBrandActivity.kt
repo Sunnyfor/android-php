@@ -46,11 +46,15 @@ class ShouMeiBrandActivity : BaseActivity() {
             val b1 = Bundle()
             b1.putString("TYPE", "全部")
             b1.putString("EID", baseId ?: "")
+            b1.putString("followType", it.follow)
+            b1.putString("silence", it.silence)
             fragment1.arguments = b1
             val fragment2 = ShoumeiBrandFragment()
             val b2 = Bundle()
             b2.putString("TYPE", "精华")
             b2.putString("EID", baseId ?: "")
+            b2.putString("followType", it.follow)
+            b2.putString("silence", it.silence)
             fragment2.arguments = b2
             fragmentList.add(fragment1)
             fragmentList.add(fragment2)

@@ -59,7 +59,7 @@ class ShouMeiCommentActivity : BaseActivity() {
         val time: String? = intent.getStringExtra("time")
         val desc: String? = intent.getStringExtra("desc")
         followType = intent.getStringExtra("followType")
-        var blackType: String? = intent.getStringExtra("blackType")
+        val silence: String? = intent.getStringExtra("silence")
 
         titleManager.rightText("评论", "举报", View.OnClickListener {
             val dialog = ReportDialog(this, comment_id ?: "", "1")
@@ -67,13 +67,13 @@ class ShouMeiCommentActivity : BaseActivity() {
         }, false)
 
         //禁言
-//        if (blackType == "1") {
-//            etcontent.isFocusable = false
-//            tvError.visibility = View.VISIBLE
-//        } else {
+        if (silence == "1") {
+            etcontent.isFocusable = false
+            tvError.visibility = View.VISIBLE
+        } else {
         etcontent.isFocusable = true
         tvError.visibility = View.GONE
-//        }
+        }
 
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_comment_top, all, false) as LinearLayout
         recyclerView.recyclerView.addHeaderView(headView)
@@ -211,14 +211,14 @@ class ShouMeiCommentActivity : BaseActivity() {
 
 
     companion object {
-        fun start(mContext: Context, id: String, headUrl: String, name: String, time: String, desc: String, followType: String, blackType: String) {
+        fun start(mContext: Context, id: String, headUrl: String, name: String, time: String, desc: String, followType: String, silence: String) {
             mContext.startActivity(Intent(mContext, ShouMeiCommentActivity::class.java).putExtra("comment_id", id)
                     .putExtra("headUrl", headUrl)
                     .putExtra("name", name)
                     .putExtra("time", time)
                     .putExtra("desc", desc)
                     .putExtra("followType", followType)
-                    .putExtra("blackType", blackType))
+                    .putExtra("silence", silence))
         }
     }
 
@@ -352,7 +352,7 @@ class ShouMeiCommentActivity : BaseActivity() {
         val time: String? = intent?.getStringExtra("time")
         val desc: String? = intent?.getStringExtra("desc")
         followType = intent?.getStringExtra("followType")
-        var blackType: String? = intent?.getStringExtra("blackType")
+        val silence: String? = intent?.getStringExtra("silence")
 
         GlideUtils.loadRound(2, this, headUrl, headView.ivLogo)
         headView.tvTopName.text = name
@@ -360,13 +360,13 @@ class ShouMeiCommentActivity : BaseActivity() {
         headView.tvTopDesc.text = desc
 
         //禁言
-//        if (blackType == "1") {
-//            etcontent.isFocusable = false
-//            tvError.visibility = View.VISIBLE
-//        } else {
+        if (silence == "1") {
+            etcontent.isFocusable = false
+            tvError.visibility = View.VISIBLE
+        } else {
             etcontent.isFocusable = true
             tvError.visibility = View.GONE
-//        }
+        }
 
         getCommentDetail()
     }
