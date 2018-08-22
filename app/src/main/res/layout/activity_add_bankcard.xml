@@ -31,6 +31,7 @@
             android:layout_toLeftOf="@+id/nameDialog"
             android:focusable="false"
             android:gravity="center_vertical|left"
+            android:enabled="false"
             android:hint="持卡人姓名"
             android:maxLength="50" />
 

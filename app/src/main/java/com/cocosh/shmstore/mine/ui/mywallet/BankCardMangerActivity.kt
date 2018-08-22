@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.adapter.BankMangerListAdapter
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
@@ -21,7 +22,7 @@ import com.cocosh.shmstore.mine.presenter.IsSetPwdPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.BankRemoveDialog
 import com.cocosh.shmstore.widget.dialog.SercurityDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -29,6 +30,7 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem
 import kotlinx.android.synthetic.main.activity_bankcard_manger.*
 
 /**
+ *
  * Created by lmg on 2018/4/13.
  */
 class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
@@ -36,13 +38,11 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     var listData = ArrayList<BankModel>()
     var position = 0
     var isSet: Boolean? = null
-    override fun bankListData(result: BaseModel<ArrayList<BankModel>>) {
-        if (result.success && result.code == 200) {
+    override fun bankListData(result: BaseBean<ArrayList<BankModel>>) {
+        result.message?.let {
             listData.clear()
-            listData?.addAll(result.entity!!)
+            listData.addAll(it)
             recyclerView.adapter.notifyDataSetChanged()
-        } else {
-            ToastUtil.show(result.message)
         }
     }
 
@@ -53,7 +53,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     override fun wouldDeleteBankData(result: BaseModel<Boolean>) {
         if (result.success && result.code == 200) {
             if (result.entity!!) {
-                showRemoveDialog(listData[position].bankLogo, listData[position].bankName, listData[position].bankType, listData[position].bankCode)
+                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             } else {
                 showErrorDialog(result.message)
             }
@@ -89,10 +89,11 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         }
         // 菜单点击监听。
         recyclerView.setSwipeMenuItemClickListener {
-            var position = it.adapterPosition
+            val position = it.adapterPosition
             if (position != listData.size) {
                 this.position = position
-                mPresenter.requestWouldDeleteBankData(0)
+//                mPresenter.requestWouldDeleteBankData(0)
+                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             }
 
         }
@@ -101,7 +102,8 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         recyclerView.setSwipeItemLongClickListener { itemView, position ->
             if (position != listData.size) {
                 this.position = position
-                mPresenter.requestWouldDeleteBankData(0)
+//                mPresenter.requestWouldDeleteBankData(0)
+                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             }
         }
 
@@ -114,7 +116,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         when (view.id) {
             addBankCard.id -> {
                 //判断是否实设置支付密码
-                if (UserManager.getPayPwdStatus() == true) {
+                if (UserManager2.getCommonData()?.paypass == 1) {
                     AddBankCardActivity.start(this)
                     return
                 }
@@ -157,14 +159,14 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<String> {
             override fun inputComplete(pwd: String) {
-                mPresenter.requestDeleteBankData(listData[position].idUserBankInfo ?: "", pwd)
+                mPresenter.requestDeleteBankData(listData[position].id ?: "", pwd)
             }
 
             override fun result(boolean: Boolean, data: String?) {
                 if (boolean) {
                     //解绑成功 跳转解绑结果页
-                    RemovedResultActivity.start(this@BankCardMangerActivity, listData[position].bankLogo
-                            ?: "", listData[position].bankName ?: "", listData[position].bankCode
+                    RemovedResultActivity.start(this@BankCardMangerActivity, listData[position].bank_log
+                            ?: "", listData[position].bank_name ?: "", listData[position].bank_kind
                             ?: "", true)
                 } else {
                     //解绑失败 跳转解绑结果页
@@ -185,11 +187,11 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
 
     fun showEntDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
+        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@BankCardMangerActivity.javaClass
-            CheckPayPwdMessage.start(this@BankCardMangerActivity,SMSType.INIT_PAYPASS)
+            CheckPayPwdMessage.start(this@BankCardMangerActivity, SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }

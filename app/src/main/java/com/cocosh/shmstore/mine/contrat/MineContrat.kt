@@ -30,7 +30,7 @@ class MineContrat {
      */
     interface IBankListView : IBaseView {
         fun deleteBank(result: BaseModel<String>)
-        fun bankListData(result: BaseModel<ArrayList<BankModel>>)
+        fun bankListData(result: BaseBean<ArrayList<BankModel>>)
         fun wouldDeleteBankData(result: BaseModel<Boolean>)
     }
 
@@ -93,7 +93,7 @@ class MineContrat {
      */
     interface IIsPwdRightView : IBaseView {
         fun isPwdRight(result: BaseBean<ResetPass>)
-        fun savePwdData(result: BaseModel<Boolean>)
+        fun savePwdData(result: BaseBean<String>)
         fun modifyPwdData(result: BaseBean<String>)
     }
 

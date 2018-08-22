@@ -43,17 +43,15 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取我的钱包银行卡列表
      */
     fun requestBankListData(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.MY_WALLET_BANKLIST, object : ApiManager.OnResult<BaseModel<ArrayList<BankModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<BankModel>>) {
+        ApiManager2.get(flag, activity, null, Constant.BANKCARD, object : ApiManager2.OnResult<BaseBean<ArrayList<BankModel>>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<BankModel>>) {
                 (view as MineContrat.IBankListView).bankListData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<ArrayList<BankModel>>) {
+            override fun onCatch(data: BaseBean<ArrayList<BankModel>>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -63,7 +61,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取企业钱包信息
      */
     fun requestEntWalletData(flag: Int) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         ApiManager.get(flag, activity, map, Constant.ENT_WALLET_DATA, object : ApiManager.OnResult<BaseModel<EntWalletModel>>() {
             override fun onSuccess(data: BaseModel<EntWalletModel>) {
                 (view as MineContrat.IEntWalletView).entWalletData(data)

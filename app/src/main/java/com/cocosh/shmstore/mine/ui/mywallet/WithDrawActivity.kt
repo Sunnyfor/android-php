@@ -46,10 +46,10 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
             if (result.entity != null && result.entity?.list?.size ?: 0 > 0) {
                 listDatas.addAll(result.entity?.list!!)
                 ivPic.visibility = View.VISIBLE
-                GlideUtils.loadDefault(this, result.entity?.list!![0].bankLogo, ivPic)
-                tvName.text = result.entity?.list!![0].bankName
+                GlideUtils.loadDefault(this, result.entity?.list!![0].bank_log, ivPic)
+                tvName.text = result.entity?.list!![0].bank_name
                 text_treaty.text = result.entity?.ruleType?.des
-                checkBankId = result.entity?.list!![0].idUserBankInfo ?: ""
+                checkBankId = result.entity?.list!![0].bank_kind ?: ""
                 maxMoney = result.entity?.ruleType?.maxMoney ?: "0"
                 minMoney = result.entity?.ruleType?.minMoney ?: "0"
             } else {
@@ -120,9 +120,9 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                     AddBankCardActivity.start(this@WithDrawActivity)
                     return
                 }
-                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1]?.bankLogo, ivPic)
-                tvName.text = listDatas[index - 1]?.bankName
-                checkBankId = listDatas[index - 1]?.idUserBankInfo ?: ""
+                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1]?.bank_log, ivPic)
+                tvName.text = listDatas[index - 1]?.bank_name
+                checkBankId = listDatas[index - 1]?.id ?: ""
             }
         }
 

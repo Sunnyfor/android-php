@@ -49,8 +49,7 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
 //        }
     }
 
-    override fun savePwdData(result: BaseModel<Boolean>) {
-        if (result.success && result.code == 200) {
+    override fun savePwdData(result: BaseBean<String>) {
             ToastUtil.show("支付密码设置成功")
             //更新缓存状态
             UserManager2.getCommonData()?.let {
@@ -70,19 +69,15 @@ class ReInputPayPwdActivity : BaseActivity(), MineContrat.IIsPwdRightView {
                 return
             }
             finish()
-        } else {
-            ToastUtil.show(result.message)
-            ToastUtil.show("支付密码设置失败")
-            if (SmApplication.getApp().activityName != null) {
-                startActivity(Intent(this, SmApplication.getApp().activityName).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                return
-            }
-            finish()
-        }
     }
 
     override fun modifyPwdData(result: BaseBean<String>) {
-        showResult("密码修改成功")
+        if(type == "reInput"){
+            savePwdData(result)
+        }else{
+            showResult("密码修改成功")
+        }
+
     }
 
     override fun initView() {

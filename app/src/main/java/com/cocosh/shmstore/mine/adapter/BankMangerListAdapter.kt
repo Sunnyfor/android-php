@@ -18,14 +18,14 @@ import kotlinx.android.synthetic.main.item_bankcard_manger.view.*
 class BankMangerListAdapter(var mContext: Context, list: ArrayList<BankModel>) : BaseRecycleAdapter<BankModel>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvBankName.text = getData(position).bankName
-        if (getData(position).bankType == "1") {
+        holder.itemView.tvBankName.text = getData(position).bank_name
+        if (getData(position).card_kind == "0") {
             holder.itemView.tvBankType.text = "储蓄卡"
         } else {
             holder.itemView.tvBankType.text = "信用卡"
         }
-        holder.itemView.tvBankNum.text = getData(position).bankCode
-        GlideUtils.loadDefault(mContext, getData(position).bankLogo, holder.itemView.rivLogo)
+        holder.itemView.tvBankNum.text = getData(position).card_no
+        GlideUtils.loadDefault(mContext, getData(position).bank_log, holder.itemView.rivLogo)
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View {

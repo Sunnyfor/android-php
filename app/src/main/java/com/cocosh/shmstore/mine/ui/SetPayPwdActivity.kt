@@ -68,8 +68,8 @@ class SetPayPwdActivity : BaseActivity() {
                 return
             }
 
-            var pattern = "0123456789"
-            var pattern1 = "9876543210"
+            val pattern = "0123456789"
+            val pattern1 = "9876543210"
             if (pattern.contains(mPassWord) || pattern1.contains(mPassWord)) {
                 ToastUtil.show("请不要使用连续的数字")
                 return

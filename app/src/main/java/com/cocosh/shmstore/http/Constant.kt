@@ -112,6 +112,16 @@ object Constant {
     const val RP_CREATE = "$VERSION//rp/create" //创建红包
 
     /**
+     * 银行卡
+     * */
+    const val BANKLIST = "$VERSION/banklist" //银行列表
+    const val BANKCARD = "$VERSION/bankcard" //银行卡列表
+    const val BANKCARD_REMOVE = "$VERSION/bankcard/remove" //删除银行卡
+    const val BANKCARD_CARD_VIERIFY = "$VERSION/bankcard/card_vierify" //银行卡验证
+    const val BANKCARD_BIND = "$VERSION/bankcard/bind" //绑定银行卡
+    const val BANKCARD_DETAIL ="$VERSION/bankcard/detail" //银行卡详情
+
+    /**
      * 首页
      * */
     const val HOME_BANNER = "red-packet/red/packet/advertisement/getHomePageBanners"

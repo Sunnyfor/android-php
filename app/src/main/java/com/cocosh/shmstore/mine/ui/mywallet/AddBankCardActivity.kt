@@ -44,7 +44,7 @@ class AddBankCardActivity : BaseActivity() {
         nameDialog.setOnClickListener(this)
         scan.setOnClickListener(this)
         next.setOnClickListener(this)
-        edtPersonName.setText(UserManager.getMemberEntrance()?.realName)
+        edtPersonName.setText(UserManager2.getMemberEntrance()?.realname)
         edtAccount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -119,8 +119,8 @@ class AddBankCardActivity : BaseActivity() {
 
             if (!TextUtils.isEmpty(it)) {
                 try {
-                    var datas = it.split("\n")
-                    var bankCardModel = BankCardModel(datas[0].split("：")[1], datas[1].split("：")[1], datas[2].split("：")[1])
+                    val datas = it.split("\n")
+                    val bankCardModel = BankCardModel(datas[0].split("：")[1], datas[1].split("：")[1], datas[2].split("：")[1])
                     if (TextUtils.equals(bankCardModel.卡号, "无")) {
                         runOnUiThread {
                             showScanErrorDialog()
