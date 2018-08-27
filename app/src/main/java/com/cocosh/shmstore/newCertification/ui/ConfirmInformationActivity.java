@@ -76,7 +76,7 @@ public class ConfirmInformationActivity extends BaseActivity {
             dataBinding.money.setText(("平台加盟费：￥" + dataEntity.getMoney()));
             dataBinding.nation.setText(dataEntity.getEthnic());
             dataBinding.sex.setText(dataEntity.getSex());
-            SmApplication.Companion.getApp().setData("money", dataEntity.getMoney() + "");
+            SmApplication.Companion.getApp().setData("profit", dataEntity.getMoney() + "");
             SmApplication.Companion.getApp().setData("bizCode", dataEntity.getBizCode());
         }
 

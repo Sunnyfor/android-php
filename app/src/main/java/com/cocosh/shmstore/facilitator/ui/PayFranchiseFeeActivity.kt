@@ -58,7 +58,7 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
             presenter.getShowData(1)
         } else {
             map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)
-            tv_fee.text = ("￥" + map!!["money"])
+            tv_fee.text = ("￥" + map!!["profit"])
         }
         btn_show.setOnClickListener(this)
         btn_input.setOnClickListener(this)
@@ -93,7 +93,7 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
 //                paramMap["licenseStartTime"] = map!!["foundingTime"].toString()
 //                paramMap["licenseType"] = map!!["registeredType"].toString()
 //                paramMap["licenseWealth"] = map!!["registeredCapital"].toString()
-//                paramMap["money"] = map!!["money"].toString()
+//                paramMap["profit"] = map!!["profit"].toString()
                 map?.let {
                     presenter.commitData(it)
                 }

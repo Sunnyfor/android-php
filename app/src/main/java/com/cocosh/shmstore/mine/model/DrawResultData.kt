@@ -6,7 +6,7 @@ package com.cocosh.shmstore.mine.model
  *  arriveTime (string, optional): 提现到达时间 ,
 bankInfo (string, optional): 提现银行卡名称 ,
 drawTime (string, optional): 提现时间 ,
-money (number, optional): 提现金额 ,
+profit (number, optional): 提现金额 ,
 ratioMoney (number, optional): 提现手续费 ,
 serialNum (string, optional): 流水号 ,
 status (string, optional): 提现状态

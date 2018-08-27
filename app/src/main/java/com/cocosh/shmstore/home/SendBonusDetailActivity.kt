@@ -100,7 +100,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
 //
 //        }
 
-        tvMoney.text = ("需支付 ${intent.getStringExtra("money")}元")
+        tvMoney.text = ("需支付 ${intent.getStringExtra("profit")}元")
     }
 
     override fun onListener(view: View) {
@@ -167,7 +167,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
             override fun onSuccess(data: BaseBean<String>) {
 
                 val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)
-                it.putExtra("amount", intent.getStringExtra("money"))
+                it.putExtra("amount", intent.getStringExtra("profit"))
                 it.putExtra("no", data.message)
                 startActivity(it)
                 setResult(IntentCode.FINISH)

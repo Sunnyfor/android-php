@@ -73,7 +73,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
 //            }
 //            if (result.entity?.status == 13) {
 //                //成功
-//                ReChargeResult.start(this, 3, result.entity?.money ?: "", result.entity?.time
+//                ReChargeResult.start(this, 3, result.entity?.profit ?: "", result.entity?.time
 //                        ?: "", result.entity?.catogry ?: "", result.entity?.runningNumber ?: "")
 //                return
 //            }

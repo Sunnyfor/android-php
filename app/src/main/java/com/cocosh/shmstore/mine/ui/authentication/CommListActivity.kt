@@ -56,23 +56,23 @@ class CommListActivity : BaseActivity() {
             CommonType.FACILITTOR_0.type -> {
                 dataType = 1
                 titleManager.defaultTitle("拓展新媒人")
-                getFacList(1, "2")
+                getFacList(1, Constant.MYSELF_PROVIDER_EXPAND_MATCHMAKER)
             }
             CommonType.FACILITTOR_1.type -> {
                 titleManager.defaultTitle("拓展企业主")
-                getFacList(1, "1")
+                getFacList(1, Constant.MYSELF_PROVIDER_EXPAND_ENTERPRISE)
             }
             CommonType.FACILITTOR_2.type -> {
                 titleManager.defaultTitle("拓展个人用户")
-                getFacList(1, "4")
+                getFacList(1, Constant.MYSELF_PROVIDER_EXPAND_PERSONAL)
             }
             CommonType.FACILITTOR_3.type -> {
                 titleManager.defaultTitle("平台分配企业主")
-                getFacList(1, "1")
+                getFacList(1, Constant.MYSELF_PROVIDER_ASSIGN_ENTERPRISE)
             }
             CommonType.FACILITTOR_4.type -> {
                 titleManager.defaultTitle("平台分配个人用户")
-                getFacList(1, "4")
+                getFacList(1, Constant.MYSELF_PROVIDER_ASSIGN_PERSONAL)
             }
         }
 

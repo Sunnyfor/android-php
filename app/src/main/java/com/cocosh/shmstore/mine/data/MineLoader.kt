@@ -419,7 +419,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         var map = HashMap<String, String>()
         map["userBankInfoId"] = userBankInfoId
         map["amount"] = amount
-        map["runningNum"] = runningNum
+        map["flowno"] = runningNum
         map["paymentPassword"] = paymentPassword
         ApiManager.post(activity, map, Constant.MY_WALLET_DRAW, object : ApiManager.OnResult<BaseBean<WithDrawResultModel>>() {
             override fun onSuccess(data: BaseBean<WithDrawResultModel>) {
@@ -662,7 +662,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestRedToWallet(money: String, paymentPassword: String) {
         var map = HashMap<String, String>()
-        map["money"] = money
+        map["profit"] = money
         map["paymentPassword"] = paymentPassword
         ApiManager.post(activity, map, Constant.RED_TO_MYWALLET, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
             override fun onSuccess(data: BaseBean<RedToWalletModel>) {
@@ -791,7 +791,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         var map = HashMap<String, String>()
         map["personType"] = personType
         map["amount"] = amount
-        map["runningNum"] = runningNum
+        map["flowno"] = runningNum
         map["paymentPassword"] = paymentPassword
         ApiManager.post(activity, map, Constant.OUT_TO_WALLET, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
             override fun onSuccess(data: BaseBean<RedToWalletModel>) {

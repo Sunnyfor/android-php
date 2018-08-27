@@ -92,6 +92,11 @@ object Constant {
     const val MYSELF_PROVIDER_LIST = "$VERSION/myself/provider/list" //服务商拓展页
     const val myself_provider_profit_data = "$VERSION/myself/provider/profit/data"  //服务商--收益--数据
     const val MYSELF_PROVIDER_PROFIT_CONTENT = "$VERSION/myself/provider/profit/content" //服务商收益详情
+    const val MYSELF_PROVIDER_ASSIGN_PERSONAL = "$VERSION/myself/provider/assign/personal" //服务商--平台分配个人用户
+    const val MYSELF_PROVIDER_ASSIGN_ENTERPRISE = "$VERSION/myself/provider/assign/enterprise" //服务商--平台分配企业主
+    const val MYSELF_PROVIDER_EXPAND_PERSONAL = "$VERSION/myself/provider/expand/personal" //服务商--拓展个人用户
+    const val MYSELF_PROVIDER_EXPAND_ENTERPRISE = "$VERSION/myself/provider/expand/enterprise" //服务商--拓展企业主
+    const val MYSELF_PROVIDER_EXPAND_MATCHMAKER = "$VERSION/myself/provider/expand/matchmaker" //服务商--拓展新媒人
 
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证
@@ -129,12 +134,12 @@ object Constant {
     const val BANKCARD_REMOVE = "$VERSION/bankcard/remove" //删除银行卡
     const val BANKCARD_CARD_VIERIFY = "$VERSION/bankcard/verify" //银行卡验证
     const val BANKCARD_BIND = "$VERSION/bankcard/bind" //绑定银行卡
-    const val BANKCARD_DETAIL ="$VERSION/bankcard/detail" //银行卡详情
+    const val BANKCARD_DETAIL = "$VERSION/bankcard/detail" //银行卡详情
 
     const val EWT = "$VERSION/ewt" //钱袋
     const val BALANCE_TRANS_PERSON = "$VERSION/balance/trans/person" //余额明细-个人
     const val BALANCE_TRANS_SVC = "$VERSION/balance/trans/svc" //服务商钱包明细
-    const val RP_TRANS ="$VERSION/rp/trans"
+    const val RP_TRANS = "$VERSION/rp/trans"
 
 
     /**

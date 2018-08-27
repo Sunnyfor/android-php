@@ -50,7 +50,7 @@ class ReChargeResult : BaseActivity() {
             time.visibility = View.VISIBLE
             type.visibility = View.VISIBLE
             number.visibility = View.VISIBLE
-            money.setNoIconValue(StringUtils.insertComma(intent.getStringExtra("money")
+            money.setNoIconValue(StringUtils.insertComma(intent.getStringExtra("profit")
                     ?: "0", 2) + "元")
             time.setNoIconValue(intent.getStringExtra("time") ?: "")
             var typeWay = intent.getStringExtra("typeWay") ?: ""
@@ -80,7 +80,7 @@ class ReChargeResult : BaseActivity() {
 
         fun start(mContext: Context, type: Int, money: String, time: String, typeWay: String, number: String) {
             mContext.startActivity(Intent(mContext, ReChargeResult::class.java).putExtra("TYPE", type)
-                    .putExtra("money", money)
+                    .putExtra("profit", money)
                     .putExtra("time", time)
                     .putExtra("typeWay", typeWay)
                     .putExtra("number", number))

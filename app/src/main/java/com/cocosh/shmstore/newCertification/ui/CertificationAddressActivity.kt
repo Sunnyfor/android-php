@@ -77,10 +77,10 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
         LogUtil.d(result.toString())
 //        if (result.code == 200 && result.success) {
 //            val bizCode = result.entity?.bizCode
-//            val money = result.entity?.money
-//            if (bizCode != null && money != null) {
+//            val profit = result.entity?.profit
+//            if (bizCode != null && profit != null) {
 //                SmApplication.getApp().setData("bizCode", bizCode)
-//                SmApplication.getApp().setData("money", money)
+//                SmApplication.getApp().setData("profit", profit)
 //                ConfirmInformationActivity.start(this)
 //            } else {
 //                ToastUtil.show("信息提交失败")
@@ -141,7 +141,7 @@ class CertificationAddressActivity : BaseActivity(), AddressContrat.IView {
                 map?.let {
                     it["province"] = prov.toString()
                     it["city"] = city.toString()
-                    it["money"] = money_text.text.toString()
+                    it["profit"] = money_text.text.toString()
 //                    it["areaName"] = main_tab.getTabAt(0)?.text.toString() + "-" + main_tab.getTabAt(1)?.text.toString()
                     SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
                     CorporateAccountActivty.start(this, 444)

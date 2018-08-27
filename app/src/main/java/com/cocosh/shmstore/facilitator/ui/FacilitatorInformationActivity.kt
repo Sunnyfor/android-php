@@ -105,7 +105,7 @@ class FacilitatorInformationActivity : BaseActivity(), FacilitatorContrat.IView 
         isvShouMeiNumber.setNoIconValue(UserManager2.getLogin()?.code) //首媒号
         isvEntAccount.setNoIconValue(UserManager2.getCryptogramPhone()) //认证账号
         isvEntArea.setNoIconValue(data["addr"]) //认证地区
-        isvEntMoney.setNoIconValue(data["money"] + "元") //认证费用
+        isvEntMoney.setNoIconValue(data["profit"] + "元") //认证费用
         //基础信息
         isvFname.setNoIconValue(data["name"]) //名称
         isvFNumber.setNoIconValue(data["uscc"])//统一社会信用代码

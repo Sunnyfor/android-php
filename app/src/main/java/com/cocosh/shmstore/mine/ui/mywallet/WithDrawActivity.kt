@@ -87,7 +87,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         titleManager.defaultTitle("提现")
         pickerViewUtils = PickerViewUtils(this)
         TYPE_WITHDRAW = intent.getStringExtra("TYPE_WITHDRAW")
-        money = intent.getStringExtra("money") ?: "0"
+        money = intent.getStringExtra("profit") ?: "0"
         if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
             addBank.visibility = View.GONE
             enterPriseBank.visibility = View.VISIBLE
@@ -293,7 +293,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
 
     companion object {
         fun start(mContext: Context, type: String, money: String) {
-            mContext.startActivity(Intent(mContext, WithDrawActivity::class.java).putExtra("TYPE_WITHDRAW", type).putExtra("money", money))
+            mContext.startActivity(Intent(mContext, WithDrawActivity::class.java).putExtra("TYPE_WITHDRAW", type).putExtra("profit", money))
         }
     }
 

@@ -45,7 +45,7 @@ class OutToWalletResult : BaseActivity() {
         time.setName("转出时间")
         number.setName("流水号")
 
-        moneyValue = intent.getStringExtra("money")
+        moneyValue = intent.getStringExtra("profit")
         timeValue = intent.getStringExtra("time")
         runningWaterValue = intent.getStringExtra("runningWater")
 
@@ -81,7 +81,7 @@ class OutToWalletResult : BaseActivity() {
         }
 
         fun start(mContext: Context, money: String?, time: String?, runningWater: String?, type: String) {
-            mContext.startActivity(Intent(mContext, OutToWalletResult::class.java).putExtra("money", money).putExtra("time", time).putExtra("runningWater", runningWater).putExtra("type", type))
+            mContext.startActivity(Intent(mContext, OutToWalletResult::class.java).putExtra("profit", money).putExtra("time", time).putExtra("runningWater", runningWater).putExtra("type", type))
         }
     }
 }

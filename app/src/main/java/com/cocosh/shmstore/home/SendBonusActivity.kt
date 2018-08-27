@@ -305,7 +305,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
 
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
-        intent.putExtra("money",tvAmountValue.text.toString())
+        intent.putExtra("profit",tvAmountValue.text.toString())
         intent.putExtra("type",type)
         startActivityForResult(intent,0)
 

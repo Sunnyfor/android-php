@@ -26,26 +26,24 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
     /**Adapter的数据源 */
     private var items: ArrayList<ProfitModel>? = null
     var sdf: SimpleDateFormat? = null
-    override fun getItemCount(): Int {
-        return items?.size!!
-    }
+    override fun getItemCount(): Int = items?.size!!
 
     init {
-        items = ArrayList<ProfitModel>()
-        groupBills = TreeMap<String, ArrayList<ProfitModel>>()
+        items = ArrayList()
+        groupBills = TreeMap()
         sdf = SimpleDateFormat("yyyy-MM", Locale.getDefault())
     }
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         if (items!![position].viewType == this.ITEM) {
             holder.itemView.tvType.text = items!![position].detailDesc
-            holder.itemView.tvNum.text = items!![position].runningNum
-            holder.itemView.tvTime.text = items!![position].dateTime
-            holder.itemView.tvMoney.text = items!![position].money
+            holder.itemView.tvNum.text = items!![position].flowno
+            holder.itemView.tvTime.text = items!![position].time
+            holder.itemView.tvMoney.text = items!![position].profit
         }
 
         if (items!![position].viewType == this.SECTION) {
-            holder.itemView.title.text = items!![position].dateTime
+            holder.itemView.title.text = items!![position].time
         }
     }
 
@@ -56,15 +54,13 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
         return LayoutInflater.from(parent.context).inflate(R.layout.item_income_water_list, parent, false)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return items!![position].viewType!!
-    }
+    override fun getItemViewType(position: Int): Int = items!![position].viewType!!
 
     private fun inflaterItems() {
         items?.clear()
         groupBills?.clear()
         for (bill in list) {//遍历bills将集合中的所有数据以月份进行分类
-            val groupName = sdf?.format(sdf?.parse(bill.dateTime))
+            val groupName = sdf?.format(sdf?.parse(bill.time))
             if (groupBills?.containsKey(groupName)!!) {//如果Map已经存在以该记录的日期为分组名的分组，则将该条记录插入到该分组中
                 groupBills?.get(groupName)?.add(bill)
             } else {//如果不存在，以该记录的日期作为分组名称创建分组，并将该记录插入到创建的分组中
@@ -80,17 +76,17 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
         while (iterator?.hasNext()!!) {//将分组后的数据添加到数据源的集合中
             val entry = iterator.next()
             val item = ProfitModel()
-            item.dateTime = entry.key
+            item.time = entry.key
             item.viewType = SECTION
             items?.add(item)//将分组添加到集合中
             for (bill in entry.value) {//将组中的数据添加到集合中
                 val item = ProfitModel()
-                item.dateTime = bill.dateTime
+                item.time = bill.time
                 item.viewType = ITEM
                 item.detailDesc = bill.detailDesc
-                item.detailId = bill.detailId
-                item.money = bill.money
-                item.runningNum = bill.runningNum
+                item.id = bill.id
+                item.profit = bill.profit
+                item.flowno = bill.flowno
                 items?.add(item)
             }
         }
@@ -104,9 +100,8 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
         notifyDataSetChanged()
     }
 
-    fun getItemData(position: Int): String {
-        return sdf?.format(sdf?.parse(items?.get(position)?.dateTime)) ?: ""
-    }
+    fun getItemData(position: Int): String =
+            sdf?.format(sdf?.parse(items?.get(position)?.time)) ?: ""
 
     fun clear() {
         items?.clear()
@@ -114,7 +109,5 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
         list.clear()
     }
 
-    fun getLastId(): String {
-        return items!![items?.size!! - 1]?.detailId ?: ""
-    }
+    fun getLastId(): String = items!![items?.size!! - 1].id ?: ""
 }

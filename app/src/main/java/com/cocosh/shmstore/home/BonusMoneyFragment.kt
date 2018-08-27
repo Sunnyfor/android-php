@@ -57,18 +57,18 @@ class BonusMoneyFragment : BaseFragment() {
     private val positionCount = 8
     fun loadData(money: Float) {
         getLayoutView().tv_money.text = StringUtils.insertComma(money)
-//        if (money / 10000 > 10000) {
+//        if (profit / 10000 > 10000) {
 //            getLayoutView().tv_unit1.text = "亿"
 //            getLayoutView().tv_unit2.text = "万"
 //
-//            money.toString().let {
+//            profit.toString().let {
 //                setValue(it, true)
 //            }
 //        } else {
 //            getLayoutView().tv_unit1.text = "万"
 //            getLayoutView().tv_unit2.text = "元"
 //
-//            money.toString().let {
+//            profit.toString().let {
 //                setValue(it, false)
 //            }
 //        }

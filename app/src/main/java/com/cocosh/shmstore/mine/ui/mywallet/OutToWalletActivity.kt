@@ -64,7 +64,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
         } else {
             titleManager.defaultTitle("转出至钱包")
         }
-        money = intent.getStringExtra("money") ?: "0"
+        money = intent.getStringExtra("profit") ?: "0"
         showHint.text = "可转出" + money + "元至钱包"
         tvAllOut.setOnClickListener(this)
         btnCharge.setOnClickListener(this)
@@ -182,7 +182,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
 
     companion object {
         fun start(mContext: Context, type: String, money: String) {
-            mContext.startActivity(Intent(mContext, OutToWalletActivity::class.java).putExtra("TYEP_OUTTOWALLET", type).putExtra("money", money))
+            mContext.startActivity(Intent(mContext, OutToWalletActivity::class.java).putExtra("TYEP_OUTTOWALLET", type).putExtra("profit", money))
         }
     }
 }
