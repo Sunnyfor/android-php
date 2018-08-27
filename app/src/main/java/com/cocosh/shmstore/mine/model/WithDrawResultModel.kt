@@ -4,7 +4,7 @@ package com.cocosh.shmstore.mine.model
  * Created by lmg on 2018/5/22.
 
 amount (number, optional): 提现金额（单位人民币元） ,
-bankName (string, optional): 银行名称 ,
+name (string, optional): 银行名称 ,
 bankType (string, optional): 卡类型 储蓄卡，信用卡 ,
 cardNumber (string, optional): 银行卡号 ,
 charge (number, optional): 手续费（单位人民币元） ,

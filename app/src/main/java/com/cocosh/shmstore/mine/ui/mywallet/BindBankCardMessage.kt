@@ -33,9 +33,12 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
     var isSet = false
     var idx: String? = null
     var map: HashMap<String, String>? = null
+    private var smsKey = ""
+
+
     override fun setLayout(): Int = R.layout.activity_message_check
-    override fun addBank(result: BaseModel<AddBankModel>) {
-        if (result.success && result.code == 200) {
+
+    override fun addBank(result: BaseBean<String>) {
             ToastUtil.showIcon(this@BindBankCardMessage.resources.getString(R.string.iconComplet), "绑定成功")
             if (SmApplication.getApp().activityName != null) {
                 startActivity(Intent(this, SmApplication.getApp().activityName))
@@ -44,25 +47,24 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
             }
             BankCardMangerActivity.start(this@BindBankCardMessage)
             finish()
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun authCode(result: BaseBean<String>) {
+
     }
 
     override fun sendMessageData(result: BaseBean<SMS>) {
         //发送验证码
 //            hideReTryLayout()
-            time?.start()
+        smsKey = result.message?.smskey ?: ""
+        time?.start()
     }
 
     override fun initView() {
         titleManager.defaultTitle("手机验证")
         map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.ADDBANK_KEY_MAP, false)
         mPresenter.requestSendMessageData(map?.get("cardUserPhone")!!, SMSType.BANK)
-        desc.text = "绑定银行卡需要短信确认，验证码已发送至手机:\n" + map?.get("cardUserPhone")!! + "，请按提示操作"
+        desc.text = ("绑定银行卡需要短信确认，验证码已发送至手机:\n" + map?.get("cardUserPhone")!! + "，请按提示操作")
         idx = intent.getStringExtra("idx")
         time = TimeCount(60000, 1000)
         btnMessage.setOnClickListener(this)
@@ -95,7 +97,7 @@ class BindBankCardMessage : BaseActivity(), MineContrat.ISendMessageView, MineCo
             }
             next.id -> {
                 if (isSet) {
-                    mSavePresenter.requestAddBankData(idx ?: "", edtCode.text.toString())
+                    mSavePresenter.requestAddBankData(smsKey, edtCode.text.toString(),idx?:"")
                 }
             }
         }

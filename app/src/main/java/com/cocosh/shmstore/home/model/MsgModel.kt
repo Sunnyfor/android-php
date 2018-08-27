@@ -22,22 +22,16 @@ replyPersonName (string, optional): 回复人名称
 causeWhy (string, optional): 驳回原因 ,
 redPacketStartTime (string, optional): 红包投放开始时间 ,
  */
-data class MsgModel(var associatedId: String?,
-                    var associatedUrl: String?,
-                    var createDate: String?,
-                    var details: String?,
-                    var messageId: String?,
-                    var messageType: String?,
-                    var putForwardAmount: String?,
-                    var putForwardBankName: String?,
-                    var putForwardCreateDate: String?,
-                    var putForwardSuccessDate: String?,
-                    var resourcesUrl: String?,
-                    var title: String?,
-                    //回复
-                    var replyPersonHeadPic: String?,
-                    var replyPersonName: String?,
-                    //红包
-                    var causeWhy: String?,
-                    var redPacketStartTime: String?
-)
+data class MsgModel(var id: Int, //消息ID
+                    var kind: String?,  // 消息具体种类: '0'-系统活动(默认),'1'-资金变动提醒,... 业务待定
+                    var body: Body?, // 消息正文
+                    var ext: String?, //扩展参数
+                    var read: String?, // 是否已读
+                    var time: String? //发帖时间
+
+) {
+    data class Body(
+            var title: String
+    )
+
+}

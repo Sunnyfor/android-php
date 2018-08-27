@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.adapter.RedAccountListAdapter
 import com.cocosh.shmstore.mine.contrat.MineContrat
@@ -31,12 +32,12 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     var mPresenter = RedWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_red_account
     override fun redWalletData(result: BaseModel<MyWalletModel>) {
-        if (result?.success && result.code == 200) {
-            tvMoney.text = result.entity?.redBalance
-//            rule.text = "注：红包金额必须>" + result.entity?.withdrawalMoney + "元时才可以转出!"
-            ruleMoney = result.entity?.redBalance
-            money = result.entity?.withdrawalMoney
-            if (result.entity?.redBalance?.toDouble()!! > result.entity?.withdrawalMoney?.toDouble()!!) {
+        if (result.success && result.code == 200) {
+            tvMoney.text = result.entity?.rp_sum
+//            rule.text = "注：红包金额必须>" + result.entity?.rp_cash_limit + "元时才可以转出!"
+            ruleMoney = result.entity?.rp_sum
+            money = result.entity?.rp_cash_limit
+            if (result.entity?.rp_sum?.toDouble()!! > result.entity?.rp_cash_limit?.toDouble()!!) {
                 btn_withdraw_money.setBackgroundResource(R.drawable.shape_btn_red)
                 isClick = true
                 return
@@ -48,27 +49,23 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
         }
     }
 
-    override fun redWalletWaterData(result: BaseModel<ArrayList<RedWaterModel>>) {
-        if (result.success && result.code == 200) {
-            if (result.entity != null) {
-                if (result.entity!!.size == 0) {
+    override fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>) {
+            if (result.message != null) {
+                if (result.message!!.size == 0) {
                     recyclerView.loadMoreFinish(true, false);
                     return
                 }
-                list.addAll(result.entity!!)
+                list.addAll(result.message!!)
                 recyclerView.adapter.notifyDataSetChanged()
                 recyclerView.loadMoreFinish(false, true)
             }
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun initView() {
         titleManager.defaultTitle("红包账户")
         btn_withdraw_money.setOnClickListener(this)
-        mPresenter.requestRedWalletData(1)
-        mPresenter.requestRedWalletWaterData(1, "", "", count.toString(), "", "")
+//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletWaterData(1, "", "")
 
 
         /**
@@ -76,8 +73,8 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
             recyclerView.postDelayed(Runnable {
-                mPresenter.requestRedWalletWaterData(0, list[list.size - 1]?.idUserAccountRecord
-                        ?: "", "", count.toString(), "", "")
+                mPresenter.requestRedWalletWaterData(0, list[list.size - 1].flowno
+                        ?: "", "")
             }, 300)
         }
 
@@ -105,8 +102,8 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     }
 
     override fun reTryGetData() {
-        mPresenter.requestRedWalletData(1)
-        mPresenter.requestRedWalletWaterData(1, "", "", count.toString(), "", "")
+//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletWaterData(1, "", "")
     }
 
 
@@ -120,7 +117,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
         super.onNewIntent(intent)
         list.clear()
         recyclerView.adapter.notifyDataSetChanged()
-        mPresenter.requestRedWalletData(1)
-        mPresenter.requestRedWalletWaterData(1, "", "", count.toString(), "", "")
+//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletWaterData(1, "", "")
     }
 }

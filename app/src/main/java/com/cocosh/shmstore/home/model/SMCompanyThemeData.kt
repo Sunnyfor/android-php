@@ -6,7 +6,7 @@ package com.cocosh.shmstore.home.model
 themeInfoVOList (Array[论坛主题返回的企业主信息参数], optional): 文章信息和企业主信息 ,
 timeStamp (integer, optional): 当前分页的时间戳
 commentsNumber (integer, optional): 评论数 ,
-createTime (string, optional): 发帖时间 ,
+time (string, optional): 发帖时间 ,
 idCompanyHomeTheme (integer, optional): 文章id ,
 imageUrl (Array[string], optional): 图片url ,
 isEssence (integer, optional): 是否是精华贴(0-不是 1-是) ,

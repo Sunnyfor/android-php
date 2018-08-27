@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.MoneyWaterListAdapter
@@ -29,32 +30,25 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
     private var TYPE_WATERLIST = ""//type_my我的钱包流水"type_enterprise"企业liushui
     private lateinit var pickerViewUtils: PickerViewUtils
     override fun setLayout(): Int = R.layout.activity_money_water
-    override fun entWalletWaterData(result: BaseModel<ArrayList<WalletWaterModel>>) {
-        if (result.success && result.code == 200) {
-            if (result.entity!!.size == 0) {
+
+    override fun entWalletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>) {
+            if (result.message?.size?:0 == 0) {
                 recyclerView.loadMoreFinish(true, false);
                 return
             }
-            list.addAll(result.entity!!)
+            list.addAll(result.message!!)
             recyclerView.adapter.notifyDataSetChanged()
             recyclerView.loadMoreFinish(false, true)
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
-    override fun walletWaterData(result: BaseModel<ArrayList<WalletWaterModel>>) {
-        if (result.success && result.code == 200) {
-            if (result.entity!!.size == 0) {
+    override fun walletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>) {
+            if (result.message!!.size == 0) {
                 recyclerView.loadMoreFinish(true, false);
                 return
             }
-            list.addAll(result.entity!!)
+            list.addAll(result.message!!)
             recyclerView.adapter.notifyDataSetChanged()
             recyclerView.loadMoreFinish(false, true);
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun initView() {
@@ -71,10 +65,10 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
 
         if (TYPE_WATERLIST == Constant.TYPE_ENTERPRISE) {
             title = "企业余额明细"
-            mPresenter.requestEntWalletWaterData(1, "", "", "10")
+            mPresenter.requestEntWalletWaterData(1, "", "", "20")
         } else {
             title = "财富额明细"
-            mPresenter.requestWalletWaterData(1, "", "", "10")
+            mPresenter.requestWalletWaterData(1, "", "", "20")
         }
 
         titleManager.rightText(title, resources.getString(R.string.iconCalendar), View.OnClickListener {
@@ -100,10 +94,10 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
             recyclerView.postDelayed(Runnable {
                 if (TYPE_WATERLIST == Constant.TYPE_ENTERPRISE) {
-                    mPresenter.requestEntWalletWaterData(0, list[list.size - 1]?.idUserAccountRecord
+                    mPresenter.requestEntWalletWaterData(0, list[list.size - 1].flowno
                             ?: "", selectBegTime, "10")
                 } else {
-                    mPresenter.requestWalletWaterData(0, list[list.size - 1]?.idUserAccountRecord
+                    mPresenter.requestWalletWaterData(0, list[list.size - 1].flowno
                             ?: "", selectBegTime, "10")
                 }
             }, 300)
@@ -115,7 +109,7 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
         recyclerView.setLoadMoreView(loadMoreView) // 设置LoadMoreView更新监听。
         recyclerView.setLoadMoreListener(mLoadMoreListener) // 加载更多的监听。
 
-        recyclerView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = MoneyWaterListAdapter(list)
     }
 

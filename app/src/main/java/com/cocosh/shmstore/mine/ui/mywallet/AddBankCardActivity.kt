@@ -170,7 +170,7 @@ class AddBankCardActivity : BaseActivity() {
      * 打开扫描相机
      */
     private fun startCamera() {
-        var intent = Intent(this@AddBankCardActivity, CameraActivity::class.java)
+        val intent = Intent(this@AddBankCardActivity, CameraActivity::class.java)
         bankCardPath = FileUtil.getSaveFile(application, System.currentTimeMillis().toString()).absolutePath
         intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, bankCardPath)
         intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_BANK_CARD)

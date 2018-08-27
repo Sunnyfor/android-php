@@ -3,16 +3,14 @@ package com.cocosh.shmstore.home
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.MessageRedAdapter
 import com.cocosh.shmstore.home.model.MsgModel
-import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_message_red.view.*
+import kotlinx.android.synthetic.main.fragment_message_system.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -22,6 +20,8 @@ import kotlinx.coroutines.experimental.launch
  */
 class MessageRedFragment : BaseFragment() {
     val list = arrayListOf<MsgModel>()
+    var index = 1
+
     override fun setLayout(): Int = R.layout.fragment_message_red
 
     override fun initView() {
@@ -30,12 +30,14 @@ class MessageRedFragment : BaseFragment() {
 
         getLayoutView().recyclerView.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
+                index = page
                 getMessage(0, true, "")
             }
 
             override fun onLoadMore(page: Int) {
                 if (list.size > 0) {
-                    getMessage(0, false, list[list.size - 1].messageId)
+                    index = list.last().id
+                    getMessage(0, false, list[list.size - 1].id.toString())
                 }
             }
         }
@@ -58,32 +60,34 @@ class MessageRedFragment : BaseFragment() {
      *   获取红包消息
      */
     fun getMessage(flag: Int, boolean: Boolean, messageId: String?) {
-        getBaseActivity().isShowLoading = true
         val map = HashMap<String, String>()
-        map["comment_id"] = messageId ?: ""
-        map["showCount"] = getLayoutView().recyclerView.pageCount.toString()
-        ApiManager.get(flag, getBaseActivity(), map, Constant.MSG_RED, object : ApiManager.OnResult<BaseModel<ArrayList<MsgModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<MsgModel>>) {
+        map["channel"] = "s"
+        if (index != 1){
+            map["id"] = index.toString()
+        }
+        map["num"] = getLayoutView().recyclerView.pageCount.toString()
+
+        ApiManager2.post(0, getBaseActivity(), map, Constant.LETTER_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<MsgModel>>>() {
+            override fun onFailed(code: String, message: String) {
                 getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-                    if (boolean) {
-                        list.clear()
-                        getLayoutView().recyclerView.update(data.entity)
-                    } else {
-                        getLayoutView().recyclerView.loadMore(data.entity)
-                    }
-                    list.addAll(data.entity ?: arrayListOf())
-                    getLayoutView().recyclerView.recyclerView.adapter.notifyDataSetChanged()
+                getLayoutView().recyclerView.isRefreshing = false
+                getLayoutView().recyclerView.recyclerView.loadMoreError(code.toInt(),message)
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<MsgModel>>) {
+                getBaseActivity().isShowLoading = false
+                if (index == 1) {
+                    list.clear()
+                    getLayoutView().recyclerView.update(data.message)
                 } else {
-                    ToastUtil.show(data.message)
+                    getLayoutView().recyclerView.loadMore(data.message)
                 }
+                list.addAll(data.message ?: arrayListOf())
+                getLayoutView().recyclerView.recyclerView.adapter.notifyDataSetChanged()
             }
 
-            override fun onFailed(e: Throwable) {
-                getBaseActivity().isShowLoading = false
-            }
 
-            override fun onCatch(data: BaseModel<ArrayList<MsgModel>>) {
+            override fun onCatch(data: BaseBean<ArrayList<MsgModel>>) {
 
             }
 

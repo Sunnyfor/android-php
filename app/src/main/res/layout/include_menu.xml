@@ -100,33 +100,33 @@
         </RelativeLayout>
 
 
-        <!--<RelativeLayout-->
-            <!--andrcomment_idd:idcomment_id@+id/rlShoumei"-->
-            <!--android:layout_width="@dimen/w170"-->
-            <!--android:layout_height="@dimen/h170"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:layout_marginLeft="@dimen/w50"-->
-            <!--android:layout_marginRight="@dimen/w50"-->
-            <!--android:visibility="visible">-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:contentDescription="@null"-->
-                <!--android:scaleType="fitXY"-->
-                <!--android:src="@drawable/bg_shoumei_home" />-->
-
-            <!--<com.cocosh.shmstore.widget.textview.ICONTextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:text="@string/iconShoumei"-->
-                <!--android:textColor="@drawable/selector_text_orange_black"-->
-                <!--android:textSize="@dimen/w102" />-->
-        <!--</RelativeLayout>-->
-
         <RelativeLayout
+            android:id="@+id/rlShoumei"
+            android:layout_width="@dimen/w170"
+            android:layout_height="@dimen/h170"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginRight="@dimen/w50"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_shoumei_home" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/iconShoumei"
+                android:textColor="@drawable/selector_text_orange_black"
+                android:textSize="@dimen/w102" />
+        </RelativeLayout>
+
+      <!--  <RelativeLayout
             android:id="@+id/rlShoumei"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                 android:text="首媒之家"
                 android:textColor="@drawable/selector_text_orange_black"
                 android:textSize="@dimen/w30" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
 
 
@@ -163,7 +163,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.cocosh.shmstore.widget.textview.ICONTextView
                 android:id="@+id/iv_message"

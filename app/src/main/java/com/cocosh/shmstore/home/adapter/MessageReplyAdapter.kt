@@ -19,15 +19,15 @@ import kotlinx.android.synthetic.main.item_message_reply.view.*
 class MessageReplyAdapter(var mContext: Context, list: ArrayList<MsgModel>) : BaseRecycleAdapter<MsgModel>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvTime.text = getData(position).createDate
-        GlideUtils.loadHead(mContext, getData(position).replyPersonHeadPic, holder.itemView.head)
-        if (getData(position).messageType == MessageType.REPLY_MESSAGE.type) {
-            holder.itemView.tvName.text = getData(position).replyPersonName + " 回复 你"
-            holder.itemView.tvDesc.text = getData(position).details
-        } else {
-            holder.itemView.tvName.text = getData(position).replyPersonName
-            holder.itemView.tvDesc.text = "评论内容：" + getData(position).details
-        }
+        holder.itemView.tvTime.text = getData(position).time
+//        GlideUtils.loadHead(mContext, getData(position).replyPersonHeadPic, holder.itemView.head)
+//        if (getData(position).messageType == MessageType.REPLY_MESSAGE.type) {
+//            holder.itemView.tvName.text = getData(position).replyPersonName + " 回复 你"
+//            holder.itemView.tvDesc.text = getData(position).details
+//        } else {
+//            holder.itemView.tvName.text = getData(position).replyPersonName
+//            holder.itemView.tvDesc.text = "评论内容：" + getData(position).details
+//        }
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(parent.context).inflate(R.layout.item_message_reply, parent, false)

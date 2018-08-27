@@ -231,19 +231,30 @@ object ApiManager2 {
 
 
     @Suppress("UNCHECKED_CAST")
-    private fun <T> parserJson(flag: Int, baseActivity: BaseActivity, json: String, onResult: OnResult<T>) {
+    private fun <T> parserJson(flag: Int, baseActivity: BaseActivity,json: String, onResult: OnResult<T>) {
         if (onResult.tag == STRING) {
             onResult.onSuccess(json as T)
         } else {
+
+            var body = json
+
             if (onResult.typeToken.toString().contains("com.cocosh.shmstore.base.BaseBean")) {
                 try {
-                    val jsonObj = JSONObject(json)
+                    if (body.contains("<div")){
+                        body = body.split("</div>")[1]
+                    }
+                    val jsonObj = JSONObject(body)
                     val status = jsonObj.opt("status").toString()
+                    val message =  jsonObj.opt("message").toString()
                     if (status == "200") {
-                        val baseModel = gson.fromJson<T>(json, onResult.typeToken)
+                        if (message.contains("暂无数据")){
+                            onResult.onFailed(status, message)
+                            return
+                        }
+
+                        val baseModel = gson.fromJson<T>(body, onResult.typeToken)
                         onResult.onSuccess(baseModel)
                     } else {
-                        val message = jsonObj.opt("message").toString()
                         onResult.onFailed(status, message)
                         ToastUtil.show(message)
                     }
@@ -252,7 +263,7 @@ object ApiManager2 {
                     onResult.onFailed("000000", "数据解析错误")
                 }
             } else {
-                onResult.onSuccess(gson.fromJson(json, onResult.typeToken))
+                onResult.onSuccess(gson.fromJson(body, onResult.typeToken))
             }
         }
     }

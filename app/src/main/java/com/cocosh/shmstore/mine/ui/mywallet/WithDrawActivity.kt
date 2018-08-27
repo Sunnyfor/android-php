@@ -9,6 +9,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
@@ -39,58 +40,46 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     var minMoney: String? = "0"
     override fun setLayout(): Int = R.layout.activity_withdraw
 
-    override fun bankListDraw(result: BaseModel<BankDrawListModel>) {
-        if (result.success && result.code == 200) {
+    override fun bankListDraw(result: BaseBean<BankDrawListModel>) {
             hideReTryLayout()
             listDatas.clear()
-            if (result.entity != null && result.entity?.list?.size ?: 0 > 0) {
-                listDatas.addAll(result.entity?.list!!)
+            if (result.message != null && result.message?.list?.size ?: 0 > 0) {
+                listDatas.addAll(result.message?.list!!)
                 ivPic.visibility = View.VISIBLE
-                GlideUtils.loadDefault(this, result.entity?.list!![0].bank_log, ivPic)
-                tvName.text = result.entity?.list!![0].bank_name
-                text_treaty.text = result.entity?.ruleType?.des
-                checkBankId = result.entity?.list!![0].bank_kind ?: ""
-                maxMoney = result.entity?.ruleType?.maxMoney ?: "0"
-                minMoney = result.entity?.ruleType?.minMoney ?: "0"
+                GlideUtils.loadDefault(this, result.message?.list!![0].bank_log, ivPic)
+                tvName.text = result.message?.list!![0].bank_name
+                text_treaty.text = result.message?.ruleType?.des
+                checkBankId = result.message?.list!![0].bank_kind ?: ""
+                maxMoney = result.message?.ruleType?.maxMoney ?: "0"
+                minMoney = result.message?.ruleType?.minMoney ?: "0"
             } else {
                 ivPic.visibility = View.GONE
                 tvName.text = "请绑定银行卡"
             }
-        } else {
-            showReTryLayout()
-            ToastUtil.show(result.message)
-            ivPic.visibility = View.GONE
-            tvName.text = "请绑定银行卡"
-        }
     }
 
-    override fun myWalletDraw(result: BaseModel<WithDrawResultModel>) {
+    override fun myWalletDraw(result: BaseBean<WithDrawResultModel>) {
         mDialog?.getResult(result)
     }
 
-    override fun entWalletDrawData(result: BaseModel<WithDrawResultModel>) {
+    override fun entWalletDrawData(result: BaseBean<WithDrawResultModel>) {
         mDialog?.getResult(result)
     }
 
-    override fun runningNum(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            runningNum = result.entity
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun runningNum(result: BaseBean<String>) {
+            runningNum = result.message
     }
 
 
-    override fun corporateAccountData(result: BaseModel<CorporateAccountModel>) =
-            if (result.success && result.code == 200) {
-                edtBankAccount.setText(result.entity?.bankNumber)
-                etName.text = result.entity?.accountName
-                edtBankName.setText(result.entity?.openingBankName)
-                text_treaty.text = result.entity?.ruleType?.des
-                maxMoney = result.entity?.ruleType?.maxMoney ?: "0"
-                minMoney = result.entity?.ruleType?.minMoney ?: "0"
-            } else {
-                ToastUtil.show(result.message)
+    override fun corporateAccountData(result: BaseBean<CorporateAccountModel>){
+
+                edtBankAccount.setText(result.message?.bankNumber)
+                etName.text = result.message?.accountName
+                edtBankName.setText(result.message?.openingBankName)
+                text_treaty.text = result.message?.ruleType?.des
+                maxMoney = result.message?.ruleType?.maxMoney ?: "0"
+                minMoney = result.message?.ruleType?.minMoney ?: "0"
+
             }
 
 

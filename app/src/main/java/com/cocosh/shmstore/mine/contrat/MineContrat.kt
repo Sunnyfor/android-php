@@ -4,6 +4,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.mine.data.MineLoader
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.sms.model.SMS
 import com.cocosh.shmstore.sms.type.SMSType
@@ -16,8 +17,8 @@ class MineContrat {
      * 我的钱包
      */
     interface IMyWalletView : IBaseView {
-        fun myWalletData(result: BaseModel<MyWalletModel>)
-        fun drawReslut(result: BaseModel<WithDrawResultModel>)
+        fun myWalletData(result: BaseBean<MyWalletModel>)
+        fun drawReslut(result: BaseBean<WithDrawResultModel>)
     }
 
     interface IMyWalletPresenter : IBasePresenter {
@@ -29,7 +30,7 @@ class MineContrat {
      * 银行卡信息列表
      */
     interface IBankListView : IBaseView {
-        fun deleteBank(result: BaseModel<String>)
+        fun deleteBank(result: BaseBean<String>)
         fun bankListData(result: BaseBean<ArrayList<BankModel>>)
         fun wouldDeleteBankData(result: BaseModel<Boolean>)
     }
@@ -44,7 +45,7 @@ class MineContrat {
      * 企业钱包信息
      */
     interface IEntWalletView : IBaseView {
-        fun entWalletData(result: BaseModel<EntWalletModel>)
+        fun entWalletData(result: BaseBean<EntWalletModel>)
     }
 
     interface IEntWalletPresenter : IBasePresenter {
@@ -55,8 +56,8 @@ class MineContrat {
      * 钱包流水
      */
     interface IEntWalletWaterView : IBaseView {
-        fun entWalletWaterData(result: BaseModel<ArrayList<WalletWaterModel>>)
-        fun walletWaterData(result: BaseModel<ArrayList<WalletWaterModel>>)
+        fun entWalletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>)
+        fun walletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>)
     }
 
     interface IEntWalletWaterPresenter : IBasePresenter {
@@ -106,24 +107,24 @@ class MineContrat {
      * 银行卡类型列表
      */
     interface IBankTypeView : IBaseView {
-        fun bankType(result: BaseModel<ArrayList<BankTypeModel>>)
-        fun bankInfoCheck(result: BaseModel<String>)
+        fun bankType(result: BaseBean<ArrayList<BankTypeModel>>)
+        fun bankInfoCheck(result: BaseBean<String>)
     }
 
     interface IBankTypePresenter : IBasePresenter {
         fun requestBankTypeData(flag: Int)
-        fun requestBankInfoCheck(flag: Int, cardNumber: String, cardUserName: String, cardUserPhone: String)
+        fun requestBankInfoCheck(flag: Int, bank_kind:String,cardNumber: String, cardUserName: String, cardUserPhone: String)
     }
 
     /**
      * 添加银行卡
      */
     interface IAddBankView : IBaseView {
-        fun addBank(result: BaseModel<AddBankModel>)
+        fun addBank(result:  BaseBean<String>)
     }
 
     interface IAddBankPresenter : IBasePresenter {
-        fun requestAddBankData(idUserBankInfo: String, messageCode: String)
+        fun requestAddBankData(smsKey: String, smscode: String,jobid:String)
     }
 
 
@@ -131,11 +132,11 @@ class MineContrat {
      * 个人钱包提现
      */
     interface IMyWalletDrawView : IBaseView {
-        fun myWalletDraw(result: BaseModel<WithDrawResultModel>)
-        fun bankListDraw(result: BaseModel<BankDrawListModel>)
-        fun entWalletDrawData(result: BaseModel<WithDrawResultModel>)
-        fun corporateAccountData(result: BaseModel<CorporateAccountModel>)
-        fun runningNum(result: BaseModel<String>)
+        fun myWalletDraw(result: BaseBean<WithDrawResultModel>)
+        fun bankListDraw(result: BaseBean<BankDrawListModel>)
+        fun entWalletDrawData(result: BaseBean<WithDrawResultModel>)
+        fun corporateAccountData(result: BaseBean<CorporateAccountModel>)
+        fun runningNum(result: BaseBean<String>)
     }
 
     interface IMyWalletDrawPresenter : IBasePresenter {
@@ -206,12 +207,12 @@ class MineContrat {
      */
     interface IRedWalletView : IBaseView {
         fun redWalletData(result: BaseModel<MyWalletModel>)
-        fun redWalletWaterData(result: BaseModel<ArrayList<RedWaterModel>>)
+        fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>)
     }
 
     interface IRedWalletPresenter : IBasePresenter {
         fun requestRedWalletData(flag: Int)
-        fun requestRedWalletWaterData(flag: Int, idUserAccountRecord: String, begTime: String, showCount: String, sort: String, sortType: String)
+        fun requestRedWalletWaterData(flag: Int, idUserAccountRecord: String, begTime: String)
     }
 
     /**
@@ -229,9 +230,9 @@ class MineContrat {
      * 红包账户转入个人账户
      */
     interface IRedToWalletView : IBaseView {
-        fun redToWalletData(result: BaseModel<RedToWalletModel>)
-        fun runningNumData(result: BaseModel<String>)
-        fun outToData(result: BaseModel<RedToWalletModel>)
+        fun redToWalletData(result: BaseBean<RedToWalletModel>)
+        fun runningNumData(result: BaseBean<String>)
+        fun outToData(result: BaseBean<RedToWalletModel>)
     }
 
     interface IRedToWalletPresenter : IBasePresenter {

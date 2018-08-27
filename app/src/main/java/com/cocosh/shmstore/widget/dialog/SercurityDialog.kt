@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
@@ -144,7 +145,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
     override fun onClick(view: View) {
         if (view.id == R.id.forget_psd) {
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext,SMSType.FORGOT_PAYPASS)
+            CheckPayPwdMessage.start(mContext, SMSType.FORGOT_PAYPASS)
             this@SercurityDialog.dismiss()
             return
         }
@@ -254,7 +255,7 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
         dialog.OnClickListener = View.OnClickListener {
             //忘记密码
             SmApplication.getApp().activityName = mContext::class.java as Class<BaseActivity>?
-            CheckPayPwdMessage.start(mContext,SMSType.FORGOT_PAYPASS)
+            CheckPayPwdMessage.start(mContext, SMSType.FORGOT_PAYPASS)
             this@SercurityDialog.dismiss()
         }
         dialog.show()
@@ -264,22 +265,9 @@ class SercurityDialog<T> : Dialog, View.OnClickListener {
     /**
      * 设置返回数据
      */
-    fun getResult(data: BaseModel<T>) {
+    fun getResult(data: BaseBean<T>) {
         hideLoading()
-        if (data.success && data.code == 200) {
-            mInputCompleteListener?.result(true, data.entity)
-        } else if (data.code == 4015) {
-            showErrorDialog(data.message!!, data.entity)
-            clearNum()
-//            mInputCompleteListener?.result()
-        } else if (data.code == 4018) {
-            showAgainDialog(data.message!!)
-            clearNum()
-//            mInputCompleteListener?.result()
-        } else {
-            ToastUtil.show(data.message)
-            mInputCompleteListener?.result(false, data.entity)
-        }
+        mInputCompleteListener?.result(true, data.message)
         dismiss()
     }
 

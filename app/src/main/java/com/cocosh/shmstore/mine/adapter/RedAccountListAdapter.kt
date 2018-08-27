@@ -21,16 +21,16 @@ class RedAccountListAdapter(list: ArrayList<RedWaterModel>) : BaseRecycleAdapter
         } else {
             holder.itemView.setBackgroundResource(R.color.white)
         }
-        holder.itemView.tvType.text = getData(position).recordDesc
-        holder.itemView.tvNum.text ="流水号："+ getData(position).runningNumber
-        holder.itemView.tvTime.text = getData(position).createTime
+        holder.itemView.tvType.text = getData(position).memo
+        holder.itemView.tvNum.text = ("流水号："+ getData(position).flowno)
+        holder.itemView.tvTime.text = getData(position).time
 
-        if (getData(position).resultType == "1" || getData(position).resultType == "4") {
-            holder.itemView.tvMoney.text = "+" + getData(position).accountMoney
+        if (getData(position).fine_type == "1") {
+            holder.itemView.tvMoney.text = getData(position).amount
             holder.itemView.civPic.setBackgroundResource(R.drawable.inwater)
             return
         } else {
-            holder.itemView.tvMoney.text = getData(position).accountMoney
+            holder.itemView.tvMoney.text = getData(position).amount
             holder.itemView.civPic.setBackgroundResource(R.drawable.outwater)
         }
     }

@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
@@ -57,31 +58,31 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         }
     }
 
-    override fun payConfirmResult(result: BaseModel<PayResultModel>) {
-        if (result.code == 200 && result.success) {
-            if (result.entity?.status == 11) {
-                //处理中
-//                ReChargeResult.start(this, 1)
-//                ToastUtil.show("处理中")
-                return
-            }
-            if (result.entity?.status == 12 || result.entity?.status == 14) {
-                //失败
-                ReChargeResult.start(this, 2)
-                return
-            }
-            if (result.entity?.status == 13) {
-                //成功
-                ReChargeResult.start(this, 3, result.entity?.money ?: "", result.entity?.createTime
-                        ?: "", result.entity?.catogry ?: "", result.entity?.runningNumber ?: "")
-                return
-            }
-        } else {
-//            ToastUtil.show(result.message)
-        }
+    override fun payConfirmResult(result: BaseBean<PayResultModel>) {
+//        if (result.code == 200 && result.success) {
+//            if (result.entity?.status == 11) {
+//                //处理中
+////                ReChargeResult.start(this, 1)
+////                ToastUtil.show("处理中")
+//                return
+//            }
+//            if (result.entity?.status == 12 || result.entity?.status == 14) {
+//                //失败
+//                ReChargeResult.start(this, 2)
+//                return
+//            }
+//            if (result.entity?.status == 13) {
+//                //成功
+//                ReChargeResult.start(this, 3, result.entity?.money ?: "", result.entity?.time
+//                        ?: "", result.entity?.catogry ?: "", result.entity?.runningNumber ?: "")
+//                return
+//            }
+//        } else {
+////            ToastUtil.show(result.message)
+//        }
     }
 
-    override fun localPay(result: BaseModel<String>) {
+    override fun localPay(result: BaseBean<String>) {
 
     }
 

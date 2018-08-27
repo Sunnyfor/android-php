@@ -22,16 +22,16 @@ class MoneyWaterListAdapter(list: ArrayList<WalletWaterModel>) : BaseRecycleAdap
         }
 
         getData(position).run {
-            holder.itemView.tvType.text = recordDesc
-            holder.itemView.tvNum.text = "流水号：$runningNumber"
-            holder.itemView.tvTime.text = createTime
+            holder.itemView.tvType.text = memo
+            holder.itemView.tvNum.text = ("流水号：$flowno")
+            holder.itemView.tvTime.text = time
 
 
-            if (resultType == "1" || resultType == "4") {
-                holder.itemView.tvMoney.text = "+$accountMoney"
+            if (fine_type == "1") {
+                holder.itemView.tvMoney.text = ("+$amount")
                 holder.itemView.civPic.setBackgroundResource(R.drawable.inwater)
             } else {
-                holder.itemView.tvMoney.text = accountMoney
+                holder.itemView.tvMoney.text = amount
                 holder.itemView.civPic.setBackgroundResource(R.drawable.outwater)
             }
         }

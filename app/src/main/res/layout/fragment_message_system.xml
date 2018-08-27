@@ -5,6 +5,5 @@
     <com.cocosh.shmstore.widget.SMSwipeRefreshLayout
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tab"></com.cocosh.shmstore.widget.SMSwipeRefreshLayout>
+        android:layout_height="match_parent"/>
 </RelativeLayout>

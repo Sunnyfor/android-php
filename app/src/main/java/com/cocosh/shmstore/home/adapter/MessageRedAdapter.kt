@@ -17,13 +17,13 @@ import kotlinx.android.synthetic.main.item_message_red.view.*
 class MessageRedAdapter(list: ArrayList<MsgModel>) : BaseRecycleAdapter<MsgModel>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvTime.text = getData(position).createDate
-        holder.itemView.tvStatus.text = getData(position).title
-        holder.itemView.tvTitle.text = getData(position).details
-        when (list[position].messageType) {
+        holder.itemView.tvTime.text = getData(position).time
+//        holder.itemView.tvStatus.text = getData(position).title
+        holder.itemView.tvTitle.text = getData(position).body?.title
+        when (list[position].kind) {
             MessageType.RED_PACKET_IN_THE_LAUNCH_MESSAGE.type -> {
                 holder.itemView.tvDesc.visibility = View.VISIBLE
-                holder.itemView.tvDesc.text = "投放时间：" + getData(position).redPacketStartTime
+//                holder.itemView.tvDesc.text = "投放时间：" + getData(position).redPacketStartTime
             }
             MessageType.RED_PACKET_PUT_TO_THE_END_MESSAGE.type -> {
                 holder.itemView.tvDesc.visibility = View.INVISIBLE
@@ -39,7 +39,7 @@ class MessageRedAdapter(list: ArrayList<MsgModel>) : BaseRecycleAdapter<MsgModel
             }
             MessageType.RED_PACKET_REJECT_MESSAGE.type -> {
                 holder.itemView.tvDesc.visibility = View.VISIBLE
-                holder.itemView.tvDesc.text = "驳回原因：" + getData(position).causeWhy
+//                holder.itemView.tvDesc.text = "驳回原因：" + getData(position).causeWhy
             }
         }
 

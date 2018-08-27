@@ -27,7 +27,7 @@ class CheckBankCardInfoActivity : BaseActivity() {
         titleManager.defaultTitle("核对银行卡信息")
         val bankNumber = intent.getStringExtra("bankNumber")
         val bankType = intent.getStringExtra("bankType")
-        val bankName = intent.getStringExtra("bankName")
+        val bankName = intent.getStringExtra("name")
         edtBankType.setText(bankName)
         edtAccount.setText(bankNumber)
         edtBankType.setOnClickListener(this)

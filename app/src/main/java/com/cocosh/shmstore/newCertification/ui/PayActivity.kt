@@ -8,6 +8,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.SendBonusResultActivity
 import com.cocosh.shmstore.http.ApiManager
@@ -67,37 +68,37 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         }
     }
 
-    override fun payConfirmResult(result: BaseModel<PayResultModel>) {
-        if (result.code == 200 && result.success) {
-            if (result.entity?.status == 11) {
-                //处理中
-
-                return
-            }
-            if (result.entity?.status == 12 || result.entity?.status == 14) {
-                //失败
-//                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-//                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-//                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
-//                }
-                return
-            }
-            if (result.entity?.status == 13) {
-                //成功
-//                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-//                    setResult(IntentCode.IS_INPUT)
-//                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-//                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
-//                    finish()
-//                }
-                return
-            }
-        } else {
-//            ToastUtil.show(result.message)
-        }
+    override fun payConfirmResult(result: BaseBean<PayResultModel>) {
+//        if (result.code == 200 && result.success) {
+//            if (result.entity?.status == 11) {
+//                //处理中
+//
+//                return
+//            }
+//            if (result.entity?.status == 12 || result.entity?.status == 14) {
+//                //失败
+////                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+////                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+////                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+////                }
+//                return
+//            }
+//            if (result.entity?.status == 13) {
+//                //成功
+////                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
+////                    setResult(IntentCode.IS_INPUT)
+////                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+////                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+////                    finish()
+////                }
+//                return
+//            }
+//        } else {
+////            ToastUtil.show(result.message)
+//        }
     }
 
-    override fun localPay(result: BaseModel<String>) {
+    override fun localPay(result: BaseBean<String>) {
         mDialog?.getResult(result)
     }
 

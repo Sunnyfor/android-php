@@ -117,9 +117,20 @@ object Constant {
     const val BANKLIST = "$VERSION/banklist" //银行列表
     const val BANKCARD = "$VERSION/bankcard" //银行卡列表
     const val BANKCARD_REMOVE = "$VERSION/bankcard/remove" //删除银行卡
-    const val BANKCARD_CARD_VIERIFY = "$VERSION/bankcard/card_vierify" //银行卡验证
+    const val BANKCARD_CARD_VIERIFY = "$VERSION/bankcard/verify" //银行卡验证
     const val BANKCARD_BIND = "$VERSION/bankcard/bind" //绑定银行卡
     const val BANKCARD_DETAIL ="$VERSION/bankcard/detail" //银行卡详情
+
+    const val EWT = "$VERSION/ewt" //钱袋
+    const val BALANCE_TRANS_PERSON = "$VERSION/balance/trans/person" //余额明细-个人
+    const val BALANCE_TRANS_SVC = "$VERSION/balance/trans/svc" //服务商钱包明细
+    const val RP_TRANS ="$VERSION/rp/trans"
+
+
+    /**
+     * 消息列表
+     */
+    const val LETTER_LIST = "$VERSION/letter/list" //消息列表
 
     /**
      * 首页

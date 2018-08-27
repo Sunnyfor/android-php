@@ -1,6 +1,7 @@
 package com.cocosh.shmstore.newCertification
 
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
@@ -39,8 +40,8 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
     fun getConfirmResult(runningNumber: String) {
         val map = HashMap<String, String>()
         map["runningNumber"] = runningNumber
-        ApiManager.get(0, activity, map, Constant.PAY_RESULT, object : ApiManager.OnResult<BaseModel<PayResultModel>>() {
-            override fun onSuccess(data: BaseModel<PayResultModel>) {
+        ApiManager.get(0, activity, map, Constant.PAY_RESULT, object : ApiManager.OnResult<BaseBean<PayResultModel>>() {
+            override fun onSuccess(data: BaseBean<PayResultModel>) {
                 view.payConfirmResult(data)
             }
 
@@ -48,7 +49,7 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
                 LogUtil.d(e.message ?: "")
             }
 
-            override fun onCatch(data: BaseModel<PayResultModel>) {
+            override fun onCatch(data: BaseBean<PayResultModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -64,8 +65,8 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
         //订单编号 非必传字段
         map["runningNumber"] = runningNumber
         map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.LOCAL_PAY, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        ApiManager.post(activity, map, Constant.LOCAL_PAY, object : ApiManager.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
                 view.localPay(data)
             }
 
@@ -73,7 +74,7 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
                 LogUtil.d(e.message ?: "")
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())
             }
         })

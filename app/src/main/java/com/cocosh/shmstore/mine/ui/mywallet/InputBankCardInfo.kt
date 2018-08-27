@@ -8,8 +8,10 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.data.MineLoader
 import com.cocosh.shmstore.mine.model.BankTypeModel
 import com.cocosh.shmstore.mine.presenter.BankTypePresenter
 import com.cocosh.shmstore.utils.DataCode
@@ -19,6 +21,7 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_input_bankcard_info.*
 
 /**
+ *
  * Created by lmg on 2018/4/17.
  */
 class InputBankCardInfo : BaseActivity(), MineContrat.IBankTypeView {
@@ -27,29 +30,17 @@ class InputBankCardInfo : BaseActivity(), MineContrat.IBankTypeView {
     var isNumberOk = false
     var idx = ""
     var mPresenter = BankTypePresenter(this, this)
-    override fun bankType(result: BaseModel<ArrayList<BankTypeModel>>) {
-        if (result.success && result.code == 200) {
+    override fun bankType(result: BaseBean<ArrayList<BankTypeModel>>) {
             pickerViewUtils.showBankType(object : PickerViewUtils.OnResultListener {
                 override fun onResult(data: BankTypeModel) {
-                    edtBankType.setText(data.bankName + " 储蓄卡")
-                    idx = data.idBankBaseInfo ?: ""
+                    edtBankType.setText( ("${data.name} 储蓄卡"))
+                    idx = data.id ?: ""
                 }
-            }, result.entity!!)
-        } else {
-            ToastUtil.show(result.message)
-        }
+            }, result.message!!)
     }
 
-    override fun bankInfoCheck(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            if (result.entity == null) {
-                showError(result.message ?: "错误")
-            } else {
-                BindBankCardMessage.start(this, result.entity!!)
-            }
-        } else {
-            showError(result.message ?: "错误")
-        }
+    override fun bankInfoCheck(result: BaseBean<String>) {
+                BindBankCardMessage.start(this, result.message?:"")
     }
 
     override fun setLayout(): Int = R.layout.activity_input_bankcard_info
@@ -111,11 +102,11 @@ class InputBankCardInfo : BaseActivity(), MineContrat.IBankTypeView {
             next.id -> {
                 if (isNameOk && isNumberOk) {
                     //存储
-                    var map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.ADDBANK_KEY_MAP, true)
+                    val map = SmApplication.getApp().getData<HashMap<String, String>>(DataCode.ADDBANK_KEY_MAP, true)
                     map!!["idxBankBaseInfo"] = idx
-                    map!!["cardUserPhone"] = edtPhone.text.toString()
+                    map["cardUserPhone"] = edtPhone.text.toString()
                     SmApplication.getApp().setData(DataCode.ADDBANK_KEY_MAP, map)
-                    mPresenter.requestBankInfoCheck(0, map["cardNumber"] ?: "", map["cardUserName"]
+                    mPresenter.requestBankInfoCheck(0, idx,map["cardNumber"] ?: "", map["cardUserName"]
                             ?: "", edtPhone.text.toString())
                     return
                 }

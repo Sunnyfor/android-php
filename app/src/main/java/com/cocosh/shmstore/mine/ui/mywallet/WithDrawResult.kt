@@ -36,7 +36,7 @@ class WithDrawResult : BaseActivity() {
         var resultDesc: String? = intent.getStringExtra("resultDesc")
         var estimatedaArrivalTime: String? = intent.getStringExtra("estimatedaArrivalTime")
         var resultCode: String? = intent.getStringExtra("resultCode")
-        var bankNameValue: String? = intent.getStringExtra("bankName")
+        var bankNameValue: String? = intent.getStringExtra("name")
         var userBankName: String? = intent.getStringExtra("userBankName")
 
         money.setNoIconValue(amount + "元")
@@ -98,7 +98,7 @@ class WithDrawResult : BaseActivity() {
                     .putExtra("estimatedaArrivalTime", estimatedaArrivalTime)
                     .putExtra("runningNum", runningNum)
                     .putExtra("resultCode", resultCode)
-                    .putExtra("bankName", bankName)
+                    .putExtra("name", bankName)
                     .putExtra("userBankName", userBankName))
         }
     }

@@ -9,6 +9,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.PayPassworType
@@ -36,19 +37,15 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
     var mPresenter = RedToWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_out_to_wallet
 
-    override fun redToWalletData(result: BaseModel<RedToWalletModel>) {
+    override fun redToWalletData(result: BaseBean<RedToWalletModel>) {
         mDialog?.getResult(result)
     }
 
-    override fun runningNumData(result: BaseModel<String>) {
-        if (result.success && result.code == 200) {
-            runningNum = result.entity
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun runningNumData(result: BaseBean<String>) {
+            runningNum = result.message
     }
 
-    override fun outToData(result: BaseModel<RedToWalletModel>) {
+    override fun outToData(result: BaseBean<RedToWalletModel>) {
         mDialog?.getResult(result)
     }
 

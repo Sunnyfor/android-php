@@ -15,7 +15,7 @@ idCompanyHomeBaseInfo (integer, optional): 论坛基础id ,
 silence (integer, optional): 是否禁言 （1:禁言 0:不禁言） ,
 userType (integer, optional): 论坛用户类型(1-企业主 2-新媒人 3-服务商 4-用户)
 commentsNumber (integer, optional): 评论数 ,
-createTime (string, optional): 发帖时间 ,
+time (string, optional): 发帖时间 ,
 idCompanyHomeTheme (integer, optional): 文章id ,
 imageUrl (Array[string], optional): 图片url ,
 isEssence (integer, optional): 是否是精华贴(0-不是 1-是) ,

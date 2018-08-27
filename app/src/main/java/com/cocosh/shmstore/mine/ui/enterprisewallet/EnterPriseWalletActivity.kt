@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.EntWalletModel
@@ -14,21 +14,17 @@ import com.cocosh.shmstore.mine.ui.authentication.CommonType
 import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
 import com.cocosh.shmstore.mine.ui.mywallet.MoneyWaterActivity
 import com.cocosh.shmstore.mine.ui.mywallet.WithDrawActivity
-import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_enterprise_wallet.*
 
 /**
+ *
  * Created by lmg on 2018/4/19.
  */
 class EnterPriseWalletActivity : BaseActivity(), MineContrat.IEntWalletView {
     var mPresenter = EntWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_enterprise_wallet
-    override fun entWalletData(result: BaseModel<EntWalletModel>) {
-        if (result.success && result.code == 200) {
-            initData(result.entity)
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun entWalletData(result: BaseBean<EntWalletModel>) {
+            initData(result.message)
     }
 
     private fun initData(data: EntWalletModel?) {

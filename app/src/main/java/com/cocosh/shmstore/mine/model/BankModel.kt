@@ -6,10 +6,10 @@ package com.cocosh.shmstore.mine.model
  *
  *  bankCardLogo (string, optional): 银行卡logo地址 ,
 bankCode (string, optional): 银行编码 ,
-bankName (string, optional): 银行名称 ,
+name (string, optional): 银行名称 ,
 bankType (string, optional): 卡类型时间 ,
-idBankBaseInfo (integer, optional): 储蓄卡，信用卡 ,
-createTime (string, optional): 创建 银行卡id
+id (integer, optional): 储蓄卡，信用卡 ,
+time (string, optional): 创建 银行卡id
  */
 data class BankModel(var id: String?, // 银行卡id
                      var bank_kind: String?, //开户行id

@@ -111,6 +111,7 @@ class PickerViewUtils(val activity: BaseActivity) {
                 .setContentTextSize(22)
                 .setRangDate(startCalendar, Calendar.getInstance())
                 .setType(array)
+                .setDate(Calendar.getInstance())
                 .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))
                 .setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))
                 .build()
@@ -377,7 +378,7 @@ class PickerViewUtils(val activity: BaseActivity) {
         }
         val options1Items = ArrayList<String>()
         datas.forEach {
-            options1Items.add(it.bankName ?: "")
+            options1Items.add(it.name ?: "")
         }
 
 

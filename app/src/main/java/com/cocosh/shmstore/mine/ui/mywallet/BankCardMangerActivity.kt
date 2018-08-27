@@ -38,15 +38,16 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     var listData = ArrayList<BankModel>()
     var position = 0
     var isSet: Boolean? = null
+
     override fun bankListData(result: BaseBean<ArrayList<BankModel>>) {
+        listData.clear()
         result.message?.let {
-            listData.clear()
             listData.addAll(it)
-            recyclerView.adapter.notifyDataSetChanged()
         }
+        recyclerView.adapter.notifyDataSetChanged()
     }
 
-    override fun deleteBank(result: BaseModel<String>) {
+    override fun deleteBank(result: BaseBean<String>) {
         mDialog?.getResult(result)
     }
 
@@ -141,7 +142,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         }
     }
 
-    fun showRemoveDialog(pic: String?, name: String?, type: String?, num: String?) {
+    private fun showRemoveDialog(pic: String?, name: String?, type: String?, num: String?) {
         val dialog = BankRemoveDialog(this)
         dialog.setData(this, pic, name, num)
         dialog.show()
@@ -154,8 +155,8 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     }
 
     var mDialog: SercurityDialog<String>? = null
-    fun showImputPsdDialog() {
-        mDialog = SercurityDialog<String>(this, R.style.SercurityDialogTheme)
+    private fun showImputPsdDialog() {
+        mDialog = SercurityDialog(this, R.style.SercurityDialogTheme)
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<String> {
             override fun inputComplete(pwd: String) {
@@ -164,9 +165,10 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
 
             override fun result(boolean: Boolean, data: String?) {
                 if (boolean) {
+
                     //解绑成功 跳转解绑结果页
                     RemovedResultActivity.start(this@BankCardMangerActivity, listData[position].bank_log
-                            ?: "", listData[position].bank_name ?: "", listData[position].bank_kind
+                            ?: "", listData[position].bank_name ?: "", listData[position].card_no
                             ?: "", true)
                 } else {
                     //解绑失败 跳转解绑结果页
@@ -176,7 +178,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
         })
     }
 
-    fun showErrorDialog(str: String?) {
+    private fun showErrorDialog(str: String?) {
         val dialog = SmediaDialog(this)
         dialog.setTitle(str)
         dialog.setPositiveText("知道了")
@@ -185,7 +187,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     }
 
 
-    fun showEntDialog() {
+    private fun showEntDialog() {
         val dialog = SmediaDialog(this)
         dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {

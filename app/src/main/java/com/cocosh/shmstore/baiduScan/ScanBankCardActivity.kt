@@ -73,7 +73,7 @@ class ScanBankCardActivity : BaseActivity() {
         val intent = Intent(this, CheckBankCardInfoActivity::class.java)
         intent.putExtra("bankNumber", bankCardPath)
         intent.putExtra("bankType", bankCardPath)
-        intent.putExtra("bankName", bankCardPath)
+        intent.putExtra("name", bankCardPath)
         startActivity(intent)
         finish()
     }

@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.newCertification
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -11,8 +12,8 @@ import com.cocosh.shmstore.mine.model.PayResultModel
 interface ConfirmlnforContrat {
     interface IView : IBaseView {
         fun confirmResult(result: String)
-        fun payConfirmResult(result: BaseModel<PayResultModel>)
-        fun localPay(result: BaseModel<String>)
+        fun payConfirmResult(result: BaseBean<PayResultModel>)
+        fun localPay(result: BaseBean<String>)
     }
 
     interface IPresenter : IBasePresenter {

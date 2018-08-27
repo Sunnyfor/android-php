@@ -5,13 +5,12 @@ import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.MyWalletModel
 import com.cocosh.shmstore.mine.model.WithDrawResultModel
 import com.cocosh.shmstore.mine.presenter.MyWalletPresenter
-import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_my_wallet.*
 
 /**
@@ -19,26 +18,18 @@ import kotlinx.android.synthetic.main.activity_my_wallet.*
  */
 class MyWalletActivity : BaseActivity(), MineContrat.IMyWalletView {
     val mPresenter = MyWalletPresenter(this, this)
-    override fun myWalletData(result: BaseModel<MyWalletModel>) {
-        if (result.success && result.code == 200) {
-            initData(result.entity)
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun myWalletData(result: BaseBean<MyWalletModel>) {
+        initData(result.message)
     }
 
-    override fun drawReslut(result: BaseModel<WithDrawResultModel>) {
-        if (result.success && result.code == 200) {
-            WithDrawActivity.start(this, Constant.TYPE_MY, tvMoney.text.toString())
-        } else {
-            ToastUtil.show(result.message)
-        }
+    override fun drawReslut(result: BaseBean<WithDrawResultModel>) {
+        WithDrawActivity.start(this, Constant.TYPE_MY, tvMoney.text.toString())
     }
 
     private fun initData(data: MyWalletModel?) {
         tvMoney.text = data?.balance
-        tvRedMoney.text = data?.redBalance
-//        rule.text = "注：红包金额必须>" + data?.withdrawalMoney + "元时才可以提现!"
+        tvRedMoney.text = data?.rp_sum
+//        rule.text = "注：红包金额必须>" + data?.rp_cash_limit + "元时才可以提现!"
     }
 
     override fun setLayout(): Int = R.layout.activity_my_wallet
