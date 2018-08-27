@@ -95,14 +95,14 @@ class FacilitatorInComeActivity : BaseActivity() {
 
     fun setData(data: OperatorMainData) {
         sCar.setValue(data.numPartnet)
-        sEnt.setValue(data.numEnt)
-        sPerson.setValue(data.numPerson)
+        sEnt.setValue(data.expand_enterprise_num)
+        sPerson.setValue(data.expand_personal_num)
         sGiveEnt.setValue(data.numEntBeDistribution)
-        sGivePerson.setValue(data.numPersonBeDistribution)
+        sGivePerson.setValue(data.platform_personal_num)
         inCome.setValue(data.profit ?: "0.0"+"元")
         sInvite.setIcon(resources.getString(R.string.iconQrcode))
         name.setNoIconValue(data.name)
-        area.setNoIconValue(data.serviceArea)
-        time.setNoIconValue(data.attTime)
+        area.setNoIconValue(data.place)
+        time.setNoIconValue(data.time)
     }
 }

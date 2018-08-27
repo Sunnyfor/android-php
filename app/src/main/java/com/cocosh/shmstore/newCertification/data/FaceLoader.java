@@ -44,7 +44,7 @@ public class FaceLoader {
         String expiryDate = back.getExpiryDate().toString();
 
         Map<String, String> map = new HashMap<>();
-        map.put("realName", name);
+        map.put("nickname", name);
         map.put("idNo", idNumber);
         String idFront = app.getData(DataCode.FRONT_URL, false).toString();
         map.put("idFront", idFront);

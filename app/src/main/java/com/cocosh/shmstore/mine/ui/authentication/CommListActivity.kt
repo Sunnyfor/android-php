@@ -6,9 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.CommonListAdapter
 import com.cocosh.shmstore.mine.model.CommonModel
@@ -32,7 +34,7 @@ class CommListActivity : BaseActivity() {
      */
     private var typeList = ""
     private var dataType = 0
-    private var list = arrayListOf<CommonModel.SubCommonModel>()
+    private var list = arrayListOf<CommonModel>()
     private lateinit var adapter: CommonListAdapter
     override fun setLayout(): Int = R.layout.activity_comm_list
 
@@ -41,59 +43,59 @@ class CommListActivity : BaseActivity() {
         when (typeList) {
             CommonType.CERTIFICATION_0.type -> {
                 titleManager.defaultTitle("拓展企业主")
-                getCerList(1, "1", "0")
+                getFacList(1, Constant.MYSELF_MATCHMAKER_EXPAND_ENTERPRISE)
             }
             CommonType.CERTIFICATION_1.type -> {
                 titleManager.defaultTitle("拓展个人用户")
-                getCerList(1, "4", "0")
+                getFacList(1, Constant.MYSELF_MATCHMAKER_EXPAND_PERSONAL)
             }
             CommonType.CERTIFICATION_2.type -> {
                 titleManager.defaultTitle("平台分配个人用户")
-                getCerList(1, "4", "1")
+                getFacList(1, Constant.MYSELF_MATCHMAKER_ASSIGN_PERSONAL)
             }
             CommonType.FACILITTOR_0.type -> {
                 dataType = 1
                 titleManager.defaultTitle("拓展新媒人")
-                getFacList(1, "2", "0")
+                getFacList(1, "2")
             }
             CommonType.FACILITTOR_1.type -> {
                 titleManager.defaultTitle("拓展企业主")
-                getFacList(1, "1", "0")
+                getFacList(1, "1")
             }
             CommonType.FACILITTOR_2.type -> {
                 titleManager.defaultTitle("拓展个人用户")
-                getFacList(1, "4", "0")
+                getFacList(1, "4")
             }
             CommonType.FACILITTOR_3.type -> {
                 titleManager.defaultTitle("平台分配企业主")
-                getFacList(1, "1", "1")
+                getFacList(1, "1")
             }
             CommonType.FACILITTOR_4.type -> {
                 titleManager.defaultTitle("平台分配个人用户")
-                getFacList(1, "4", "1")
+                getFacList(1, "4")
             }
         }
 
         adapter = CommonListAdapter(list, dataType)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(v: View, index: Int) {
-                if (list[index].itemType == "0" && adapter.dataType == 1) {
-                    if (list[index].isExpand == true) {
-                        list[index].isExpand = false
-                        list.removeAll(list[index].entList ?: arrayListOf())
-                        adapter.notifyItemMoved(index + 1, list[index].entList?.size ?: 1)
-                        adapter.notifyDataSetChanged()
-                    } else {
-                        list[index].isExpand = true
-                        list.addAll(index + 1, list[index].entList ?: arrayListOf())
-                        adapter.notifyItemRangeInserted(index + 1, list[index].entList?.size ?: 1)
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-            }
-        })
+//        adapter.setOnItemClickListener(object : OnItemClickListener {
+//            override fun onItemClick(v: View, index: Int) {
+//                if (list[index].itemType == "0" && adapter.dataType == 1) {
+//                    if (list[index].isExpand == true) {
+//                        list[index].isExpand = false
+//                        list.removeAll(list[index].entList ?: arrayListOf())
+//                        adapter.notifyItemMoved(index + 1, list[index].entList?.size ?: 1)
+//                        adapter.notifyDataSetChanged()
+//                    } else {
+//                        list[index].isExpand = true
+//                        list.addAll(index + 1, list[index].entList ?: arrayListOf())
+//                        adapter.notifyItemRangeInserted(index + 1, list[index].entList?.size ?: 1)
+//                        adapter.notifyDataSetChanged()
+//                    }
+//                }
+//            }
+//        })
     }
 
     override fun onListener(view: View) {
@@ -110,64 +112,68 @@ class CommListActivity : BaseActivity() {
         }
     }
 
-    private fun getFacList(flag: Int, listType: String, isBeDistribution: String) {
+    private fun getFacList(flag: Int, url: String) {
         val params = HashMap<String, String>()
-        params["listType"] = listType
-        params["isBeDistribution"] = isBeDistribution
-        ApiManager.get(flag, this, params, Constant.OPERATOR_MAIN_LIST, object : ApiManager.OnResult<BaseModel<CommonModel>>() {
-            override fun onSuccess(data: BaseModel<CommonModel>) {
-                hideLoading()
-                if (data.success) {
-                    if (dataType == 0) {
-                        list.addAll(data.entity?.infoList ?: arrayListOf())
-                    } else {
-                        data.entity?.infoList.let {
-                            it?.forEachIndexed { index, subCommonModel ->
-                                it[index].entList?.forEach {
-                                    it.itemType = "1"
-                                }
-                                it[index].entList?.add(0, CommonModel.SubCommonModel(false, 2.toString(), "该新媒人拓展企业主", index.toString(), index.toString(), index.toString(), index.toString(), null))
-                                it[index].itemType = "0"
-                            }
-                        }
-                        list.addAll(data.entity?.infoList ?: arrayListOf())
-                    }
+//        params["listType"] = listType
+//        params["isBeDistribution"] = isBeDistribution
+        ApiManager2.get(flag, this, params, url, object : ApiManager2.OnResult<BaseBean<ArrayList<CommonModel>>>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<CommonModel>>) {
+//                    if (dataType == 0) {
+//                        list.addAll(data.message?.infoList ?: arrayListOf())
+//                    } else {
+//                        data.message?.infoList.let {
+//                            it?.forEachIndexed { index, subCommonModel ->
+//                                it[index].entList?.forEach {
+//                                    it.itemType = "1"
+//                                }
+//                                it[index].entList?.add(0, CommonModel.SubCommonModel(false, 2.toString(), "该新媒人拓展企业主", index.toString(), index.toString(), index.toString(), index.toString(), null))
+//                                it[index].itemType = "0"
+//                            }
+//                        }
+//                        list.addAll(data.message?.infoList ?: arrayListOf())
+//                    }
+                list.clear()
+                data.message?.let {
+                    list.addAll(it)
                     adapter.notifyDataSetChanged()
-                } else {
-                    ToastUtil.show(data.message)
+                }
+
+                if (list.isEmpty()){
+                    showReTryLayout("暂无数据")
                 }
             }
 
-            override fun onFailed(e: Throwable) {
-                hideLoading()
-            }
 
-            override fun onCatch(data: BaseModel<CommonModel>) {
+            override fun onCatch(data: BaseBean<ArrayList<CommonModel>>) {
             }
         })
     }
 
-    private fun getCerList(flag: Int, listType: String, isBeDistribution: String) {
-        val params = HashMap<String, String>()
-        params["listType"] = listType
-        params["isBeDistribution"] = isBeDistribution
-        ApiManager.get(flag, this, params, Constant.PARTNER_MAIN_LIST, object : ApiManager.OnResult<BaseModel<CommonModel>>() {
-            override fun onSuccess(data: BaseModel<CommonModel>) {
-                hideLoading()
-                if (data.success) {
-                    list.addAll(data.entity?.infoList ?: arrayListOf())
-                    adapter.notifyDataSetChanged()
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-                hideLoading()
-            }
-
-            override fun onCatch(data: BaseModel<CommonModel>) {
-            }
-        })
-    }
+//    private fun getCerList(flag: Int, listType: String, isBeDistribution: String) {
+//        val params = HashMap<String, String>()
+//        params["listType"] = listType
+//        params["isBeDistribution"] = isBeDistribution
+//        ApiManager.get(flag, this, params, Constant.PARTNER_MAIN_LIST, object : ApiManager.OnResult<BaseModel<CommonModel>>() {
+//            override fun onSuccess(data: BaseModel<CommonModel>) {
+//                hideLoading()
+//                if (data.success) {
+//                    list.addAll(data.entity?.infoList ?: arrayListOf())
+//                    adapter.notifyDataSetChanged()
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                hideLoading()
+//            }
+//
+//            override fun onCatch(data: BaseModel<CommonModel>) {
+//            }
+//        })
+//    }
 }

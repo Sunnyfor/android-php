@@ -353,7 +353,7 @@ public class CheckIdentityInfoActivity extends BaseActivity {
     //单法人认证信息提交
     public void commit() {
         Map<String, String> params = new HashMap<>();
-        params.put("entrepreneurLegal.realName", front.getName().toString()); //真实姓名
+        params.put("entrepreneurLegal.nickname", front.getName().toString()); //真实姓名
         params.put("entrepreneurLegal.sex", front.getGender().toString()); //性别
         params.put("entrepreneurLegal.ethnic", front.getEthnic().toString()); //民族
         params.put("entrepreneurLegal.birth", front.getBirthday().toString()); //生日

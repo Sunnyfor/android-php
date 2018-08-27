@@ -21,7 +21,7 @@ class HeaderInterceptor : Interceptor {
         return chain.proceed(authorised)
     }
 
-    private fun getAuthorization(): String {
+    fun getAuthorization(): String {
 
         if (UserManager2.isLogin()) {
             val paramsArray = TreeMap<String, String>()

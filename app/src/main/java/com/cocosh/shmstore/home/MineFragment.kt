@@ -186,9 +186,9 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                         newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
                     }
 
-                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
+//                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
-                    }
+//                    }
 
                     if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type || it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconInvite), "邀请码"))

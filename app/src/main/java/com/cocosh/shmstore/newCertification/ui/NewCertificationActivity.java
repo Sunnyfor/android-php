@@ -9,6 +9,7 @@ import com.cocosh.shmstore.application.SmApplication;
 import com.cocosh.shmstore.base.BaseActivity;
 import com.cocosh.shmstore.databinding.ActivityNewCertificationBinding;
 import com.cocosh.shmstore.http.ApiManager;
+import com.cocosh.shmstore.http.ApiManager2;
 import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.newCertification.model.CertifyModel;
 import com.cocosh.shmstore.utils.DataCode;
@@ -41,17 +42,18 @@ public class NewCertificationActivity extends BaseActivity {
     private void initData() {
         Map<String, String> map = new HashMap<>();
 
-        ApiManager.INSTANCE.get(1, this, map, Constant.CERTIFY_FINAL, new ApiManager.OnResult<CertifyModel>() {
+        ApiManager2.INSTANCE.get(1, this, map, Constant.MYSELF_MATCHMAKER_LIST, new ApiManager2.OnResult<CertifyModel>() {
+
+            @Override
+            public void onFailed(@NotNull String code, @NotNull String message) {
+
+            }
 
             @Override
             public void onCatch(CertifyModel data) {
 
             }
 
-            @Override
-            public void onFailed(@NotNull Throwable e) {
-
-            }
 
             @Override
             public void onSuccess(CertifyModel data) {

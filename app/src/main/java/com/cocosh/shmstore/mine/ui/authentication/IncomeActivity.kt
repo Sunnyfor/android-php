@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.InComerListAdapter
 import com.cocosh.shmstore.mine.model.ProfitInfoModel
@@ -27,6 +29,7 @@ import kotlin.collections.ArrayList
 
 
 /**
+ *
  * Created by lmg on 2018/4/20.
  */
 class IncomeActivity : BaseActivity() {
@@ -42,16 +45,17 @@ class IncomeActivity : BaseActivity() {
         permissionUtil = PermissionUtil(this)
         TYPE_INCOME = intent.getStringExtra("TYPE_INCOME")
         if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type) {
-            getProfitInfo("1")
-            getProfitList(true, "0", "1")
             btn_withdraw_money.text = "转出至钱包"
             inComeTitle.text = "新媒人收益(元)"
         } else {
-            getProfitInfo("2")
-            getProfitList(true, "0", "2")
+
             btn_withdraw_money.text = "转出至服务商钱包"
             inComeTitle.text = "服务商收益(元)"
         }
+
+        getProfitInfo()
+        getProfitList(true, "0")
+
         btn_withdraw_money.setOnClickListener(this)
 
         recyclerView.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -79,19 +83,11 @@ class IncomeActivity : BaseActivity() {
 
         recyclerView.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
-                if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type) {
-                    getProfitList(true, "0", "1")
-                } else {
-                    getProfitList(true, "0", "2")
-                }
+                getProfitList(true, "0")
             }
 
             override fun onLoadMore(page: Int) {
-                if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type) {
-                    getProfitList(false, adapter?.getLastId() ?: "", "1")
-                } else {
-                    getProfitList(false, adapter?.getLastId() ?: "", "2")
-                }
+                getProfitList(false, adapter?.getLastId() ?: "")
             }
 
         }
@@ -152,65 +148,67 @@ class IncomeActivity : BaseActivity() {
         }
     }
 
-    fun getProfitInfo(personType: String) {
-        val map = HashMap<String, String>()
-        map["personType"] = personType
-        ApiManager.get(1, this, map, Constant.PROFITINFO_INFO, object : ApiManager.OnResult<BaseModel<ProfitInfoModel>>() {
-            override fun onSuccess(data: BaseModel<ProfitInfoModel>) {
-                if (data.success && data.code == 200) {
-                    tvMoney.text = data.entity?.profit
-                    desc.text = data.entity?.accountPeriodStr
-                    totalProfit.text = data.entity?.aggregateAmounts
-                    canWithDraw.text = data.entity?.canWithdraw ?: "0"
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+    private fun getProfitInfo() {
+        val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
+            Constant.MYSELF_MATCHMAKER_PROFIT_DATA
+        }else{
+            Constant.MYSELF_PROVIDER_PROFIT
+        }
+        ApiManager2.get(1, this, null, url, object : ApiManager2.OnResult<BaseBean<ProfitInfoModel>>() {
+            override fun onFailed(code: String, message: String) {
 
             }
 
-            override fun onCatch(data: BaseModel<ProfitInfoModel>) {
+            override fun onSuccess(data: BaseBean<ProfitInfoModel>) {
+                    tvMoney.text = data.message?.profit
+//                    desc.text = data.message?.accountPeriodStr
+                    totalProfit.text = data.message?.accumulative
+                    canWithDraw.text = data.message?.available ?: "0"
+            }
+
+
+            override fun onCatch(data: BaseBean<ProfitInfoModel>) {
 
             }
         })
     }
 
-    fun getProfitList(boolean: Boolean, currentId: String, personType: String) {
+    fun getProfitList(boolean: Boolean, currentId:String) {
         val map = HashMap<String, String>()
-        map["currentId"] = currentId
-        map["showCount"] = recyclerView.pageCount.toString()
-        map["personType"] = personType
-        ApiManager.get(1, this, map, Constant.PROFITINFO_LIST, object : ApiManager.OnResult<BaseModel<ArrayList<ProfitModel>>>() {
-            override fun onSuccess(data: BaseModel<ArrayList<ProfitModel>>) {
-                if (data.success && data.code == 200) {
+        map["income_id"] = currentId
+        map["limit"] = recyclerView.pageCount.toString()
+
+        val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
+            Constant.MYSELF_MATCHMAKER_PROFIT_CONTENT
+        }else{
+           ""
+        }
+
+        ApiManager2.get(1, this, map, url, object : ApiManager2.OnResult<BaseBean<ArrayList<ProfitModel>>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<ProfitModel>>) {
                     if (boolean) {
                         adapter?.clear()
-                        recyclerView.update(data.entity)
-                        list.addAll(data.entity!!)
+                        recyclerView.update(data.message)
+                        list.addAll(data.message!!)
                         adapter?.notifyDatas()
-                        if (data.entity?.size != 0) {
+                        if (data.message?.size != 0) {
                             tvShow.visibility = View.VISIBLE
                             tvShow.text = adapter?.getItemData(0)
                         } else {
                             tvShow.visibility = View.INVISIBLE
                         }
                     } else {
-                        recyclerView.loadMore(data.entity)
-                        list.addAll(data.entity!!)
+                        recyclerView.loadMore(data.message)
+                        list.addAll(data.message!!)
                         adapter?.notifyDatas()
                     }
-                } else {
-                    ToastUtil.show(data.message)
-                }
             }
 
-            override fun onFailed(e: Throwable) {
 
-            }
-
-            override fun onCatch(data: BaseModel<ArrayList<ProfitModel>>) {
+            override fun onCatch(data: BaseBean<ArrayList<ProfitModel>>) {
 
             }
         })
@@ -220,13 +218,12 @@ class IncomeActivity : BaseActivity() {
         setIntent(intent)
         TYPE_INCOME = intent?.getStringExtra("TYPE_INCOME") ?: ""
         if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type) {
-            getProfitInfo("1")
-            getProfitList(true, "0", "1")
+
             btn_withdraw_money.text = "转出至钱包"
         } else {
-            getProfitInfo("2")
-            getProfitList(true, "0", "2")
             btn_withdraw_money.text = "转出至服务商钱包"
         }
+        getProfitInfo()
+        getProfitList(true, "0")
     }
 }

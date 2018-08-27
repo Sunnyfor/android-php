@@ -37,9 +37,9 @@ object ApiManager2 {
     private lateinit var apiService: ApiService
     private lateinit var retrofit: Retrofit
     private lateinit var okHttpClient: OkHttpClient
+    var headerInterceptor = HeaderInterceptor()
     var gson = GsonBuilder().serializeNulls().create()
     private lateinit var host: String
-
     const val STRING = 0X1
     const val ORTHER = 0x2
 
@@ -58,7 +58,7 @@ object ApiManager2 {
         * 初始化OkHttpClient
         */
         okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(HeaderInterceptor())
+                .addInterceptor(headerInterceptor)
                 .addInterceptor(LoggerInterceptor("网络请求"))
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)

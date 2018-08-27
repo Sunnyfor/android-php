@@ -14,9 +14,10 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.InviteCodeContrat
-import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.InviteCodeModel
 import com.cocosh.shmstore.mine.presenter.InviteCodePresenter
 import com.cocosh.shmstore.utils.GlideUtils
@@ -29,6 +30,11 @@ import kotlinx.android.synthetic.main.invite_code_activity.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.load.model.GlideUrl
+
+
 
 
 /**
@@ -45,22 +51,18 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
     private val REQUESTCODE = 1
     private var persenter: InviteCodeContrat.IPresenter = InviteCodePresenter(this, this)
 
-    override fun inviteCodeData(result: BaseModel<InviteCodeModel>) {
-        if (result.success && result.code == 200) {
+    override fun inviteCodeData(result: BaseBean<InviteCodeModel>) {
             //加载数据
-            infoData = result.entity
-            setData(result.entity)
-        }else{
-            ToastUtil.show(result.message)
-        }
+            infoData = result.message
+            setData(result.message)
     }
 
     private fun setData(info: InviteCodeModel?) {
-        tv_invite_code.text = info?.inviteCode
-        GlideUtils.loadHead(this, info?.headPic, name_icon)
-        GlideUtils.load(this, info?.inviteImage, qr_code)
-        if (info?.userIdentity == "2") {
-            name.text = info.realName
+        tv_invite_code.text = info?.invite_code
+        GlideUtils.loadHead(this, info?.avatar, name_icon)
+        loadQRcode()
+        if (type == "2") {
+            name.text = info?.nickname
             name_nature.text = "新媒人"
         } else {
             name.text = info?.corpFname
@@ -209,5 +211,15 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
         } else {
             ToastUtil.show("保存失败")
         }
+    }
+
+
+    private fun loadQRcode(){
+        val authorization = GlideUrl(Constant.MYSELF_MATCHMAKER_INVITATION_IMAGE, LazyHeaders.Builder().addHeader("authorization", ApiManager2.headerInterceptor.getAuthorization()).build())
+        if (type =="2"){
+            Glide.with(this).load(authorization).placeholder(R.drawable.default_content).into(qr_code)
+        }
+//        ApiManager2.get(0,null,Constant.MYSELF_MATCHMAKER_INVITATION_IMAGE,object :B)
+//        MYSELF_MATCHMAKER_INVITATION_IMAGE
     }
 }

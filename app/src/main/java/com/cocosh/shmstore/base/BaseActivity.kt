@@ -189,6 +189,15 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, IBaseVi
         frameError.visibility = View.VISIBLE
     }
 
+
+    fun showReTryLayout(msg:String) {
+        frameError.visibility = View.VISIBLE
+        btnTryAgain.visibility = View.GONE
+        tvMessage.text = msg
+    }
+
+
+
     override fun hideReTryLayout() {
         frameError.visibility = View.GONE
     }

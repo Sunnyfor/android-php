@@ -78,10 +78,18 @@ object Constant {
 
     const val SERVICE_REGION = "$VERSION/service/region" //新媒人/服务商-区域选择
     const val SERVICE_LIST = "$VERSION/service/list" //新媒人/服务商-区域选择
+    const val MYSELF_MATCHMAKER_LIST = "$VERSION/myself/matchmaker/list" //新媒人拓展页面
+    const val MYSELF_MATCHMAKER_ASSIGN_PERSONAL = "$VERSION/myself/matchmaker/assign/personal" //新媒人平台分配用户
+    const val MYSELF_MATCHMAKER_EXPAND_PERSONAL = "$VERSION/myself/matchmaker/expand/personal" //新媒人--拓展个人用户
+    const val MYSELF_MATCHMAKER_EXPAND_ENTERPRISE = "$VERSION/myself/matchmaker/expand/enterprise" //新媒人--拓展企业主
+    const val MYSELF_MATCHMAKER_PROFIT_DATA = "$VERSION/myself/matchmaker/profit/data"//新媒人--收益--数据
+    const val MYSELF_MATCHMAKER_PROFIT_CONTENT = "$VERSION/myself/matchmaker/profit/content" //新媒人--收益--详情
+    const val MYSELF_MATCHMAKER_INVITATION_DATA = "$VERSION/myself/matchmaker/invitation/data" //新媒人--邀请--用户数据
+    const val MYSELF_MATCHMAKER_INVITATION_IMAGE = "$VERSION/myself/matchmaker/invitation/image" //新媒人邀请二维码
 
     const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
-
     const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
+    const val MYSELF_PROVIDER_PROFIT = "$VERSION/myself/provider/profit"  //服务商--收益--数据
 
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证

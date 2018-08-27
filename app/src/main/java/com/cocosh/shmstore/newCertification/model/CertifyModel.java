@@ -8,7 +8,7 @@ public class CertifyModel {
 
     /**
      * code : 0
-     * entity : {"mAddress":"string","applyTime":"string","cardAddress":"string","faceRecognition":"string","idBack":"string","idFront":"string","idNo":"string","issuingAgency":"string","money":0,"partnerStatus":"string","realName":"string","sex":"string","smCode":"string","userName":"string","validityPeriodEndTime":"string","validityPeriodStartTime":"string"}
+     * entity : {"mAddress":"string","applyTime":"string","cardAddress":"string","faceRecognition":"string","idBack":"string","idFront":"string","idNo":"string","issuingAgency":"string","money":0,"partnerStatus":"string","nickname":"string","sex":"string","smCode":"string","userName":"string","validityPeriodEndTime":"string","validityPeriodStartTime":"string"}
      * message : string
      * success : true
      */
@@ -62,7 +62,7 @@ public class CertifyModel {
          * issuingAgency : string
          * money : 0
          * partnerStatus : string
-         * realName : string
+         * nickname : string
          * sex : string
          * smCode : string
          * userName : string

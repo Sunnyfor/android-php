@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.mine.contrat
 
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
@@ -10,7 +11,7 @@ import com.cocosh.shmstore.mine.model.InviteCodeModel
  */
 interface InviteCodeContrat {
     interface IView : IBaseView {
-        fun inviteCodeData(result: BaseModel<InviteCodeModel>)
+        fun inviteCodeData(result: BaseBean<InviteCodeModel>)
     }
 
     interface IPresenter : IBasePresenter {

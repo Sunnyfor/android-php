@@ -216,7 +216,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
 //        memberEntrance2?.let {
 //            GlideUtils.loadHead(baseContext, it.avatar, ivHead) //头像
 //            isvNickname.setValue(it.nickname) //昵称
-//            isvName.setValue(it.realname)
+//            isvName.setValue(it.name)
 //            isvBirthday.setValue(it.birth)
 //            isvSex.setValue(it.gender)
 //            isvAddress.setValue(it.district)

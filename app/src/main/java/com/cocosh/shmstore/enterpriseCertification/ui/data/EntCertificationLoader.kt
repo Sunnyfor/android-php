@@ -21,7 +21,7 @@ class EntCertificationLoader(var mActivity: BaseActivity, var mView: IBaseView) 
      * 提交企业主信息
      * id：企业id
      * companyName:公司名
-     * inviteCode:邀请码
+     * invite_code:邀请码
      */
     fun pushData(companyName: String, inviteCode: String) {
         val map = HashMap<String, String>()

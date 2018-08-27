@@ -79,7 +79,7 @@ class UpLoadAgreementActivity : BaseActivity() {
 
         //法人参数
         front?.let {
-            params["entrepreneurLegal.realName"] = front.name.toString() //真实姓名
+            params["entrepreneurLegal.nickname"] = front.name.toString() //真实姓名
             params["entrepreneurLegal.sex"] = front.gender.toString() //性别
             params["entrepreneurLegal.ethnic"] = front.ethnic.toString() //民族
             params["entrepreneurLegal.birth"] = front.birthday.toString() //生日
@@ -96,7 +96,7 @@ class UpLoadAgreementActivity : BaseActivity() {
         }
 
         agentFront?.let {
-            params["entrepreneurAgency.realName"] = agentFront.name.toString() //真实姓名
+            params["entrepreneurAgency.nickname"] = agentFront.name.toString() //真实姓名
             params["entrepreneurAgency.sex"] = agentFront.gender.toString() //性别
             params["entrepreneurAgency.ethnic"] = agentFront.ethnic.toString() //民族
             params["entrepreneurAgency.birth"] = agentFront.birthday.toString() //生日

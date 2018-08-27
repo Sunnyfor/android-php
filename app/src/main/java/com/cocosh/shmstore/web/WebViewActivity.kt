@@ -102,7 +102,7 @@ class WebViewActivity : BaseActivity() {
         jsonObj.put("userId", login?.userId)
         jsonObj.put("token", login?.token)
         jsonObj.put("userNick", memberEntrance?.userNick)
-        jsonObj.put("headPic", memberEntrance?.headPic)
+        jsonObj.put("avatar", memberEntrance?.headPic)
         return jsonObj.toString()
     }
 

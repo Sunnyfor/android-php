@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment() {
 //            val mDialog = CertificationDialog(activity)
 //            if (info.authStatus == "H") {
 //                //新媒人
-//                mDialog.setDesc("您接受了<br>${info.realName}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
+//                mDialog.setDesc("您接受了<br>${info.nickname}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
 //            } else {
 //                //服务商
 //                mDialog.setDesc("您接受了<br>${info.corpFname}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
