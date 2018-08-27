@@ -10,8 +10,6 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.InComerListAdapter
@@ -20,7 +18,6 @@ import com.cocosh.shmstore.mine.model.ProfitModel
 import com.cocosh.shmstore.mine.ui.mywallet.OutToWalletActivity
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_income.*
@@ -152,7 +149,7 @@ class IncomeActivity : BaseActivity() {
         val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
             Constant.MYSELF_MATCHMAKER_PROFIT_DATA
         }else{
-            Constant.MYSELF_PROVIDER_PROFIT
+            Constant.myself_provider_profit_data
         }
         ApiManager2.get(1, this, null, url, object : ApiManager2.OnResult<BaseBean<ProfitInfoModel>>() {
             override fun onFailed(code: String, message: String) {
@@ -181,7 +178,7 @@ class IncomeActivity : BaseActivity() {
         val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
             Constant.MYSELF_MATCHMAKER_PROFIT_CONTENT
         }else{
-           ""
+            Constant.MYSELF_PROVIDER_PROFIT_CONTENT
         }
 
         ApiManager2.get(1, this, map, url, object : ApiManager2.OnResult<BaseBean<ArrayList<ProfitModel>>>() {

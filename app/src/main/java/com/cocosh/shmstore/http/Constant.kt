@@ -89,7 +89,9 @@ object Constant {
 
     const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
     const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
-    const val MYSELF_PROVIDER_PROFIT = "$VERSION/myself/provider/profit"  //服务商--收益--数据
+    const val MYSELF_PROVIDER_LIST = "$VERSION/myself/provider/list" //服务商拓展页
+    const val myself_provider_profit_data = "$VERSION/myself/provider/profit/data"  //服务商--收益--数据
+    const val MYSELF_PROVIDER_PROFIT_CONTENT = "$VERSION/myself/provider/profit/content" //服务商收益详情
 
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证

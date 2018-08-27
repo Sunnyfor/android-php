@@ -178,13 +178,13 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                             MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
                             MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
 
-                    if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
+//                    if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
                         val index = newBottomTitles.indexOfFirst {
                             it.title == "钱包"
                         }
                         newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
-                    }
+//                    }
 
 //                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
