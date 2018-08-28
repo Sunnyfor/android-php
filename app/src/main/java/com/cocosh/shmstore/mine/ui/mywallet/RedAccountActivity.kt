@@ -10,7 +10,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.adapter.RedAccountListAdapter
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.MyWalletModel
+import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.model.RedWaterModel
 import com.cocosh.shmstore.mine.presenter.RedWalletPresenter
 import com.cocosh.shmstore.mine.ui.authentication.CommonType
@@ -31,13 +31,15 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     var money: String? = ""
     var mPresenter = RedWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_red_account
-    override fun redWalletData(result: BaseModel<MyWalletModel>) {
+    override fun redWalletData(result: BaseModel<WalletModel>) {
         if (result.success && result.code == 200) {
-            tvMoney.text = result.entity?.rp_sum
 //            rule.text = "注：红包金额必须>" + result.entity?.rp_cash_limit + "元时才可以转出!"
-            ruleMoney = result.entity?.rp_sum
-            money = result.entity?.rp_cash_limit
-            if (result.entity?.rp_sum?.toDouble()!! > result.entity?.rp_cash_limit?.toDouble()!!) {
+            money = result.entity?.p?.rp?.sum
+            ruleMoney = result.entity?.p?.rp?.cash_limit
+
+            tvMoney.text = money
+
+            if (money?.toDouble()!! > ruleMoney?.toDouble()!!) {
                 btn_withdraw_money.setBackgroundResource(R.drawable.shape_btn_red)
                 isClick = true
                 return

@@ -8,7 +8,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.MyWalletModel
+import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.model.WithDrawResultModel
 import com.cocosh.shmstore.mine.presenter.MyWalletPresenter
 import kotlinx.android.synthetic.main.activity_my_wallet.*
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_my_wallet.*
  */
 class MyWalletActivity : BaseActivity(), MineContrat.IMyWalletView {
     val mPresenter = MyWalletPresenter(this, this)
-    override fun myWalletData(result: BaseBean<MyWalletModel>) {
+    override fun myWalletData(result: BaseBean<WalletModel>) {
         initData(result.message)
     }
 
@@ -26,20 +26,18 @@ class MyWalletActivity : BaseActivity(), MineContrat.IMyWalletView {
         WithDrawActivity.start(this, Constant.TYPE_MY, tvMoney.text.toString())
     }
 
-    private fun initData(data: MyWalletModel?) {
-        tvMoney.text = data?.balance
-        tvRedMoney.text = data?.rp_sum
+    private fun initData(data: WalletModel?) {
+        tvMoney.text = data?.p?.balance?.total
+        tvRedMoney.text = (data?.p?.rp?.sum+"元")
 //        rule.text = "注：红包金额必须>" + data?.rp_cash_limit + "元时才可以提现!"
     }
 
     override fun setLayout(): Int = R.layout.activity_my_wallet
 
     override fun initView() {
-        titleManager.facTitle("钱包", "银行卡").setRightOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                BankCardMangerActivity.start(this@MyWalletActivity)
-            }
-        })
+        titleManager.facTitle("钱包", "银行卡").setRightOnClickListener(View.OnClickListener {
+            BankCardMangerActivity.start(this@MyWalletActivity) })
+
         moneyList.setOnClickListener(this)
         btn_charge_money.setOnClickListener(this)
         btn_withdraw_money.setOnClickListener(this)

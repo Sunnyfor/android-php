@@ -8,7 +8,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.EntWalletModel
+import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.presenter.EntWalletPresenter
 import com.cocosh.shmstore.mine.ui.authentication.CommonType
 import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
@@ -23,12 +23,12 @@ import kotlinx.android.synthetic.main.activity_enterprise_wallet.*
 class EnterPriseWalletActivity : BaseActivity(), MineContrat.IEntWalletView {
     var mPresenter = EntWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_enterprise_wallet
-    override fun entWalletData(result: BaseBean<EntWalletModel>) {
+    override fun entWalletData(result: BaseBean<WalletModel>) {
             initData(result.message)
     }
 
-    private fun initData(data: EntWalletModel?) {
-        tvMoney.text = data?.balance
+    private fun initData(data: WalletModel?) {
+        tvMoney.text = data?.f?.balance?.total
     }
 
     override fun initView() {

@@ -4,7 +4,6 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
-import com.cocosh.shmstore.mine.data.MineLoader
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.sms.model.SMS
 import com.cocosh.shmstore.sms.type.SMSType
@@ -17,7 +16,7 @@ class MineContrat {
      * 我的钱包
      */
     interface IMyWalletView : IBaseView {
-        fun myWalletData(result: BaseBean<MyWalletModel>)
+        fun myWalletData(result: BaseBean<WalletModel>)
         fun drawReslut(result: BaseBean<WithDrawResultModel>)
     }
 
@@ -45,7 +44,7 @@ class MineContrat {
      * 企业钱包信息
      */
     interface IEntWalletView : IBaseView {
-        fun entWalletData(result: BaseBean<EntWalletModel>)
+        fun entWalletData(result: BaseBean<WalletModel>)
     }
 
     interface IEntWalletPresenter : IBasePresenter {
@@ -206,7 +205,7 @@ class MineContrat {
      * 红包账户
      */
     interface IRedWalletView : IBaseView {
-        fun redWalletData(result: BaseModel<MyWalletModel>)
+        fun redWalletData(result: BaseModel<WalletModel>)
         fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>)
     }
 

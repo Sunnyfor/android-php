@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
@@ -21,6 +22,7 @@ import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.observer.ObserverManager
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_shoumei_search.*
 
 /**
@@ -38,6 +40,9 @@ class ShouMeiSearchActivity : BaseActivity() {
     override fun initView() {
         titleManager.defaultTitle("搜索")
         recyclerView.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        (frameError.layoutParams as FrameLayout.LayoutParams).topMargin = resources.getDimension(R.dimen.h150).toInt()
+
         recyclerView.recyclerView.addItemDecoration(SpaceVItem(resources.getDimension(R.dimen.w45).toInt(), resources.getDimension(R.dimen.w45).toInt()))
         adapter = ShouMeiSearchAdapter(this, companyList)
         recyclerView.recyclerView.adapter = adapter
@@ -112,9 +117,15 @@ class ShouMeiSearchActivity : BaseActivity() {
     }
 
     private fun getCompanyList(companyName: String) {
-        if (companyName.isEmpty()){
+        if (companyName.isEmpty()) {
+            if (currentPage == 1){
+                recyclerView.isRefreshing = false
+            }
             return
         }
+
+        hideReTryLayout()
+
         isShowLoading = true
         val params = HashMap<String, String>()
         params["words"] = companyName
@@ -126,19 +137,25 @@ class ShouMeiSearchActivity : BaseActivity() {
         ApiManager2.post(0, this, params, Constant.EHOME_SEARCH, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
             override fun onFailed(code: String, message: String) {
                 isShowLoading = false
+                if (currentPage == 1){
+                    recyclerView.isRefreshing = false
+                }
+                if (code == "200") {
+                    showReTryLayout(message)
+                }
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {
                 recyclerView.isRefreshing = false
                 isShowLoading = false
-                    if (currentPage == 1) {
-                        companyList.clear()
-                        recyclerView.update(data.message)
-                    } else {
-                        recyclerView.loadMore(data.message)
-                    }
-                    companyList.addAll(data.message ?: arrayListOf())
-                    adapter.notifyDataSetChanged()
+                if (currentPage == 1) {
+                    companyList.clear()
+                    recyclerView.update(data.message)
+                } else {
+                    recyclerView.loadMore(data.message)
+                }
+                companyList.addAll(data.message ?: arrayListOf())
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCatch(data: BaseBean<ArrayList<SMCompanyData>>) {

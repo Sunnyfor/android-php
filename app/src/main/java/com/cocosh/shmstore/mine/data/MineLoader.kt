@@ -23,15 +23,15 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestMyWalletData(flag: Int) {
         val map = HashMap<String, String>()
         map["user_type"] = "p"
-        ApiManager2.post(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<MyWalletModel>>() {
+        ApiManager2.post(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
             override fun onFailed(code: String, message: String) {
             }
 
-            override fun onSuccess(data: BaseBean<MyWalletModel>) {
+            override fun onSuccess(data: BaseBean<WalletModel>) {
                 (view as MineContrat.IMyWalletView).myWalletData(data)
             }
 
-            override fun onCatch(data: BaseBean<MyWalletModel>) {
+            override fun onCatch(data: BaseBean<WalletModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -62,16 +62,16 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestEntWalletData(flag: Int) {
         val map = HashMap<String, String>()
         map["user_type"] = "f"
-        ApiManager2.post(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<EntWalletModel>>() {
+        ApiManager2.post(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
             override fun onFailed(code: String, message: String) {
             }
 
-            override fun onSuccess(data: BaseBean<EntWalletModel>) {
+            override fun onSuccess(data: BaseBean<WalletModel>) {
                 (view as MineContrat.IEntWalletView).entWalletData(data)
             }
 
 
-            override fun onCatch(data: BaseBean<EntWalletModel>) {
+            override fun onCatch(data: BaseBean<WalletModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -642,8 +642,8 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestRedWalletData(flag: Int) {
         var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<MyWalletModel>>() {
-            override fun onSuccess(data: BaseModel<MyWalletModel>) {
+        ApiManager.get(flag, activity, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<WalletModel>>() {
+            override fun onSuccess(data: BaseModel<WalletModel>) {
                 (view as MineContrat.IRedWalletView).redWalletData(data)
             }
 
@@ -651,7 +651,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
                 LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseModel<MyWalletModel>) {
+            override fun onCatch(data: BaseModel<WalletModel>) {
                 LogUtil.d(data.toString())
             }
         })

@@ -10,12 +10,9 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.SendBonusResultActivity
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.AuthenStatus
-import com.cocosh.shmstore.mine.model.MyWalletModel
-import com.cocosh.shmstore.mine.model.PayPassworType
+import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
@@ -293,12 +290,12 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
      */
     private fun requestMyWalletData(flag: Int) {
         var map = HashMap<String, String>()
-        ApiManager.get(flag, this, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<MyWalletModel>>() {
-            override fun onSuccess(data: BaseModel<MyWalletModel>) {
+        ApiManager.get(flag, this, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<WalletModel>>() {
+            override fun onSuccess(data: BaseModel<WalletModel>) {
                 if (data.code == 200 && data.success) {
                     hideReTryLayout()
-                    accountMoney = data.entity?.balance
-                    tvCount.text = "账户余额: ￥" + data.entity?.balance
+                    accountMoney = data.entity?.p?.balance?.total
+                    tvCount.text = ("账户余额: ￥" + accountMoney)
                     if (amount?.toDouble()!! > accountMoney?.toDouble()!!) {
                         ivCheck.visibility = View.GONE
                         tvCount.setTextColor(resources.getColor(R.color.red))
@@ -316,7 +313,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 com.cocosh.shmstore.utils.LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseModel<MyWalletModel>) {
+            override fun onCatch(data: BaseModel<WalletModel>) {
                 com.cocosh.shmstore.utils.LogUtil.d(data.toString())
             }
         })
