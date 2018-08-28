@@ -31,7 +31,7 @@ class InterestingActivity : BaseActivity() {
         intent.getStringExtra("hobby")?.let {
 
             it.split(",").forEach {
-                if (it != "0"){
+                if (it != "0" && it !=""){
                     selectMap[it] = it
                 }
             }
