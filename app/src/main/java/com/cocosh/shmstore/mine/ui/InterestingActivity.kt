@@ -1,6 +1,5 @@
 package com.cocosh.shmstore.mine.ui
 
-import android.content.Intent
 import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
