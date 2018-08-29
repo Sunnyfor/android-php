@@ -31,7 +31,17 @@ data class MsgModel(var id: Int, //消息ID
 
 ) {
     data class Body(
-            var title: String
+            //系统消息字段
+            var title: String?,
+            var content:String?,
+            var image:String?,
+            var time:String?,
+            //核审字段
+            var reason:String?,
+            //提现字段
+            var amount:String,
+            var bankname:String,
+            var actual_time:String
     )
 
 }

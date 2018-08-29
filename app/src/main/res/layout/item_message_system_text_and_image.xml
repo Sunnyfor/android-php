@@ -46,6 +46,7 @@
                 android:layout_marginLeft="@dimen/w60"
                 android:layout_marginRight="@dimen/w60"
                 android:layout_marginTop="@dimen/h20"
+                android:layout_marginBottom="@dimen/h35"
                 android:ellipsize="end"
                 android:maxEms="80"
                 android:text="首媒扶贫活动将于3月15日启动。为响应国家号召，落 实十九大精神，脚踏实地，从基层干部做起..."
@@ -59,8 +60,8 @@
                 android:layout_marginBottom="@dimen/h48"
                 android:layout_marginLeft="@dimen/w60"
                 android:layout_marginRight="@dimen/w60"
-                android:layout_marginTop="@dimen/h35"
-                android:background="@drawable/default_content" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_long" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

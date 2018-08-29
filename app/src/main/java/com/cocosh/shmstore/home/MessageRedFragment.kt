@@ -31,13 +31,13 @@ class MessageRedFragment : BaseFragment() {
         getLayoutView().recyclerView.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
                 index = page
-                getMessage(0, true, "")
+                getMessage()
             }
 
             override fun onLoadMore(page: Int) {
                 if (list.size > 0) {
                     index = list.last().id
-                    getMessage(0, false, list[list.size - 1].id.toString())
+                    getMessage()
                 }
             }
         }
@@ -45,7 +45,7 @@ class MessageRedFragment : BaseFragment() {
 
     override fun reTryGetData() {
         if (isInit) {
-            getMessage(0, true, "")
+            getMessage()
         }
     }
 
@@ -59,9 +59,9 @@ class MessageRedFragment : BaseFragment() {
     /**
      *   获取红包消息
      */
-    fun getMessage(flag: Int, boolean: Boolean, messageId: String?) {
+    fun getMessage() {
         val map = HashMap<String, String>()
-        map["channel"] = "s"
+        map["channel"] = "r"
         if (index != 1){
             map["id"] = index.toString()
         }
@@ -102,12 +102,12 @@ class MessageRedFragment : BaseFragment() {
                 isInit = true
                 launch(UI) {
                     delay(500)
-                    getMessage(0, true, "")
+                    getMessage()
                 }
                 return
             }
             getBaseActivity().showLoading()
-            getMessage(0, true, "")
+            getMessage()
         }
     }
 

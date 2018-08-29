@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/activity_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h25"
-            android:background="@color/progressBg"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/w95"
                 android:layout_marginTop="@dimen/h48"
-                android:text="首媒扶贫活动将于3月15日启动"
                 android:textColor="@color/blackText"
-                android:textSize="@dimen/w40" />
+                android:textSize="@dimen/w40"
+                tools:text="首媒扶贫活动将于3月15日启动" />
 
             <TextView
                 android:id="@+id/tvDesc"
@@ -47,9 +47,9 @@
                 android:layout_marginTop="@dimen/h20"
                 android:ellipsize="end"
                 android:maxEms="80"
-                android:text="首媒扶贫活动将于3月15日启动。为响应国家号召，落 实十九大精神，脚踏实地，从基层干部做起，..."
                 android:textColor="@color/grayText"
-                android:textSize="@dimen/w37" />
+                android:textSize="@dimen/w37"
+                tools:text="首媒扶贫活动将于3月15日启动。为响应国家号召，落 实十九大精神，脚踏实地，从基层干部做起，..." />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
