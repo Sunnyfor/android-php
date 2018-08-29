@@ -20,14 +20,16 @@ class MessageReplyAdapter(var mContext: Context, list: ArrayList<MsgModel>) : Ba
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvTime.text = getData(position).time
-//        GlideUtils.loadHead(mContext, getData(position).replyPersonHeadPic, holder.itemView.head)
-//        if (getData(position).messageType == MessageType.REPLY_MESSAGE.type) {
-//            holder.itemView.tvName.text = getData(position).replyPersonName + " 回复 你"
-//            holder.itemView.tvDesc.text = getData(position).details
-//        } else {
-//            holder.itemView.tvName.text = getData(position).replyPersonName
-//            holder.itemView.tvDesc.text = "评论内容：" + getData(position).details
-//        }
+
+        if (getData(position).kind == "1") {
+            holder.itemView.tvName.text = (getData(position).body?.nickname + " 回复 你：")
+            holder.itemView.tvDesc.text = getData(position).body?.content
+            GlideUtils.loadHead(mContext, getData(position).body?.avatar, holder.itemView.head)
+        } else {
+            GlideUtils.loadHead(mContext, getData(position).body?.logo, holder.itemView.head)
+            holder.itemView.tvName.text = ("您的评论被“${getData(position).body?.company}”删除")
+            holder.itemView.tvDesc.text = ("评论内容：" + getData(position).body?.content)
+        }
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(parent.context).inflate(R.layout.item_message_reply, parent, false)

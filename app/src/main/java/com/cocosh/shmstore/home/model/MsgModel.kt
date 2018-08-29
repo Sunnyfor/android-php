@@ -46,7 +46,12 @@ data class MsgModel(var id: Int, //消息ID
             var refund:Int,
             var name:String?,
             var nickname:String?,
-            var smno:String?
+            var smno:String?,
+            //回复我的字段
+            var avatar:String,
+            //被删除字段
+            var logo:String?,
+            var company:String?
     )
 
 }
