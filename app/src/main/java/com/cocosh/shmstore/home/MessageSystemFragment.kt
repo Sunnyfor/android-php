@@ -45,6 +45,7 @@ class MessageSystemFragment : BaseFragment() {
 
     override fun reTryGetData() {
         if (isInit) {
+            index = 1
             getMessage()
         }
     }
@@ -97,6 +98,7 @@ class MessageSystemFragment : BaseFragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
+            index =1
             if (!isInit) {
                 isInit = true
                 launch(UI) {
