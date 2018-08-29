@@ -2,9 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+    <com.cocosh.shmstore.widget.SMSwipeRefreshLayout
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tab"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+        android:layout_height="match_parent" />
 </RelativeLayout>

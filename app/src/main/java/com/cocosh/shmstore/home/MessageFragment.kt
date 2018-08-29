@@ -29,14 +29,14 @@ class MessageFragment : BaseFragment() {
         val titleList = arrayListOf<String>()
         titleList.add("系统消息")
         titleList.add("红包消息")
-//        titleList.add("订单消息")
+        titleList.add("订单消息")
         titleList.add("回复我的")
 
 
 
         fragmentList.add(MessageSystemFragment())
         fragmentList.add(MessageRedFragment())
-//        fragmentList.add(MessageOrderFragment())
+        fragmentList.add(MessageOrderFragment())
         fragmentList.add(MessageReplyFragment())
 
         //设置tab的模式
