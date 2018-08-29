@@ -39,9 +39,14 @@ data class MsgModel(var id: Int, //消息ID
             //核审字段
             var reason:String?,
             //提现字段
-            var amount:String,
-            var bankname:String,
-            var actual_time:String
+            var amount:String?,
+            var bankname:String?,
+            var actual_time:String?,
+            //红包字段
+            var refund:Int,
+            var name:String?,
+            var nickname:String?,
+            var smno:String?
     )
 
 }

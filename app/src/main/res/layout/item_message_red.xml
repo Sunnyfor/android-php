@@ -59,7 +59,7 @@
                 android:layout_marginBottom="@dimen/h70"
                 android:layout_marginLeft="@dimen/w60"
                 android:layout_marginTop="@dimen/h50"
-                android:background="@drawable/default_content" />
+                android:background="@drawable/bg_share_bonus" />
 
             <LinearLayout
                 android:layout_width="match_parent"

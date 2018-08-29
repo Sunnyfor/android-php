@@ -18,28 +18,39 @@ class MessageRedAdapter(list: ArrayList<MsgModel>) : BaseRecycleAdapter<MsgModel
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvTime.text = getData(position).time
-//        holder.itemView.tvStatus.text = getData(position).title
-        holder.itemView.tvTitle.text = getData(position).body?.title
+        holder.itemView.tvTitle.text = getData(position).body?.name
+
         when (list[position].kind) {
-            MessageType.RED_PACKET_IN_THE_LAUNCH_MESSAGE.type -> {
+            "1" -> {
+                holder.itemView.tvStatus.text = "红包已投放"
                 holder.itemView.tvDesc.visibility = View.VISIBLE
-//                holder.itemView.tvDesc.text = "投放时间：" + getData(position).redPacketStartTime
+                holder.itemView.tvDesc.text = ("投放时间：" + getData(position).body?.actual_time)
             }
-            MessageType.RED_PACKET_PUT_TO_THE_END_MESSAGE.type -> {
-                holder.itemView.tvDesc.visibility = View.INVISIBLE
-            }
-            MessageType.RED_PACKET_PUT_TO_THE_END_RETURN_MONEY_MESSAGE.type -> {
-                holder.itemView.tvDesc.visibility = View.INVISIBLE
-            }
-            MessageType.RED_PACKET_GRANT_AND_RECEIVE_MESSAGE.type -> {
-                holder.itemView.tvDesc.visibility = View.INVISIBLE
-            }
-            MessageType.RED_PACKET_GIVE_BACK_MESSAGE.type -> {
-                holder.itemView.tvDesc.visibility = View.INVISIBLE
-            }
-            MessageType.RED_PACKET_REJECT_MESSAGE.type -> {
+
+            "2" -> {
+                holder.itemView.tvStatus.text = "红包被驳回"
                 holder.itemView.tvDesc.visibility = View.VISIBLE
-//                holder.itemView.tvDesc.text = "驳回原因：" + getData(position).causeWhy
+                holder.itemView.tvDesc.text = ("驳回原因：" + getData(position).body?.reason)
+            }
+
+            "3" -> {
+                val desc = if (getData(position).body?.refund == 1) "（有退款）" else ""
+                holder.itemView.tvStatus.text = ("投放结束$desc")
+                holder.itemView.tvDesc.visibility = View.INVISIBLE
+            }
+
+
+            "4" -> {
+                holder.itemView.tvStatus.text = "赠送红包被领取"
+                holder.itemView.tvDesc.visibility = View.VISIBLE
+                holder.itemView.tvDesc.text = ("您赠送的红包已被${getData(position).body?.nickname}（${getData(position).body?.smno}）领取！")
+            }
+
+
+            "5" -> {
+                holder.itemView.tvStatus.text = "赠送红包退回"
+                holder.itemView.tvTitle.text = "您赠送的红包被退回"
+                holder.itemView.tvDesc.visibility = View.INVISIBLE
             }
         }
 
