@@ -127,21 +127,19 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     }
 
     /**
-     * 对公账号信息
+     * 企业提现
      */
     fun requestCorporateAccountData(flag: Int) {
-        val map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.ENT_WALLET_DRAWINFO, object : ApiManager.OnResult<BaseBean<CorporateAccountModel>>() {
+        ApiManager2.post(flag, activity, hashMapOf(), Constant.BALANCE_CASH_SVC, object : ApiManager2.OnResult<BaseBean<CorporateAccountModel>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
             override fun onSuccess(data: BaseBean<CorporateAccountModel>) {
                 (view as MineContrat.IMyWalletDrawView).corporateAccountData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
             override fun onCatch(data: BaseBean<CorporateAccountModel>) {
-                LogUtil.d(data.toString())
+
             }
         })
     }

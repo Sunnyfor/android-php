@@ -97,6 +97,7 @@ object Constant {
     const val MYSELF_PROVIDER_EXPAND_PERSONAL = "$VERSION/myself/provider/expand/personal" //服务商--拓展个人用户
     const val MYSELF_PROVIDER_EXPAND_ENTERPRISE = "$VERSION/myself/provider/expand/enterprise" //服务商--拓展企业主
     const val MYSELF_PROVIDER_EXPAND_MATCHMAKER = "$VERSION/myself/provider/expand/matchmaker" //服务商--拓展新媒人
+    const val BALANCE_CASH_SVC = "$VERSION/balance/cash/svc" //提现页要素-服务商
 
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息
     const val ENT_CERT_DO = "$VERSION/ent_cert/do" //企业主认证

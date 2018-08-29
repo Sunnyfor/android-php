@@ -11,12 +11,18 @@ maxMoney (string, optional): 提现最大金额 ,
 minMoney (string, optional): 提现最小金额 ,
 ratio (string, optional): 提现手续费
  */
-data class CorporateAccountModel(var openingBankName: String?,
-                                 var bankNumber: String?,
-                                 var accountName: String?,
-                                 var ruleType: RuleTypeData?) {
-    data class RuleTypeData(var minMoney: String?,
-                            var maxMoney: String?,
-                            var ratio: String?,
-                            var des: String?)
+data class CorporateAccountModel(
+        var acctinfo: Acctinfo,
+        var amt: Amt) {
+
+    data class Acctinfo(
+            var account: String,
+            var name: String,
+            var bank: String)
+
+    data class Amt(
+            var amt_min: Int,
+            var amt_max: Int,
+            var fee: String?
+    )
 }

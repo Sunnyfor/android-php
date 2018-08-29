@@ -24,6 +24,7 @@ import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_withdraw.*
 
 /**
+ *
  * Created by lmg on 2018/4/18.
  */
 class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
@@ -41,21 +42,21 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     override fun setLayout(): Int = R.layout.activity_withdraw
 
     override fun bankListDraw(result: BaseBean<BankDrawListModel>) {
-            hideReTryLayout()
-            listDatas.clear()
-            if (result.message != null && result.message?.list?.size ?: 0 > 0) {
-                listDatas.addAll(result.message?.list!!)
-                ivPic.visibility = View.VISIBLE
-                GlideUtils.loadDefault(this, result.message?.list!![0].bank_log, ivPic)
-                tvName.text = result.message?.list!![0].bank_name
-                text_treaty.text = result.message?.ruleType?.des
-                checkBankId = result.message?.list!![0].bank_kind ?: ""
-                maxMoney = result.message?.ruleType?.maxMoney ?: "0"
-                minMoney = result.message?.ruleType?.minMoney ?: "0"
-            } else {
-                ivPic.visibility = View.GONE
-                tvName.text = "请绑定银行卡"
-            }
+        hideReTryLayout()
+        listDatas.clear()
+        if (result.message != null && result.message?.list?.size ?: 0 > 0) {
+            listDatas.addAll(result.message?.list!!)
+            ivPic.visibility = View.VISIBLE
+            GlideUtils.loadDefault(this, result.message?.list!![0].bank_log, ivPic)
+            tvName.text = result.message?.list!![0].bank_name
+            text_treaty.text = result.message?.ruleType?.des
+            checkBankId = result.message?.list!![0].bank_kind ?: ""
+            maxMoney = result.message?.ruleType?.maxMoney ?: "0"
+            minMoney = result.message?.ruleType?.minMoney ?: "0"
+        } else {
+            ivPic.visibility = View.GONE
+            tvName.text = "请绑定银行卡"
+        }
     }
 
     override fun myWalletDraw(result: BaseBean<WithDrawResultModel>) {
@@ -67,20 +68,20 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     }
 
     override fun runningNum(result: BaseBean<String>) {
-            runningNum = result.message
+        runningNum = result.message
     }
 
 
-    override fun corporateAccountData(result: BaseBean<CorporateAccountModel>){
+    override fun corporateAccountData(result: BaseBean<CorporateAccountModel>) {
 
-                edtBankAccount.setText(result.message?.bankNumber)
-                etName.text = result.message?.accountName
-                edtBankName.setText(result.message?.openingBankName)
-                text_treaty.text = result.message?.ruleType?.des
-                maxMoney = result.message?.ruleType?.maxMoney ?: "0"
-                minMoney = result.message?.ruleType?.minMoney ?: "0"
+        edtBankAccount.setText(result.message?.acctinfo?.account)
+        etName.text = result.message?.acctinfo?.name
+        edtBankName.setText(result.message?.acctinfo?.bank)
+        maxMoney = result.message?.amt?.amt_max.toString()
+        minMoney = result.message?.amt?.amt_min.toString()
+        text_treaty.text = ("单笔提现金额不低于${minMoney}元，最高${maxMoney}元，每笔提现将扣除2元手续费")
 
-            }
+    }
 
 
     override fun initView() {
@@ -98,7 +99,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         val mFilters = arrayOf<InputFilter>(CashierInputFilter())
         tvMoney.filters = mFilters
 
-        showHint.text = "可提现金额" + money + "元"
+        showHint.text = ("可提现金额" + money + "元")
         addBank.setOnClickListener(this)
         tvAllOut.setOnClickListener(this)
         btnCharge.setOnClickListener(this)
@@ -109,9 +110,9 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                     AddBankCardActivity.start(this@WithDrawActivity)
                     return
                 }
-                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1]?.bank_log, ivPic)
-                tvName.text = listDatas[index - 1]?.bank_name
-                checkBankId = listDatas[index - 1]?.id ?: ""
+                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1].bank_log, ivPic)
+                tvName.text = listDatas[index - 1].bank_name
+                checkBankId = listDatas[index - 1].id ?: ""
             }
         }
 
@@ -128,7 +129,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                 if (tvMoney.text.isEmpty()) {
                     hint.visibility = View.VISIBLE
                     showHint.setTextColor(resources.getColor(R.color.textGray))
-                    showHint.text = "可提现金额" + money + "元"
+                    showHint.text = ("可提现金额" + money + "元")
                     tvAllOut.visibility = View.VISIBLE
                     isClick = false
                     btnCharge.setBackgroundResource(R.color.grayBtn)
@@ -143,7 +144,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                         return
                     }
                     showHint.setTextColor(resources.getColor(R.color.textGray))
-                    showHint.text = "可提现金额" + money + "元"
+                    showHint.text = ("可提现金额" + money + "元")
                     tvAllOut.visibility = View.VISIBLE
 
                     if (tvMoney.text?.toString()?.toDouble()!! <= minMoney!!.toDouble()) {
@@ -230,7 +231,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
-            CheckPayPwdMessage.start(this@WithDrawActivity,SMSType.INIT_PAYPASS)
+            CheckPayPwdMessage.start(this@WithDrawActivity, SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }
