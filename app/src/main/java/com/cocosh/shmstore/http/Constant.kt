@@ -125,7 +125,8 @@ object Constant {
     const val RP_LIST = "$VERSION/rp/list"
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
-    const val RP_CREATE = "$VERSION//rp/create" //创建红包
+    const val RP_CREATE = "$VERSION/rp/create" //创建红包
+    const val MYSELF_SENDRP_LIST = "$VERSION/myself_sendrp_list" //发出的红包
 
     /**
      * 银行卡
@@ -141,7 +142,6 @@ object Constant {
     const val BALANCE_TRANS_PERSON = "$VERSION/balance/trans/person" //余额明细-个人
     const val BALANCE_TRANS_SVC = "$VERSION/balance/trans/svc" //服务商钱包明细
     const val RP_TRANS = "$VERSION/rp/trans"
-
 
     /**
      * 消息列表

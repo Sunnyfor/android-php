@@ -25,7 +25,7 @@ redPacketStartTime (string, optional): 红包投放开始时间 ,
 data class MsgModel(var id: Int, //消息ID
                     var kind: String?,  // 消息具体种类: '0'-系统活动(默认),'1'-资金变动提醒,... 业务待定
                     var body: Body?, // 消息正文
-                    var ext: String?, //扩展参数
+                    var ext: Ext?, //扩展参数
                     var read: String?, // 是否已读
                     var time: String? //发帖时间
 
@@ -54,4 +54,12 @@ data class MsgModel(var id: Int, //消息ID
             var company:String?
     )
 
+    data class Ext(
+            var id:String?,
+            var url:String, //
+            var no:String?,//红包、提现记录ID
+            var sn:String?, //订单编号
+            var reply_id:String?, //对方回复的消息ID
+            var comment_id:String? //评论ID
+    )
 }

@@ -9,8 +9,11 @@ import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.home.model.MsgModel
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.ui.AuthActivity
+import com.cocosh.shmstore.mine.ui.WebActivity
 import com.cocosh.shmstore.mine.ui.mywallet.MoneyWaterActivity
 import com.cocosh.shmstore.utils.GlideUtils
+import com.cocosh.shmstore.utils.OpenType
 import kotlinx.android.synthetic.main.item_message_system_text.view.*
 import kotlinx.android.synthetic.main.item_message_system_text_and_image.view.*
 import kotlinx.android.synthetic.main.item_message_system_withdraw.view.*
@@ -70,13 +73,17 @@ class MessageSystemAdapter(var mContext: Context, list: ArrayList<MsgModel>) : B
 
 
         holder.itemView.setOnClickListener {
-            if (getItemViewType(position) == 2) {
+            if (getItemViewType(position) == 0) {
                 //跳转详情页
-//                WebActivity.start(mContext, OpenType.SysMessage.name, getData(position).associatedUrl,  getData(position).title)
+                WebActivity.start(mContext, OpenType.SysMessage.name, getData(position).ext?.url, getData(position).body?.title)
             }
             if (getItemViewType(position) == 1 || getItemViewType(position) == 2) {
                 //跳转财富明细
                 MoneyWaterActivity.start(mContext, Constant.TYPE_MY)
+            }
+
+            if (getItemViewType(position) == 3 || getItemViewType(position) == 4) {
+                AuthActivity.start(context)
             }
         }
     }

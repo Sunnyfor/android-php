@@ -42,7 +42,7 @@ class MessageFragment : BaseFragment() {
         //设置tab的模式
         getLayoutView().tab.tabMode = TabLayout.MODE_FIXED
         //添加tab选项卡
-        titleList.forEachIndexed { index, s ->
+        titleList.forEachIndexed { index, _ ->
             getLayoutView().tab.addTab(getLayoutView().tab.newTab().setText(titleList[index]))
         }
 

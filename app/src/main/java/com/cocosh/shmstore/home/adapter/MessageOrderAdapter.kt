@@ -7,16 +7,19 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.home.model.MsgModel
-import kotlinx.android.synthetic.main.item_shoumei_h.view.*
+import com.cocosh.shmstore.utils.GlideUtils
+import kotlinx.android.synthetic.main.item_message_order.view.*
 
 /**
- * 红包消息适配器
+ * 订单消息适配器
  * Created by zhangye on 2018/3/13.
  */
 class MessageOrderAdapter(list: ArrayList<MsgModel>) : BaseRecycleAdapter<MsgModel>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-
+        holder.itemView.tvTime.text = getData(position).time
+        holder.itemView.tvDesc.text = getData(position).body?.name
+        GlideUtils.loadPhoto(context, getData(position).body?.image, holder.itemView.ivPhoto, R.drawable.default_content)
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(parent.context).inflate(R.layout.item_message_order, parent, false)

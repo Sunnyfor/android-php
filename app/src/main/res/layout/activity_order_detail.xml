@@ -131,7 +131,7 @@
                     android:id="@+id/logisticsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/h30"></android.support.v7.widget.RecyclerView>
+                    android:layout_marginTop="@dimen/h30"/>
             </LinearLayout>
 
             <TextView
