@@ -40,13 +40,15 @@
             android:paddingLeft="@dimen/w54"
             android:gravity="center_vertical"
             android:text="平台分配用户"
-            android:textSize="@dimen/h34" />
+            android:textSize="@dimen/h34"
+            android:visibility="gone"/>
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/sGivePerson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="个人用户"/>
+            app:nameText="个人用户"
+            android:visibility="gone"/>
 
 
         <TextView
