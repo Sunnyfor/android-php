@@ -62,13 +62,13 @@ class SendPackageActivity : BaseActivity() {
         fragmentList.add(SendPackageFragment())
         fragmentList.add(SendPackageFragment())
         fragmentList.add(SendPackageFragment())
-//        fragmentList.add(SendPackageFragment()) //驳回隐藏
+        fragmentList.add(SendPackageFragment())
 
-        //10 待付款 20审核中 30投放中 21被驳回
-        fragmentList[1].type = "10"
-        fragmentList[2].type = "20"
-        fragmentList[3].type = "30"
-//        fragmentList[4].type = "21"
+        //0 待付款 2审核中 5投放中 3被驳回
+        fragmentList[1].type = "0"
+        fragmentList[2].type = "2"
+        fragmentList[3].type = "5"
+        fragmentList[4].type = "3"
 
         //设置标题
         val titleList = arrayListOf<String>()
@@ -76,7 +76,7 @@ class SendPackageActivity : BaseActivity() {
         titleList.add("待付款")
         titleList.add("审核中")
         titleList.add("已投放")
-//        titleList.add("被驳回")
+        titleList.add("被驳回")
 
 
         val linearLayout = tab.getChildAt(0) as LinearLayout
@@ -99,33 +99,33 @@ class SendPackageActivity : BaseActivity() {
         tab.setupWithViewPager(viewPager)
 
 
-        job = launch(CommonPool) {
-            while (!isDestory) {
-                delay(1000)
-
-                fragmentList[0].list
-                        .forEachIndexed { index, bonus ->
-                            if (bonus.orderStatus == "10" && bonus.endTimeStamp > 0) {
-                                bonus.endTimeStamp -= 1000
-                                val message = Message()
-                                message.what = 0
-                                message.obj = index
-                                handler.sendMessage(message)
-                            }
-
-                        }
-
-                fragmentList[1].list.forEachIndexed { index, bonus ->
-                    if (bonus.orderStatus == "10" && bonus.endTimeStamp > 0) {
-                        bonus.endTimeStamp -= 1000
-                        val message = Message()
-                        message.what = 1
-                        message.obj = index
-                        handler.sendMessage(message)
-                    }
-                }
-            }
-        }
+//        job = launch(CommonPool) {
+//            while (!isDestory) {
+//                delay(1000)
+//
+//                fragmentList[0].list
+//                        .forEachIndexed { index, bonus ->
+//                            if (bonus.orderStatus == "10" && bonus.endTimeStamp > 0) {
+//                                bonus.endTimeStamp -= 1000
+//                                val message = Message()
+//                                message.what = 0
+//                                message.obj = index
+//                                handler.sendMessage(message)
+//                            }
+//
+//                        }
+//
+//                fragmentList[1].list.forEachIndexed { index, bonus ->
+//                    if (bonus.orderStatus == "10" && bonus.endTimeStamp > 0) {
+//                        bonus.endTimeStamp -= 1000
+//                        val message = Message()
+//                        message.what = 1
+//                        message.obj = index
+//                        handler.sendMessage(message)
+//                    }
+//                }
+//            }
+//        }
     }
 
     override fun onListener(view: View) {
@@ -150,12 +150,12 @@ class SendPackageActivity : BaseActivity() {
 
 
     //取消投放
-    fun cancleRelease(bonus: SendBonus.Bonus) {
+    fun cancleRelease(bonus: SendBonus) {
         val dialog = SmediaDialog(this)
         dialog.setTitle("您确定取消投放吗？")
         dialog.OnClickListener = View.OnClickListener {
             val params = hashMapOf<String, String>()
-            params["redPacketOrderId"] = bonus.redPacketOrderId ?: ""
+            params["redPacketOrderId"] = bonus.pay_sn ?: ""
             ApiManager.get(this, params, Constant.BONUS_CANCLE, object : ApiManager.OnResult<BaseModel<String>>() {
                 override fun onSuccess(data: BaseModel<String>) {
                     if (data.success) {

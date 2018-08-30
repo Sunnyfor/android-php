@@ -5,6 +5,7 @@ package com.cocosh.shmstore.newCertification.model
  * Created by zhangye on 2018/4/3.
  */
 data class PendingPay(
+        var newid: String,
         var cert: Cert?, // 认证信息
         var svc: Svc) { // 基础信息
 
@@ -17,9 +18,9 @@ data class PendingPay(
     )
 
     data class Svc(
-            var name:String, // 服务商名字
-            var province:String, // 服务商省份
-            var city:String, // 服务商城市
-            var legal:String //法人
+            var name: String, // 服务商名字
+            var province: String, // 服务商省份
+            var city: String, // 服务商城市
+            var legal: String //法人
     )
 }
