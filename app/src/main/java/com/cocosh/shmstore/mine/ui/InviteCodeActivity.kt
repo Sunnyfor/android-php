@@ -31,10 +31,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.load.model.GlideUrl
-
-
 
 
 /**
@@ -45,16 +44,29 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
     override fun reTryGetData() {
 
     }
-    var type:String? = null
+
+    var type: String? = null
     private var isArgeen = false
     private var infoData: InviteCodeModel? = null
     private val REQUESTCODE = 1
     private var persenter: InviteCodeContrat.IPresenter = InviteCodePresenter(this, this)
 
+    private val url: String by lazy {
+        if (type == "2") {
+            Constant.MYSELF_MATCHMAKER_INVITATION_IMAGE
+        } else {
+            Constant.MYSELF_PROVIDER_INVITATION_IMAGE
+        }
+    }
+    private val authorization: GlideUrl by lazy {
+        GlideUrl(ApiManager2.getHost() + "/" + url,
+                LazyHeaders.Builder().addHeader("authorization", ApiManager2.headerInterceptor.getAuthorization()).build())
+    }
+
     override fun inviteCodeData(result: BaseBean<InviteCodeModel>) {
-            //加载数据
-            infoData = result.message
-            setData(result.message)
+        //加载数据
+        infoData = result.message
+        setData(result.message)
     }
 
     private fun setData(info: InviteCodeModel?) {
@@ -83,20 +95,8 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
     private fun initData() {
         tv_conserve_img.paint.flags = Paint.UNDERLINE_TEXT_FLAG //下划线
         tv_conserve_img.paint.isAntiAlias = true//抗锯齿
-        val info = UserManager.getMemberEntrance()
-
-//        if(type == null){
-//            //type H:新媒人 Y:服务商
-//            if (info?.partnerStatus == AuthenStatus.PRE_PASS.type || info?.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-//                type = if (info.cityOpertorsStatus == AuthenStatus.PRE_PASS.type) {
-//                    "3"
-//                } else {
-//                    "2"
-//                }
-//            }
-//        }
         type?.let {
-            persenter.requestInviteCodeData(1,UserManager.getUserId(), it)
+            persenter.requestInviteCodeData(1, UserManager.getUserId(), it)
         }
     }
 
@@ -104,9 +104,9 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
         when (view.id) {
         //分享
             invite_code_btn.id -> {
-                if (infoData != null){
+                if (infoData != null) {
                     val dialog = ShareDialog(this)
-                    dialog.showShareBase("首媒约你一起互联网+","抢不完的现金红包等着你", infoData?.codeInfo?:"")
+                    dialog.showShareBase("首媒约你一起互联网+", "抢不完的现金红包等着你", infoData?.codeInfo ?: "")
                     dialog.show()
                 }
             }
@@ -124,18 +124,17 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
 
     companion object {
         fun start(context: Context) {
-            start(context,null)
+            start(context, null)
         }
 
-        fun start(context: Context,type:String?) {
+        fun start(context: Context, type: String?) {
             val intent = Intent(context, InviteCodeActivity::class.java)
             type?.let {
-                intent.putExtra("type",it)
+                intent.putExtra("type", it)
             }
             context.startActivity(intent)
         }
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -146,7 +145,8 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
 
     //保存文件到指定路径
     private fun saveImageToGallery() {
-        GlideUtils.loadBitmap(this, infoData?.inviteImage, object : SimpleTarget<ByteArray>() {
+        Glide.with(this).load(authorization).asBitmap().toBytes().skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(object : SimpleTarget<ByteArray>() {
             override fun onResourceReady(resource: ByteArray?, glideAnimation: GlideAnimation<in ByteArray>?) {
                 try {
                     savaBitmap(resource!!)
@@ -214,12 +214,8 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
     }
 
 
-    private fun loadQRcode(){
-        val authorization = GlideUrl(Constant.MYSELF_MATCHMAKER_INVITATION_IMAGE, LazyHeaders.Builder().addHeader("authorization", ApiManager2.headerInterceptor.getAuthorization()).build())
-        if (type =="2"){
-            Glide.with(this).load(authorization).placeholder(R.drawable.default_content).into(qr_code)
-        }
-//        ApiManager2.get(0,null,Constant.MYSELF_MATCHMAKER_INVITATION_IMAGE,object :B)
-//        MYSELF_MATCHMAKER_INVITATION_IMAGE
+    private fun loadQRcode() {
+        Glide.with(this).load(authorization).skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.default_content).into(qr_code)
     }
 }
