@@ -4,6 +4,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.utils.LogUtil
@@ -15,21 +16,22 @@ import com.cocosh.shmstore.utils.LogUtil
 class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforContrat.IView) {
     fun getCharge(payChannel: String, amount: String, payOperatStatus: String, runningNumber: String) {
         val map = HashMap<String, String>()
-        //支付使用的第三方支付渠道 LOCAL_ACC 本地支付, PINGPP_WX 微信app支付,PINGPP_WX_PUB 微信电脑端支付, PINGPP_ALIPAY 支付宝app支付, PINGPP_ALIPAY_PC 支付宝电脑端支付
-        map["payChannel"] = payChannel
+        //支付使用的第三方支付渠道,'wx'-微信支付,'alipay'-支付宝)
+        map["pay_type"] = payChannel
         map["amount"] = amount
-        //RECHARGE (1,"充值"),PUT_FORWARD (2,"提现"),PAYMENT(3,"消费"), RETURN_TO_INCOME(4,"转入"),SALE(5,"创建"),REFUND(6,"退款"), SEND_RED_PACKET(7,"发红包")
-        map["payOperatStatus"] = payOperatStatus
+        //业务种类 (必填,'1'-新媒人认证,'2'-发红包支付,'3'-余额充值支付,'4'-购买支付)
+        map["kind"] = payOperatStatus
         //订单编号 非必传字段
-        map["runningNumber"] = runningNumber
-        ApiManager.post(activity, map, Constant.CASH_PAY, object : ApiManager.OnResult<String>() {
+        map["data"] = runningNumber
+        ApiManager2.post(activity, map, Constant.PAYMENT, object : ApiManager2.OnResult<String>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
             override fun onSuccess(data: String) {
                 view.confirmResult(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message ?: "")
-            }
 
             override fun onCatch(data: String) {
                 LogUtil.d(data)

@@ -11,9 +11,10 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.model.PayResultModel
+import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.mywallet.ReChargeActivity
@@ -51,14 +52,14 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     override fun confirmResult(result: String) {
         val jsonObject = JSONObject(result)
-        if (jsonObject.optString("code") == "200" && jsonObject.optBoolean("success")) {
-            val string = jsonObject.optString("entity")
+        if (jsonObject.optString("status") == "200") {
+            val string = jsonObject.optString("message")
             Pingpp.createPayment(this, string)
             val gson = Gson()
             var map: Map<String, Any> = java.util.HashMap()
             map = gson.fromJson(string, map.javaClass)
             isConfirm = true
-            number = map["orderNo"] as String?
+            number = map["order_no"] as String?
             isConfirm = true
         } else {
             ToastUtil.show("订单提交失败")
@@ -124,8 +125,8 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 if (amount?.toDouble()!! <= accountMoney?.toDouble()!!) {
                     choose("LOCAL_ACC")
                 }
-            R.id.llWechat -> choose("PINGPP_WX")
-            R.id.llAlipay -> choose("PINGPP_ALIPAY")
+            R.id.llWechat -> choose("wx")
+            R.id.llAlipay -> choose("alipay")
             R.id.btnSure -> pay(check)
             tvCharge.id -> {
                 SmApplication.getApp().activityName = this::class.java as Class<BaseActivity>?
@@ -140,7 +141,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             ToastUtil.show("请选择支付方式")
             return
         }
-        if (type == "PINGPP_WX") {
+        if (type == "wx") {
             if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
                 ToastUtil.show(getString(R.string.notWeixin))
                 return
@@ -149,7 +150,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
         if (!amount.isNullOrEmpty()) {
             if (type == "LOCAL_ACC") {
-                if (UserManager.getPayPwdStatus() == true) {
+                if (UserManager2.getCommonData()?.paypass == 1) {
                     showImputPsdDialog()
                 } else {
                     //弹出设置密码弹窗
@@ -165,13 +166,13 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     private fun choose(type: String) {
         when (type) {
-            "PINGPP_WX" -> {
+            "wx" -> {
                 wechatCheck.visibility = View.VISIBLE
                 alipayCheck.visibility = View.GONE
                 ivCheck.visibility = View.GONE
 
             }
-            "PINGPP_ALIPAY" -> {
+            "alipay" -> {
                 wechatCheck.visibility = View.GONE
                 ivCheck.visibility = View.GONE
                 alipayCheck.visibility = View.VISIBLE
@@ -203,7 +204,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@PayActivity.javaClass
-            CheckPayPwdMessage.start(this@PayActivity,SMSType.INIT_PAYPASS)
+            CheckPayPwdMessage.start(this@PayActivity, SMSType.INIT_PAYPASS)
         }
         dialog.show()
     }
@@ -289,32 +290,27 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
      * 获取我的钱包 账户余额
      */
     private fun requestMyWalletData(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, this, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<WalletModel>>() {
-            override fun onSuccess(data: BaseModel<WalletModel>) {
-                if (data.code == 200 && data.success) {
-                    hideReTryLayout()
-                    accountMoney = data.entity?.p?.balance?.total
-                    tvCount.text = ("账户余额: ￥" + accountMoney)
-                    if (amount?.toDouble()!! > accountMoney?.toDouble()!!) {
-                        ivCheck.visibility = View.GONE
-                        tvCount.setTextColor(resources.getColor(R.color.red))
-                        tvCharge.visibility = View.VISIBLE
-                    } else {
-                        tvCharge.visibility = View.GONE
-                        tvCount.setTextColor(resources.getColor(R.color.blackText))
-                    }
+        val map = HashMap<String, String>()
+        map["user_type"] = "p"
+        ApiManager2.post(flag, this, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<WalletModel>) {
+                hideReTryLayout()
+                accountMoney = data.message?.p?.balance?.total
+                tvCount.text = ("账户余额: ￥" + accountMoney)
+                if (amount?.toDouble()!! > accountMoney?.toDouble()!!) {
+                    ivCheck.visibility = View.GONE
+                    tvCount.setTextColor(resources.getColor(R.color.red))
+                    tvCharge.visibility = View.VISIBLE
                 } else {
-                    showReTryLayout()
+                    tvCharge.visibility = View.GONE
+                    tvCount.setTextColor(resources.getColor(R.color.blackText))
                 }
             }
 
-            override fun onFailed(e: Throwable) {
-                com.cocosh.shmstore.utils.LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<WalletModel>) {
-                com.cocosh.shmstore.utils.LogUtil.d(data.toString())
+            override fun onCatch(data: BaseBean<WalletModel>) {
             }
         })
     }

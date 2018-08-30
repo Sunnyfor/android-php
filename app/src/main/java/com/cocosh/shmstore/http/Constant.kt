@@ -131,6 +131,12 @@ object Constant {
     const val RP_CREATE = "$VERSION/rp/create" //创建红包
     const val MYSELF_SENDRP_LIST = "$VERSION/myself/sendrp/list" //发出的红包
 
+
+    /**
+     * 支付
+     */
+    const val PAYMENT = "$VERSION/payment" //支付
+
     /**
      * 银行卡
      * */
