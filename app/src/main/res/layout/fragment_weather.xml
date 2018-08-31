@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/h360"
     android:background="@color/white">
@@ -117,13 +118,40 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ImageView
-        android:id="@id/ivPhoto"
-        android:layout_width="@dimen/w142"
-        android:layout_height="@dimen/h142"
+    <RelativeLayout
+        android:layout_marginTop="@dimen/h27"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/w52"
-        android:layout_marginTop="@dimen/h50"
-        android:scaleType="fitXY"
-        android:src="@drawable/sunny_0_1_2_3" />
+
+        android:id="@+id/rl_right"
+        android:layout_width="@dimen/w147"
+        android:layout_height="@dimen/w147" >
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_sung"
+            android:src="@mipmap/qing1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null" />
+        <RelativeLayout
+            android:id="@+id/rl_sung"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_fa"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="@dimen/w100"
+                android:layout_height="@dimen/w100"
+                tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/iv_fb"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="@dimen/w100"
+                android:layout_height="@dimen/w100"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

@@ -15,10 +15,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.*
 import com.cocosh.shmstore.home.model.HomeBottom
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
 import kotlinx.android.synthetic.main.activity_contact_service.view.*
@@ -35,13 +37,15 @@ class HomeBottomView : RelativeLayout {
     private var weatherFragment = WeatherFragment()
     private var bonusmoneyFragment = BonusMoneyFragment()
     private var povertyFragment = PovertyFragment()
-    private var photoFragment1:PhotoFragment? = null
-    private var photoFragment2:PhotoFragment? = null
+    private var photoFragment1: PhotoFragment? = null
+    private var photoFragment2: PhotoFragment? = null
     private val fragments = arrayListOf<Fragment>()
     private val pointList = arrayListOf<View>()
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
     private lateinit var fragmentManager: FragmentManager
     var currentPosition = 0
 
@@ -56,7 +60,6 @@ class HomeBottomView : RelativeLayout {
         viewPager.offscreenPageLimit = fragments.size
         viewPager.adapter = PageAdapter(fragments, fragmentManager)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
 
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -77,7 +80,7 @@ class HomeBottomView : RelativeLayout {
     }
 
 
-    class PageAdapter(val fragment: ArrayList<Fragment>,fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+    class PageAdapter(val fragment: ArrayList<Fragment>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment = fragment[position]
 
@@ -100,34 +103,18 @@ class HomeBottomView : RelativeLayout {
      */
     fun loadData(location: Location) {
         val params = hashMapOf<String, String>()
-        params["lng"] = location.longitude
-        params["lat"] = location.latitude
-        params["province"] = location.province
         params["city"] = location.city
-        params["county"] = location.district
-        ApiManager.get(0, context as BaseActivity, params, Constant.HOME_BOTTOM, object : ApiManager.OnResult<BaseModel<HomeBottom>>() {
-            override fun onSuccess(data: BaseModel<HomeBottom>) {
-                if (data.success) {
-                    data.entity?.let {
-                        launch(UI) {
-                            fragments.clear()
-                            bonusmoneyFragment = BonusMoneyFragment()
-                            weatherFragment = WeatherFragment()
-                            fragments.add(bonusmoneyFragment)
-                            fragments.add(weatherFragment)
+        ApiManager2.get(0, context as BaseActivity, params, Constant.HOME_BOTTOM, object : ApiManager2.OnResult<BaseBean<HomeBottom>>() {
+            override fun onFailed(code: String, message: String) {
+            }
 
-//                            initPhotoFragment()
-
-                            viewPager.offscreenPageLimit = 0
-
-                            viewPager.adapter = PageAdapter(fragments, fragmentManager)
-                            viewPager.offscreenPageLimit = fragments.size
-
-                            initPoint()
-
-                            bonusmoneyFragment.loadData(it.redPacketAllAmount)
-                            weatherFragment.loadData(it.weatherEntity)
-                        }
+            override fun onSuccess(data: BaseBean<HomeBottom>) {
+                data.message?.let {
+                    launch(UI) {
+                        //                            initPhotoFragment()
+                        bonusmoneyFragment.loadData(it.redPacketAllAmount)
+                        weatherFragment.loadData(it.weather)
+                    }
 
 //                        if (it.resLightChinaVO != null){
 //                            if(it.resLightChinaVO?.lightChinaStatus != "3"){
@@ -147,20 +134,17 @@ class HomeBottomView : RelativeLayout {
 //                                }
 //                            }
 //                        }
-                    }
                 }
             }
 
-            override fun onFailed(e: Throwable) {
-            }
 
-            override fun onCatch(data: BaseModel<HomeBottom>) {
+            override fun onCatch(data: BaseBean<HomeBottom>) {
             }
 
         })
     }
 
-    private fun initPoint(){
+    private fun initPoint() {
         currentPosition = 0
         llayoutPoint.removeAllViews()
         pointList.clear()
@@ -178,17 +162,17 @@ class HomeBottomView : RelativeLayout {
         pointList[0].setBackgroundResource(R.color.red)
     }
 
-    private fun initPhotoFragment(){
+    private fun initPhotoFragment() {
         photoFragment1 = PhotoFragment()
         photoFragment1?.res = R.drawable.bg_default_id_front
-        photoFragment1?.onClickListener = OnClickListener{
+        photoFragment1?.onClickListener = OnClickListener {
             val intent = Intent(context, BonusListActivity::class.java)
             intent.putExtra("title", "消费扶贫")
             context.startActivity(intent)
         }
         photoFragment2 = PhotoFragment()
         photoFragment2?.res = R.drawable.bg_default_id_back
-        photoFragment2?.onClickListener = OnClickListener{
+        photoFragment2?.onClickListener = OnClickListener {
             val intent = Intent(context, BonusListActivity::class.java)
             intent.putExtra("title", "媒体扶贫")
 

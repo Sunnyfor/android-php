@@ -49,6 +49,8 @@ object Constant {
 
     const val PAYPASS_CERTCHECK = "$VERSION/paypass/certcheck" //支付密码实名检测
 
+    const val HOME_BOTTOM = "$VERSION/home/index" //首页底部接口
+
     const val PAYPASS_SET = "$VERSION/paypass/set" //支付密码-设置
 
     const val PASS_SET = "$VERSION/pass/set" //登录密码-更新
@@ -161,7 +163,7 @@ object Constant {
      * 首页
      * */
     const val HOME_BANNER = "red-packet/red/packet/advertisement/getHomePageBanners"
-    const val HOME_BOTTOM = "red-packet/red/packet/advertisement/getIndexOfBannersInfo"
+//    const val HOME_BOTTOM = "red-packet/red/packet/advertisement/getIndexOfBannersInfo"
     /**
      * 提现页面类型区分
      *
