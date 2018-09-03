@@ -15,6 +15,7 @@ import com.cocosh.shmstore.home.model.SendBonus
 import com.cocosh.shmstore.mine.ui.authentication.PackagePushInfoActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
 import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.StringUtils
 import kotlinx.android.synthetic.main.item_red_package.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,7 +73,7 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
             holder.itemView.createNumberLL.visibility = View.VISIBLE
             holder.itemView.payWeyLL.visibility = View.VISIBLE
             holder.itemView.payTimeLL.visibility = View.VISIBLE
-            holder.itemView.createNumber.text = getData(position).addtime
+            holder.itemView.createNumber.text = StringUtils.dateFormat(getData(position).addtime?:"")
             holder.itemView.payWey.text = getData(position).pay_type
         }
         if (getData(position).status == "5") {
@@ -105,14 +106,15 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
         if (getData(position).status == "3") {
             holder.itemView.btnMotify.visibility = View.VISIBLE
             holder.itemView.rejectTimeLL.visibility = View.VISIBLE
-            holder.itemView.rejectTime.text = getData(position).reject_time
-            holder.itemView.turnTime.text = getData(position).reject_time //驳回时间
+            holder.itemView.rejectTime.text = StringUtils.dateFormat(getData(position).reject_time?:"")
+            holder.itemView.turnTime.text = StringUtils.dateFormat(getData(position).reject_time?:"") //驳回时间
             holder.itemView.turnReson.text = getData(position).reject  //驳回原因
             holder.itemView.turnTimeLL.visibility = View.VISIBLE
             holder.itemView.llayout_1.visibility = View.GONE
 
             holder.itemView.btnMotify.setOnClickListener {
                 val intent = Intent(context, SendBonusActivity::class.java)
+                intent.putExtra("id",getData(position).rp_id)
                 context.startActivity(intent)
             }
 
@@ -127,10 +129,10 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
 
 
 
-        holder.itemView.payTime.text = getData(position).payment_time //付款时间
+        holder.itemView.payTime.text = StringUtils.dateFormat(getData(position).payment_time?:"") //付款时间
         holder.itemView.number.text = getData(position).pay_sn //订单编号
         holder.itemView.shopName.text = getData(position).name
-        holder.itemView.pushTime.text = getData(position).pubtime //投放时间
+        holder.itemView.pushTime.text = StringUtils.dateFormat(getData(position).pubtime?:"") //投放时间
         holder.itemView.pushLocation.text = getData(position).city ?: "全国" //投放位置
         holder.itemView.pushMoney.text = (getData(position).amount + "元") //投放金额
         holder.itemView.pushTotal.text = (getData(position).total.toString() + "个")

@@ -10,6 +10,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.home.model.BonusConfig
 import com.cocosh.shmstore.home.model.BonusParam
+import com.cocosh.shmstore.home.model.MotifyBonus
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
@@ -34,8 +35,9 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     private var bottomPhotoUrl: String? = null
     private var file: File? = null
     private var boolean = true
-    private var type = "1"
+    private var type: String? = null
     private var paramsList = ArrayList<BonusParam>()
+    private var motifyBonus: MotifyBonus? = null
 
     override fun onTopClick() {
         cameraPhotoUtils.startCamera()
@@ -85,6 +87,20 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
         cameraPhotoUtils.onResultListener = this
         type = intent.getStringExtra("type")
 
+        if (type == null) {
+            motifyBonus = SmApplication.getApp().getData(DataCode.MOTIFY_BONUS, true)
+            edtDesc.setText(motifyBonus?.ado_desc)
+            edtDesc.setSelection(motifyBonus?.ado_desc?.length ?: 0)
+            topPhotoUrl = motifyBonus?.ado_slider_master
+            bottomPhotoUrl = motifyBonus?.ado_images
+            Glide.with(this@SendBonusDetailActivity).load(topPhotoUrl).into(ivBonusPhoto)
+            Glide.with(this@SendBonusDetailActivity).load(bottomPhotoUrl).into(ivAdPhoto)
+
+            tvMoney.text = ("需支付 0.00元")
+        } else {
+            tvMoney.text = ("需支付 ${intent.getStringExtra("profit")}元")
+        }
+
 //        loadData()
 
 //        if (type) {
@@ -99,8 +115,6 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
 //            }
 //
 //        }
-
-        tvMoney.text = ("需支付 ${intent.getStringExtra("profit")}元")
     }
 
     override fun onListener(view: View) {
@@ -120,7 +134,12 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
                     ToastUtil.show("描述不能为空")
                     return
                 }
-                saveAd()
+
+                if (type != null) {
+                    saveAd()
+                } else {
+                    motiyfyAd()
+                }
             }
             ivBonusPhoto.id -> {
                 boolean = true
@@ -145,6 +164,35 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     }
 
 
+    private fun motiyfyAd() {
+        motifyBonus?.ado_desc = edtDesc.text.toString()
+        val parmas = HashMap<String, String>()
+        motifyBonus?.apply {
+            parmas["rp_id"] = rp_id //(必填)红包ID
+            parmas["name"] = name //(非必填)红包名称
+            parmas["image"] = image //(非必填)红包图片
+            parmas["ado_slider_master"] = topPhotoUrl ?: ado_slider_master //(非必填)广告图
+            parmas["ado_desc"] = ado_desc //(非必填)简述
+            parmas["ado_images"] = bottomPhotoUrl ?: ado_images //(非必填)广告内容
+        }
+
+        ApiManager2.post(this, parmas, Constant.MYSELF_SENDRP_RPINFO_UPDATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                SmApplication.getApp().setData("3", true)
+                setResult(IntentCode.FINISH)
+                finish()
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+            }
+
+        })
+    }
+
+
     private fun saveAd() {
 
         paramsList.clear()
@@ -153,22 +201,23 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
             paramsList.addAll(it)
         }
 
-        paramsList?.let {
+        paramsList.let {
             it.add(BonusParam("ado", "ado_slider_master", topPhotoUrl ?: ""))
             it.add(BonusParam("ado", "ado_desc", edtDesc.text.toString()))
             it.add(BonusParam("ado", "ado_images", bottomPhotoUrl ?: ""))
         }
 
         val parmas = HashMap<String, String>()
-        parmas["type_id"] = type
+        parmas["type_id"] = type ?: "1"
         parmas["data"] = ApiManager2.gson.toJson(paramsList)
 
         ApiManager2.post(this, parmas, Constant.RP_CREATE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
 
                 val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)
-                it.putExtra("amount", intent.getStringExtra("profit"))
-                it.putExtra("no", data.message)
+                it.putExtra("amount", intent.getStringExtra("money"))
+                it.putExtra("payOperatStatus", "2")
+                it.putExtra("runningNumber", data.message)
                 startActivity(it)
                 setResult(IntentCode.FINISH)
                 finish()
@@ -189,7 +238,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     fun loadData() {
         val param = hashMapOf<String, String>()
         param["ad_id"] = "1"
-        param["type_id"] = type
+        param["type_id"] = type ?: "1"
 
         ApiManager2.get(1, this, param, Constant.RP_AD_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusParam>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<BonusParam>>) {

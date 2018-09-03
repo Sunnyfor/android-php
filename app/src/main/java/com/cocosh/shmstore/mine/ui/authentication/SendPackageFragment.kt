@@ -159,4 +159,13 @@ class SendPackageFragment : BaseFragment() {
             loadData(true)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        SmApplication.getApp().getData<Boolean>(type?:"",true)?.let{
+            if (it){
+                loadData(true)
+            }
+        }
+    }
 }

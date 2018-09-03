@@ -132,8 +132,8 @@ object Constant {
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
     const val RP_CREATE = "$VERSION/rp/create" //创建红包
     const val MYSELF_SENDRP_LIST = "$VERSION/myself/sendrp/list" //发出的红包
-
-
+    const val MYSELF_SENDRP_RPINFO = "$VERSION/myself/sendrp/rpinfo" //获取修改的红包信息
+    const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/myself/sendrp/rpinfo/update"  //修改红包信息
     /**
      * 支付
      */

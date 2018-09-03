@@ -13,6 +13,7 @@ public class DataCode {
     public static final String ENT_AUTHER_DATA = "entAutheData"; //企业认证数据
 
     public static final String BONUS_ID = "bonusID"; //红包排行榜专用
+    public static final String MOTIFY_BONUS = "MotiftBonus"; //修改红包
     public static final String BONUS_MONEY = "bonusMoney"; //红包
     public static final String BONUS_OPEN = "bonusOpen"; //开启红包
     public static final String BONUS_GIVE = "bonusGive"; //赠送红包

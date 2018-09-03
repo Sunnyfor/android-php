@@ -12,6 +12,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.home.model.BonusAttr
 import com.cocosh.shmstore.home.model.BonusConfig
 import com.cocosh.shmstore.home.model.BonusParam
+import com.cocosh.shmstore.home.model.MotifyBonus
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
@@ -20,7 +21,8 @@ import kotlinx.android.synthetic.main.activity_bonus_send.*
 import org.json.JSONArray
 import java.io.File
 import java.math.BigDecimal
-import java.util.HashMap
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -40,6 +42,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var price = "1"
     var rules = "小于"
     var rulesCount = "1"
+    var motifyBonus: MotifyBonus? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
 
@@ -83,12 +86,16 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                 tvAmountValue.text = StringUtils.insertComma(money)
                 tvGetBonusCountValue.text = bonusCount
                 tvAdCountValue.text = bonusCount
-                tvMoney.text = ("需支付 ${StringUtils.insertComma(money)}元")
+                if (type != null){
+                    tvMoney.text = ("需支付 ${StringUtils.insertComma(money)}元")
+                }
             }
         })
-
-        loadData()
-
+        if (type != null) {
+            loadData()
+        } else {
+            loadMotifyData()
+        }
     }
 
     override fun onListener(view: View) {
@@ -136,26 +143,33 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     return
                 }
 
-                if (rules == "小于"){
-                    if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() < rulesCount.toInt() ) {
-                        ToastUtil.show("红名数量不能小于$rulesCount")
-                        return
+                if (type != null){
+                    if (rules == "小于") {
+                        if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() < rulesCount.toInt()) {
+                            ToastUtil.show("红名数量不能小于$rulesCount")
+                            return
+                        }
+                    } else {
+                        if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() > rulesCount.toInt()) {
+                            ToastUtil.show("红名数量不能大于$rulesCount")
+                            return
+                        }
                     }
+                    nextBonus()
                 }else{
-                    if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() > rulesCount.toInt() ) {
-                        ToastUtil.show("红名数量不能大于$rulesCount")
-                        return
-                    }
+                    nextMotify()
                 }
-
-                nextBonus()
             }
         }
 
     }
 
     override fun reTryGetData() {
-        loadData()
+        if (type != null) {
+            loadData()
+        } else {
+            loadMotifyData()
+        }
     }
 
 
@@ -278,8 +292,42 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
             }
         })
+    }
 
 
+    private fun loadMotifyData() {
+        val params = HashMap<String, String>()
+        params["rp_id"] = intent.getStringExtra("id")
+        ApiManager2.get(1, this, params, Constant.MYSELF_SENDRP_RPINFO, object : ApiManager2.OnResult<BaseBean<MotifyBonus>>() {
+            override fun onSuccess(data: BaseBean<MotifyBonus>) {
+                data.message?.let {
+                    motifyBonus = it
+                    edtName.setText(it.name)
+                    edtName.setSelection(it.name.length)
+
+                    isvLocation.setValue("${it.pos_prov}-${it.pos_city}") //投放位置
+                    isvLocation.setOnClickListener(null)
+
+                    isvTime.setValue(StringUtils.dateFormat(it.pubtime))
+                    isvTime.setOnClickListener(null)
+
+                    edtNumber.isFocusable = false
+                    edtNumber.setText(it.total)
+
+                    url = it.image
+                    Glide.with(this@SendBonusActivity).load(url).into(ivPhoto)
+                    price = it.price
+                    tvPrice.text = ("￥${price}元/个")
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<MotifyBonus>) {
+            }
+
+        })
     }
 
 
@@ -300,16 +348,25 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
         paramsList.add(BonusParam("base", "total", edtNumber.text.toString()))
 
-        paramsList.add(BonusParam("base", "amount", tvAmountValue.text.toString()))
+        paramsList.add(BonusParam("base", "amount", money.toString()))
 
         SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
 
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
-        intent.putExtra("profit",tvAmountValue.text.toString())
-        intent.putExtra("type",type)
-        startActivityForResult(intent,0)
+        intent.putExtra("profit", tvAmountValue.text.toString())
+        intent.putExtra("money",money.toString())
+        intent.putExtra("type", type)
+        startActivityForResult(intent, 0)
 
     }
+
+    private fun nextMotify(){
+        motifyBonus?.name = edtName.text.toString()
+        SmApplication.getApp().setData(DataCode.MOTIFY_BONUS,motifyBonus)
+        val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
+        startActivityForResult(intent,0)
+    }
+
 
 
     //上传图片
@@ -320,7 +377,12 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                 override fun onSuccess(data: BaseBean<ArrayList<String>>) {
                     data.message?.let {
                         Glide.with(this@SendBonusActivity).load(file).into(ivPhoto)
-                        url = it[0]
+                        if (type != null) {
+                            url = it[0]
+                        } else {
+                            motifyBonus?.image = it[0]
+                        }
+
                     }
                 }
 

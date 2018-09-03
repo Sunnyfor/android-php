@@ -56,6 +56,17 @@ object StringUtils {
         }
     }
 
+
+    //时间戳格式化时间
+    fun dateFormat(date:String):String{
+        if (date.isEmpty()){
+            return ""
+        }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(Date(date.toLong() * 1000))
+    }
+
+
     fun getTimeStamp():String =  (System.currentTimeMillis()/1000).toString()
 
 

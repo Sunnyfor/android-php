@@ -113,7 +113,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         llAlipay.setOnClickListener(this)
         btnSure.setOnClickListener(this)
         tvCharge.setOnClickListener(this)
-        tv_money.text = ("￥$amount")
+        tv_money.text = ("￥${StringUtils.insertComma(amount?.toFloat()?:0f)}")
     }
 
     override fun onListener(view: View) {}
@@ -122,7 +122,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.llShoumei ->
-                if (amount?.toDouble()!! <= accountMoney?.toDouble()!!) {
+                if (amount?.toDouble() !!<= accountMoney?.toDouble()!!) {
                     choose("LOCAL_ACC")
                 }
             R.id.llWechat -> choose("wx")
@@ -200,7 +200,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     private fun showEntDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
+        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@PayActivity.javaClass
