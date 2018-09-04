@@ -34,29 +34,29 @@ class OrderListActivity : BaseActivity() {
         list.add("待收货")
         list.add("交易完成")
         //设置ViewPager里面也要显示的图片
-        var fragmentList = arrayListOf<Fragment>()
-        var f1 = OrderListFragment()
-        var b1 = Bundle()
+        val fragmentList = arrayListOf<Fragment>()
+        val f1 = OrderListFragment()
+        val b1 = Bundle()
         b1.putString("TYPE", "全部")
         f1.arguments = b1
 
-        var f2 = OrderListFragment()
-        var b2 = Bundle()
+        val f2 = OrderListFragment()
+        val b2 = Bundle()
         b2.putString("TYPE", "待付款")
         f2.arguments = b2
 
-        var f3 = OrderListFragment()
-        var b3 = Bundle()
+        val f3 = OrderListFragment()
+        val b3 = Bundle()
         b3.putString("TYPE", "待发货")
         f3.arguments = b3
 
-        var f4 = OrderListFragment()
-        var b4 = Bundle()
+        val f4 = OrderListFragment()
+        val b4 = Bundle()
         b4.putString("TYPE", "待收货")
         f4.arguments = b4
 
-        var f5 = OrderListFragment()
-        var b5 = Bundle()
+        val f5 = OrderListFragment()
+        val b5 = Bundle()
         b5.putString("TYPE", "交易完成")
         f5.arguments = b5
         fragmentList.add(f1)
@@ -86,6 +86,7 @@ class OrderListActivity : BaseActivity() {
         linearLayout.dividerPadding = resources.getDimension(R.dimen.h30).toInt()
         //给ViewPager绑定Adapter
         viewPager.adapter = SendListAdapter(supportFragmentManager, fragmentList, titleList)
+        viewPager.offscreenPageLimit = 4
         //把TabLayout和ViewPager关联起来
         tab.setupWithViewPager(viewPager)
     }

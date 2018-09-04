@@ -6,31 +6,33 @@ import android.view.ViewGroup
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
+import com.cocosh.shmstore.mine.model.Order
+import com.cocosh.shmstore.utils.GlideUtils
 import kotlinx.android.synthetic.main.item_order_list.view.*
 
 /**
  * 订单
  * Created by lmg on 2018/3/13.
  */
-class OrderListAdapter(list: ArrayList<String>) : BaseRecycleAdapter<String>(list) {
+class OrderListAdapter(list: ArrayList<Order>) : BaseRecycleAdapter<Order>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        when (list[position]) {
-            "待付款" -> {
+        when (list[position].status) {
+            "0" -> { //待付款
                 holder.itemView.timeLeave.visibility = View.VISIBLE
                 holder.itemView.orderStatus.text = "待付款"
                 holder.itemView.look.visibility = View.GONE
                 holder.itemView.service.visibility = View.GONE
                 holder.itemView.pay.visibility = View.VISIBLE
             }
-            "待发货" -> {
+            "1" -> { //待发货
                 holder.itemView.timeLeave.visibility = View.GONE
                 holder.itemView.orderStatus.text = "待发货"
                 holder.itemView.look.visibility = View.GONE
                 holder.itemView.service.visibility = View.VISIBLE
                 holder.itemView.pay.visibility = View.GONE
             }
-            "待收货" -> {
+            "2" -> { //待收货
                 holder.itemView.timeLeave.visibility = View.GONE
                 holder.itemView.orderStatus.text = "待收货"
                 holder.itemView.look.visibility = View.VISIBLE
@@ -38,7 +40,7 @@ class OrderListAdapter(list: ArrayList<String>) : BaseRecycleAdapter<String>(lis
                 holder.itemView.pay.visibility = View.VISIBLE
                 holder.itemView.pay.text = "确认收货"
             }
-            "交易完成" -> {
+            "5" -> { //交易完成
                 holder.itemView.timeLeave.visibility = View.GONE
                 holder.itemView.orderStatus.text = "交易完成"
                 holder.itemView.look.visibility = View.GONE
@@ -50,22 +52,29 @@ class OrderListAdapter(list: ArrayList<String>) : BaseRecycleAdapter<String>(lis
             }
         }
 
+        GlideUtils.loadPhoto(context,getData(position).image,holder.itemView.goodsPic,0)
+        holder.itemView.number.text = getData(position).sn
+        holder.itemView.shopName.text = getData(position).name //商品名称
+        holder.itemView.goodsPrice.text = ("￥"+getData(position).price) //单价
+        holder.itemView.goodsNum.text = ("x${getData(position).salenum}")
+        holder.itemView.tvMoney.text = ("共计${getData(position).actual}元 包邮")
+
         holder.itemView.pay.setOnClickListener {
-            if (list[position] == "待收货") {
-                mOnBtnClickListener.realBtn(list[position], position)
+            if (list[position].status == "2") {
+                mOnBtnClickListener.realBtn(list[position].id, position)
             }
-            if (list[position] == "交易完成") {
-                mOnBtnClickListener.deleteBtn(list[position], position)
+            if (list[position].status == "5") {
+                mOnBtnClickListener.deleteBtn(list[position].id, position)
             }
-            if (list[position] == "待付款") {
-                mOnBtnClickListener.payBtn(list[position], position)
+            if (list[position].status == "0") {
+                mOnBtnClickListener.payBtn(list[position].id, position)
             }
         }
         holder.itemView.service.setOnClickListener {
-            mOnBtnClickListener.serviceBtn(list[position], position)
+            mOnBtnClickListener.serviceBtn(list[position].id, position)
         }
         holder.itemView.look.setOnClickListener {
-            mOnBtnClickListener.lookBtn(list[position], position)
+            mOnBtnClickListener.lookBtn(list[position].id, position)
         }
 
     }

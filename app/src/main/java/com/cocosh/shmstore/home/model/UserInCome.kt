@@ -9,4 +9,7 @@ data class UserInCome(var cityOperatorsMoney: String?,
                       var partnerMoney: String?,
                       var partnerState: String?,
                       var partnerStatementUrl: String?,
-                      var redPacketMoney: String?)
+                      var redPacketMoney: String?,
+                      var rp:String?, // 红包收益
+                      var x:String?, // 新媒人累计收益
+                      var f:String?) // 服务商累计收益

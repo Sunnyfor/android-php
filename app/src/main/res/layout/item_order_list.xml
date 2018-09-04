@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -37,6 +38,7 @@
             android:layout_toLeftOf="@+id/orderStatus"
             android:text="23:59:50"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:textSize="@dimen/h34" />
 
         <TextView
@@ -60,7 +62,7 @@
             android:layout_height="@dimen/h206"
             android:layout_marginLeft="@dimen/w48"
             android:layout_marginTop="@dimen/h36"
-            android:background="@drawable/default_content" />
+            android:src="@drawable/default_content" />
 
         <RelativeLayout
             android:id="@+id/rl1"
@@ -82,6 +84,7 @@
                 android:layout_marginLeft="@dimen/w30"
                 android:layout_toRightOf="@+id/shopName"
                 android:text="不锈钢金碗"
+                android:visibility="gone"
                 android:textColor="@color/blackText" />
 
             <TextView
@@ -104,7 +107,7 @@
             <TextView
                 style="@style/text_nomal_small"
                 android:layout_marginLeft="@dimen/w42"
-                android:text="差高烧汤灿装"
+                tools:text="差高烧汤灿装"
                 android:textSize="@dimen/h37" />
 
             <TextView
@@ -112,17 +115,18 @@
                 style="@style/text_nomal_small"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/w48"
-                android:text="x1"
+                tools:text="x1"
                 android:textSize="@dimen/h37" />
         </RelativeLayout>
 
 
         <TextView
+            android:id="@+id/tvMoney"
             style="@style/text_nomal_small"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/w48"
-            android:text="共计32.00元 包邮" />
+            tools:text="共计32.00元 包邮" />
 
     </RelativeLayout>
 

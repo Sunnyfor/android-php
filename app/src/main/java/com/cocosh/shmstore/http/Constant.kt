@@ -49,7 +49,13 @@ object Constant {
 
     const val PAYPASS_CERTCHECK = "$VERSION/paypass/certcheck" //支付密码实名检测
 
-    const val HOME_BOTTOM = "$VERSION/home/index" //首页底部接口
+    const val HOME_BOTTOM = "$VERSION/home/weather" //首页底部接口
+
+    const val INCOME = "$VERSION/income" //收益总览
+
+    const val ORDER_LIST = "$VERSION/order/list" //订单列表
+
+    const val ORDER_DETAILS = "$VERSION/order/details" //订单详情
 
     const val PAYPASS_SET = "$VERSION/paypass/set" //支付密码-设置
 
@@ -80,27 +86,27 @@ object Constant {
 
     const val SERVICE_REGION = "$VERSION/service/region" //新媒人/服务商-区域选择
     const val SERVICE_LIST = "$VERSION/service/list" //新媒人/服务商-区域选择
-    const val MYSELF_MATCHMAKER_LIST = "$VERSION/myself/matchmaker/list" //新媒人拓展页面
-    const val MYSELF_MATCHMAKER_ASSIGN_PERSONAL = "$VERSION/myself/matchmaker/assign/personal" //新媒人平台分配用户
-    const val MYSELF_MATCHMAKER_EXPAND_PERSONAL = "$VERSION/myself/matchmaker/expand/personal" //新媒人--拓展个人用户
-    const val MYSELF_MATCHMAKER_EXPAND_ENTERPRISE = "$VERSION/myself/matchmaker/expand/enterprise" //新媒人--拓展企业主
+    const val MYSELF_MATCHMAKER_LIST = "$VERSION/matchmaker/list" //新媒人拓展页面
+    const val MYSELF_MATCHMAKER_ASSIGN_PERSONAL = "$VERSION/matchmaker/assign/person" //新媒人平台分配用户
+    const val MYSELF_MATCHMAKER_EXPAND_PERSONAL = "$VERSION/matchmaker/expand/person" //新媒人--拓展个人用户
+    const val MYSELF_MATCHMAKER_EXPAND_ENTERPRISE = "$VERSION/matchmaker/expand/ent" //新媒人--拓展企业主
     const val MYSELF_MATCHMAKER_PROFIT_DATA = "$VERSION/myself/matchmaker/profit/data"//新媒人--收益--数据
     const val MYSELF_MATCHMAKER_PROFIT_CONTENT = "$VERSION/myself/matchmaker/profit/content" //新媒人--收益--详情
-    const val MYSELF_MATCHMAKER_INVITATION_DATA = "$VERSION/myself/matchmaker/invitation/data" //新媒人--邀请--用户数据
-    const val MYSELF_MATCHMAKER_INVITATION_IMAGE = "$VERSION/myself/matchmaker/invitation/image" //新媒人邀请二维码
+    const val MYSELF_MATCHMAKER_INVITATION_DATA = "$VERSION/matchmaker/invitation" //新媒人--邀请--用户数据
+    const val MYSELF_MATCHMAKER_INVITATION_IMAGE = "$VERSION/matchmaker/qrcode" //新媒人邀请二维码
 
     const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
     const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
-    const val MYSELF_PROVIDER_LIST = "$VERSION/myself/provider/list" //服务商拓展页
-    const val myself_provider_profit_data = "$VERSION/myself/provider/profit/data"  //服务商--收益--数据
+    const val MYSELF_PROVIDER_LIST = "$VERSION/provider/list" //服务商拓展页
+    const val myself_provider_profit_data = "$VERSION/provider/list"  //服务商--收益--数据
     const val MYSELF_PROVIDER_PROFIT_CONTENT = "$VERSION/myself/provider/profit/content" //服务商收益详情
-    const val MYSELF_PROVIDER_ASSIGN_PERSONAL = "$VERSION/myself/provider/assign/personal" //服务商--平台分配个人用户
-    const val MYSELF_PROVIDER_ASSIGN_ENTERPRISE = "$VERSION/myself/provider/assign/enterprise" //服务商--平台分配企业主
-    const val MYSELF_PROVIDER_EXPAND_PERSONAL = "$VERSION/myself/provider/expand/personal" //服务商--拓展个人用户
-    const val MYSELF_PROVIDER_EXPAND_ENTERPRISE = "$VERSION/myself/provider/expand/enterprise" //服务商--拓展企业主
-    const val MYSELF_PROVIDER_EXPAND_MATCHMAKER = "$VERSION/myself/provider/expand/matchmaker" //服务商--拓展新媒人
-    const val MYSELF_PROVIDER_INVITATION_DATA = "$VERSION/myself/provider/invitation/data" //服务商--邀请--用户数据
-    const val MYSELF_PROVIDER_INVITATION_IMAGE = "$VERSION/myself/provider/invitation/image" //服务商邀请二维码
+    const val MYSELF_PROVIDER_ASSIGN_PERSONAL = "$VERSION/provider/assign/person" //服务商--平台分配个人用户
+    const val MYSELF_PROVIDER_ASSIGN_ENTERPRISE = "$VERSION/provider/assign/ent" //服务商--平台分配企业主
+    const val MYSELF_PROVIDER_EXPAND_PERSONAL = "$VERSION/provider/expand/person" //服务商--拓展个人用户
+    const val MYSELF_PROVIDER_EXPAND_ENTERPRISE = "$VERSION/provider/expand/ent" //服务商--拓展企业主
+    const val MYSELF_PROVIDER_EXPAND_MATCHMAKER = "$VERSION/provider/expand/matchmaker" //服务商--拓展新媒人
+    const val MYSELF_PROVIDER_INVITATION_DATA = "$VERSION/provider/invitation/data" //服务商--邀请--用户数据
+    const val MYSELF_PROVIDER_INVITATION_IMAGE = "$VERSION/provider/invitation/image" //服务商邀请二维码
 
     const val BALANCE_CASH_SVC = "$VERSION/balance/cash/svc" //提现页要素-服务商
 
@@ -131,9 +137,9 @@ object Constant {
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
     const val RP_CREATE = "$VERSION/rp/create" //创建红包
-    const val MYSELF_SENDRP_LIST = "$VERSION/myself/sendrp/list" //发出的红包
-    const val MYSELF_SENDRP_RPINFO = "$VERSION/myself/sendrp/rpinfo" //获取修改的红包信息
-    const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/myself/sendrp/rpinfo/update"  //修改红包信息
+    const val MYSELF_SENDRP_LIST = "$VERSION/sendrp/list" //发出的红包
+    const val MYSELF_SENDRP_RPINFO = "$VERSION/sendrp/info" //获取修改的红包信息
+    const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/sendrp/update"  //修改红包信息
     const val FANSRP_GOODS_BUY_INFO = "$VERSION/fansrp/goods/buy/info" //商品购买详情
     /**
      * 支付

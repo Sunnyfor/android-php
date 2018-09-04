@@ -54,7 +54,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         bottomTitles = arrayListOf(
                 MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
                 MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-//                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
+                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
                 MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
                 MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"),
                 MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理")

@@ -180,7 +180,7 @@ class HomeActivity : BaseActivity() {
         return false
     }
 
-    fun getMsgCount() {
+    private fun getMsgCount() {
         val map = HashMap<String, String>()
         ApiManager.get(0, this, map, Constant.MSG_UNREAD, object : ApiManager.OnResult<BaseModel<MsgUnReadCount>>() {
             override fun onSuccess(data: BaseModel<MsgUnReadCount>) {

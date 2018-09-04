@@ -112,7 +112,11 @@ class HomeBottomView : RelativeLayout {
                 data.message?.let {
                     launch(UI) {
                         //                            initPhotoFragment()
-                        bonusmoneyFragment.loadData(it.redPacketAllAmount)
+                        try {
+                            bonusmoneyFragment.loadData(it.total.toFloat())
+                        }catch (e:Exception){
+                            e.printStackTrace()
+                        }
                         weatherFragment.loadData(it.weather)
                     }
 

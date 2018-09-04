@@ -5,7 +5,7 @@ package com.cocosh.shmstore.home.model
  * Created by zhangye on 2018/6/5.
  */
 data class HomeBottom(
-        var redPacketAllAmount: Float, //红包总金额
+        var total: String, //红包总金额
         var resLightChinaVO: ResLightChinaVO?, //点亮中国信息
         var weather: WeatherEntity //天气信息
 ) {

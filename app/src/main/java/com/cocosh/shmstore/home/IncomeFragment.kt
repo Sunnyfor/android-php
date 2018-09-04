@@ -5,6 +5,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.facilitator.ui.FacilitatorFailActivity
@@ -12,6 +13,7 @@ import com.cocosh.shmstore.facilitator.ui.FacilitatorSplashActivity
 import com.cocosh.shmstore.facilitator.ui.PayFranchiseFeeActivity
 import com.cocosh.shmstore.home.model.UserInCome
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.ui.ArchiveActivity
@@ -126,63 +128,54 @@ class IncomeFragment : BaseFragment() {
     /**
      * 获取我的钱包主页信息
      */
-    fun requestData(flag: Int) {
-        if (!NetworkUtils.isNetworkAvaliable(activity)) {
-            ToastUtil.show("网络连接错误")
-//            baseActivity.showError(0)
-            showReTryLayout()
-            return
-        }
+    private fun requestData(flag: Int) {
 
-        val map = HashMap<String, String>()
-        ApiManager.get(flag, activity as BaseActivity, map, Constant.USER_INCOME, object : ApiManager.OnResult<BaseModel<UserInCome>>() {
-            override fun onSuccess(data: BaseModel<UserInCome>) {
-                if (data.success && data.code == 200) {
-                    hideReTryLayout()
-                    getLayoutView().redMony.text = (data.entity?.redPacketMoney ?: "0") + "元"
-                    getLayoutView().cerMoney.text = (data.entity?.partnerMoney ?: "0") + "元"
-                    getLayoutView().facMoney.text = (data.entity?.cityOperatorsMoney ?: "0") + "元"
-                    facValue = data.entity?.cityOperatorsStatu
-                    cerValue = data.entity?.partnerState
-
-                    facUrl = data.entity?.cityOperatorsStatementUrl
-                    cerUrl = data.entity?.partnerStatementUrl
-
-
-                    if (facValue == "5") {
-                        getLayoutView().facDesc.visibility = View.INVISIBLE
-                        getLayoutView().facShow.text = "查看详情"
-                    } else {
-                        getLayoutView().facDesc.visibility = View.VISIBLE
-                        getLayoutView().facShow.text = "前往认证"
-                    }
-
-                    if (cerValue == "5") {
-                        getLayoutView().cerDesc.visibility = View.INVISIBLE
-                        getLayoutView().cerShow.text = "查看详情"
-                    } else {
-                        getLayoutView().cerDesc.visibility = View.VISIBLE
-                        getLayoutView().cerShow.text = "前往认证"
-                    }
-
-                    if (facValue == "5" && cerValue == "5") {
-                        cerLl.visibility = View.GONE
-                    } else {
-                        cerLl.visibility = View.VISIBLE
-                    }
-                } else {
-                    ToastUtil.show(data.message)
-                    showReTryLayout()
-                }
-            }
-
-            override fun onCatch(data: BaseModel<UserInCome>) {
-                LogUtil.d(data.toString())
-            }
-
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+        ApiManager2.get(flag, activity as BaseActivity, null, Constant.INCOME, object : ApiManager2.OnResult<BaseBean<UserInCome>>() {
+            override fun onFailed(code: String, message: String) {
                 showReTryLayout()
+            }
+
+            override fun onCatch(data: BaseBean<UserInCome>) {
+            }
+
+            override fun onSuccess(data: BaseBean<UserInCome>) {
+                hideReTryLayout()
+                data.message?.let {
+
+                    getLayoutView().redMony.text = (it.rp + "元")
+                    getLayoutView().cerMoney.text = (it.x + "元")
+                    getLayoutView().facMoney.text = (it.f + "元")
+                }
+//
+//
+//                    facValue = data.entity?.cityOperatorsStatu
+//                    cerValue = data.entity?.partnerState
+//
+//                    facUrl = data.entity?.cityOperatorsStatementUrl
+//                    cerUrl = data.entity?.partnerStatementUrl
+//
+//
+//                    if (facValue == "5") {
+//                        getLayoutView().facDesc.visibility = View.INVISIBLE
+//                        getLayoutView().facShow.text = "查看详情"
+//                    } else {
+//                        getLayoutView().facDesc.visibility = View.VISIBLE
+//                        getLayoutView().facShow.text = "前往认证"
+//                    }
+//
+//                    if (cerValue == "5") {
+//                        getLayoutView().cerDesc.visibility = View.INVISIBLE
+//                        getLayoutView().cerShow.text = "查看详情"
+//                    } else {
+//                        getLayoutView().cerDesc.visibility = View.VISIBLE
+//                        getLayoutView().cerShow.text = "前往认证"
+//                    }
+//
+//                    if (facValue == "5" && cerValue == "5") {
+//                        cerLl.visibility = View.GONE
+//                    } else {
+//                        cerLl.visibility = View.VISIBLE
+//                    }
             }
         })
     }

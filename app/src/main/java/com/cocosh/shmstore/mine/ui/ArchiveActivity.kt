@@ -35,6 +35,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     private var file: File? = null
     private var token: String? = null
     private var interest: String? = null
+    private var industry:String? = null
 
     override fun reTryGetData() {
         hideReTryLayout()
@@ -127,7 +128,8 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
             }
 
             isvWork.id -> {
-                loadIndustry() //加载所有行业弹窗
+//                loadIndustry() //加载所有行业弹窗
+                startActivityForResult(Intent(this,IndustryActivity::class.java).putExtra("industry",industry),IntentCode.IS_INPUT)
             }
         //兴趣爱好
             isvInteresting.id -> {
@@ -200,6 +202,7 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
                     progressBar_big.progress = (it.degree)
                     progressBar_big.invalidate()
                     interest = it.hobby
+                    industry = it.industry
                 }
             }
 
@@ -229,43 +232,43 @@ class ArchiveActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, C
     }
 
 
-    private fun loadIndustry() {
-        if (!works.isEmpty()) {
-            showIndustry()
-            return
-        }
-        ApiManager2.get(0, this, null, Constant.INDUSTRY, object : ApiManager2.OnResult<BaseBean<ArrayList<IndustryModel>>>() {
-            override fun onFailed(code: String, message: String) {
-            }
-
-            override fun onSuccess(data: BaseBean<ArrayList<IndustryModel>>) {
-                data.message?.let {
-                    works = it
-                }
-                showIndustry()
-            }
-
-            override fun onCatch(data: BaseBean<ArrayList<IndustryModel>>) {
-
-            }
-
-        })
-    }
-
-    private fun showIndustry() {
-        workDialog = SelectDialog(this)
-        workDialog?.setData(works)
-        workDialog?.onDialogResult = object : OnDialogResult {
-            override fun onResult(result: Any) {
-                workDialog?.dismiss()
-                val industry = result as IndustryModel
-                val strsb = StringBuilder()
-                strsb.append(industry.code + "-" + industry.name)
-                update("所属行业", strsb.toString())
-            }
-        }
-        workDialog?.show()
-    }
+//    private fun loadIndustry() {
+//        if (!works.isEmpty()) {
+//            showIndustry()
+//            return
+//        }
+//        ApiManager2.get(0, this, null, Constant.INDUSTRY, object : ApiManager2.OnResult<BaseBean<ArrayList<IndustryModel>>>() {
+//            override fun onFailed(code: String, message: String) {
+//            }
+//
+//            override fun onSuccess(data: BaseBean<ArrayList<IndustryModel>>) {
+//                data.message?.let {
+//                    works = it
+//                }
+//                showIndustry()
+//            }
+//
+//            override fun onCatch(data: BaseBean<ArrayList<IndustryModel>>) {
+//
+//            }
+//
+//        })
+//    }
+//
+//    private fun showIndustry() {
+//        workDialog = SelectDialog(this)
+//        workDialog?.setData(works)
+//        workDialog?.onDialogResult = object : OnDialogResult {
+//            override fun onResult(result: Any) {
+//                workDialog?.dismiss()
+//                val industry = result as IndustryModel
+//                val strsb = StringBuilder()
+//                strsb.append(industry.id + "-" + industry.name)
+//                update("所属行业", strsb.toString())
+//            }
+//        }
+//        workDialog?.show()
+//    }
 
 
     //更新用户资料
