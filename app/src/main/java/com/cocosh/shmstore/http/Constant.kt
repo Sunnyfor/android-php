@@ -134,6 +134,7 @@ object Constant {
     const val MYSELF_SENDRP_LIST = "$VERSION/myself/sendrp/list" //发出的红包
     const val MYSELF_SENDRP_RPINFO = "$VERSION/myself/sendrp/rpinfo" //获取修改的红包信息
     const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/myself/sendrp/rpinfo/update"  //修改红包信息
+    const val FANSRP_GOODS_BUY_INFO = "$VERSION/fansrp/goods/buy/info" //商品购买详情
     /**
      * 支付
      */

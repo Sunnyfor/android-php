@@ -49,7 +49,7 @@ object ApiManager2 {
 
     fun getHost(): String {
         host = if (Constant.isDebug()) "http://test.api.shoumeiapp.com" else "http://api.shoumeiapp.com"
-        return "http://test.api.shoumeiapp.com:8081"
+        return "http://dev.api.shoumeiapp.com"
     }
 
 

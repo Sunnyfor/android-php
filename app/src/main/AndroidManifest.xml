@@ -453,6 +453,9 @@
         <activity android:name=".mine.ui.HelpActivity" />
 
         <activity android:name=".mine.ui.InterestingActivity"/>
+
+        <activity android:name=".mine.ui.IndustryActivity"/>
+
     </application>
 
 </manifest>

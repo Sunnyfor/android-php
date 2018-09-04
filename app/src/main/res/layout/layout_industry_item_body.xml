@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h127"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w65"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/h40"
+        tools:text="行业内容" />
+
+    <View
+        android:layout_width="@dimen/w1012"
+        android:layout_height="@dimen/h1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/lineGray" />
+
+    <View
+        android:id="@+id/viewSelect"
+        android:layout_width="@dimen/h58"
+        android:layout_height="@dimen/h58"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/w63"
+        android:background="@mipmap/icon_work_select"
+        android:visibility="gone"/>
+</RelativeLayout>
