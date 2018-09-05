@@ -1,7 +1,9 @@
 package com.cocosh.shmstore.http
 
+import android.content.Intent
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.login.ui.activity.LoginActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.google.gson.Gson
@@ -255,6 +257,12 @@ object ApiManager2 {
                         val baseModel = gson.fromJson<T>(body, onResult.typeToken)
                         onResult.onSuccess(baseModel)
                     } else {
+
+                        if (status == "40101"){
+                            ToastUtil.show(message)
+                            baseActivity.startActivity(Intent(baseActivity,LoginActivity::class.java))
+                            return
+                        }
                         onResult.onFailed(status, message)
                         ToastUtil.show(message)
                     }

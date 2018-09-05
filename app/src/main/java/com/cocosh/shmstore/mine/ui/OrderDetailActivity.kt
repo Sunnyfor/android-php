@@ -80,9 +80,11 @@ class OrderDetailActivity : BaseActivity() {
         when (view.id) {
             showLogisticsInfo.id -> {
                 if (showDesc.visibility == View.VISIBLE) {
+                    showLogisticsInfo.text = "展开物流信息"
                     showDesc.visibility = View.GONE
                     return
                 }
+                showLogisticsInfo.text = "收起∧"
                 showDesc.visibility = View.VISIBLE
             }
             cancelOrder.id -> {

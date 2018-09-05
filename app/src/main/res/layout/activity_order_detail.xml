@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none">
@@ -19,16 +20,25 @@
             <TextView
                 android:id="@+id/status"
                 style="@style/text_nomal_min"
-                android:text="当前订单状态：等待买家付款" />
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h63"
+                android:text="当前订单状态：等待买家付款"
+                android:textSize="@dimen/w52" />
 
             <TextView
                 android:id="@+id/time"
                 style="@style/text_nomal_small"
-                android:text="付款剩余时间23小时59分钟" />
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30"
+                android:text="付款剩余时间23小时59分钟"
+                android:textSize="@dimen/w35" />
 
             <TextView
                 android:id="@+id/hint"
                 style="@style/text_nomal_small"
+                android:layout_marginBottom="@dimen/h58"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30"
                 android:text="如果逾期未发货，订单将自动关闭，款项全部退回" />
         </LinearLayout>
 
@@ -40,15 +50,42 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/orderNumber"
-                style="@style/text_nomal_min"
-                android:text="订单编号：2356458687907654323" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h35"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/orderPlaceTime"
-                style="@style/text_nomal_small"
-                android:text="下单时间：2017-11-11  00:00:00" />
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="订单编号：" />
+
+                <TextView
+                    android:id="@+id/orderNumber"
+                    style="@style/text_nomal_small"
+                    android:text="2356458687907654323"
+                    android:textColor="@color/blackText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/h35"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h35"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="下单时间：" />
+
+                <TextView
+                    android:id="@+id/orderPlaceTime"
+                    style="@style/text_nomal_small"
+                    android:text="2017-11-11  00:00:00"
+                    android:textColor="@color/blackText" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -58,30 +95,48 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <com.cocosh.shmstore.widget.textview.ICONTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/iconCalendar"
-                android:textSize="@dimen/h50" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    style="@style/text_nomal_min"
-                    android:text="收货信息：" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w66"
+                    android:layout_marginTop="@dimen/h58"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/buyer"
-                    style="@style/text_nomal_small"
-                    android:text="张三          13800000000" />
+                    <TextView
+                        style="@style/text_nomal_small"
+                        android:text="收货人：    "
+                        android:textColor="@color/grayText" />
 
-                <TextView
-                    android:id="@+id/address"
-                    style="@style/text_nomal_small"
-                    android:text="北京市海淀区北清路100号" />
+                    <TextView
+                        android:id="@+id/buyer"
+                        style="@style/text_nomal_small"
+                        android:text="张三  13800000000"
+                        android:textColor="@color/blackText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/w35"
+                    android:layout_marginLeft="@dimen/w66"
+                    android:layout_marginTop="@dimen/h35"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_nomal_small"
+                        android:text="收货地址："
+                        android:textColor="@color/grayText" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        style="@style/text_nomal_small"
+                        android:text="北京市海淀区北清路100号" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -93,20 +148,66 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/logisticsWay"
-                style="@style/text_nomal_min"
-                android:text="发货方式：物流" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h58"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/logisticsName"
-                style="@style/text_nomal_min"
-                android:text="物流公司：韵达物流" />
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="发货方式："
+                    android:textColor="@color/grayText" />
 
-            <TextView
-                android:id="@+id/logisticsNumber"
-                style="@style/text_nomal_min"
-                android:text="运单号码：00098087652" />
+                <TextView
+                    android:id="@+id/logisticsWay"
+                    style="@style/text_nomal_small"
+                    android:text="物流"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="发货方式："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/logisticsName"
+                    style="@style/text_nomal_small"
+                    android:textColor="@color/blackText"
+                    tools:text="物流公司：韵达物流" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="运单号码："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/logisticsNumber"
+                    style="@style/text_nomal_small"
+                    android:text="00098087652"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/showDesc"
@@ -131,13 +232,15 @@
                     android:id="@+id/logisticsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/h30"/>
+                    android:layout_marginTop="@dimen/h30" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/showLogisticsInfo"
-                style="@style/text_nomal_min"
+                style="@style/text_nomal_small"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/h30"
+                android:layout_marginTop="@dimen/h55"
                 android:text="展开物流信息" />
 
         </LinearLayout>
@@ -150,70 +253,51 @@
 
             <ImageView
                 android:id="@+id/goodsPic"
-                android:layout_width="@dimen/w310"
-                android:layout_height="@dimen/h310"
+                android:layout_width="@dimen/h230"
+                android:layout_height="@dimen/h230"
                 android:layout_centerVertical="true"
-                android:src="@color/red" />
+                android:layout_marginLeft="@dimen/h69"
+                android:layout_marginTop="@dimen/h59"
+                android:src="@drawable/default_content" />
 
             <TextView
                 android:id="@+id/shopName"
                 style="@style/text_nomal_min"
-                android:layout_marginTop="@dimen/h50"
+                android:layout_marginLeft="@dimen/w29"
+                android:layout_marginTop="@dimen/h59"
                 android:layout_toRightOf="@+id/goodsPic"
-                android:text="朴坊" />
-
-            <TextView
-                android:id="@+id/goodsName"
-                style="@style/text_nomal_min"
-                android:layout_marginLeft="@dimen/w20"
-                android:layout_marginTop="@dimen/h50"
-                android:layout_toRightOf="@+id/shopName"
-                android:text="不锈钢金碗" />
+                android:text="现货 Nike Air VaporMax 2.0 纯黑武士 cny纯白 2代" />
 
 
-            <TextView
-                android:id="@+id/goodsType"
-                style="@style/text_nomal_min"
-                android:layout_below="@+id/shopName"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w29"
+                android:layout_marginTop="@dimen/h200"
                 android:layout_toRightOf="@+id/goodsPic"
-                android:text="差高烧汤灿装" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/goodsPrice"
-                style="@style/text_nomal_min"
-                android:layout_below="@+id/goodsType"
-                android:layout_toRightOf="@+id/goodsPic"
-                android:text="￥20.00" />
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="合计："
+                    android:textColor="@color/grayText"
+                    android:textSize="@dimen/h35" />
 
-            <TextView
-                android:id="@+id/goodsCount"
-                style="@style/text_nomal_small"
-                android:layout_below="@+id/goodsType"
-                android:layout_marginLeft="@dimen/w20"
-                android:layout_toRightOf="@+id/goodsPrice"
-                android:text="x1" />
+
+                <TextView
+                    android:id="@+id/goodsPrice"
+                    style="@style/text_nomal_min"
+                    android:text="￥20.00"
+                    android:textSize="@dimen/h46" />
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:layout_marginLeft="@dimen/w32"
+                    android:text="(运费 ¥0.00)"
+                    android:textColor="@color/grayText"
+                    android:textSize="@dimen/h35" />
+            </LinearLayout>
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/h2"
-            android:background="@color/line_gray" />
-
-        <TextView
-            android:id="@+id/freightPrice"
-            style="@style/text_nomal_min"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:gravity="right"
-            android:text="运费：包邮" />
-
-        <TextView
-            android:id="@+id/totalPrice"
-            style="@style/text_nomal_min"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:gravity="right"
-            android:text="实付款：¥ 20.00" />
 
         <LinearLayout
             android:id="@+id/orderInfoShowLl"
@@ -223,40 +307,139 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/showNumber"
-                style="@style/text_nomal_min"
-                android:text="订单编号：2356458687907654323" />
 
-            <TextView
-                android:id="@+id/showWaterNumber"
-                style="@style/text_nomal_min"
-                android:text="流水号：2356458687907654323" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h55">
 
-            <TextView
-                android:id="@+id/showPayWay"
-                style="@style/text_nomal_small"
-                android:text="支付方式：首媒支付" />
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="订单编号："
+                    android:textColor="@color/grayText" />
 
-            <TextView
-                android:id="@+id/showPlaceTime"
-                style="@style/text_nomal_small"
-                android:text="下单时间：2017-11-11  00:00:00" />
+                <TextView
+                    android:id="@+id/showNumber"
+                    style="@style/text_nomal_small"
+                    android:text="2356458687907654323"
+                    android:textColor="@color/blackText" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/showPayTime"
-                style="@style/text_nomal_small"
-                android:text="付款时间：2017-11-11  00:00:00" />
 
-            <TextView
-                android:id="@+id/showStartTime"
-                style="@style/text_nomal_small"
-                android:text="发货时间：2017-11-11  00:00:00" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
 
-            <TextView
-                android:id="@+id/showTime"
-                style="@style/text_nomal_small"
-                android:text="交货时间：2017-11-11  00:00:00" />
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="流水号：    "
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showWaterNumber"
+                    style="@style/text_nomal_min"
+                    android:text="2356458687907654323" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="支付方式："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showPayWay"
+                    style="@style/text_nomal_small"
+                    android:text="首媒支付"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="下单时间："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showPlaceTime"
+                    style="@style/text_nomal_small"
+                    android:text="2017-11-11  00:00:00"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="付款时间："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showPayTime"
+                    style="@style/text_nomal_small"
+                    android:text="2017-11-11  00:00:00"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="发货时间："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showStartTime"
+                    style="@style/text_nomal_small"
+                    android:text="2017-11-11  00:00:00" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/h30"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="交货时间："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/showTime"
+                    style="@style/text_nomal_small"
+                    android:text="2017-11-11  00:00:00" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -269,15 +452,25 @@
 
             <Button
                 android:id="@+id/cancelOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="取消订单" />
+                android:layout_width="@dimen/w259"
+                android:layout_height="@dimen/h92"
+                android:layout_marginBottom="@dimen/h40"
+                android:layout_marginRight="@dimen/w35"
+                android:layout_marginTop="@dimen/h40"
+                android:background="@drawable/shape_btn_border_gray"
+                android:text="取消订单"
+                android:textColor="@color/grayText" />
 
             <Button
                 android:id="@+id/pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="去支付" />
+                android:layout_width="@dimen/w259"
+                android:layout_height="@dimen/h92"
+                android:layout_marginBottom="@dimen/h40"
+                android:layout_marginRight="@dimen/w35"
+                android:layout_marginTop="@dimen/h40"
+                android:background="@drawable/shape_btn_border_red"
+                android:text="去支付"
+                android:textColor="@color/red" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
