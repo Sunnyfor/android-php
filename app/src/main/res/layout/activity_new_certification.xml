@@ -62,7 +62,6 @@
 
                     <TextView
                         android:id="@+id/tvTime"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -82,7 +81,6 @@
 
                     <TextView
                         android:id="@+id/tvSmNum"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -102,7 +100,6 @@
 
                     <TextView
                         android:id="@+id/tvAccount"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -122,7 +119,6 @@
 
                     <TextView
                         android:id="@+id/tvDistrict"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -142,7 +138,6 @@
 
                     <TextView
                         android:id="@+id/tvCost"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
                 </RelativeLayout>
 
@@ -179,7 +174,6 @@
 
                     <TextView
                         android:id="@+id/tvPeople"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -199,7 +193,6 @@
 
                     <TextView
                         android:id="@+id/tvGender"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -264,7 +257,6 @@
 
                     <TextView
                         android:id="@+id/tvIdNum"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -284,7 +276,6 @@
 
                     <TextView
                         android:id="@+id/tvAddress"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -304,7 +295,6 @@
 
                     <TextView
                         android:id="@+id/tvValid"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                     <ImageView
@@ -324,7 +314,6 @@
 
                     <TextView
                         android:id="@+id/tvAuthority"
-                        android:text="已认证"
                         style="@style/newCertiTextStyle2" />
 
                 </RelativeLayout>
