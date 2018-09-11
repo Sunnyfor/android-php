@@ -97,7 +97,11 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     }
 
     override fun localPay(result: BaseBean<String>) {
-        mDialog?.getResult(result)
+        if (result.status == "200"){
+            mDialog?.getResult(result)
+        }else{
+            mDialog?.dismiss()
+        }
     }
 
     override fun setLayout(): Int = R.layout.certifitacation_pay_activity
