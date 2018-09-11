@@ -9,7 +9,7 @@ import com.cocosh.shmstore.mine.data.MineLoader
  */
 class CollectionPresenter(var mActivity: BaseActivity, var mView: MineContrat.ICollectionView) : MineContrat.ICollectionPresenter {
     override fun requestCollectionData(flag: Int, currentPage: String, showCount: String, timeStamp: String) {
-        loader.requestCollectionData(flag, currentPage, showCount, timeStamp)
+        loader.requestCollectionData(flag, currentPage, showCount)
     }
 
     val loader = MineLoader(mActivity, mView)

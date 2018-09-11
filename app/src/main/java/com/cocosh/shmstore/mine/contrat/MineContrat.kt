@@ -151,7 +151,7 @@ class MineContrat {
      * 收藏列表+
      */
     interface ICollectionView : IBaseView {
-        fun collection(result: BaseModel<CollectionListModel>)
+        fun collection(result: BaseBean<ArrayList<NewCollection>>)
     }
 
     interface ICollectionPresenter : IBasePresenter {

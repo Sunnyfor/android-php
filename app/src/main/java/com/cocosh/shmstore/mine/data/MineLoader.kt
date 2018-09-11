@@ -456,21 +456,23 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 收藏列表
      */
-    fun requestCollectionData(flag: Int, currentPage: String, showCount: String, timeStamp: String) {
-        var map = HashMap<String, String>()
-        map["currentPage"] = currentPage
-        map["showCount"] = showCount
-        map["timeStamp"] = timeStamp
-        ApiManager.get(flag, activity, map, Constant.COLLECTION_LIST, object : ApiManager.OnResult<BaseModel<CollectionListModel>>() {
-            override fun onSuccess(data: BaseModel<CollectionListModel>) {
+    fun requestCollectionData(flag: Int, currentPage: String, showCount: String) {
+        val map = HashMap<String, String>()
+        map["no"] = currentPage
+        map["num"] = showCount
+        ApiManager2.post(flag, activity, map, Constant.RP_FAVLIST, object : ApiManager2.OnResult<BaseBean<ArrayList<NewCollection>>>() {
+            override fun onFailed(code: String, message: String) {
+                val baseBean = BaseBean<ArrayList<NewCollection>>()
+                baseBean.status = code
+                (view as MineContrat.ICollectionView).collection(baseBean)
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<NewCollection>>) {
                 (view as MineContrat.ICollectionView).collection(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<CollectionListModel>) {
+            override fun onCatch(data: BaseBean<ArrayList<NewCollection>>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -488,6 +490,9 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         ApiManager2.post(flag, activity, map, Constant.EHOME_FOLLOW_MINE, object : ApiManager2.OnResult<BaseBean<ArrayList<FollowListModel>>>() {
 
             override fun onFailed(code: String, message: String) {
+                val baseBean = BaseBean<ArrayList<FollowListModel>>()
+                baseBean.status = code
+                (view as MineContrat.IFollowView).follow(baseBean)
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<FollowListModel>>) {

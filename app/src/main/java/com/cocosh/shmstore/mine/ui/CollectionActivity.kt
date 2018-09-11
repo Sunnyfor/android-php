@@ -8,6 +8,7 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.BonusDetailActivity
@@ -18,6 +19,7 @@ import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.CollectionListModel
 import com.cocosh.shmstore.mine.model.CollectionModel
+import com.cocosh.shmstore.mine.model.NewCollection
 import com.cocosh.shmstore.mine.presenter.CollectionPresenter
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.RxBus
@@ -32,9 +34,9 @@ import kotlinx.android.synthetic.main.activity_collection.*
  * 收藏
  */
 class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
-    var listDatas = arrayListOf<CollectionModel>()
+    var listDatas = arrayListOf<NewCollection>()
     val pageCount = 20
-    var pageNumber = 1
+    var pageNumber = "1"
     var timeStamp = ""
     var selectIndex = -2
     var mPresenter = CollectionPresenter(this, this)
@@ -69,7 +71,7 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
         //下拉刷新
         sfSwiperefresh.setOnRefreshListener {
             //拉取默认数据
-            pageNumber = 1
+            pageNumber = "1"
             timeStamp = ""
             listDatas.clear()
             recyclerView.adapter.notifyDataSetChanged()
@@ -81,52 +83,48 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
             override fun onItemClick(v: View, position: Int) {
                 selectIndex = position
                 val intent = Intent(this@CollectionActivity, BonusWebActivity::class.java)
-                SmApplication.getApp().setData(DataCode.BONUS_ID, listDatas[position].redPacketId)
-                intent.putExtra("title", listDatas[position].redPacketName)
-                intent.putExtra("comment_id", listDatas[position].idRedPacketOrderInfo)
-                if (listDatas[position].redPacketMoneyStatus == "1") {//未打开
+                SmApplication.getApp().setData(DataCode.BONUS_ID, listDatas[position].no)
+                intent.putExtra("title", listDatas[position].name)
+                intent.putExtra("comment_id", listDatas[position].no)
+                if (listDatas[position].status == "1") {//未打开
                     intent.putExtra("state", "SEIZE")
                 }
 
-                if (listDatas[position].redPacketMoneyStatus == "2") { //已打开
+                if (listDatas[position].status == "2") { //已打开
                     intent.putExtra("state", "RECEIVE")
                 }
 
-                if (listDatas[position].isGive == "1") {//已赠送
+                if (listDatas[position].status == "1") {//已赠送
                     intent.putExtra("state", "ISGIVE")
                 }
 
-                intent.putExtra("htmUrl", listDatas[position].htmlUrl)
-                intent.putExtra("downUrl", listDatas[position].androidUrl)
-                intent.putExtra("typeInfo", listDatas[position].typeInfo)
-                intent.putExtra("companyName", listDatas[position].companyName)
-                intent.putExtra("companyLogo", listDatas[position].companyLogo)
-                intent.putExtra("advertisementBaseType",listDatas[position].advertisementBaseType)
-                startActivity(intent)
+//                intent.putExtra("htmUrl", listDatas[position].htmlUrl)
+//                intent.putExtra("downUrl", listDatas[position].androidUrl)
+//                intent.putExtra("typeInfo", listDatas[position].typeInfo)
+//                intent.putExtra("companyName", listDatas[position].companyName)
+//                intent.putExtra("companyLogo", listDatas[position].companyLogo)
+//                intent.putExtra("advertisementBaseType",listDatas[position].advertisementBaseType)
+//                startActivity(intent)
             }
 
         })
     }
 
 
-    override fun collection(result: BaseModel<CollectionListModel>) {
-        if (result.success && result.code == 200) {
+    override fun collection(result: BaseBean<ArrayList<NewCollection>>) {
             sfSwiperefresh.isRefreshing = false
-            if (result.entity?.resCollectionList != null) {
-                if (result.entity?.resCollectionList?.size == 0) {
+            if (result.message!= null) {
+                if (result.message?.size == 0) {
                     recyclerView.loadMoreFinish(true, false);
                     return
                 }
-                listDatas.addAll(result.entity?.resCollectionList!!)
-                timeStamp = result?.entity?.timeStamp ?: ""
+                listDatas.addAll(result.message!!)
                 recyclerView.adapter.notifyDataSetChanged()
                 recyclerView.loadMoreFinish(false, true)
-                pageNumber++
+                pageNumber = listDatas.last().no
+            }else{
+                showReTryLayout("暂无数据")
             }
-        } else {
-            ToastUtil.show(result.message)
-            sfSwiperefresh.isRefreshing = false
-        }
     }
 
     override fun onListener(view: View) {
@@ -147,18 +145,18 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
         super.onResume()
         SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, true)?.let {
             if (it == BonusAction.OPEN) {
-                listDatas[selectIndex].redPacketMoneyStatus = "2"
+                listDatas[selectIndex].status = "2"
             }
 
             if (it == BonusAction.GIVE) {
-                listDatas[selectIndex].isGive = "1"
+                listDatas[selectIndex].status = "1"
             }
             adapter?.notifyDataSetChanged()
         }
     }
 
     override fun onDestroy() {
-        pageNumber = 1
+        pageNumber = "1"
         timeStamp = ""
         super.onDestroy()
     }

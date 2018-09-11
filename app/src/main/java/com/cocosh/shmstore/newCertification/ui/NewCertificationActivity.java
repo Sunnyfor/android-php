@@ -73,7 +73,11 @@ public class NewCertificationActivity extends BaseActivity {
         dataBinding.tvDistrict.setText((data.getCert().getProvince()+"-"+ data.getCert().getCity()));
         dataBinding.tvCost.setText(("￥" + data.getCert().getFee()));
         dataBinding.tvPeople.setText(data.getBase().getName());
-        dataBinding.tvGender.setText(data.getBase().getGender());
+        if (data.getBase().getGender() == 1){
+            dataBinding.tvGender.setText("男");
+        }else{
+            dataBinding.tvGender.setText("女");
+        }
         dataBinding.tvIdNum.setText(data.getBase().getIdno());
         dataBinding.tvAddress.setText(data.getBase().getAddr());
         dataBinding.tvValid.setText((data.getBase().getBeg_time() + "至" + data.getBase().getEnd_time()));

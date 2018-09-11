@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.ConcernAdapter
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
@@ -26,8 +27,8 @@ import kotlinx.android.synthetic.main.activity_concern.*
  */
 class FollowActivity : BaseActivity(), MineContrat.IFollowView {
     private var listDatas = arrayListOf<FollowListModel>()
-    private val pageCount = 12
-    private var pageNumber = 1
+    private val pageCount = 20
+    private var pageNumber = "1"
     private var mPresenter = FollowPresenter(this, this)
     private lateinit var adapter: ConcernAdapter
 
@@ -42,7 +43,9 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
                 listDatas.addAll(result.message?: arrayListOf())
                 recyclerView.adapter.notifyDataSetChanged()
                 recyclerView.loadMoreFinish(false, true)
-                pageNumber++
+                pageNumber = listDatas.last().eid
+            }else{
+                showReTryLayout("暂无数据")
             }
     }
 
@@ -54,14 +57,14 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
 
     override fun initView() {
         titleManager.defaultTitle("关注")
-        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
+        mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
 
         /**
          * 加载更多。
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
             recyclerView.postDelayed({
-                mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
+                mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
             }, 300)
         }
 
@@ -81,10 +84,10 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
         sfSwiperefresh.setOnRefreshListener {
             //拉取默认数据
             listDatas.clear()
-            pageNumber = 1
+            pageNumber = "1"
             recyclerView.adapter.notifyDataSetChanged()
             sfSwiperefresh.isRefreshing = true
-            mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
+            mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
         }
 
         adapter.setOnItemClickListener(object : ConcernAdapter.OnItemClickListener {
@@ -99,7 +102,8 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
     }
 
     override fun reTryGetData() {
-        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
+        pageNumber = "1"
+        mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
     }
 
     companion object {
@@ -111,27 +115,29 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
     private fun cancelOrConfirm(idCompanyHomeBaseInfo: String, position: Int) {
         isShowLoading = true
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = idCompanyHomeBaseInfo
-        params["isFollow"] = "0"
-        ApiManager.post(this, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
+        params["eid"] = idCompanyHomeBaseInfo
+        params["op"] = "cancel"
+        ApiManager2.post(this, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
-                if (data.success && data.code == 200) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
+                isShowLoading = false
                     listDatas.removeAt(position)
                     adapter.notifyItemRemoved(position)
                     if (position != listDatas.size) {
                         adapter.notifyItemRangeChanged(position, listDatas.size - position)
                     }
-                } else {
-                    ToastUtil.show(data.message)
+
+                if (listDatas.isEmpty()){
+                    pageNumber = "1"
+                    mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
                 }
+
             }
 
-            override fun onFailed(e: Throwable) {
-                isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
