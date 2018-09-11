@@ -74,5 +74,4 @@ class PartherPendingPayActivity : BaseActivity() {
             }
         }
     }
-
 }

@@ -97,9 +97,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     }
 
     override fun localPay(result: BaseBean<String>) {
-        if (result.status == "200"){
+        if (result.status == "200") {
             mDialog?.getResult(result)
-        }else{
+        } else {
             mDialog?.dismiss()
         }
     }
@@ -117,7 +117,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         llAlipay.setOnClickListener(this)
         btnSure.setOnClickListener(this)
         tvCharge.setOnClickListener(this)
-        tv_money.text = ("￥${StringUtils.insertComma(amount?.toFloat()?:0f)}")
+        tv_money.text = ("￥${StringUtils.insertComma(amount?.toFloat() ?: 0f)}")
     }
 
     override fun onListener(view: View) {}
@@ -126,7 +126,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.llShoumei ->
-                if (amount?.toDouble() !!<= accountMoney?.toDouble()!!) {
+                if (amount?.toDouble()!! <= accountMoney?.toDouble()!!) {
                     choose("LOCAL_ACC")
                 }
             R.id.llWechat -> choose("wx")
@@ -219,23 +219,25 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<String> {
             override fun inputComplete(pwd: String) {
-//                if (payOperatStatus == "DEPOSIT") {
-//                    paySecurity(pwd)
-//                } else {
-                    presenter.getLocalPay(amount?:"0", payOperatStatus ?: "", runningNumber
-                            ?: "", pwd)
-//                }
+                presenter.getLocalPay(amount ?: "0", payOperatStatus ?: "", runningNumber
+                        ?: "", pwd)
             }
 
             override fun result(boolean: Boolean, data: String?) {
                 mDialog?.dismiss()
                 if (boolean) {
                     //成功
+                    if (payOperatStatus == "1"){
+                        AuthActivity.start(this@PayActivity)
+                        SuccessActivity.start(this@PayActivity)
+                    }
+
+                    finish()
+
 //                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
 //                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
 //                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
 //                        setResult(IntentCode.IS_INPUT)
-//                        finish()
 //                    }
                 } else {
                     //失败
@@ -252,7 +254,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         super.onResume()
         requestMyWalletData(1)
         if (isConfirm) {
-            presenter.getConfirmResult(number ?: "",payOperatStatus?:"")
+            presenter.getConfirmResult(number ?: "", payOperatStatus ?: "")
         }
     }
 
@@ -323,31 +325,5 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         SmApplication.getApp().activityName = null
         SmApplication.getApp().isDelete = false
         SmApplication.getApp().deleteActivity(DataCode.BONUS_SEND_ACTIVITYS, this)
-    }
-
-    fun paySecurity(pass: String) {
-        val params = HashMap<String, String>()
-        params["pass"] = pass
-        ApiManager.post(this, params, Constant.PAY_SECURITY, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-            override fun onSuccess(data: BaseModel<Boolean>) {
-                mDialog?.hideLoading()
-                mDialog?.dismiss()
-                if (data.success) {
-                    AuthActivity.start(this@PayActivity)
-                    SuccessActivity.start(this@PayActivity)
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-                mDialog?.hideLoading()
-                mDialog?.dismiss()
-            }
-
-            override fun onCatch(data: BaseModel<Boolean>) {
-            }
-        })
-
     }
 }

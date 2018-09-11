@@ -206,7 +206,7 @@ class MineContrat {
      * 红包账户
      */
     interface IRedWalletView : IBaseView {
-        fun redWalletData(result: BaseModel<WalletModel>)
+        fun redWalletData(result: BaseBean<WalletModel>)
         fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>)
     }
 

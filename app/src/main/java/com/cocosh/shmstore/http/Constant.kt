@@ -138,6 +138,7 @@ object Constant {
 
     /*红包*/
     const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
+    const val RP_TRANSFER = "$VERSION/rp/transfer" //红包转出(至钱包)
     const val RP_LIST = "$VERSION/rp/list"
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性

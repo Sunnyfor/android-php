@@ -7,13 +7,17 @@ import android.view.View;
 import com.cocosh.shmstore.R;
 import com.cocosh.shmstore.application.SmApplication;
 import com.cocosh.shmstore.base.BaseActivity;
+import com.cocosh.shmstore.base.BaseBean;
 import com.cocosh.shmstore.databinding.ActivityNewCertificationBinding;
 import com.cocosh.shmstore.http.ApiManager;
 import com.cocosh.shmstore.http.ApiManager2;
 import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.newCertification.model.CertifyModel;
+import com.cocosh.shmstore.newCertification.model.PendingPay;
+import com.cocosh.shmstore.person.model.PersonResult;
 import com.cocosh.shmstore.utils.DataCode;
 import com.cocosh.shmstore.utils.LogUtil;
+import com.cocosh.shmstore.utils.UserManager2;
 import com.cocosh.shmstore.widget.dialog.SmediaDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +46,7 @@ public class NewCertificationActivity extends BaseActivity {
     private void initData() {
         Map<String, String> map = new HashMap<>();
 
-        ApiManager2.INSTANCE.get(1, this, map, Constant.MYSELF_MATCHMAKER_LIST, new ApiManager2.OnResult<CertifyModel>() {
+        ApiManager2.INSTANCE.get(1, this, map, Constant.NEW_CERT_RESULT, new ApiManager2.OnResult<BaseBean<PersonResult>>() {
 
             @Override
             public void onFailed(@NotNull String code, @NotNull String message) {
@@ -50,39 +54,30 @@ public class NewCertificationActivity extends BaseActivity {
             }
 
             @Override
-            public void onCatch(CertifyModel data) {
+            public void onCatch(BaseBean<PersonResult> data) {
 
             }
 
 
             @Override
-            public void onSuccess(CertifyModel data) {
-                if (data.getCode() == 200 && data.isSuccess()) {
-                    LogUtil.INSTANCE.d(data.getMessage());
-                    addData(data);
-                }
-
+            public void onSuccess(BaseBean<PersonResult> data) {
+                    addData(data.getMessage());
             }
         });
     }
 
-    private void addData(CertifyModel data) {
-        CertifyModel.EntityBean entity = data.getEntity();
-        dataBinding.tvTime.setText(entity.getApplyTime());
-        dataBinding.tvSmNum.setText(entity.getSmCode());
-        dataBinding.tvAccount.setText(entity.getUserName());
-        dataBinding.tvDistrict.setText(entity.getAddress());
-        dataBinding.tvCost.setText("￥" + entity.getMoney());
-        dataBinding.tvPeople.setText(entity.getRealName());
-        dataBinding.tvGender.setText(entity.getSex());
-        dataBinding.tvIdNum.setText(entity.getIdNo());
-        dataBinding.tvAddress.setText(entity.getCardAddress());
-        dataBinding.tvValid.setText(entity.getValidityPeriodStartTime() + "至" + entity.getValidityPeriodEndTime());
-        dataBinding.tvAuthority.setText(entity.getIssuingAgency());
-
-        SmApplication.Companion.getApp().setData(DataCode.ID_FRONT, entity.getIdFront());
-        SmApplication.Companion.getApp().setData(DataCode.ID_BACK, entity.getIdBack());
-
+    private void addData(PersonResult data) {
+        dataBinding.tvTime.setText(data.getCert().getTime());
+        dataBinding.tvSmNum.setText(UserManager2.INSTANCE.getCommonData().getSmno());
+        dataBinding.tvAccount.setText(UserManager2.INSTANCE.getCommonData().getPhone());
+        dataBinding.tvDistrict.setText((data.getCert().getProvince()+"-"+ data.getCert().getCity()));
+        dataBinding.tvCost.setText(("￥" + data.getCert().getFee()));
+        dataBinding.tvPeople.setText(data.getBase().getName());
+        dataBinding.tvGender.setText(data.getBase().getGender());
+        dataBinding.tvIdNum.setText(data.getBase().getIdno());
+        dataBinding.tvAddress.setText(data.getBase().getAddr());
+        dataBinding.tvValid.setText((data.getBase().getBeg_time() + "至" + data.getBase().getEnd_time()));
+        dataBinding.tvAuthority.setText(data.getBase().getOrg());
     }
 
     private void initClick() {
@@ -93,8 +88,7 @@ public class NewCertificationActivity extends BaseActivity {
     public void onListener(@NotNull View view) {
         switch (view.getId()) {
             case R.id.rlID:
-                IDcardActivity.start(NewCertificationActivity.this);
-
+//                IDcardActivity.start(NewCertificationActivity.this);
                 break;
         }
     }

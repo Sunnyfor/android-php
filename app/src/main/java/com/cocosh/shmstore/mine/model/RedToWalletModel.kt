@@ -8,6 +8,6 @@ package com.cocosh.shmstore.mine.model
  *  runningNumber (string, optional): 流水号
  *
  */
-data class RedToWalletModel(var createDate: String,
-                            var money: String,
-                            var runningNumber: String)
+data class RedToWalletModel(var time: String,
+                            var sn: String,
+                            var no: String)

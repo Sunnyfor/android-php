@@ -11,7 +11,10 @@ data class PersonResult(
 ) {
     data class Cert(
             var status: Int, // 认证状态
-            var time: String // 认证时间
+            var time: String, // 认证时间
+            var province:String, // 服务区域:省份
+            var city:String, // 服务区域:城市
+            var fee:String // 认证费用
     )
 
     data class Base(

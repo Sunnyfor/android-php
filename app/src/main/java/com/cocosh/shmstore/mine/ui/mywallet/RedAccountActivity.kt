@@ -32,11 +32,10 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     var money: String? = ""
     var mPresenter = RedWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_red_account
-    override fun redWalletData(result: BaseModel<WalletModel>) {
-        if (result.success && result.code == 200) {
+    override fun redWalletData(result: BaseBean<WalletModel>) {
 //            rule.text = "注：红包金额必须>" + result.entity?.rp_cash_limit + "元时才可以转出!"
-            money = result.entity?.p?.rp?.sum
-            ruleMoney = result.entity?.p?.rp?.cash_limit
+            money = result.message?.p?.rp?.sum
+            ruleMoney = result.message?.p?.rp?.cash_limit
 
             tvMoney.text = money
 
@@ -47,9 +46,6 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
             }
             btn_withdraw_money.setBackgroundResource(R.drawable.shape_btn_redpackage)
             isClick = false
-        } else {
-            ToastUtil.show(result.message)
-        }
     }
 
     override fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>) {
@@ -67,7 +63,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     override fun initView() {
         titleManager.defaultTitle("红包账户")
         btn_withdraw_money.setOnClickListener(this)
-//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletData(1)
         mPresenter.requestRedWalletWaterData(1, "", "")
 
 
@@ -75,7 +71,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
          * 加载更多。
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
-            recyclerView.postDelayed(Runnable {
+            recyclerView.postDelayed({
                 mPresenter.requestRedWalletWaterData(0, list[list.size - 1].flowno
                         ?: "", "")
             }, 300)
@@ -105,7 +101,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     }
 
     override fun reTryGetData() {
-//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletData(1)
         mPresenter.requestRedWalletWaterData(1, "", "")
     }
 
@@ -120,7 +116,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
         super.onNewIntent(intent)
         list.clear()
         recyclerView.adapter.notifyDataSetChanged()
-//        mPresenter.requestRedWalletData(1)
+        mPresenter.requestRedWalletData(1)
         mPresenter.requestRedWalletWaterData(1, "", "")
     }
 }

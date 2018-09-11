@@ -10,17 +10,14 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.PayPassworType
 import com.cocosh.shmstore.mine.model.RedToWalletModel
 import com.cocosh.shmstore.mine.presenter.RedToWalletPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
 import com.cocosh.shmstore.mine.ui.authentication.CommonType
 import com.cocosh.shmstore.sms.type.SMSType
 import com.cocosh.shmstore.utils.CashierInputFilter
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SercurityDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_out_to_wallet.*
@@ -103,7 +100,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
                     }
 
                     tvAllOut.visibility = View.VISIBLE
-                    showHint.text = "可转出金额" + money + "元"
+                    showHint.text = ("可转出金额" + money + "元")
                     showHint.setTextColor(resources.getColor(R.color.textGray))
 
                     isClick = true
@@ -115,8 +112,8 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
     }
 
     var mDialog: SercurityDialog<RedToWalletModel>? = null
-    fun showImputPsdDialog() {
-        mDialog = SercurityDialog<RedToWalletModel>(this, R.style.SercurityDialogTheme)
+    private fun showImputPsdDialog() {
+        mDialog = SercurityDialog(this, R.style.SercurityDialogTheme)
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<RedToWalletModel> {
             override fun inputComplete(pwd: String) {
@@ -132,11 +129,11 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
             override fun result(boolean: Boolean, resultData: RedToWalletModel?) {
                 if (boolean) {
                     //转账成功 跳转转账结果页
-                    OutToWalletResult.start(this@OutToWalletActivity, resultData?.money, resultData?.createDate, resultData?.runningNumber, TYEP_OUTTOWALLET
+                    OutToWalletResult.start(this@OutToWalletActivity, money, resultData?.time, resultData?.no, TYEP_OUTTOWALLET
                             ?: "")
                 } else {
                     //转账失败
-//                    OutToWalletResult.start(this@OutToWalletActivity)
+                    OutToWalletResult.start(this@OutToWalletActivity)
                 }
             }
         })
@@ -151,7 +148,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
             btnCharge.id -> {
                 if (isClick) {
                     //判断是否设置密码
-                    if (UserManager.getPayPwdStatus() == true) {
+                    if (UserManager2.getCommonData()?.paypass == 1) {
                         showImputPsdDialog()
                     } else {
                         showEntDialog()
@@ -165,9 +162,9 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
         mPresenter.requestRunningNumTo(1)
     }
 
-    fun showEntDialog() {
+    private fun showEntDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
+        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().activityName = this@OutToWalletActivity.javaClass
             CheckPayPwdMessage.start(this@OutToWalletActivity,SMSType.INIT_PAYPASS)

@@ -1,5 +1,7 @@
 package com.cocosh.shmstore.newCertification.model
 
+import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
+
 /**
  * 新媒人待支付数据模型
  * Created by zhangye on 2018/4/3.

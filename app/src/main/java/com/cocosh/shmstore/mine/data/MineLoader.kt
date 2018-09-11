@@ -260,7 +260,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestIsPwdRightData(pwd: String) {
         val map = HashMap<String, String>()
         map["ts"] = StringUtils.getTimeStamp()
-        map["pwd"] = DigestUtils.sha256(DigestUtils.md5(pwd),map["ts"]?:"")
+        map["pwd"] = DigestUtils.sha256(DigestUtils.md5(pwd), map["ts"] ?: "")
         ApiManager2.post(activity, map, Constant.PAYPASS_OLDCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
             override fun onSuccess(data: BaseBean<ResetPass>) {
                 (view as MineContrat.IIsPwdRightView).isPwdRight(data)
@@ -637,17 +637,17 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取我的钱包主页信息
      */
     fun requestRedWalletData(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.MY_WALLET_DATA, object : ApiManager.OnResult<BaseModel<WalletModel>>() {
-            override fun onSuccess(data: BaseModel<WalletModel>) {
+        val map = HashMap<String, String>()
+        ApiManager2.get(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<WalletModel>) {
                 (view as MineContrat.IRedWalletView).redWalletData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
-            override fun onCatch(data: BaseModel<WalletModel>) {
+            override fun onCatch(data: BaseBean<WalletModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -657,16 +657,16 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 转至红包账户
      */
     fun requestRedToWallet(money: String, paymentPassword: String) {
-        var map = HashMap<String, String>()
-        map["profit"] = money
-        map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.RED_TO_MYWALLET, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
-            override fun onSuccess(data: BaseBean<RedToWalletModel>) {
-                (view as MineContrat.IRedToWalletView).redToWalletData(data)
+        val map = HashMap<String, String>()
+        map["ts"] = StringUtils.getTimeStamp()
+        map["amount"] = money
+        map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
+        ApiManager2.post(activity, map, Constant.RP_TRANSFER, object : ApiManager2.OnResult<BaseBean<RedToWalletModel>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onSuccess(data: BaseBean<RedToWalletModel>) {
+                (view as MineContrat.IRedToWalletView).redToWalletData(data)
             }
 
             override fun onCatch(data: BaseBean<RedToWalletModel>) {
