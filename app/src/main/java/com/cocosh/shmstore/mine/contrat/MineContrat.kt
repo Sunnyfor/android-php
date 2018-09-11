@@ -4,6 +4,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.mine.data.MineLoader
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.sms.model.SMS
 import com.cocosh.shmstore.sms.type.SMSType

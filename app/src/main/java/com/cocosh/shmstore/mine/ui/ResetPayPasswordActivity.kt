@@ -19,7 +19,7 @@ class ResetPayPasswordActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_reset_paypwd
 
     override fun initView() {
-        titleManager.defaultTitle("重置登录密码")
+        titleManager.defaultTitle("重置支付密码")
         isvPhoto.setOnClickListener(this)
         isvOld.setOnClickListener(this)
     }

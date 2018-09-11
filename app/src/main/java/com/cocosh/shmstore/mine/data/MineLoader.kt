@@ -105,7 +105,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestWalletWaterData(flag: Int, idUserAccountRecord: String, begTime: String, showCount: String) {
         val map = HashMap<String, String>()
-        if (idUserAccountRecord != ""){
+        if (idUserAccountRecord != "") {
             map["flowno"] = idUserAccountRecord
         }
         map["date"] = begTime
@@ -260,7 +260,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     fun requestIsPwdRightData(pwd: String) {
         val map = HashMap<String, String>()
         map["ts"] = StringUtils.getTimeStamp()
-        map["pwd"] = DigestUtils.md5(pwd)
+        map["pwd"] = DigestUtils.sha256(DigestUtils.md5(pwd),map["ts"]?:"")
         ApiManager2.post(activity, map, Constant.PAYPASS_OLDCHECK, object : ApiManager2.OnResult<BaseBean<ResetPass>>() {
             override fun onSuccess(data: BaseBean<ResetPass>) {
                 (view as MineContrat.IIsPwdRightView).isPwdRight(data)
@@ -481,7 +481,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestFollowData(flag: Int, currentPage: String, showCount: String) {
         val map = HashMap<String, String>()
-        if (currentPage != "1"){
+        if (currentPage != "1") {
             map["eid"] = currentPage
         }
         map["num"] = showCount

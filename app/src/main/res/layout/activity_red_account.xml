@@ -42,7 +42,7 @@
             android:text="转出至钱包"
             android:textColor="@color/white"
             android:textSize="@dimen/h40"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
     </LinearLayout>
 
     <TextView

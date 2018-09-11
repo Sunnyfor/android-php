@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_red_account.*
 
 
 /**
+ *
  * Created by lmg on 2018/4/17.
  */
 class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {

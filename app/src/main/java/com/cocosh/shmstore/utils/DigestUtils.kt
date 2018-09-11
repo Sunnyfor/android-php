@@ -2,6 +2,8 @@ package com.cocosh.shmstore.utils
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * MD5加密
@@ -34,6 +36,18 @@ object DigestUtils {
             val bt = strSrc.toByteArray()
             md.update(bt)
             bytes2Hex(md.digest())
+        } catch (e: NoSuchAlgorithmException) {
+            ""
+        }
+    }
+
+    fun sha256(strSrc: String,secret:String):String{
+        return try {
+            val sha256 = Mac.getInstance("HmacSHA256")
+            val secretKey = SecretKeySpec(secret.toByteArray(), "HmacSHA256")
+            sha256.init(secretKey)
+            val bytes = sha256.doFinal(strSrc.toByteArray())
+            return bytes2Hex(bytes)
         } catch (e: NoSuchAlgorithmException) {
             ""
         }

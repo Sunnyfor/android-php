@@ -65,9 +65,9 @@ class CheckPayPwdMessage : BaseActivity(), MineContrat.ISendMessageView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edtCode.text.length == 6) {
                     val checkType:PayPassworType = when(passType){
-                        SMSType.FORGOT_PAYPASS.value -> PayPassworType.FORGOT
-                        SMSType.INIT_PAYPASS.value -> PayPassworType.INIT
-                        SMSType.RESET_PAYPASS.value -> PayPassworType.RESET
+                        SMSType.FORGOT_PAYPASS.name -> PayPassworType.FORGOT
+                        SMSType.INIT_PAYPASS.name -> PayPassworType.INIT
+                        SMSType.RESET_PAYPASS.name -> PayPassworType.RESET
                         else -> {
                             PayPassworType.INIT
                         }
