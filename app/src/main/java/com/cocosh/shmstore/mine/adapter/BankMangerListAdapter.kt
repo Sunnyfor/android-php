@@ -25,7 +25,7 @@ class BankMangerListAdapter(var mContext: Context, list: ArrayList<BankModel>) :
             holder.itemView.tvBankType.text = "信用卡"
         }
         holder.itemView.tvBankNum.text = getData(position).card_no
-        GlideUtils.loadDefault(mContext, getData(position).bank_log, holder.itemView.rivLogo)
+        GlideUtils.loadDefault(mContext, getData(position).bank_logo, holder.itemView.rivLogo)
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View {

@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.utils.GlideUtils
@@ -56,6 +57,7 @@ class BankRemoveDialog : Dialog, View.OnClickListener {
 
     fun setData(mContext: Context?, pic: String?, name: String?, num: String?) {
         GlideUtils.load(mContext, pic, rivLogo)
+        Glide.with(mContext).load(pic).placeholder(R.drawable.default_content).into(rivLogo)
         tvBankName.text = name
         tvBankNum.text = num
     }

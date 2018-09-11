@@ -14,7 +14,7 @@ time (string, optional): 创建 银行卡id
 data class BankModel(var id: String?, // 银行卡id
                      var bank_kind: String?, //开户行id
                      var bank_name: String?, // 开户行名称
-                     var bank_log: String?, // 开户行logo
+                     var bank_logo: String?, // 开户行logo
                      var card_no: String?, // 银行卡号
                      var card_kind: String?, // 银行卡类型:'0'-储蓄卡,'1'-信用卡,...
                      var phone: String?, // 预留手机号码

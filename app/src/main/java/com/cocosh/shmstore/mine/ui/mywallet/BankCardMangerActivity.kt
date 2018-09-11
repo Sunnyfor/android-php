@@ -54,7 +54,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
     override fun wouldDeleteBankData(result: BaseModel<Boolean>) {
         if (result.success && result.code == 200) {
             if (result.entity!!) {
-                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
+                showRemoveDialog(listData[position].bank_logo, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             } else {
                 showErrorDialog(result.message)
             }
@@ -94,7 +94,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
             if (position != listData.size) {
                 this.position = position
 //                mPresenter.requestWouldDeleteBankData(0)
-                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
+                showRemoveDialog(listData[position].bank_logo, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             }
 
         }
@@ -104,7 +104,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
             if (position != listData.size) {
                 this.position = position
 //                mPresenter.requestWouldDeleteBankData(0)
-                showRemoveDialog(listData[position].bank_log, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
+                showRemoveDialog(listData[position].bank_logo, listData[position].bank_name, listData[position].bank_kind, listData[position].card_no)
             }
         }
 
@@ -167,7 +167,7 @@ class BankCardMangerActivity : BaseActivity(), MineContrat.IBankListView {
                 if (boolean) {
 
                     //解绑成功 跳转解绑结果页
-                    RemovedResultActivity.start(this@BankCardMangerActivity, listData[position].bank_log
+                    RemovedResultActivity.start(this@BankCardMangerActivity, listData[position].bank_logo
                             ?: "", listData[position].bank_name ?: "", listData[position].card_no
                             ?: "", true)
                 } else {

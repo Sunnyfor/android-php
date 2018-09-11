@@ -47,7 +47,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         if (result.message != null && result.message?.bankcard?.size ?: 0 > 0) {
             listDatas.addAll(result.message?.bankcard!!)
             ivPic.visibility = View.VISIBLE
-            GlideUtils.loadDefault(this, result.message?.bankcard!![0].bank_log, ivPic)
+            GlideUtils.loadDefault(this, result.message?.bankcard!![0].bank_logo, ivPic)
             tvName.text = result.message?.bankcard!![0].bank_name
             text_treaty.text = ("单笔提现金额不低于${result.message?.amt?.amt_min}元，最高${result.message?.amt?.amt_max}元，每笔提现将扣除${result.message?.amt?.fee}元手续费")
             checkBankId = result.message?.bankcard!![0].bank_kind ?: ""
@@ -110,7 +110,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                     AddBankCardActivity.start(this@WithDrawActivity)
                     return
                 }
-                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1].bank_log, ivPic)
+                GlideUtils.loadDefault(this@WithDrawActivity, listDatas[index - 1].bank_logo, ivPic)
                 tvName.text = listDatas[index - 1].bank_name
                 checkBankId = listDatas[index - 1].id ?: ""
             }

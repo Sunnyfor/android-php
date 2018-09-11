@@ -23,7 +23,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/rivLogo"
             android:layout_width="@dimen/w120"
-            android:layout_height="@dimen/h120"
+            android:layout_height="@dimen/w120"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/h150"
             android:scaleType="fitXY"

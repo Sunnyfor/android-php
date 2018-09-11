@@ -19,7 +19,7 @@ class BankListAdapter(var mContext: Context, list: ArrayList<BankModel>) : BaseR
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         if (getItemViewType(position) == 3) {
             holder.itemView.tvName.text = getData(position - 1).bank_name
-            var url = getData(position - 1).bank_log
+            var url = getData(position - 1).bank_logo
             var tag = holder.itemView.ivPic
             GlideUtils.loadHead(mContext, url, tag)
         }
