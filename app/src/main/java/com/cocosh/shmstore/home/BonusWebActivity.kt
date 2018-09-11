@@ -292,13 +292,13 @@ class BonusWebActivity : BaseActivity() {
                     val diaolog = ShareDialog(this@BonusWebActivity)
                     if (typeInfo == "4" || typeInfo == "5") {
                         if (type) {
-                            diaolog.showShareBase("温暖中国  媒体扶贫行动！", "参与扶贫，无需捐款，一次点击就是一次扶贫行动！", data.entity?.dictionaryValue
+                            diaolog.showShareBase("温暖中国  媒体扶贫行动！", "参与扶贫，无需捐款，一次点击就是一次扶贫行动！", data.entity?.url
                                     ?: "")
                         } else {
-                            diaolog.showShareApp(data.entity?.dictionaryValue ?: "")
+                            diaolog.showShareApp(data.entity?.url ?: "")
                         }
                     } else {
-                        diaolog.showShareApp(data.entity?.dictionaryValue ?: "")
+                        diaolog.showShareApp(data.entity?.url ?: "")
                     }
                     diaolog.show()
                 } else {

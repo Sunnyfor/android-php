@@ -127,7 +127,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     }
 
     /**
-     * 企业提现
+     * 企业提现要素
      */
     fun requestCorporateAccountData(flag: Int) {
         ApiManager2.post(flag, activity, hashMapOf(), Constant.BALANCE_CASH_SVC, object : ApiManager2.OnResult<BaseBean<CorporateAccountModel>>() {
@@ -393,14 +393,12 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 提现 银行卡弹窗列表
      */
     fun requestBankListData() {
-        var map = HashMap<String, String>()
-        ApiManager.get(1, activity, map, Constant.MY_WALLET_DRAWINFO, object : ApiManager.OnResult<BaseBean<BankDrawListModel>>() {
-            override fun onSuccess(data: BaseBean<BankDrawListModel>) {
-                (view as MineContrat.IMyWalletDrawView).bankListDraw(data)
+        ApiManager2.post(1, activity, hashMapOf(), Constant.BALANCE_CASH_PERSON, object : ApiManager2.OnResult<BaseBean<BankDrawListModel>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onSuccess(data: BaseBean<BankDrawListModel>) {
+                (view as MineContrat.IMyWalletDrawView).bankListDraw(data)
             }
 
             override fun onCatch(data: BaseBean<BankDrawListModel>) {
@@ -414,18 +412,17 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 提现
      */
     fun requestMyWalletDrawData(userBankInfoId: String, amount: String, runningNum: String, paymentPassword: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["userBankInfoId"] = userBankInfoId
         map["amount"] = amount
         map["flowno"] = runningNum
         map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.MY_WALLET_DRAW, object : ApiManager.OnResult<BaseBean<WithDrawResultModel>>() {
-            override fun onSuccess(data: BaseBean<WithDrawResultModel>) {
-                (view as MineContrat.IMyWalletDrawView).myWalletDraw(data)
+        ApiManager2.post(activity, map, Constant.BALANCE_DOCASH_PERSON, object : ApiManager2.OnResult<BaseBean<WithDrawResultModel>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
+            override fun onSuccess(data: BaseBean<WithDrawResultModel>) {
+                (view as MineContrat.IMyWalletDrawView).myWalletDraw(data)
             }
 
             override fun onCatch(data: BaseBean<WithDrawResultModel>) {
@@ -439,10 +436,10 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 取消关注
      */
     fun requestCancelFollowData(idCompanyInfoBase: String) {
-        var map = HashMap<String, String>()
+        val map = HashMap<String, String>()
         map["idCompanyInfoBase"] = idCompanyInfoBase
-        ApiManager.post(activity, map, Constant.FOLLOW_CANAEL, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-            override fun onSuccess(data: BaseModel<Boolean>) {
+        ApiManager.post(activity, map, Constant.FOLLOW_CANAEL, object : ApiManager.OnResult<BaseBean<Boolean>>() {
+            override fun onSuccess(data: BaseBean<Boolean>) {
                 (view as MineContrat.IFollowView).cancelFollow(data)
             }
 
@@ -450,7 +447,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
                 LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseModel<Boolean>) {
+            override fun onCatch(data: BaseBean<Boolean>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -482,21 +479,22 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 关注列表
      */
-    fun requestFollowData(flag: Int, currentPage: String, showCount: String, timeStamp: String) {
-        var map = HashMap<String, String>()
-        map["currentPage"] = currentPage
-        map["showCount"] = showCount
-        map["timeStamp"] = timeStamp
-        ApiManager.get(flag, activity, map, Constant.FOLLOW_LIST, object : ApiManager.OnResult<BaseModel<FollowListModel>>() {
-            override fun onSuccess(data: BaseModel<FollowListModel>) {
+    fun requestFollowData(flag: Int, currentPage: String, showCount: String) {
+        val map = HashMap<String, String>()
+        if (currentPage != "1"){
+            map["eid"] = currentPage
+        }
+        map["num"] = showCount
+        ApiManager2.post(flag, activity, map, Constant.EHOME_FOLLOW_MINE, object : ApiManager2.OnResult<BaseBean<ArrayList<FollowListModel>>>() {
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<FollowListModel>>) {
                 (view as MineContrat.IFollowView).follow(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseModel<FollowListModel>) {
+            override fun onCatch(data: BaseBean<ArrayList<FollowListModel>>) {
                 LogUtil.d(data.toString())
             }
         })

@@ -161,12 +161,12 @@ class MineContrat {
      * 关注列表
      */
     interface IFollowView : IBaseView {
-        fun follow(result: BaseModel<FollowListModel>)
-        fun cancelFollow(result: BaseModel<Boolean>)//取消关注
+        fun follow(result: BaseBean<ArrayList<FollowListModel>>)
+        fun cancelFollow(result: BaseBean<Boolean>)//取消关注
     }
 
     interface IFollowPresenter : IBasePresenter {
-        fun requestFollowData(flag: Int, currentPage: String, showCount: String, timeStamp: String)
+        fun requestFollowData(flag: Int, currentPage: String, showCount: String)
         fun requestCancelFollowData(idCompanyInfoBase: String)
     }
 

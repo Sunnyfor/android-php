@@ -172,7 +172,6 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
             if (isFastClick()) {
                 preserter.getUpdateResult()
             }
-            showLoading()
         }
 
         iv_end_time.setOnTouchListener { _, _ ->

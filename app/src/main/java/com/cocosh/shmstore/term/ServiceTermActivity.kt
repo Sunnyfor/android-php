@@ -9,8 +9,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.utils.IntentCode
@@ -25,12 +27,12 @@ import kotlinx.android.synthetic.main.activity_term.*
  */
 class ServiceTermActivity : BaseActivity() {
 
-    private val fac = "renzhengfuwushangxieyi"
-    private val charge = "chongzhixieyi"
-    private val newcer = "xinmeirenrenzhengxieyi"
-    private val businessman = "qiyezhurenzhengxieyi"
-    private val help = "help_page_url" //帮助中心
-    private val bonus = "hongbaoguize"//红包规则
+    private val fac = "f_cert"
+    private val recharge = "recharge"
+    private val newcer = "x_cert"
+    private val businessman = "b_cert"
+    private val help = "help" //帮助中心
+    private val bonus = "rp_rules"//红包规则
 
     override fun reTryGetData() {
 
@@ -56,7 +58,7 @@ class ServiceTermActivity : BaseActivity() {
             getUrl(newcer)
         }
         if (ruleUrl == OpenType.Charge.name) {
-            getUrl(charge)
+            getUrl(recharge)
         }
         if (ruleUrl == OpenType.BusinessMan.name) {
             getUrl(businessman)
@@ -101,11 +103,6 @@ class ServiceTermActivity : BaseActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                val title = view?.title
-                if (!TextUtils.isEmpty(title)) {
-//                    titleManager.defaultTitle(title ?: "首媒服务条款")
-//                    titleManager.defaultTitle("首媒服务条款")
-                }
                 hideLoading()
             }
         })
@@ -114,20 +111,17 @@ class ServiceTermActivity : BaseActivity() {
 
     private fun getUrl(key: String) {
         val params = hashMapOf<String, String>()
-        params["dictionaryKey"] = key
-        ApiManager.get(this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) {
-                if (data.success) {
-                    initWebView(data.entity?.dictionaryValue ?: "")
-                } else {
-                    ToastUtil.show(data.message)
-                }
+        params["type"] = key
+        ApiManager2.get(this, params, Constant.GET_SHARE_URL, object : ApiManager2.OnResult<BaseBean<ValueByKey>>() {
+            override fun onFailed(code: String, message: String) {
+
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onSuccess(data: BaseBean<ValueByKey>) {
+                    initWebView(data.message?.url ?: "")
             }
 
-            override fun onCatch(data: BaseModel<ValueByKey>) {
+            override fun onCatch(data: BaseBean<ValueByKey>) {
             }
         })
 

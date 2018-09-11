@@ -7,7 +7,10 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.PayResultModel
+import com.cocosh.shmstore.utils.DigestUtils
 import com.cocosh.shmstore.utils.LogUtil
+import com.cocosh.shmstore.utils.StringUtils
+import java.text.DecimalFormat
 
 /**
  * Created by cjl on 2018/2/8.
@@ -39,17 +42,19 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
         })
     }
 
-    fun getConfirmResult(runningNumber: String) {
+    fun getConfirmResult(runningNumber: String,kind:String) {
         val map = HashMap<String, String>()
-        map["runningNumber"] = runningNumber
-        ApiManager.get(0, activity, map, Constant.PAY_RESULT, object : ApiManager.OnResult<BaseBean<PayResultModel>>() {
+        map["kind"]	= kind
+               // 业务种类 (必填,'1'-新媒人认证,'2'-发红包支付,'3'-余额充值支付,'4'-购买支付)
+        map["sn"] = runningNumber
+        ApiManager2.post(0, activity, map, Constant.PAYMENT_CHECK, object : ApiManager2.OnResult<BaseBean<PayResultModel>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
             override fun onSuccess(data: BaseBean<PayResultModel>) {
                 view.payConfirmResult(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message ?: "")
-            }
 
             override fun onCatch(data: BaseBean<PayResultModel>) {
                 LogUtil.d(data.toString())
@@ -57,24 +62,23 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
         })
     }
 
-    fun getLocalPay(payChannel: String, amount: String, payOperatStatus: String, runningNumber: String, paymentPassword: String) {
+    fun getLocalPay(amount: String, payOperatStatus: String, runningNumber: String, paymentPassword: String) {
         val map = HashMap<String, String>()
-        //支付使用的第三方支付渠道 LOCAL_ACC 本地支付, PINGPP_WX 微信app支付,PINGPP_WX_PUB 微信电脑端支付, PINGPP_ALIPAY 支付宝app支付, PINGPP_ALIPAY_PC 支付宝电脑端支付
-        map["payChannel"] = payChannel
-        map["amount"] = amount
-        //RECHARGE (1,"充值"),PUT_FORWARD (2,"提现"),PAYMENT(3,"消费"), RETURN_TO_INCOME(4,"转入"),SALE(5,"创建"),REFUND(6,"退款"), SEND_RED_PACKET(7,"发红包")
-        map["payOperatStatus"] = payOperatStatus
+        map["ts"] = StringUtils.getTimeStamp()
+        map["amount"] = DecimalFormat("0.00").format(amount.toFloat())
+        //业务种类 (必填,'1'-新媒人认证,'2'-发红包支付,'3'-余额充值支付,'4'-购买支付)
+        map["kind"] = payOperatStatus
         //订单编号 非必传字段
-        map["runningNumber"] = runningNumber
-        map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.LOCAL_PAY, object : ApiManager.OnResult<BaseBean<String>>() {
+        map["data"] = runningNumber
+        map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
+        ApiManager2.post(activity, map, Constant.SMPAY, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
             override fun onSuccess(data: BaseBean<String>) {
                 view.localPay(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message ?: "")
-            }
 
             override fun onCatch(data: BaseBean<String>) {
                 LogUtil.d(data.toString())

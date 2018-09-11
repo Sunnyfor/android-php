@@ -21,10 +21,7 @@ import com.cocosh.shmstore.mine.ui.authentication.CommonType
 import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
 import com.cocosh.shmstore.newCertification.ui.PartherPendingPayActivity
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
-import com.cocosh.shmstore.utils.OpenType
-import com.cocosh.shmstore.utils.PermissionCode
-import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_web_view.*
 
@@ -45,19 +42,19 @@ class WebActivity : BaseActivity() {
             OpenType.Cer.name -> {
                 titleManager.defaultTitle("人人为媒，人脉资源变现")
                 btnSure.text = "我要成为新媒人"
-                if (status == "5") {
-                    btnSure.visibility = View.GONE
+                if (status == "2") {
+                    btnSure.text = "收益"
                 } else {
-                    btnSure.visibility = View.VISIBLE
+                    btnSure.text = "我要成为新媒人"
                 }
             }
             OpenType.Fac.name -> {
                 titleManager.defaultTitle("造船出海，不如借船起航")
-                btnSure.text = "我要成为服务商"
-                if (status == "5") {
-                    btnSure.visibility = View.GONE
+
+                if (status == "3") {
+                    btnSure.text = "收益"
                 } else {
-                    btnSure.visibility = View.VISIBLE
+                    btnSure.text = "我要成为服务商"
                 }
             }
             OpenType.SysMessage.name -> {
@@ -72,43 +69,44 @@ class WebActivity : BaseActivity() {
     }
 
     override fun onListener(view: View) {
-//        when (view.id) {
-//            btnSure.id -> {
-//                when (type) {
-//                    OpenType.Cer.name -> {
-//
-//                        if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-//                            //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-//                            when (status) {
-//                                AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(this)
-//                                AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
-//                                AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.CERTIFICATION_INCOME.type)
-//                                AuthenStatus.PRE_AUTH.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
-//                            }
-//                        } else {
-//                            val dialog = SmediaDialog(this)
-//                            dialog.setTitle("请先完成实人认证")
-//                            dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-//
-//                            dialog.OnClickListener = View.OnClickListener {
-//                                val intent = Intent(this, ScanIdCardActivity::class.java)
-//                                intent.putExtra("type", "实人认证")
-//                                startActivity(intent)
-//                            }
-//                            dialog.show()
-//                        }
-//                    }
-//                    OpenType.Fac.name -> {
-//                        when (status) {
-//                            AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(this)
-//                            AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(this, 666)
-//                            AuthenStatus.PRE_PASS.type -> IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
-//                            AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(this, -1)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        when (view.id) {
+            btnSure.id -> {
+                when (type) {
+                    OpenType.Cer.name -> {
+                        UserManager2.getCommonData()?.cert?.let {
+                            if (it.r == AuthenStatus.PERSION_OK.type) {
+                                //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
+                                when (it.x) {
+                                    AuthenStatus.NEW_MATCHMAKER_NO.type -> PartnerSplashActivity.start(this)
+                                    AuthenStatus.NEW_MATCHMAKER_OK.type -> IncomeActivity.start(this, CommonType.CERTIFICATION_INCOME.type)
+                                    AuthenStatus.NEW_MATCHMAKER_WAIT.type -> startActivity(Intent(this, PartherPendingPayActivity::class.java))
+                                }
+                            } else {
+                                val dialog = SmediaDialog(this)
+                                dialog.setTitle("请先完成实人认证")
+                                dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+
+                                dialog.OnClickListener = View.OnClickListener {
+                                    val intent = Intent(this, ScanIdCardActivity::class.java)
+                                    intent.putExtra("type", "实人认证")
+                                    startActivity(intent)
+                                }
+                                dialog.show()
+                            }
+                        }
+
+                    }
+                    OpenType.Fac.name -> {
+                        when (UserManager2.getCommonData()?.cert?.f) {
+                            AuthenStatus.SERVER_DEALER_NO.type -> FacilitatorSplashActivity.start(this)
+                            AuthenStatus.SERVER_DEALER_ING.type -> PayFranchiseFeeActivity.start(this, 666)
+                            AuthenStatus.SERVER_DEALER_OK.type -> IncomeActivity.start(this, CommonType.FACILITATOR_INCOME.type)
+                            AuthenStatus.SERVER_DEALER_FAIL.type -> FacilitatorFailActivity.start(this, -1)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "AddJavascriptInterface")

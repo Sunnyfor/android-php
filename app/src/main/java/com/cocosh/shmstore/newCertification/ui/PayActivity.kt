@@ -215,13 +215,12 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         mDialog?.show()
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<String> {
             override fun inputComplete(pwd: String) {
-                if (payOperatStatus == "DEPOSIT") {
-                    paySecurity(pwd)
-                } else {
-                    presenter.getLocalPay(check, amount!!, payOperatStatus ?: "", runningNumber
+//                if (payOperatStatus == "DEPOSIT") {
+//                    paySecurity(pwd)
+//                } else {
+                    presenter.getLocalPay(amount?:"0", payOperatStatus ?: "", runningNumber
                             ?: "", pwd)
-                }
-
+//                }
             }
 
             override fun result(boolean: Boolean, data: String?) {
@@ -249,7 +248,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         super.onResume()
         requestMyWalletData(1)
         if (isConfirm) {
-            presenter.getConfirmResult(number ?: "")
+            presenter.getConfirmResult(number ?: "",payOperatStatus?:"")
         }
     }
 

@@ -154,11 +154,11 @@ class HomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
 
     private fun share() {
         val params = HashMap<String, String>()
-        params["dictionaryKey"] = "index_share_url"
-        ApiManager.get(0, activity as BaseActivity, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
+        params["type"] = "home_share"
+        ApiManager.get(0, activity as BaseActivity, params, Constant.COMMON_AGREEMENT, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
             override fun onSuccess(data: BaseModel<ValueByKey>) {
                 if (data.success) {
-                    (activity as HomeActivity).showShareDialg(data.entity?.dictionaryValue ?: "")
+                    (activity as HomeActivity).showShareDialg(data.entity?.url ?: "")
                 } else {
                     ToastUtil.show(data.message)
                 }

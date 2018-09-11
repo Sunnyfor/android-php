@@ -29,6 +29,8 @@ object Constant {
     /*新版PHP接口*/
     const val COMMON_DATA = "$VERSION/common/data" //通用接口（认证状态）
 
+    const val COMMON_AGREEMENT = "$VERSION/common/agreement"
+
     const val COMMON_HOBBY = "$VERSION/common/hobby" //兴趣爱好列表
 
     const val REGISTER_SEND_CODE = "$VERSION/common/sms" //注册发送验证码
@@ -76,6 +78,8 @@ object Constant {
     const val ADDRESS_DELETE = "$VERSION/address/delete" //删除收货地址
     const val ADDRESS_SETDEF = "$VERSION/address/setdef" //设置默认
 
+    const val EHOME_FOLLOW_MINE = "$VERSION/ehome/follow/mine" //我的关注列表
+
 
     const val CERT_DO = "$VERSION/cert/do" //个人认证
     const val CERT_RESULT = "$VERSION/cert/result" //个人认证回显
@@ -90,16 +94,16 @@ object Constant {
     const val MYSELF_MATCHMAKER_ASSIGN_PERSONAL = "$VERSION/matchmaker/assign/person" //新媒人平台分配用户
     const val MYSELF_MATCHMAKER_EXPAND_PERSONAL = "$VERSION/matchmaker/expand/person" //新媒人--拓展个人用户
     const val MYSELF_MATCHMAKER_EXPAND_ENTERPRISE = "$VERSION/matchmaker/expand/ent" //新媒人--拓展企业主
-    const val MYSELF_MATCHMAKER_PROFIT_DATA = "$VERSION/myself/matchmaker/profit/data"//新媒人--收益--数据
-    const val MYSELF_MATCHMAKER_PROFIT_CONTENT = "$VERSION/myself/matchmaker/profit/content" //新媒人--收益--详情
+    const val MYSELF_MATCHMAKER_PROFIT_DATA = "$VERSION/income/svc_total"//新媒人--收益--数据
+    const val MYSELF_MATCHMAKER_PROFIT_CONTENT = "$VERSION/income/new" //新媒人--收益--详情
     const val MYSELF_MATCHMAKER_INVITATION_DATA = "$VERSION/matchmaker/invitation" //新媒人--邀请--用户数据
     const val MYSELF_MATCHMAKER_INVITATION_IMAGE = "$VERSION/matchmaker/qrcode" //新媒人邀请二维码
 
     const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
     const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
     const val MYSELF_PROVIDER_LIST = "$VERSION/provider/list" //服务商拓展页
-    const val myself_provider_profit_data = "$VERSION/provider/list"  //服务商--收益--数据
-    const val MYSELF_PROVIDER_PROFIT_CONTENT = "$VERSION/myself/provider/profit/content" //服务商收益详情
+    const val MYSELF_PROVIDER_PROFIT_DATA = "$VERSION/income/new_total"  //服务商--收益--数据
+    const val MYSELF_PROVIDER_PROFIT_CONTENT = "$VERSION/income/svc" //服务商收益详情
     const val MYSELF_PROVIDER_ASSIGN_PERSONAL = "$VERSION/provider/assign/person" //服务商--平台分配个人用户
     const val MYSELF_PROVIDER_ASSIGN_ENTERPRISE = "$VERSION/provider/assign/ent" //服务商--平台分配企业主
     const val MYSELF_PROVIDER_EXPAND_PERSONAL = "$VERSION/provider/expand/person" //服务商--拓展个人用户
@@ -133,6 +137,7 @@ object Constant {
     const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
 
     /*红包*/
+    const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
     const val RP_LIST = "$VERSION/rp/list"
     const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
     const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
@@ -144,7 +149,10 @@ object Constant {
     /**
      * 支付
      */
-    const val PAYMENT = "$VERSION/payment" //支付
+    const val PAYMENT = "$VERSION/payment" ///ping++ 支付
+    const val PAYMENT_CHECK = "$VERSION/payment/check" //ping++ 支付结果查询
+
+    const val SMPAY = "$VERSION/smpay" //本地支付
 
     /**
      * 银行卡
@@ -158,8 +166,9 @@ object Constant {
 
     const val EWT = "$VERSION/ewt" //钱袋
     const val BALANCE_TRANS_PERSON = "$VERSION/balance/trans/person" //余额明细-个人
+    const val BALANCE_CASH_PERSON = "$VERSION/balance/cash/person" //个人提现要素
+    const val BALANCE_DOCASH_PERSON = "$VERSION/balance/docash/person" //申请提现-个人
     const val BALANCE_TRANS_SVC = "$VERSION/balance/trans/svc" //服务商钱包明细
-    const val RP_TRANS = "$VERSION/rp/trans"
 
     /**
      * 消息列表

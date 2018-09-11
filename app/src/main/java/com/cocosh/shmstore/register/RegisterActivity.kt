@@ -245,7 +245,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
                 if (data.success) {
                     val intent = Intent(this@RegisterActivity, WebViewActivity::class.java)
                     intent.putExtra("title", "注册协议")
-                    intent.putExtra("url", data.entity?.dictionaryValue)
+                    intent.putExtra("url", data.entity?.url)
                     intent.putExtra("showButton", true)
                     startActivityForResult(intent, IntentCode.IS_TERM)
                 } else {

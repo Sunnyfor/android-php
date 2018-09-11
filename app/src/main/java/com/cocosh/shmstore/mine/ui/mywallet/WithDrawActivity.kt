@@ -44,15 +44,15 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     override fun bankListDraw(result: BaseBean<BankDrawListModel>) {
         hideReTryLayout()
         listDatas.clear()
-        if (result.message != null && result.message?.list?.size ?: 0 > 0) {
-            listDatas.addAll(result.message?.list!!)
+        if (result.message != null && result.message?.bankcard?.size ?: 0 > 0) {
+            listDatas.addAll(result.message?.bankcard!!)
             ivPic.visibility = View.VISIBLE
-            GlideUtils.loadDefault(this, result.message?.list!![0].bank_log, ivPic)
-            tvName.text = result.message?.list!![0].bank_name
-            text_treaty.text = result.message?.ruleType?.des
-            checkBankId = result.message?.list!![0].bank_kind ?: ""
-            maxMoney = result.message?.ruleType?.maxMoney ?: "0"
-            minMoney = result.message?.ruleType?.minMoney ?: "0"
+            GlideUtils.loadDefault(this, result.message?.bankcard!![0].bank_log, ivPic)
+            tvName.text = result.message?.bankcard!![0].bank_name
+            text_treaty.text = ("单笔提现金额不低于${result.message?.amt?.amt_min}元，最高${result.message?.amt?.amt_max}元，每笔提现将扣除${result.message?.amt?.fee}元手续费")
+            checkBankId = result.message?.bankcard!![0].bank_kind ?: ""
+            maxMoney = result.message?.amt?.amt_max.toString()
+            minMoney = result.message?.amt?.amt_min.toString()
         } else {
             ivPic.visibility = View.GONE
             tvName.text = "请绑定银行卡"
@@ -178,7 +178,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
             addBank.id -> {
                 if (listDatas.size == 0) {
                     //判断是否实设置支付密码
-                    if (UserManager.getPayPwdStatus() == true) {
+                    if (UserManager2.getCommonData()?.paypass == 1) {
                         SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
                         AddBankCardActivity.start(this)
                         return
@@ -195,7 +195,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                 }
                 if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
                     //判断是否实设置支付密码
-                    if (UserManager.getPayPwdStatus() != true) {
+                    if (UserManager2.getCommonData()?.paypass == 1) {
                         SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
                         SmApplication.getApp().isDelete = true
                         showEntDialog()
@@ -225,9 +225,9 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         }
     }
 
-    fun showEntDialog() {
+    private fun showEntDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager.getCryptogramPhone())
+        dialog.setTitle("您未设置过支付密码，设置前将验证您的身份，即将发送验证码到" + UserManager2.getCryptogramPhone())
         dialog.OnClickListener = View.OnClickListener {
             SmApplication.getApp().isDelete = false
             SmApplication.getApp().activityName = this@WithDrawActivity.javaClass

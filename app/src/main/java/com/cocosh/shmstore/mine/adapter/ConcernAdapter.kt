@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_concern.view.*
  * Created by lmg on 2018/4/12.
  * 关注 adapter 0未关注 1已关注
  */
-class ConcernAdapter(var mContext: Context, list: ArrayList<FollowListModel.Follow>) : BaseRecycleAdapter<FollowListModel.Follow>(list) {
+class ConcernAdapter(var mContext: Context, list: ArrayList<FollowListModel>) : BaseRecycleAdapter<FollowListModel>(list) {
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
@@ -27,9 +27,9 @@ class ConcernAdapter(var mContext: Context, list: ArrayList<FollowListModel.Foll
     }
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        GlideUtils.loadRound(2, mContext, getData(position).companyLogo, holder.itemView.ivLogo)
-        holder.itemView.tvName.text = getData(position).companyName
-        holder.itemView.number.text = "关注粉丝人数：" + getData(position).followCount + "人"
+        GlideUtils.loadRound(2, mContext, getData(position).logo, holder.itemView.ivLogo)
+        holder.itemView.tvName.text = getData(position).company
+        holder.itemView.number.text = ("关注粉丝人数：" + getData(position).follow_nums + "人")
         holder.itemView.tvFollow.setOnClickListener {
             mOnItemClickListener?.onItemClick(position)
         }

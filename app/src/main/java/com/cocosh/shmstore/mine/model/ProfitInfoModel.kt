@@ -9,8 +9,8 @@ available (number, optional): 可提现金额 ,
 profit (number, optional): 收益金额
  *
  */
-data class ProfitInfoModel(var accountPeriodStr: String?,
-                           var accumulative: String?,
+data class ProfitInfoModel(var tip: String?,
+                           var accumulate: String?,
                            var available: String?,
-                           var profit: String?
+                           var current: String?
 )

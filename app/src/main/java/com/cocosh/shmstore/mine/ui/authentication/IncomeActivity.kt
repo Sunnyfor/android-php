@@ -149,17 +149,17 @@ class IncomeActivity : BaseActivity() {
         val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
             Constant.MYSELF_MATCHMAKER_PROFIT_DATA
         }else{
-            Constant.myself_provider_profit_data
+            Constant.MYSELF_PROVIDER_PROFIT_DATA
         }
-        ApiManager2.get(1, this, null, url, object : ApiManager2.OnResult<BaseBean<ProfitInfoModel>>() {
+        ApiManager2.post(1, this, hashMapOf(), url, object : ApiManager2.OnResult<BaseBean<ProfitInfoModel>>() {
             override fun onFailed(code: String, message: String) {
 
             }
 
             override fun onSuccess(data: BaseBean<ProfitInfoModel>) {
-                    tvMoney.text = data.message?.profit
-//                    desc.text = data.message?.accountPeriodStr
-                    totalProfit.text = data.message?.accumulative
+                    tvMoney.text = data.message?.current
+                    desc.text = data.message?.tip
+                    totalProfit.text = data.message?.accumulate
                     canWithDraw.text = data.message?.available ?: "0"
             }
 
@@ -172,8 +172,8 @@ class IncomeActivity : BaseActivity() {
 
     fun getProfitList(boolean: Boolean, currentId:String) {
         val map = HashMap<String, String>()
-        map["income_id"] = currentId
-        map["limit"] = recyclerView.pageCount.toString()
+        map["flowno"] = currentId
+        map["num"] = recyclerView.pageCount.toString()
 
         val url = if (TYPE_INCOME == CommonType.CERTIFICATION_INCOME.type){
             Constant.MYSELF_MATCHMAKER_PROFIT_CONTENT
@@ -181,7 +181,7 @@ class IncomeActivity : BaseActivity() {
             Constant.MYSELF_PROVIDER_PROFIT_CONTENT
         }
 
-        ApiManager2.get(1, this, map, url, object : ApiManager2.OnResult<BaseBean<ArrayList<ProfitModel>>>() {
+        ApiManager2.post(1, this, map, url, object : ApiManager2.OnResult<BaseBean<ArrayList<ProfitModel>>>() {
             override fun onFailed(code: String, message: String) {
             }
 

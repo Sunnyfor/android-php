@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
@@ -24,35 +25,28 @@ import kotlinx.android.synthetic.main.activity_concern.*
  * 关注
  */
 class FollowActivity : BaseActivity(), MineContrat.IFollowView {
-    private var listDatas = arrayListOf<FollowListModel.Follow>()
+    private var listDatas = arrayListOf<FollowListModel>()
     private val pageCount = 12
     private var pageNumber = 1
-    private var timeStamp = ""
     private var mPresenter = FollowPresenter(this, this)
     private lateinit var adapter: ConcernAdapter
 
-    override fun follow(result: BaseModel<FollowListModel>) {
-        if (result.success && result.code == 200) {
+    override fun follow(result: BaseBean<ArrayList<FollowListModel>>) {
             sfSwiperefresh.isRefreshing = false
-            if (result.entity?.list != null) {
-                if (result.entity?.list?.size == 0) {
+
+            if (result.message != null) {
+                if (result.message?.size == 0) {
                     recyclerView.loadMoreFinish(true, false);
                     return
                 }
-                listDatas.addAll(result.entity?.list!!)
-                timeStamp = result?.entity?.timeStamp ?: ""
+                listDatas.addAll(result.message?: arrayListOf())
                 recyclerView.adapter.notifyDataSetChanged()
-                recyclerView.loadMoreFinish(false, true);
+                recyclerView.loadMoreFinish(false, true)
                 pageNumber++
             }
-
-        } else {
-            ToastUtil.show(result.message)
-            sfSwiperefresh.isRefreshing = false
-        }
     }
 
-    override fun cancelFollow(result: BaseModel<Boolean>) {
+    override fun cancelFollow(result: BaseBean<Boolean>) {
 
     }
 
@@ -60,14 +54,14 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
 
     override fun initView() {
         titleManager.defaultTitle("关注")
-        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString(), timeStamp)
+        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
 
         /**
          * 加载更多。
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
-            recyclerView.postDelayed(Runnable {
-                mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString(), timeStamp)
+            recyclerView.postDelayed({
+                mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
             }, 300)
         }
 
@@ -88,15 +82,14 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
             //拉取默认数据
             listDatas.clear()
             pageNumber = 1
-            timeStamp = ""
             recyclerView.adapter.notifyDataSetChanged()
             sfSwiperefresh.isRefreshing = true
-            mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString(), timeStamp)
+            mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
         }
 
         adapter.setOnItemClickListener(object : ConcernAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-                cancelOrConfirm(listDatas[position].idCompanyInfoBase ?: "", position)
+                cancelOrConfirm(listDatas[position].eid, position)
             }
         })
     }
@@ -106,7 +99,7 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
     }
 
     override fun reTryGetData() {
-        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString(), timeStamp)
+        mPresenter.requestFollowData(1, pageNumber.toString(), pageCount.toString())
     }
 
     companion object {
@@ -127,7 +120,7 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
                     listDatas.removeAt(position)
                     adapter.notifyItemRemoved(position)
                     if (position != listDatas.size) {
-                        adapter.notifyItemRangeChanged(position, listDatas.size - position);
+                        adapter.notifyItemRangeChanged(position, listDatas.size - position)
                     }
                 } else {
                     ToastUtil.show(data.message)

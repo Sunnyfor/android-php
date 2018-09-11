@@ -211,7 +211,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onResume() {
         super.onResume()
         if (isConfirm) {
-            presenter.getConfirmResult(number ?: "")
+            presenter.getConfirmResult(number ?: "","3")
         }
     }
 

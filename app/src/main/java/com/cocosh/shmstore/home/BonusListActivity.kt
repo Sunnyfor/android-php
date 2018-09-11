@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.layout_bonus_list.*
  */
 class BonusListActivity : BaseActivity() {
     var currentPage = "1"
-    var type = 1
+    var type = "comm"
     var title: String? = null
     var adapter: BonusListAdapter? = null
     var selectIndex = -2
@@ -42,26 +42,26 @@ class BonusListActivity : BaseActivity() {
         title?.let {
             titleManager.defaultTitle(it)
             if (it == "大众红包") {
-                type = 1
+                type = "comm"
 
                 tvSend.visibility = View.VISIBLE
             }
 
             if (it == "精准红包") {
-                type = 2
+                type = "special"
             }
 
             if (it == "粉丝红包") {
-                type = 3
+                type = "fans"
             }
 
-            if (it == "媒体扶贫") {
-                type = 4
-            }
-
-            if (it == "消费扶贫") {
-                type = 5
-            }
+//            if (it == "媒体扶贫") {
+//                type = 4
+//            }
+//
+//            if (it == "消费扶贫") {
+//                type = 5
+//            }
         }
         refreshLayout.recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -105,7 +105,7 @@ class BonusListActivity : BaseActivity() {
                 if (UserManager2.isLogin()) {
                     startActivity(
                             Intent(this, SendBonusActivity::class.java)
-                                    .putExtra("type", type.toString()))
+                                    .putExtra("type", type))
                 } else {
                     SmediaDialog(this).showLogin()
                 }

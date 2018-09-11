@@ -105,8 +105,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             "服务商钱包" -> EnterPriseWalletActivity.start(activity)
             "地址管理" -> AddressMangerActivity.start(activity)
             "关注" -> FollowActivity.start(activity)
-            "订单" ->  OrderDetailActivity.start(activity,"0")
-//                OrderListActivity.start(activity)
+            "订单" -> OrderListActivity.start(activity)
             "收藏" -> CollectionActivity.start(activity)
             "帮助中心" -> {
                 val intent = Intent(context, ServiceTermActivity::class.java).apply {
@@ -173,23 +172,23 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
                     val newBottomTitles = arrayListOf(
                             MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-//                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
+                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
                             MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
                             MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
                             MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
                             MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
 
-//                    if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
+                    if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
                         val index = newBottomTitles.indexOfFirst {
                             it.title == "钱包"
                         }
                         newBottomTitles.add(index + 1, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商钱包"))
-//                    }
+                    }
 
-//                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
+                    if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconCertification), "新媒人"))
-//                    }
+                    }
 
                     if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_OK.type || it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconInvite), "邀请码"))

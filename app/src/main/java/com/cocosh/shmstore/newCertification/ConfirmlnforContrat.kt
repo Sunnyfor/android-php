@@ -18,7 +18,7 @@ interface ConfirmlnforContrat {
 
     interface IPresenter : IBasePresenter {
         fun getCharge(payChannel: String, amount: String, payOperatStatus: String, runningNumber: String)
-        fun getConfirmResult(runningNumber: String)
-        fun getLocalPay(payChannel: String, amount: String, payOperatStatus: String, runningNumber: String, paymentPassword: String)
+        fun getConfirmResult(runningNumber: String,kind:String)
+        fun getLocalPay(amount: String, payOperatStatus: String, runningNumber: String, paymentPassword: String)
     }
 }

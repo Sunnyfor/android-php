@@ -7,12 +7,10 @@ import com.cocosh.shmstore.baiduScan.ScanIdCardActivity
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.facilitator.ui.FacilitatorFailActivity
 import com.cocosh.shmstore.facilitator.ui.FacilitatorSplashActivity
 import com.cocosh.shmstore.facilitator.ui.PayFranchiseFeeActivity
 import com.cocosh.shmstore.home.model.UserInCome
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
@@ -23,7 +21,8 @@ import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
 import com.cocosh.shmstore.mine.ui.mywallet.RedAccountActivity
 import com.cocosh.shmstore.newCertification.ui.PartherPendingPayActivity
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.OpenType
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.fragment_income.*
 import kotlinx.android.synthetic.main.fragment_income.view.*
@@ -33,17 +32,15 @@ import kotlinx.android.synthetic.main.fragment_income.view.*
  * 收益页面
  */
 class IncomeFragment : BaseFragment() {
-    var progress: String? = null
-    var cerValue: String? = null
-    var facValue: String? = null
+    private var progress = 0
     var cerUrl: String? = null
     var facUrl: String? = null
     override fun setLayout(): Int = R.layout.fragment_income
 
     override fun initView() {
         showTitle(getTitleManager().textTitle("收益"))
-        progress = UserManager.getArchivalCompletion()
-        if (progress?.toDouble() ?: 0.00 < 1) {
+        progress = UserManager2.getMemberEntrance()?.degree?:0
+        if (progress < 1) {
             getLayoutView().toSetInfo.visibility = View.VISIBLE
         } else {
             getLayoutView().toSetInfo.visibility = View.GONE
@@ -76,47 +73,48 @@ class IncomeFragment : BaseFragment() {
                 startActivity(Intent(activity, ArchiveActivity::class.java))
             }
             getLayoutView().cerRl.id -> {
-//                if (UserManager.getMemberEntrance()?.personStatus == AuthenStatus.PERSION_OK.type) {
-//                    //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
-//                    when (cerValue) {
-//                        AuthenStatus.UNCERTIFIED.type -> PartnerSplashActivity.start(activity)
-//                        AuthenStatus.PRE_DRAFT.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
-//                        AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.CERTIFICATION_INCOME.type)
-//                        AuthenStatus.PRE_AUTH.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
-//                    }
-//                } else {
-//                    val dialog = SmediaDialog(activity)
-//                    dialog.setTitle("请先完成实人认证")
-//                    dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
-//
-//                    dialog.OnClickListener = View.OnClickListener {
-//                        val intent = Intent(activity, ScanIdCardActivity::class.java)
-//                        intent.putExtra("type", "实人认证")
-//                        startActivity(intent)
-//                    }
-//                    dialog.show()
-//                }
+
+                UserManager2.getCommonData()?.cert?.let {
+                    if (UserManager2.getCommonData()?.cert?.r == AuthenStatus.PERSION_OK.type) {
+                        //UNCERTIFIED("未认证"),PRE_DRAFT("待付款"), PRE_PASS("已认证")
+                        when (it.x) {
+                            AuthenStatus.NEW_MATCHMAKER_NO.type -> PartnerSplashActivity.start(activity)
+                            AuthenStatus.NEW_MATCHMAKER_OK.type -> IncomeActivity.start(activity, CommonType.CERTIFICATION_INCOME.type)
+                            AuthenStatus.NEW_MATCHMAKER_WAIT.type -> startActivity(Intent(activity, PartherPendingPayActivity::class.java))
+                        }
+                    } else {
+                        val dialog = SmediaDialog(activity)
+                        dialog.setTitle("请先完成实人认证")
+                        dialog.setDesc("确保实人认证信息与新媒人认证信息一致")
+                        dialog.OnClickListener = View.OnClickListener {
+                            val intent = Intent(activity, ScanIdCardActivity::class.java)
+                            intent.putExtra("type", "实人认证")
+                            startActivity(intent)
+                        }
+                        dialog.show()
+                    }
+                }
             }
             getLayoutView().facRl.id -> {
-                when (facValue) {
-//                    AuthenStatus.UNCERTIFIED.type -> FacilitatorSplashActivity.start(activity)
-//                    AuthenStatus.PRE_DRAFT.type -> PayFranchiseFeeActivity.start(activity, 666)
-//                    AuthenStatus.PRE_PASS.type -> IncomeActivity.start(activity, CommonType.FACILITATOR_INCOME.type)
-//                    AuthenStatus.AUTH_FAILED.type -> FacilitatorFailActivity.start(activity, -1)
+                when ( UserManager2.getCommonData()?.cert?.f) {
+                    AuthenStatus.SERVER_DEALER_NO.type -> FacilitatorSplashActivity.start(activity)
+                    AuthenStatus.SERVER_DEALER_ING.type -> PayFranchiseFeeActivity.start(activity, 666)
+                    AuthenStatus.SERVER_DEALER_OK.type -> IncomeActivity.start(activity, CommonType.FACILITATOR_INCOME.type)
+                    AuthenStatus.SERVER_DEALER_FAIL.type -> FacilitatorFailActivity.start(activity, -1)
                 }
             }
             getLayoutView().whatFac.id -> {
-                WebActivity.start(activity, OpenType.Fac.name, facUrl, facValue)
+                WebActivity.start(activity, OpenType.Fac.name, facUrl, UserManager2.getCommonData()?.cert?.f.toString())
             }
 
             getLayoutView().tipFac.id -> {
-                WebActivity.start(activity, OpenType.Fac.name, facUrl, facValue)
+                WebActivity.start(activity, OpenType.Fac.name, facUrl, UserManager2.getCommonData()?.cert?.f.toString())
             }
             getLayoutView().whatCer.id -> {
-                WebActivity.start(activity, OpenType.Cer.name, cerUrl, cerValue)
+                WebActivity.start(activity, OpenType.Cer.name, cerUrl, UserManager2.getCommonData()?.cert?.x.toString())
             }
             getLayoutView().tipCer.id -> {
-                WebActivity.start(activity, OpenType.Cer.name, cerUrl, cerValue)
+                WebActivity.start(activity, OpenType.Cer.name, cerUrl, UserManager2.getCommonData()?.cert?.x.toString())
             }
         }
     }
@@ -130,7 +128,7 @@ class IncomeFragment : BaseFragment() {
      */
     private fun requestData(flag: Int) {
 
-        ApiManager2.get(flag, activity as BaseActivity, null, Constant.INCOME, object : ApiManager2.OnResult<BaseBean<UserInCome>>() {
+        ApiManager2.post(flag, activity as BaseActivity, hashMapOf(), Constant.INCOME, object : ApiManager2.OnResult<BaseBean<UserInCome>>() {
             override fun onFailed(code: String, message: String) {
                 showReTryLayout()
             }
@@ -142,40 +140,36 @@ class IncomeFragment : BaseFragment() {
                 hideReTryLayout()
                 data.message?.let {
 
-                    getLayoutView().redMony.text = (it.rp + "元")
-                    getLayoutView().cerMoney.text = (it.x + "元")
-                    getLayoutView().facMoney.text = (it.f + "元")
+                    getLayoutView().redMony.text = ((it.rp?:"0.00") + "元")
+                    getLayoutView().cerMoney.text = ((it.x?:"0.00") + "元")
+                    getLayoutView().facMoney.text = ((it.f?:"0.00") + "元")
+
+                    facUrl = it.f_link
+
+                    cerUrl = it.x_link
+
+                    if (it.f != null) {
+                        getLayoutView().facDesc.visibility = View.INVISIBLE
+                        getLayoutView().facShow.text = "查看详情"
+                    } else {
+                        getLayoutView().facDesc.visibility = View.VISIBLE
+                        getLayoutView().facShow.text = "前往认证"
+                    }
+
+                    if (it.x != null) {
+                        getLayoutView().cerDesc.visibility = View.INVISIBLE
+                        getLayoutView().cerShow.text = "查看详情"
+                    } else {
+                        getLayoutView().cerDesc.visibility = View.VISIBLE
+                        getLayoutView().cerShow.text = "前往认证"
+                    }
+
+                    if (it.x == null && it.f == null) {
+                        cerLl.visibility = View.GONE
+                    } else {
+                        cerLl.visibility = View.VISIBLE
+                    }
                 }
-//
-//
-//                    facValue = data.entity?.cityOperatorsStatu
-//                    cerValue = data.entity?.partnerState
-//
-//                    facUrl = data.entity?.cityOperatorsStatementUrl
-//                    cerUrl = data.entity?.partnerStatementUrl
-//
-//
-//                    if (facValue == "5") {
-//                        getLayoutView().facDesc.visibility = View.INVISIBLE
-//                        getLayoutView().facShow.text = "查看详情"
-//                    } else {
-//                        getLayoutView().facDesc.visibility = View.VISIBLE
-//                        getLayoutView().facShow.text = "前往认证"
-//                    }
-//
-//                    if (cerValue == "5") {
-//                        getLayoutView().cerDesc.visibility = View.INVISIBLE
-//                        getLayoutView().cerShow.text = "查看详情"
-//                    } else {
-//                        getLayoutView().cerDesc.visibility = View.VISIBLE
-//                        getLayoutView().cerShow.text = "前往认证"
-//                    }
-//
-//                    if (facValue == "5" && cerValue == "5") {
-//                        cerLl.visibility = View.GONE
-//                    } else {
-//                        cerLl.visibility = View.VISIBLE
-//                    }
             }
         })
     }
@@ -189,8 +183,8 @@ class IncomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        progress = UserManager.getArchivalCompletion()
-        if (progress?.toDouble() ?: 0.00 < 1) {
+        progress = UserManager2.getMemberEntrance()?.degree?:0
+        if (progress < 1) {
             getLayoutView().toSetInfo.visibility = View.VISIBLE
         } else {
             getLayoutView().toSetInfo.visibility = View.GONE

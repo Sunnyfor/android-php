@@ -12,13 +12,10 @@ flowno (string, optional): 流水号
  *
  */
 class ProfitModel {
-    var time: String? = null
-    var date:String? = null
-    var detailDesc: String? = null
-    var id: String? = null
-    var profit: String? = null
     var flowno: String? = null
     var fine_type:String? = null
-    var income_type:String? = null
+    var amount: String? = null
+    var time: String? = null
+    var memo: String? = null
     var viewType: Int? = 1
 }
