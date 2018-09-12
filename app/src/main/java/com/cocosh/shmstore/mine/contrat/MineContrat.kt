@@ -231,14 +231,14 @@ class MineContrat {
      */
     interface IRedToWalletView : IBaseView {
         fun redToWalletData(result: BaseBean<RedToWalletModel>)
-        fun runningNumData(result: BaseBean<String>)
+        fun runningNumData(result: BaseBean<ProfitInfoModel>)
         fun outToData(result: BaseBean<RedToWalletModel>)
     }
 
     interface IRedToWalletPresenter : IBasePresenter {
         fun requestRedToWalletData(money: String, paymentPassword: String)
         fun requestRunningNumTo(flag: Int)
-        fun requestDrawTo(personType: String, amount: String, runningNum: String, paymentPassword: String)
+        fun requestDrawTo(personType: String, amount: String,paymentPassword: String)
     }
 
 }

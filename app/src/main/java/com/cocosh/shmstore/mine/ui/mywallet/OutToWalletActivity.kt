@@ -11,6 +11,7 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.ProfitInfoModel
 import com.cocosh.shmstore.mine.model.RedToWalletModel
 import com.cocosh.shmstore.mine.presenter.RedToWalletPresenter
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
@@ -30,7 +31,6 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
     var isClick = false
     var money: String? = "0"
     private var TYEP_OUTTOWALLET: String? = ""
-    var runningNum: String? = ""
     var mPresenter = RedToWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_out_to_wallet
 
@@ -38,8 +38,8 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
         mDialog?.getResult(result)
     }
 
-    override fun runningNumData(result: BaseBean<String>) {
-            runningNum = result.message
+    override fun runningNumData(result: BaseBean<ProfitInfoModel>) {
+
     }
 
     override fun outToData(result: BaseBean<RedToWalletModel>) {
@@ -53,16 +53,16 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
 
         TYEP_OUTTOWALLET = intent.getStringExtra("TYEP_OUTTOWALLET")
         if (TYEP_OUTTOWALLET == CommonType.FACILITATOR_OUTTOWALLET.type) {
-            mPresenter.requestRunningNumTo(1)
+//            mPresenter.requestRunningNumTo(1)
             titleManager.defaultTitle("转出至服务商钱包")
         } else if (TYEP_OUTTOWALLET == CommonType.CERTIFICATION_OUTTOWALLET.type) {
-            mPresenter.requestRunningNumTo(1)
+//            mPresenter.requestRunningNumTo(1)
             titleManager.defaultTitle("转出至钱包")
         } else {
             titleManager.defaultTitle("转出至钱包")
         }
         money = intent.getStringExtra("profit") ?: "0"
-        showHint.text = "可转出" + money + "元至钱包"
+        showHint.text = ("可转出" + money + "元至钱包")
         tvAllOut.setOnClickListener(this)
         btnCharge.setOnClickListener(this)
 
@@ -79,7 +79,7 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
                 if (tvMoney.text.isEmpty()) {
                     hint.visibility = View.VISIBLE
                     tvAllOut.visibility = View.VISIBLE
-                    showHint.text = "可转出金额" + money + "元"
+                    showHint.text = ("可转出金额" + money + "元")
                     showHint.setTextColor(resources.getColor(R.color.textGray))
                     isClick = false
                     btnCharge.setBackgroundResource(R.color.grayBtn)
@@ -118,9 +118,9 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
         mDialog?.setOnInputCompleteListener(object : SercurityDialog.InputCompleteListener<RedToWalletModel> {
             override fun inputComplete(pwd: String) {
                 if (TYEP_OUTTOWALLET == CommonType.FACILITATOR_OUTTOWALLET.type) {
-                    mPresenter.requestDrawTo("2", tvMoney.text.toString(), runningNum ?: "", pwd)
+                    mPresenter.requestDrawTo("f", tvMoney.text.toString(),pwd)
                 } else if (TYEP_OUTTOWALLET == CommonType.CERTIFICATION_OUTTOWALLET.type) {
-                    mPresenter.requestDrawTo("1", tvMoney.text.toString(), runningNum ?: "", pwd)
+                    mPresenter.requestDrawTo("x", tvMoney.text.toString(), pwd)
                 } else {
                     mPresenter.requestRedToWalletData(tvMoney.text.toString(), pwd)
                 }

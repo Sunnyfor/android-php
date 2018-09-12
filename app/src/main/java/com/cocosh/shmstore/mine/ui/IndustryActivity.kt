@@ -67,7 +67,11 @@ class IndustryActivity : BaseActivity() {
         val adapter = IndustryAdapter(datalist, intent.getStringExtra("industry"))
         adapter.setOnItemClickListener(object :OnItemClickListener{
             override fun onItemClick(v: View, index: Int) {
-                update(adapter,datalist[index],index)
+                datalist[index].let {
+                    if (it.choose != "0"){
+                        update(adapter,datalist[index],index)
+                    }
+                }
             }
         })
 

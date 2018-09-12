@@ -17,12 +17,14 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
+import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_bonus_send.*
 import org.json.JSONArray
 import java.io.File
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 /**
@@ -252,30 +254,28 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
     fun loadData() {
         val params = HashMap<String, String>()
-        params["type_id"] = type ?: ""
+        params["type_word"] = type ?: ""
         ApiManager2.get(1, this, params, Constant.RP_TYPE_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusAttr>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<BonusAttr>>) {
                 data.message?.let {
                     it.forEach {
 
                         if (it.keyword == "price") {
-                            val jsonArray = JSONArray(it.limit[0].rules)
-                            price = jsonArray.optString(0)
+
+                            price = it.limit[0].rules[0].toString()
                             tvPrice.text = ("￥${price}元/个")
                         }
 
                         if (it.keyword == "total") {
-
-                            val jsonArray = JSONArray(it.limit[0].rules)
-                            val jsonObj = jsonArray.getJSONObject(0)
-                            if (jsonObj.optString(">=") != "") {
+                            val map = (it.limit[0].rules[0] as LinkedTreeMap<*, *>)
+                            if (map[">="] != null) {
                                 rules = "小于"
-                                rulesCount = jsonObj.optString(">=")
+                                rulesCount = (map[">="] as Double).toInt().toString()
                             }
 
-                            if (jsonObj.optString("<=") != "") {
+                            if (map["<="] != null) {
                                 rules = "大于"
-                                rulesCount = jsonObj.optString("<=")
+                                rulesCount = (map["<="]as Double).toInt().toString()
                             }
                             edtNumber.hint = ("红包投放数量不得$rules$rulesCount")
                         }

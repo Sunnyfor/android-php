@@ -13,6 +13,7 @@ flowno (string, optional): 流水号
  */
 class ProfitModel {
     var flowno: String? = null
+    var profit:String? = null
     var fine_type:String? = null
     var amount: String? = null
     var time: String? = null

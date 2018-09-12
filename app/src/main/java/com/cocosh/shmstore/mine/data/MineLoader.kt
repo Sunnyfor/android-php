@@ -768,10 +768,10 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 获取转出流水号
      */
-    fun requestRunningNumTo(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.OUT_TO_RUNNINGNUM, object : ApiManager.OnResult<BaseBean<String>>() {
-            override fun onSuccess(data: BaseBean<String>) {
+    fun requestRunningNumTo(flag: Int,type:String) {
+        val url = if(type == "x") Constant.MYSELF_MATCHMAKER_PROFIT_DATA else Constant.MYSELF_PROVIDER_PROFIT_DATA
+        ApiManager.post(flag, activity, hashMapOf(), url, object : ApiManager.OnResult<BaseBean<ProfitInfoModel>>() {
+            override fun onSuccess(data: BaseBean<ProfitInfoModel>) {
                 (view as MineContrat.IRedToWalletView).runningNumData(data)
             }
 
@@ -779,7 +779,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
                 LogUtil.d(e.message.toString())
             }
 
-            override fun onCatch(data: BaseBean<String>) {
+            override fun onCatch(data: BaseBean<ProfitInfoModel>) {
                 LogUtil.d(data.toString())
             }
         })
@@ -788,13 +788,15 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
     /**
      * 获取提现结果
      */
-    fun requestDrawTo(personType: String, amount: String, runningNum: String, paymentPassword: String) {
-        var map = HashMap<String, String>()
-        map["personType"] = personType
+    fun requestDrawTo(personType: String, amount: String,paymentPassword: String) {
+
+        val url = if (personType == "x") Constant.INCOME_TRANSFER_OUT_NEW else Constant.INCOME_TRANSFER_OUT_SVC
+
+        val map = HashMap<String, String>()
+        map["ts"] = StringUtils.getTimeStamp()
         map["amount"] = amount
-        map["flowno"] = runningNum
-        map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.OUT_TO_WALLET, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
+        map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
+        ApiManager.post(activity, map, url, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
             override fun onSuccess(data: BaseBean<RedToWalletModel>) {
                 (view as MineContrat.IRedToWalletView).outToData(data)
             }

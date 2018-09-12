@@ -37,9 +37,9 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         if (items!![position].viewType == this.ITEM) {
             holder.itemView.tvType.text = items!![position].memo
-            holder.itemView.tvNum.text = items!![position].flowno
+            holder.itemView.tvNum.text = ("流水号："+items!![position].flowno)
             holder.itemView.tvTime.text = items!![position].time
-            holder.itemView.tvMoney.text = items!![position].amount
+            holder.itemView.tvMoney.text = items!![position].profit
         }
 
         if (items!![position].viewType == this.SECTION) {
@@ -84,7 +84,7 @@ class InComerListAdapter(list: ArrayList<ProfitModel>) : BaseRecycleAdapter<Prof
                 item.time = bill.time
                 item.viewType = ITEM
                 item.memo = bill.memo
-                item.amount = bill.amount
+                item.profit = bill.profit
                 item.flowno = bill.flowno
                 items?.add(item)
             }

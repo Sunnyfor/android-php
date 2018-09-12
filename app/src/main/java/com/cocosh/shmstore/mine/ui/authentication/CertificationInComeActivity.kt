@@ -10,6 +10,7 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.OperatorMainData
 import com.cocosh.shmstore.mine.ui.InviteCodeActivity
+import com.cocosh.shmstore.utils.UserManager2
 import kotlinx.android.synthetic.main.activity_new_certification_income.*
 
 /**
@@ -83,7 +84,7 @@ class CertificationInComeActivity : BaseActivity() {
         sGivePerson.setValue(data.platform_personal_num)
         inCome.setValue(data.profit ?: "0.0"+"元")
         sInvite.setIcon(resources.getString(R.string.iconQrcode))
-        name.setNoIconValue(data.name)
+        name.setNoIconValue(UserManager2.getCommonData()?.realname)
         area.setNoIconValue(data.place)
         time.setNoIconValue(data.time)
         sFacAttribute.setNoIconValue(data.provider_name)

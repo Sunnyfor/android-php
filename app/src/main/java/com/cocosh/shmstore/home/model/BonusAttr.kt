@@ -1,5 +1,7 @@
 package com.cocosh.shmstore.home.model
 
+import java.util.*
+
 /**
  * 红包属性对象
  * Created by zhangye on 2018/8/17.
@@ -22,7 +24,29 @@ data class BonusAttr(
     data class Limit(
             var name: String,   // 限定类型名称,eg:可选位置,可选类型,显示格式,...
             var custom: String, // 自定义选取的系统限制词汇,eg:"region"-区域,"industry"-行业,"hobby"-兴趣爱好,"ad"-广告对象(不弹窗),"ad_pos"-广告位置(不弹窗),...
-            var rules:String,  // 限制规则,为空表示不限定,json格式,eg:{"<=":20},["Y-m-d H:i:s"],["jpeg","png"],...
+            var rules:Array<Any>,  // 限制规则,为空表示不限定,json格式,eg:{"<=":20},["Y-m-d H:i:s"],["jpeg","png"],...
             var desc: String // 属性说明,用于客户端展示
-    )
+    ) {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Limit
+
+            if (name != other.name) return false
+            if (custom != other.custom) return false
+            if (!Arrays.equals(rules, other.rules)) return false
+            if (desc != other.desc) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = name.hashCode()
+            result = 31 * result + custom.hashCode()
+            result = 31 * result + Arrays.hashCode(rules)
+            result = 31 * result + desc.hashCode()
+            return result
+        }
+    }
 }

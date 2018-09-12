@@ -42,7 +42,7 @@ class BonusListActivity : BaseActivity() {
         title?.let {
             titleManager.defaultTitle(it)
             if (it == "大众红包") {
-                type = "comm"
+                type = "common"
 
                 tvSend.visibility = View.VISIBLE
             }

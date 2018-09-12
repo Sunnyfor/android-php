@@ -9,11 +9,11 @@ import com.cocosh.shmstore.mine.data.MineLoader
  */
 class RedToWalletPresenter(var mActivity: BaseActivity, var mView: MineContrat.IRedToWalletView) : MineContrat.IRedToWalletPresenter {
     override fun requestRunningNumTo(flag:Int) {
-        loader.requestRunningNumTo(flag)
+//        loader.requestRunningNumTo(flag)
     }
 
-    override fun requestDrawTo(personType: String, amount: String, runningNum: String, paymentPassword: String) {
-        loader.requestDrawTo(personType, amount, runningNum, paymentPassword)
+    override fun requestDrawTo(personType: String, amount: String,paymentPassword: String) {
+        loader.requestDrawTo(personType, amount, paymentPassword)
     }
 
     override fun requestRedToWalletData(money: String, paymentPassword: String) {

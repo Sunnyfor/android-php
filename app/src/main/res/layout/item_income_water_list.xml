@@ -40,7 +40,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/w84"
         android:layout_marginTop="@dimen/h30"
-        android:text="+127.00"
+        android:text="+0.00"
         android:textColor="@color/red"
         android:textSize="@dimen/h46" />
 
