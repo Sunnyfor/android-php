@@ -74,9 +74,9 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
 
     override fun corporateAccountData(result: BaseBean<CorporateAccountModel>) {
 
-        edtBankAccount.setText(result.message?.acctinfo?.account)
-        etName.text = result.message?.acctinfo?.name
-        edtBankName.setText(result.message?.acctinfo?.bank)
+        edtBankAccount.setText(result.message?.acct?.account)
+        etName.text = result.message?.acct?.name
+        edtBankName.setText(result.message?.acct?.bank)
         maxMoney = result.message?.amt?.amt_max.toString()
         minMoney = result.message?.amt?.amt_min.toString()
         text_treaty.text = ("单笔提现金额不低于${minMoney}元，最高${maxMoney}元，每笔提现将扣除2元手续费")

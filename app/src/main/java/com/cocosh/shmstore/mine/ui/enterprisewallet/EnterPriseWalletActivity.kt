@@ -28,7 +28,7 @@ class EnterPriseWalletActivity : BaseActivity(), MineContrat.IEntWalletView {
     }
 
     private fun initData(data: WalletModel?) {
-        tvMoney.text = data?.f?.balance?.total
+        tvMoney.text = data?.f?.balance?.total?:"0.00"
     }
 
     override fun initView() {

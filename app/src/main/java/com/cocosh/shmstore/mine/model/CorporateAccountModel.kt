@@ -12,7 +12,7 @@ minMoney (string, optional): 提现最小金额 ,
 ratio (string, optional): 提现手续费
  */
 data class CorporateAccountModel(
-        var acctinfo: Acctinfo,
+        var acct: Acctinfo,
         var amt: Amt) {
 
     data class Acctinfo(
