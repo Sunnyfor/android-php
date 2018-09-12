@@ -123,7 +123,7 @@ class PartnerSplashActivity : BaseActivity() {
     /**
      * 获取邀请码
      */
-    fun getCode() {
+    private fun getCode() {
         ApiManager2.get(1, this, hashMapOf(), Constant.NEW_CERT_INVITEE, object : ApiManager2.OnResult<BaseBean<String>>() {
 
             override fun onFailed(code: String, message: String) {

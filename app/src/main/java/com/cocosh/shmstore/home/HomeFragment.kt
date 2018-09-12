@@ -7,15 +7,18 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity
 import com.cocosh.shmstore.home.model.Banner
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
+import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.title.HomeTitleFragment
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.utils.UserManager2
+import com.cocosh.shmstore.widget.dialog.CertificationDialog
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -44,6 +47,7 @@ class HomeFragment : BaseFragment() {
         getLayoutView().layoutThree.setOnClickListener(this)
         getLayoutView().homeBottomView.setFragmentManager(childFragmentManager)
         loadBanner()
+        autEnt()
     }
 
     override fun onListener(view: View) {
@@ -73,30 +77,34 @@ class HomeFragment : BaseFragment() {
     /**
      * 认证引导弹窗
      */
-//    private fun autEnt() {
-//        val info = UserManager.getLogin()?.resResIndexInfo
-//        if (info != null) {
-//            val mDialog = CertificationDialog(activity)
-//            if (info.authStatus == "H") {
-//                //新媒人
-//                mDialog.setDesc("您接受了<br>${info.nickname}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
-//            } else {
-//                //服务商
-//                mDialog.setDesc("您接受了<br>${info.corpFname}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
-//            }
-//            mDialog.show()
-//
-//            mDialog.OnClickListener = View.OnClickListener {
-//                if (info.authStatus == "H") {
-//                    //新媒人
-//                    PartnerSplashActivity.start(activity)
-//                } else {
-//                    //服务商
-//                    EnterpriseCertificationActivity.start(activity)
-//                }
-//            }
-//        }
-//    }
+    private fun autEnt() {
+        UserManager2.getLogin()?.invitee?.let {
+            if (it.code != null){
+                val mDialog = CertificationDialog(activity)
+                val type = it.type
+
+                if (type == "x") {
+                    //新媒人
+                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
+                } else {
+                    //服务商
+                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
+                }
+                mDialog.show()
+
+                mDialog.OnClickListener = View.OnClickListener {
+                    if (type == "x") {
+                        //新媒人
+                        PartnerSplashActivity.start(activity)
+                    } else {
+                        //服务商
+                        EnterpriseCertificationActivity.start(activity)
+                    }
+                }
+            }
+
+        }
+    }
 
 
     //跳转红包页面
@@ -112,7 +120,8 @@ class HomeFragment : BaseFragment() {
             override fun onSuccess(data: BaseModel<Banner>) {
                 if (data.success) {
                     data.entity?.let {
-                        getLayoutView().homeAdView.loadData(it.resHomePageBannersVoList?: arrayListOf())
+                        getLayoutView().homeAdView.loadData(it.resHomePageBannersVoList
+                                ?: arrayListOf())
                     }
                 }
             }

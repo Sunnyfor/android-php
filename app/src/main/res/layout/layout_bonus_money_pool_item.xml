@@ -8,12 +8,13 @@
     <ImageView
         android:id="@id/ivPhoto"
         android:layout_width="@dimen/w194"
-        android:layout_height="@dimen/h194"
+        android:layout_height="@dimen/w194"
         android:layout_marginBottom="@dimen/h35"
         android:layout_marginLeft="@dimen/w34"
         android:layout_marginRight="@dimen/w32"
         android:layout_marginTop="@dimen/h35"
         android:contentDescription="@null"
+        android:scaleType="fitXY"
         android:src="@drawable/default_content" />
 
     <TextView

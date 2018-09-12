@@ -7,11 +7,13 @@ import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.BonusMoneyPoolAdapter
 import com.cocosh.shmstore.home.model.BonusAmount
 import com.cocosh.shmstore.home.model.BonusPool
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.GlideUtils
@@ -75,13 +77,18 @@ class BonusPoolActivity : BaseActivity() {
 
     fun loadData() {
         val params = hashMapOf<String, String>()
-        ApiManager.get(1, this, params, Constant.BONUS_AMOUNT, object : ApiManager.OnResult<BaseModel<BonusPool>>() {
-            override fun onSuccess(data: BaseModel<BonusPool>) {
-                if (data.success) {
-                    data.entity?.let {
-                        GlideUtils.loadRect(this@BonusPoolActivity,it.redPacketPicture,ivPhoto)
-                        recyclerView.adapter = BonusMoneyPoolAdapter(it.resPopularRedEnvelopesList)
-                        tv_money.text = StringUtils.insertComma(it.redPacketAllAmount)
+        ApiManager2.get(1, this, params, Constant.RP_POOL, object : ApiManager2.OnResult<BaseBean<BonusPool>>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onSuccess(data: BaseBean<BonusPool>) {
+                    data.message?.let {
+                        GlideUtils.loadRect(this@BonusPoolActivity,it.banner,ivPhoto)
+                        it.list?.let {
+                            recyclerView.adapter = BonusMoneyPoolAdapter(it)
+                        }
+                        tv_money.text = StringUtils.insertComma(it.today.toFloat())
 //                        if (it.redPacketAllAmount / 10000 > 10000) {
 //                            tv_unit1.text = "亿"
 //                            tv_unit2.text = "万"
@@ -99,13 +106,10 @@ class BonusPoolActivity : BaseActivity() {
 //                            }
 //                        }
                     }
-                }
             }
 
-            override fun onFailed(e: Throwable) {
-            }
 
-            override fun onCatch(data: BaseModel<BonusPool>) {
+            override fun onCatch(data: BaseBean<BonusPool>) {
 
             }
 
