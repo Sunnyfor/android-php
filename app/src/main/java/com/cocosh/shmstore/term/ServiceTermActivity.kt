@@ -112,7 +112,7 @@ class ServiceTermActivity : BaseActivity() {
     private fun getUrl(key: String) {
         val params = hashMapOf<String, String>()
         params["type"] = key
-        ApiManager2.get(this, params, Constant.GET_SHARE_URL, object : ApiManager2.OnResult<BaseBean<ValueByKey>>() {
+        ApiManager2.get(this, params, Constant.COMMON_AGREEMENT, object : ApiManager2.OnResult<BaseBean<ValueByKey>>() {
             override fun onFailed(code: String, message: String) {
 
             }

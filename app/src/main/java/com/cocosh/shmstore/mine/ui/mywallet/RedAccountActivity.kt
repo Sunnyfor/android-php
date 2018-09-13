@@ -33,7 +33,7 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     var mPresenter = RedWalletPresenter(this, this)
     override fun setLayout(): Int = R.layout.activity_red_account
     override fun redWalletData(result: BaseBean<WalletModel>) {
-//            rule.text = "注：红包金额必须>" + result.entity?.rp_cash_limit + "元时才可以转出!"
+            rule.text = ("注：红包金额必须>" + result.message?.p?.rp?.cash_limit + "元时才可以转出!")
             money = result.message?.p?.rp?.sum
             ruleMoney = result.message?.p?.rp?.cash_limit
 
@@ -90,9 +90,9 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     override fun onListener(view: View) {
         when (view.id) {
             btn_withdraw_money.id -> {
-                if (isClick) OutToWalletActivity.start(this, CommonType.REDACCOUNT_OUTTOWALLET.type, ruleMoney
+                if (isClick) OutToWalletActivity.start(this, CommonType.REDACCOUNT_OUTTOWALLET.type, money
                         ?: "0") else {
-                    ToastUtil.show("红包金额必须>" + money + "元时才可以转出!")
+                    ToastUtil.show("红包金额必须>" + ruleMoney + "元时才可以转出!")
                 }
             }
             else -> {

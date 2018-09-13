@@ -50,7 +50,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
             GlideUtils.loadDefault(this, result.message?.bankcard!![0].bank_logo, ivPic)
             tvName.text = result.message?.bankcard!![0].bank_name
             text_treaty.text = ("单笔提现金额不低于${result.message?.amt?.amt_min}元，最高${result.message?.amt?.amt_max}元，每笔提现将扣除${result.message?.amt?.fee}元手续费")
-            checkBankId = result.message?.bankcard!![0].bank_kind ?: ""
+            checkBankId = result.message?.bankcard!![0].id ?: ""
             maxMoney = result.message?.amt?.amt_max.toString()
             minMoney = result.message?.amt?.amt_min.toString()
         } else {
@@ -60,10 +60,18 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     }
 
     override fun myWalletDraw(result: BaseBean<WithDrawResultModel>) {
+        if (result.message == null){
+            mDialog?.dismiss()
+            return
+        }
         mDialog?.getResult(result)
     }
 
     override fun entWalletDrawData(result: BaseBean<WithDrawResultModel>) {
+        if (result.message == null){
+            mDialog?.dismiss()
+            return
+        }
         mDialog?.getResult(result)
     }
 
@@ -260,28 +268,31 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
 
             override fun result(boolean: Boolean, data: WithDrawResultModel?) {
                 if (boolean) {
+                    val bank = listDatas.find { it.id == checkBankId }
+
                     //提现成功 跳转提现结果页
                     if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
                         WithDrawResult.start(this@WithDrawActivity, TYPE_WITHDRAW,
-                                data?.amount ?: "",
-                                data?.charge ?: "",
-                                data?.cardNumber ?: "",
-                                data?.dealBeginDate ?: "",
-                                data?.estimatedaArrivalTime ?: "",
-                                data?.runningNum ?: "",
-                                data?.resultCode ?: "",
-                                data?.bankName ?: "",
-                                data?.userBankName ?: "")
+                                tvMoney.text.toString(),
+                                "2.00",
+                                bank?.card_no ?: "",
+                                data?.time ?: "",
+                                data?.intime ?: "",
+                                data?.no ?: "",
+                                data?.status ?: "",
+                                bank?.bank_name ?: "",
+                                bank?.realname ?: "")
                     } else {
                         WithDrawResult.start(this@WithDrawActivity, TYPE_WITHDRAW,
-                                data?.amount ?: "",
-                                data?.charge ?: "",
-                                data?.cardNumber ?: "",
-                                data?.dealBeginDate ?: "",
-                                data?.estimatedaArrivalTime ?: "",
-                                data?.runningNum ?: "",
-                                data?.resultCode ?: "",
-                                data?.bankName ?: "", "")
+                                tvMoney.text.toString(),
+                                "2.00",
+                                bank?.card_no ?: "",
+                                data?.time ?: "",
+                                data?.intime ?: "",
+                                data?.no ?: "",
+                                data?.status ?: "",
+                                bank?.bank_name ?: "",
+                                bank?.realname ?: "")
                     }
 
                 } else {

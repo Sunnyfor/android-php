@@ -11,6 +11,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.utils.*
+import com.umeng.socialize.media.Base
 
 /**
  *
@@ -148,17 +149,21 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 企业钱包提现
      */
     fun requestEntWalletDrawData(amt: String, paymentPassword: String) {
-        var map = HashMap<String, String>()
-        map["amt"] = amt
-        map["paymentPassword"] = paymentPassword
-        ApiManager.post(activity, map, Constant.ENT_WALLET_DRAW, object : ApiManager.OnResult<BaseBean<WithDrawResultModel>>() {
+        val map = HashMap<String, String>()
+        map["ts"] = StringUtils.getTimeStamp()
+        map["amount"] = amt
+        map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword)+ map["ts"])
+        ApiManager2.post(activity, map, Constant.BALANCE_DOCASH_SVC, object : ApiManager2.OnResult<BaseBean<WithDrawResultModel>>() {
+            override fun onFailed(code: String, message: String) {
+                val data = BaseBean<WithDrawResultModel>()
+                data.status = code
+                (view as MineContrat.IMyWalletDrawView).entWalletDrawData(data)
+            }
+
             override fun onSuccess(data: BaseBean<WithDrawResultModel>) {
                 (view as MineContrat.IMyWalletDrawView).entWalletDrawData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
             override fun onCatch(data: BaseBean<WithDrawResultModel>) {
                 LogUtil.d(data.toString())
@@ -413,12 +418,15 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestMyWalletDrawData(userBankInfoId: String, amount: String, runningNum: String, paymentPassword: String) {
         val map = HashMap<String, String>()
-        map["userBankInfoId"] = userBankInfoId
+        map["ts"] = StringUtils.getTimeStamp()
+        map["bankcard_id"] = userBankInfoId
         map["amount"] = amount
-        map["flowno"] = runningNum
-        map["paymentPassword"] = paymentPassword
+        map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
         ApiManager2.post(activity, map, Constant.BALANCE_DOCASH_PERSON, object : ApiManager2.OnResult<BaseBean<WithDrawResultModel>>() {
             override fun onFailed(code: String, message: String) {
+                val data = BaseBean<WithDrawResultModel>()
+                data.status = code
+                (view as MineContrat.IMyWalletDrawView).myWalletDraw(data)
             }
 
             override fun onSuccess(data: BaseBean<WithDrawResultModel>) {
@@ -643,7 +651,8 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestRedWalletData(flag: Int) {
         val map = HashMap<String, String>()
-        ApiManager2.get(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
+        map["user_type"] = "p"
+        ApiManager2.post(flag, activity, map, Constant.EWT, object : ApiManager2.OnResult<BaseBean<WalletModel>>() {
             override fun onFailed(code: String, message: String) {
             }
 
@@ -668,6 +677,9 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
         ApiManager2.post(activity, map, Constant.RP_TRANSFER, object : ApiManager2.OnResult<BaseBean<RedToWalletModel>>() {
             override fun onFailed(code: String, message: String) {
+                val baseBean = BaseBean<RedToWalletModel>()
+                baseBean.status = code
+                (view as MineContrat.IRedToWalletView).redToWalletData(baseBean)
             }
 
             override fun onSuccess(data: BaseBean<RedToWalletModel>) {
@@ -789,21 +801,22 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取提现结果
      */
     fun requestDrawTo(personType: String, amount: String,paymentPassword: String) {
-
         val url = if (personType == "x") Constant.INCOME_TRANSFER_OUT_NEW else Constant.INCOME_TRANSFER_OUT_SVC
-
         val map = HashMap<String, String>()
         map["ts"] = StringUtils.getTimeStamp()
         map["amount"] = amount
         map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
-        ApiManager.post(activity, map, url, object : ApiManager.OnResult<BaseBean<RedToWalletModel>>() {
+        ApiManager2.post(activity, map, url, object : ApiManager2.OnResult<BaseBean<RedToWalletModel>>() {
+            override fun onFailed(code: String, message: String) {
+                val baseBean =BaseBean<RedToWalletModel>()
+                baseBean.status = code
+                (view as MineContrat.IRedToWalletView).outToData(baseBean)
+            }
+
             override fun onSuccess(data: BaseBean<RedToWalletModel>) {
                 (view as MineContrat.IRedToWalletView).outToData(data)
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
             override fun onCatch(data: BaseBean<RedToWalletModel>) {
                 LogUtil.d(data.toString())

@@ -23,20 +23,20 @@
             android:id="@+id/sCar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="新媒人"></com.cocosh.shmstore.widget.view.ItemShowView>
+            app:nameText="新媒人" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/sEnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="企业主"></com.cocosh.shmstore.widget.view.ItemShowView>
+            app:nameText="企业主" />
 
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/sPerson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="个人用户"></com.cocosh.shmstore.widget.view.ItemShowView>
+            app:nameText="个人用户" />
 
 
         <TextView

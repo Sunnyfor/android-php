@@ -113,7 +113,7 @@ object Constant {
     const val MYSELF_PROVIDER_INVITATION_DATA = "$VERSION/provider/invitation/data" //服务商--邀请--用户数据
     const val MYSELF_PROVIDER_INVITATION_IMAGE = "$VERSION/provider/invitation/image" //服务商邀请二维码
     const val INCOME_TRANSFER_OUT_SVC = "$VERSION/income/transfer_out/svc" //收益转出-服务商
-
+    const val BALANCE_DOCASH_SVC = "$VERSION/balance/docash/svc" //申请提现-服务商
     const val BALANCE_CASH_SVC = "$VERSION/balance/cash/svc" //提现页要素-服务商
 
     const val ENT_CERT_INVITEE = "$VERSION/ent_cert/invitee"  //企业主-被邀约信息

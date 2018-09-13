@@ -22,6 +22,8 @@ import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SercurityDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_out_to_wallet.*
+import kotlinx.android.synthetic.main.dialog_ok.*
+import java.io.File
 
 
 /**
@@ -35,6 +37,10 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
     override fun setLayout(): Int = R.layout.activity_out_to_wallet
 
     override fun redToWalletData(result: BaseBean<RedToWalletModel>) {
+        if (result.message == null){
+            mDialog?.dismiss()
+            return
+        }
         mDialog?.getResult(result)
     }
 
@@ -43,6 +49,10 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
     }
 
     override fun outToData(result: BaseBean<RedToWalletModel>) {
+        if (result.message == null){
+            mDialog?.dismiss()
+            return
+        }
         mDialog?.getResult(result)
     }
 
@@ -125,11 +135,11 @@ class OutToWalletActivity : BaseActivity(), MineContrat.IRedToWalletView {
                     mPresenter.requestRedToWalletData(tvMoney.text.toString(), pwd)
                 }
             }
-
             override fun result(boolean: Boolean, resultData: RedToWalletModel?) {
                 if (boolean) {
                     //转账成功 跳转转账结果页
-                    OutToWalletResult.start(this@OutToWalletActivity, money, resultData?.time, resultData?.no, TYEP_OUTTOWALLET
+                    val no = resultData?.no?:resultData?.flowno
+                    OutToWalletResult.start(this@OutToWalletActivity, tvMoney.text.toString(), resultData?.time, no, TYEP_OUTTOWALLET
                             ?: "")
                 } else {
                     //转账失败

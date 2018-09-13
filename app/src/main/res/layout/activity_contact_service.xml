@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:nameText="我要退换货"></com.cocosh.shmstore.widget.view.ItemShowView>
+        app:nameText="我要退换货"/>
 
     <TextView
         android:id="@+id/content"
@@ -32,6 +32,8 @@
         android:layout_marginTop="@dimen/h40"
         android:background="@color/white"
         android:paddingLeft="@dimen/w50"
+        android:paddingTop="@dimen/h20"
+        android:paddingBottom="@dimen/h20"
         android:text="客服联系电话：400-966-1168" />
 
     <TextView
@@ -40,5 +42,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingLeft="@dimen/w50"
+        android:paddingBottom="@dimen/h20"
         android:text="在线时间：09:00-18:00" />
 </LinearLayout>

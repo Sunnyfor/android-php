@@ -15,15 +15,8 @@ userBankName (string, optional): 银行开户名 ,
 via (string, optional): 提现途径：1-银行卡，2-微信余额，3-支付宝余额
  *
  */
-data class WithDrawResultModel(var amount: String?,
-                               var bankName: String?,
-                               var bankType: String?,
-                               var cardNumber: String?,
-                               var charge: String?,
-                               var dealBeginDate:String?,
-                               var estimatedaArrivalTime :String?,
-                               var resultCode: String?,
-                               var resultDesc: String?,
-                               var runningNum: String?,
-                               var userBankName : String?,
-                               var via: String?)
+data class WithDrawResultModel(var time: String?,
+                               var intime: String?,
+                               var status: String?,
+                               var no: String?,
+                               var sn: String?)

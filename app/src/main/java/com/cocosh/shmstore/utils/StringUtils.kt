@@ -1,10 +1,8 @@
 package com.cocosh.shmstore.utils
 
-import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Collections.replaceAll
 import java.util.regex.Pattern
 
 

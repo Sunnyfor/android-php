@@ -7,6 +7,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.mine.ui.authentication.CommonType
 import com.cocosh.shmstore.mine.ui.authentication.IncomeActivity
+import com.cocosh.shmstore.utils.StringUtils
 import kotlinx.android.synthetic.main.activity_out_result.*
 
 /**
@@ -19,7 +20,7 @@ class OutToWalletResult : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_out_result
 
     override fun initView() {
-        var type = intent.getStringExtra("type")
+        val type = intent.getStringExtra("type")
         var title = ""
         if (type == CommonType.FACILITATOR_OUTTOWALLET.type) {
             title = "转出至服务商钱包"
@@ -27,7 +28,6 @@ class OutToWalletResult : BaseActivity() {
             title = "转出至我的钱包"
         } else {
             title = "转出至我的钱包"
-            RedAccountActivity.start(this@OutToWalletResult)
         }
         titleManager.rightText(title, "完成", View.OnClickListener {
             if (type == CommonType.FACILITATOR_OUTTOWALLET.type) {
@@ -49,7 +49,7 @@ class OutToWalletResult : BaseActivity() {
         timeValue = intent.getStringExtra("time")
         runningWaterValue = intent.getStringExtra("runningWater")
 
-        money.setValue(moneyValue?.toDouble()?.toString() + "元")
+        money.setValue(StringUtils.insertComma(moneyValue,2) + "元")
         time.setValue(timeValue)
         number.setValue(runningWaterValue)
 

@@ -29,9 +29,13 @@ class FacilitatorInComeActivity : BaseActivity() {
         sPerson.setOnClickListener(this)
         sGiveEnt.setOnClickListener(this)
         sGivePerson.setOnClickListener(this)
+    }
 
+    override fun onResume() {
+        super.onResume()
         getThemeList(1)
     }
+
 
     override fun onListener(view: View) {
         when (view.id) {

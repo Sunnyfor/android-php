@@ -17,7 +17,7 @@ class ContactServiceActivity : BaseActivity() {
     override fun initView() {
         titleManager.defaultTitle("联系客服")
         show.setOnClickListener(this)
-        content.text = "我要退换货" +
+        content.text = ("我要退换货" +
                 "\n" +
                 "以下情况不予办理退货" +
                 "\n" +
@@ -45,7 +45,7 @@ class ContactServiceActivity : BaseActivity() {
                 "\n" +
                 "客服联系：400-966-1168" +
                 "\n" +
-                "在线时间：09:00-18:00"
+                "在线时间：09:00-18:00")
     }
 
     override fun onListener(view: View) {
