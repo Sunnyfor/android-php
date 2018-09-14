@@ -203,7 +203,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                 }
                 if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
                     //判断是否实设置支付密码
-                    if (UserManager2.getCommonData()?.paypass == 1) {
+                    if (UserManager2.getCommonData()?.paypass != 1) {
                         SmApplication.getApp().activityName = this@WithDrawActivity.javaClass
                         SmApplication.getApp().isDelete = true
                         showEntDialog()

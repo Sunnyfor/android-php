@@ -123,10 +123,6 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
     }
 
     companion object {
-        fun start(context: Context) {
-            start(context, null)
-        }
-
         fun start(context: Context, type: String?) {
             val intent = Intent(context, InviteCodeActivity::class.java)
             type?.let {

@@ -33,7 +33,7 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
 
     override fun entWalletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>) {
             if (result.message?.size?:0 == 0) {
-                recyclerView.loadMoreFinish(true, false);
+                recyclerView.loadMoreFinish(true, false)
                 return
             }
             list.addAll(result.message!!)
@@ -42,7 +42,7 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
     }
 
     override fun walletWaterData(result: BaseBean<ArrayList<WalletWaterModel>>) {
-            if (result.message!!.size == 0) {
+            if (result.message?.size?:0 == 0) {
                 recyclerView.loadMoreFinish(true, false);
                 return
             }
@@ -79,9 +79,9 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
                     recyclerView.adapter.notifyDataSetChanged()
                     selectBegTime = value + "-01"
                     if (TYPE_WATERLIST == Constant.TYPE_ENTERPRISE) {
-                        mPresenter.requestEntWalletWaterData(0, "", selectBegTime, "10")
+                        mPresenter.requestEntWalletWaterData(0, "", selectBegTime, "20")
                     } else {
-                        mPresenter.requestWalletWaterData(0, "", selectBegTime, "10")
+                        mPresenter.requestWalletWaterData(0, "", selectBegTime, "20")
                     }
                 }
             })
@@ -92,12 +92,12 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
          * 加载更多。
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
-            recyclerView.postDelayed(Runnable {
+            recyclerView.postDelayed({
                 if (TYPE_WATERLIST == Constant.TYPE_ENTERPRISE) {
-                    mPresenter.requestEntWalletWaterData(0, list[list.size - 1].flowno
+                    mPresenter.requestEntWalletWaterData(0, list.last().flowno
                             ?: "", selectBegTime, "10")
                 } else {
-                    mPresenter.requestWalletWaterData(0, list[list.size - 1].flowno
+                    mPresenter.requestWalletWaterData(0, list.last().flowno
                             ?: "", selectBegTime, "10")
                 }
             }, 300)

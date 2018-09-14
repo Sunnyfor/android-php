@@ -88,6 +88,9 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         map["num"] = showCount
         ApiManager2.post(flag, activity, map, Constant.BALANCE_TRANS_SVC, object : ApiManager2.OnResult<BaseBean<ArrayList<WalletWaterModel>>>() {
             override fun onFailed(code: String, message: String) {
+                val data = BaseBean<ArrayList<WalletWaterModel>>()
+                data.status = code
+                (view as MineContrat.IEntWalletWaterView).walletWaterData(data)
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<WalletWaterModel>>) {
@@ -113,7 +116,9 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         map["num"] = showCount
         ApiManager2.post(flag, activity, map, Constant.BALANCE_TRANS_PERSON, object : ApiManager2.OnResult<BaseBean<ArrayList<WalletWaterModel>>>() {
             override fun onFailed(code: String, message: String) {
-
+                val data = BaseBean<ArrayList<WalletWaterModel>>()
+                data.status = code
+                (view as MineContrat.IEntWalletWaterView).walletWaterData(data)
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<WalletWaterModel>>) {

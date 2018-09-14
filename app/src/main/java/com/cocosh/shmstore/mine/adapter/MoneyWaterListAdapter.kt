@@ -25,13 +25,11 @@ class MoneyWaterListAdapter(list: ArrayList<WalletWaterModel>) : BaseRecycleAdap
             holder.itemView.tvType.text = memo
             holder.itemView.tvNum.text = ("流水号：$flowno")
             holder.itemView.tvTime.text = time
-
+            holder.itemView.tvMoney.text = ("$amount")
 
             if (fine_type == "1") {
-                holder.itemView.tvMoney.text = ("+$amount")
                 holder.itemView.civPic.setBackgroundResource(R.drawable.inwater)
             } else {
-                holder.itemView.tvMoney.text = amount
                 holder.itemView.civPic.setBackgroundResource(R.drawable.outwater)
             }
         }

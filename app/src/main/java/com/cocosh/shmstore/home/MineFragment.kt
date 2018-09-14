@@ -99,7 +99,19 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             "档案" -> startActivity(Intent(activity, ArchiveActivity::class.java))
             "认证" -> AuthActivity.start(activity)
             "钱包" -> MyWalletActivity.start(activity)
-            "邀请码" -> InviteCodeActivity.start(activity)
+            "邀请码" -> {
+                UserManager2.getCommonData()?.let {
+                    var type = "2"
+                    if (it.cert.x == 2) {
+                        type  ="2"
+                    }
+
+                    if (it.cert.f == 3){
+                        type = "1"
+                    }
+                    InviteCodeActivity.start(activity,type)
+                }
+            }
             "新媒人" -> CertificationInComeActivity.start(activity)
             "服务商" -> FacilitatorInComeActivity.start(activity)
             "服务商钱包" -> EnterPriseWalletActivity.start(activity)
@@ -172,7 +184,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
                     val newBottomTitles = arrayListOf(
                             MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
+                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
                             MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
                             MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
                             MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
