@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/h145">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/h30"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
 
-        <View
-            android:id="@+id/lineUp"
-            android:layout_width="@dimen/w2"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/red" />
+    <View
+        android:id="@+id/lineUp"
+        android:layout_width="@dimen/w2"
+        android:layout_height="@dimen/h35"
+        android:background="@color/red"
+        android:layout_marginLeft="@dimen/w30"/>
 
-        <View
-            android:id="@+id/circle"
-            android:layout_width="@dimen/w30"
-            android:layout_height="@dimen/h30"
-            android:background="@drawable/shape_circle_red" />
+    <View
+        android:id="@+id/circle"
+        android:layout_width="@dimen/w30"
+        android:layout_height="@dimen/h30"
+        android:layout_below="@id/lineUp"
+        android:layout_marginLeft="@dimen/w14"
+        android:background="@drawable/shape_circle_red" />
 
-        <View
-            android:id="@+id/lineDown"
-            android:layout_width="@dimen/w2"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/red" />
-    </LinearLayout>
+    <View
+        android:id="@+id/lineDown"
+        android:layout_width="@dimen/w2"
+        android:layout_height="@dimen/h500"
+        android:layout_alignBottom="@id/content"
+        android:layout_below="@id/circle"
+        android:layout_marginLeft="@dimen/w30"
+        android:background="@color/red" />
 
 
     <LinearLayout
+        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/w55"
         android:layout_marginTop="@dimen/h10"
-        android:layout_toRightOf="@+id/line"
         android:orientation="vertical">
 
         <TextView

@@ -64,7 +64,7 @@
                 <TextView
                     android:id="@+id/orderNumber"
                     style="@style/text_nomal_small"
-                    android:text="2356458687907654323"
+                    tools:text="2356458687907654323"
                     android:textColor="@color/blackText" />
             </LinearLayout>
 
@@ -83,7 +83,7 @@
                 <TextView
                     android:id="@+id/orderPlaceTime"
                     style="@style/text_nomal_small"
-                    android:text="2017-11-11  00:00:00"
+                    tools:text="2017-11-11  00:00:00"
                     android:textColor="@color/blackText" />
             </LinearLayout>
         </LinearLayout>
@@ -115,7 +115,7 @@
                     <TextView
                         android:id="@+id/buyer"
                         style="@style/text_nomal_small"
-                        android:text="张三  13800000000"
+                        tools:text="张三  13800000000"
                         android:textColor="@color/blackText" />
                 </LinearLayout>
 
@@ -163,7 +163,7 @@
                 <TextView
                     android:id="@+id/logisticsWay"
                     style="@style/text_nomal_small"
-                    android:text="物流"
+                    tools:text="物流"
                     android:textColor="@color/blackText" />
 
             </LinearLayout>
@@ -204,7 +204,7 @@
                 <TextView
                     android:id="@+id/logisticsNumber"
                     style="@style/text_nomal_small"
-                    android:text="00098087652"
+                    tools:text="00098087652"
                     android:textColor="@color/blackText" />
 
             </LinearLayout>
@@ -266,7 +266,7 @@
                 android:layout_marginLeft="@dimen/w29"
                 android:layout_marginTop="@dimen/h59"
                 android:layout_toRightOf="@+id/goodsPic"
-                android:text="现货 Nike Air VaporMax 2.0 纯黑武士 cny纯白 2代" />
+                tools:text="现货 Nike Air VaporMax 2.0 纯黑武士 cny纯白 2代" />
 
 
             <LinearLayout
@@ -359,7 +359,7 @@
                 <TextView
                     android:id="@+id/showPayWay"
                     style="@style/text_nomal_small"
-                    android:text="首媒支付"
+                    tools:text="首媒支付"
                     android:textColor="@color/blackText" />
 
             </LinearLayout>
@@ -409,6 +409,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/w66"
+                android:layout_marginBottom="@dimen/h30"
                 android:layout_marginTop="@dimen/h30">
 
                 <TextView
@@ -419,6 +420,7 @@
                 <TextView
                     android:id="@+id/showStartTime"
                     style="@style/text_nomal_small"
+                    android:textColor="@color/blackText"
                     android:text="2017-11-11  00:00:00" />
 
             </LinearLayout>
@@ -428,7 +430,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/h30"
                 android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h30">
+                android:layout_marginTop="@dimen/h30"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/text_nomal_small"
