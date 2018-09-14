@@ -20,6 +20,7 @@ import com.cocosh.shmstore.widget.observer.ObserverManager
 import kotlinx.android.synthetic.main.fragment_shoumei_follow.view.*
 
 /**
+ *
  * Created by lmg on 2018/5/30.
  */
 class ShoumeiFindFragment : BaseFragment(), ObserverListener {

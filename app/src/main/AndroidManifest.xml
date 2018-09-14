@@ -334,7 +334,7 @@
             android:name=".mine.ui.mywallet.WithDrawActivity"
             android:launchMode="singleTask" />
         <!--充值-->
-        <activity android:name=".mine.ui.mywallet.ReChargeActivity" />
+        <activity android:name=".mine.ui.mywallet.ReChargeActivity"/>
         <!--提现结果-->
         <activity android:name=".mine.ui.mywallet.WithDrawResult" />
 

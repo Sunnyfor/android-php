@@ -178,6 +178,12 @@ class OrderDetailActivity : BaseActivity() {
                         logisticsRecyclerView.setHasFixedSize(true)
                     }
 
+
+                    when (type){
+
+                    }
+
+
                     showNumber.text = it.sn
                     showWaterNumber.text = it.sn //流水号
                     showPayWay.text = when (it.pay_type) {

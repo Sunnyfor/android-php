@@ -40,6 +40,15 @@ class OrderListAdapter(list: ArrayList<Order>) : BaseRecycleAdapter<Order>(list)
                 holder.itemView.pay.visibility = View.VISIBLE
                 holder.itemView.pay.text = "确认收货"
             }
+            "4" -> {
+                holder.itemView.timeLeave.visibility = View.GONE
+                holder.itemView.orderStatus.text = "交易关闭"
+                holder.itemView.look.visibility = View.GONE
+                holder.itemView.service.visibility = View.GONE
+                holder.itemView.pay.visibility = View.VISIBLE
+                holder.itemView.pay.text = "删除订单"
+            }
+
             "5" -> { //交易完成
                 holder.itemView.timeLeave.visibility = View.GONE
                 holder.itemView.orderStatus.text = "交易完成"
@@ -49,6 +58,7 @@ class OrderListAdapter(list: ArrayList<Order>) : BaseRecycleAdapter<Order>(list)
                 holder.itemView.pay.text = "删除订单"
             }
             else -> {
+
             }
         }
 

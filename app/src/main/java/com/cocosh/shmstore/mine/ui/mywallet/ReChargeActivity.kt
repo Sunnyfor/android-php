@@ -12,9 +12,6 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.newCertification.CertifimInforPresenter
 import com.cocosh.shmstore.newCertification.ConfirmlnforContrat
@@ -31,6 +28,7 @@ import org.json.JSONObject
 import java.util.*
 
 /**
+ *
  * Created by lmg on 2018/4/18.
  */
 class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
@@ -45,41 +43,27 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     override fun confirmResult(result: String) {
         val jsonObject = JSONObject(result)
-        if (jsonObject.optString("code") == "200" && jsonObject.optBoolean("success")) {
-            val string = jsonObject.optString("entity")
+        if (jsonObject.optString("status") == "200") {
+            val string = jsonObject.optString("message")
             Pingpp.createPayment(this, string)
             val gson = Gson()
             var map: Map<String, Any> = HashMap()
             map = gson.fromJson(string, map.javaClass)
             isConfirm = true
-            number = map["orderNo"] as String?
+            number = map["order_no"] as String?
         } else {
             ToastUtil.show("网络异常！")
         }
     }
 
     override fun payConfirmResult(result: BaseBean<PayResultModel>) {
-//        if (result.code == 200 && result.success) {
-//            if (result.entity?.status == 11) {
-//                //处理中
-////                ReChargeResult.start(this, 1)
-////                ToastUtil.show("处理中")
-//                return
-//            }
-//            if (result.entity?.status == 12 || result.entity?.status == 14) {
-//                //失败
-//                ReChargeResult.start(this, 2)
-//                return
-//            }
-//            if (result.entity?.status == 13) {
-//                //成功
-//                ReChargeResult.start(this, 3, result.entity?.profit ?: "", result.entity?.time
-//                        ?: "", result.entity?.catogry ?: "", result.entity?.runningNumber ?: "")
-//                return
-//            }
-//        } else {
-////            ToastUtil.show(result.message)
-//        }
+        result.message?.let {
+            when(it.status){
+                "2"->   ReChargeResult.start(this, 3, it.detail?.amount ?: "", it.detail?.time
+                        ?: "", it.detail?.pay_type?: "", it.detail?.flowno ?: "")
+                else -> ReChargeResult.start(this, 2)
+            }
+        }
     }
 
     override fun localPay(result: BaseBean<String>) {
@@ -158,7 +142,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         }
 
         if (!tvMoney.text.isNullOrEmpty()) {
-//            presenter.getCharge(type, tvMoney.text.toString(), AuthenStatus.RECHARGE.type, "")
+            presenter.getCharge(type, tvMoney.text.toString(), "3", "")
         } else {
             ToastUtil.show("支付失败，稍后重试！")
         }
@@ -190,14 +174,13 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 // "invalid" - 支付插件未安装（一般是微信客户端未安装的情况）
                 val errorMsg = data?.extras?.getString("error_msg") // 错误信息
                 val extraMsg = data?.extras?.getString("extra_msg") // 错误信息
-
-                if (TextUtils.equals(result, "success")) {
+//                if (TextUtils.equals(result, "success")) {
 //                    ReChargeResult.start(this)
-                } else {
-                    if (errorMsg == "user_cancelled") {
-                        ToastUtil.show("取消支付")
-                    }
-                }
+//                } else {
+//                    if (errorMsg == "user_cancelled") {
+//                        ToastUtil.show("取消支付")
+//                    }
+//                }
 
             }
         }

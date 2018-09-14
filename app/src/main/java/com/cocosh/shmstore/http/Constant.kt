@@ -154,7 +154,7 @@ object Constant {
     /**
      * 支付
      */
-    const val PAYMENT = "$VERSION/payment" ///ping++ 支付
+    const val PAYMENT = "$VERSION/pay" ///ping++ 支付
     const val PAYMENT_CHECK = "$VERSION/payment/check" //ping++ 支付结果查询
 
     const val SMPAY = "$VERSION/smpay" //本地支付

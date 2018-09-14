@@ -16,7 +16,7 @@ class ReChargeResult : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_recharge_result
 
     override fun initView() {
-        var typeInfo = intent.getIntExtra("TYPE", -1)
+        val typeInfo = intent.getIntExtra("TYPE", -1)
         titleManager.rightText("充值", "完成", View.OnClickListener {
             if (typeInfo == 3) {
                 if (SmApplication.getApp().activityName != null) {
@@ -29,7 +29,7 @@ class ReChargeResult : BaseActivity() {
                 finish()
                 return@OnClickListener
             }
-            ReChargeActivity.start(this@ReChargeResult)
+            finish()
         }, true)
 
 
@@ -53,7 +53,7 @@ class ReChargeResult : BaseActivity() {
             money.setNoIconValue(StringUtils.insertComma(intent.getStringExtra("profit")
                     ?: "0", 2) + "元")
             time.setNoIconValue(intent.getStringExtra("time") ?: "")
-            var typeWay = intent.getStringExtra("typeWay") ?: ""
+            val typeWay = intent.getStringExtra("typeWay") ?: ""
             if ("PINGPP_WX" == typeWay) {
                 type.setNoIconValue("微信支付")
             } else {
