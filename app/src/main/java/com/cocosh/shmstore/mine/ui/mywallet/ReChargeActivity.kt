@@ -86,7 +86,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         btnCharge.setOnClickListener(this)
         winxinRl.setOnClickListener(this)
         aliPay.setOnClickListener(this)
-        check = "PINGPP_WX"
+        check = "wx"
         tvMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -118,8 +118,8 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
             text_treaty2.id -> {
                 startActivity(Intent(this, ServiceTermActivity::class.java).putExtra("OPEN_TYPE", OpenType.Charge.name))
             }
-            winxinRl.id -> choose("PINGPP_WX")
-            aliPay.id -> choose("PINGPP_ALIPAY")
+            winxinRl.id -> choose("wx")
+            aliPay.id -> choose("alipay")
 
             btnCharge.id -> {
                 if (isClick) {
@@ -134,7 +134,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
             ToastUtil.show("请选择支付方式")
             return
         }
-        if (type == "PINGPP_WX") {
+        if (type == "wx") {
             if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
                 ToastUtil.show(getString(R.string.notWeixin))
                 return
@@ -150,11 +150,11 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     private fun choose(type: String) {
         when (type) {
-            "PINGPP_WX" -> {
+            "wx" -> {
                 weixinImage.visibility = View.VISIBLE
                 aliImage.visibility = View.GONE
             }
-            "PINGPP_ALIPAY" -> {
+            "alipay" -> {
                 weixinImage.visibility = View.GONE
                 aliImage.visibility = View.VISIBLE
             }

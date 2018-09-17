@@ -219,7 +219,13 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
             }
 
             override fun onFailed(code: String, message: String) {
-
+                if (currentPage == 1) {
+                    list.clear()
+                    adapter.notifyDataSetChanged()
+                    getLayoutView().vRecyclerView.update(arrayListOf<SMThemeData>())
+                }else{
+                    getLayoutView().vRecyclerView.loadMore(arrayListOf<SMThemeData>())
+                }
             }
 
             override fun onCatch(data: BaseBean<ArrayList<SMThemeData>>) {

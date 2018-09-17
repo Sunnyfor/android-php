@@ -71,8 +71,8 @@
                                 android:layout_marginBottom="@dimen/h4"
                                 android:layout_marginLeft="@dimen/w20"
                                 android:background="@color/red"
-                                android:padding="@dimen/h4"
-                                android:text="企业"
+                                android:padding="@dimen/h10"
+                                android:text="企业主"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/w25" />
                         </LinearLayout>

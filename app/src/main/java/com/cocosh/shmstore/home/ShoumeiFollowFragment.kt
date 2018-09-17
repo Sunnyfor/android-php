@@ -138,6 +138,8 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
         getBaseActivity().isShowLoading = true
         ApiManager2.post(0, getBaseActivity(), hashMapOf(), Constant.EHOME_FOLLOW_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyData>>>() {
             override fun onFailed(code: String, message: String) {
+                companyList.clear()
+                adapter.hNotify()
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<SMCompanyData>>) {

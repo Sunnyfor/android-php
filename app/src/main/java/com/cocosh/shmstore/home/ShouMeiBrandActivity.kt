@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -124,11 +125,9 @@ class ShouMeiBrandActivity : BaseActivity() {
         desc.text = content
         this.status = status
         if (status == "0") {
-            tvStatus.text = "+关注"
-            tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
+            followStatus(false)
         } else {
-            tvStatus.text = "已关注"
-            tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
+            followStatus(true)
         }
         desc.limitTextViewString(desc.text.toString(), 60, desc, View.OnClickListener {
             //设置监听函数
@@ -148,13 +147,9 @@ class ShouMeiBrandActivity : BaseActivity() {
             override fun onSuccess(data: BaseBean<String>) {
                 isShowLoading = false
                     if (isFollow == "0") {
-                        tvStatus.text = "+关注"
-                        status = "0"
-                        tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
+                        followStatus(false)
                     } else {
-                        tvStatus.text = "已关注"
-                        status = "1"
-                        tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
+                        followStatus(true)
                     }
                     ObserverManager.getInstance().notifyObserver(3, baseId ?: "", isFollow, "")
             }
@@ -165,4 +160,18 @@ class ShouMeiBrandActivity : BaseActivity() {
         })
     }
 
+
+    fun followStatus(isFollow: Boolean){
+        if (!isFollow){
+            tvStatus.text = "+关注"
+            status = "0"
+            tvStatus.setTextColor(ContextCompat.getColor(this,R.color.white))
+            tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
+        }else{
+            tvStatus.text = "已关注"
+            status = "1"
+            tvStatus.setTextColor(ContextCompat.getColor(this,R.color.blackText))
+            tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
+        }
+    }
 }
