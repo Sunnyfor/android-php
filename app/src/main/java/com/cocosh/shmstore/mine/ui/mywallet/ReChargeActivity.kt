@@ -58,9 +58,10 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     override fun payConfirmResult(result: BaseBean<PayResultModel>) {
         result.message?.let {
-            when(it.status){
-                "2"->   ReChargeResult.start(this, 3, it.detail?.amount ?: "", it.detail?.time
-                        ?: "", it.detail?.pay_type?: "", it.detail?.flowno ?: "")
+            isConfirm = false
+            when (it.status) {
+                "2" -> ReChargeResult.start(this, 3, it.detail?.amount ?: "", it.detail?.time
+                        ?: "", it.detail?.pay_type ?: "", it.detail?.flowno ?: "")
                 else -> ReChargeResult.start(this, 2)
             }
         }
@@ -122,7 +123,6 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
             btnCharge.id -> {
                 if (isClick) {
-//                    ReChargeResult.start(this)
                     pay(check)
                 }
             }
@@ -162,39 +162,11 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         check = type
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //支付页面返回处理
-        if (requestCode == Pingpp.REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                val result = data?.extras?.getString("pay_result")
-                // 处理返回值
-                // "success" - 支付成功
-                // "fail"    - 支付失败
-                // "cancel"  - 取消支付
-                // "invalid" - 支付插件未安装（一般是微信客户端未安装的情况）
-                val errorMsg = data?.extras?.getString("error_msg") // 错误信息
-                val extraMsg = data?.extras?.getString("extra_msg") // 错误信息
-//                if (TextUtils.equals(result, "success")) {
-//                    ReChargeResult.start(this)
-//                } else {
-//                    if (errorMsg == "user_cancelled") {
-//                        ToastUtil.show("取消支付")
-//                    }
-//                }
-
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 
     override fun onResume() {
         super.onResume()
         if (isConfirm) {
-            presenter.getConfirmResult(number ?: "","3")
+            presenter.getConfirmResult(number ?: "", "3")
         }
     }
 
