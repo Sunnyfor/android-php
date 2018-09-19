@@ -1,12 +1,10 @@
 package com.cocosh.shmstore.mine.ui.mywallet
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.text.Editable
 import android.text.InputFilter
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.cocosh.shmstore.R
@@ -175,6 +173,25 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         tvMoney.text = null
         isConfirm = false
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        //支付页面返回处理
+        if (requestCode == Pingpp.REQUEST_CODE_PAYMENT) {
+            val result = data.extras.getString("pay_result")
+            /* 处理返回值
+        * "success" - 支付成功
+        * "fail"    - 支付失败
+        * "cancel"  - 取消支付
+        * "invalid" - 支付插件未安装（一般是微信客户端未安装的情况）
+        * "unknown" - app进程异常被杀死(一般是低内存状态下,app进程被杀死)
+        */
+            if (result == "cancel"){
+                isConfirm = false
+                ToastUtil.show("取消支付")
+            }
+        }
+    }
+
 
     override fun reTryGetData() {
     }

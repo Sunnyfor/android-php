@@ -101,6 +101,8 @@ object Constant {
     const val INCOME_TRANSFER_OUT_NEW = "$VERSION/income/transfer_out/new" //新媒人转出
 
     const val SVC_CERT_DO = "$VERSION/svc_cert/do" //服务商认证结果
+    const val SVC_CERT_UPDATE = "$VERSION/svc_cert/update" //服务商-修改失败状态
+
     const val SVC_CERT_PROVING = "$VERSION/svc_cert/proving"
     const val SVC_CERT_RESULT = "$VERSION/svc_cert/result" //服务商认证结果
     const val MYSELF_PROVIDER_LIST = "$VERSION/provider/list" //服务商拓展页

@@ -7,6 +7,9 @@ import android.net.Uri
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -33,7 +36,7 @@ class FacilitatorFailActivity : BaseActivity() {
         if (openType == 777) {
             //认证中
             btn_again.visibility = View.GONE
-            tv_red2.text = "该企业已完成服务商认证\n" + "如有疑问联系首媒客服：400-966-1168"
+            tv_red2.text = ("该企业已完成服务商认证\n" + "如有疑问联系首媒客服：400-966-1168")
         } else {
             tv_red2.text = "打款金额有误，钱款已退回"
         }
@@ -45,11 +48,11 @@ class FacilitatorFailActivity : BaseActivity() {
     override fun onListener(view: View) {
         when (view.id) {
             btn_again.id -> {
-                //跳转 A
-                PayFranchiseFeeActivity.start(this, 666)
+                next()
             }
         }
     }
+
     private lateinit var permissionUtil: PermissionUtil
     private fun showDialog() {
         val dialog = SmediaDialog(this)
@@ -88,4 +91,21 @@ class FacilitatorFailActivity : BaseActivity() {
         }
     }
 
+
+    fun next() {
+        ApiManager2.post(this, hashMapOf(), Constant.SVC_CERT_UPDATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                //跳转 A
+                PayFranchiseFeeActivity.start(this@FacilitatorFailActivity, 666)
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+        })
+    }
 }
