@@ -8,13 +8,14 @@ import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.model.Banner
+import com.cocosh.shmstore.home.model.Bonus2
 import kotlinx.android.synthetic.main.item_card_view.view.*
 
 /**
  * 首页bannerAdapter
  * Created by zhangye on 2018/1/11.
  */
-class HomeBannerAdapter(var context: Context, var list: ArrayList<Banner.Data>) : PagerAdapter() {
+class HomeBannerAdapter(var context: Context, var list: ArrayList<Bonus2>) : PagerAdapter() {
 
     var onItemClickListener: OnItemClickListener? = null
 
@@ -32,7 +33,7 @@ class HomeBannerAdapter(var context: Context, var list: ArrayList<Banner.Data>) 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = View.inflate(context, R.layout.item_card_view, null)
-        Glide.with(context).load(list[position].redPacketImg).into(view.imageView)
+        Glide.with(context).load(list[position].image).into(view.imageView)
         container.addView(view)
         view.setOnClickListener {
             onItemClickListener?.onItemClick(it, position)
@@ -48,5 +49,5 @@ class HomeBannerAdapter(var context: Context, var list: ArrayList<Banner.Data>) 
 //        container.removeView(`object` as View)
     }
 
-    override fun getPageTitle(position: Int): String? = list[position].redPacketName
+    override fun getPageTitle(position: Int): String? = list[position].name
 }

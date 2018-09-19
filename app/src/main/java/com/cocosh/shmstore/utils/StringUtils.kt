@@ -65,6 +65,15 @@ object StringUtils {
     }
 
 
+    fun strFormat(date:String):String{
+        if (date.isEmpty()){
+            return ""
+        }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return (dateFormat.parse(date).time/1000).toString()
+    }
+
+
     fun getTimeStamp():String =  (System.currentTimeMillis()/1000).toString()
 
 

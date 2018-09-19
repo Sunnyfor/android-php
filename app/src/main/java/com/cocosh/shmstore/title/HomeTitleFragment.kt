@@ -7,12 +7,14 @@ import com.amap.api.location.AMapLocationListener
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.CityListActivity
 import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.home.HomeFragment
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.model.ValueByKey
@@ -155,19 +157,16 @@ class HomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
     private fun share() {
         val params = HashMap<String, String>()
         params["type"] = "home_share"
-        ApiManager.get(0, activity as BaseActivity, params, Constant.COMMON_AGREEMENT, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) {
-                if (data.success) {
-                    (activity as HomeActivity).showShareDialg(data.entity?.url ?: "")
-                } else {
-                    ToastUtil.show(data.message)
-                }
+        ApiManager2.get(0, activity as BaseActivity, params, Constant.COMMON_AGREEMENT, object : ApiManager2.OnResult<BaseBean<ValueByKey>>() {
+            override fun onFailed(code: String, message: String) {
+
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onSuccess(data: BaseBean<ValueByKey>) {
+                    (activity as HomeActivity).showShareDialg(data.message?.url ?: "")
             }
 
-            override fun onCatch(data: BaseModel<ValueByKey>) {
+            override fun onCatch(data: BaseBean<ValueByKey>) {
             }
 
         })

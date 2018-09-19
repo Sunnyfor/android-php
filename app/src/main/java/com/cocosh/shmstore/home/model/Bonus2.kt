@@ -8,4 +8,7 @@ data class Bonus2(
         var no: String,
         var name: String,
         var image: String,
-        var draw: Int)
+        var status: String,
+        var draw: String,
+        var ad: String,
+        var time: String)

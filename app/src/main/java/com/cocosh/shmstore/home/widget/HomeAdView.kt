@@ -16,6 +16,7 @@ import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.BonusWebActivity
 import com.cocosh.shmstore.home.adapter.HomeBannerAdapter
 import com.cocosh.shmstore.home.model.Banner
+import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.ToastUtil
@@ -120,7 +121,7 @@ class HomeAdView : LinearLayout {
 
     }
 
-    fun loadData(list: ArrayList<Banner.Data>) {
+    fun loadData(list: ArrayList<Bonus2>) {
         stopLoop()
         currentIndex = 0
         pointList.clear()
@@ -158,15 +159,14 @@ class HomeAdView : LinearLayout {
                 list[index].let {
                     //已抢
                     when {
-                        it.redPacketStatus == 1 -> {
-                            intentWeb(it,"RECEIVE")
-
+                        it.draw == "1" -> {
+//                            intentWeb(it,"RECEIVE")
                         }
-                        it.redPacketStatus == 2 -> {
-                            intentWeb(it,"NONE")
+                        it.draw == "" -> {
+//                            intentWeb(it,"NONE")
                         }
-                        else -> //开始抢红包
-                            hitBonus(it)
+//                        else -> //开始抢红包
+//                            hitBonus(it)
                     }
                 }
             }

@@ -10,6 +10,7 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.home.SendBonusResultActivity
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
@@ -67,33 +68,25 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     }
 
     override fun payConfirmResult(result: BaseBean<PayResultModel>) {
-//        if (result.code == 200 && result.success) {
-//            if (result.entity?.status == 11) {
-//                //处理中
-//
-//                return
-//            }
-//            if (result.entity?.status == 12 || result.entity?.status == 14) {
-//                //失败
-////                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-////                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-////                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
-////                }
-//                return
-//            }
-//            if (result.entity?.status == 13) {
-//                //成功
-////                if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-////                    setResult(IntentCode.IS_INPUT)
-////                    SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-////                    startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
-////                    finish()
-////                }
-//                return
-//            }
-//        } else {
-////            ToastUtil.show(result.message)
-//        }
+        if (payOperatStatus == "1") {
+            if (result.message?.status == "2") {
+                AuthActivity.start(this@PayActivity)
+                SuccessActivity.start(this@PayActivity)
+            }
+        }
+
+        if (payOperatStatus == "2") {
+            if (result.message?.status == "2") {
+                setResult(IntentCode.IS_INPUT)
+                SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+                startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+                finish()
+            } else {
+                SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+                startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+            }
+        }
+
     }
 
     override fun localPay(result: BaseBean<String>) {
@@ -227,7 +220,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 mDialog?.dismiss()
                 if (boolean) {
                     //成功
-                    if (payOperatStatus == "1"){
+                    if (payOperatStatus == "1") {
                         AuthActivity.start(this@PayActivity)
                         SuccessActivity.start(this@PayActivity)
                     }

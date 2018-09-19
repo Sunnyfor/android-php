@@ -20,29 +20,21 @@ class BonusListAdapter(bonusList: ArrayList<Bonus2>) : BaseRecycleAdapter<Bonus2
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvName.text = getData(position).name
 //        if (getData(position).typeInfo == 1 || getData(position).typeInfo == 2 || getData(position).typeInfo == 3) {
-            holder.itemView.tvMoney.visibility = View.GONE
+        holder.itemView.tvMoney.visibility = View.GONE
 //            holder.itemView.tvMoney.text = ("最大金额 ：${getData(position).redpacketMax}元")
 
-            when {
 
-                getData(position).draw == 1 -> {
-                    //已抢
-                    holder.itemView.tvSure.text = "已抢"
-                    holder.itemView.tvSure.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w43))
-                    holder.itemView.tvSure.setBackgroundResource(R.color.grayBtn)
-                }
-                getData(position).draw == 0 -> {
-                    //未抢
-                    holder.itemView.tvSure.text = "去抢"
-                    holder.itemView.tvSure.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w43))
-                    holder.itemView.tvSure.setBackgroundResource(R.color.red)
-                }
-                else -> {
-                    holder.itemView.tvSure.text = "已抢光"
-//                    holder.itemView.tvSure.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w36))
-                    holder.itemView.tvSure.setBackgroundResource(R.color.grayBtn)
-                }
-            }
+
+        if (getData(position).draw == "1") {
+            holder.itemView.tvSure.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w43))
+            holder.itemView.tvSure.setBackgroundResource(R.color.grayBtn)
+            //已抢
+            holder.itemView.tvSure.text = "已抢"
+        } else {
+            holder.itemView.tvSure.text = "未抢"
+            holder.itemView.tvSure.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w43))
+            holder.itemView.tvSure.setBackgroundResource(R.color.red)
+        }
 //        } else {
 //            holder.itemView.tvMoney.visibility = View.GONE
 //            holder.itemView.tvSure.setBackgroundResource(R.color.red)

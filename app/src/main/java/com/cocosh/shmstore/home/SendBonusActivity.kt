@@ -344,7 +344,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             paramsList.add(BonusParam("base", "pos_prov", it[0]))
             paramsList.add(BonusParam("base", "pos_city", it[1]))
         }
-        paramsList.add(BonusParam("base", "pubtime", isvTime.getValue()))
+        paramsList.add(BonusParam("base", "pubtime",  StringUtils.strFormat(isvTime.getValue()) ))
 
         paramsList.add(BonusParam("base", "total", edtNumber.text.toString()))
 

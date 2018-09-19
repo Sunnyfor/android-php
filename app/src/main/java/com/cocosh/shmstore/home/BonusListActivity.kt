@@ -83,8 +83,9 @@ class BonusListActivity : BaseActivity() {
             }
 
         }
-
         adapter = BonusListAdapter(mList)
+        refreshLayout.recyclerView.adapter = adapter
+
 
         loadData()
 
@@ -135,7 +136,7 @@ class BonusListActivity : BaseActivity() {
 
     fun loadData() {
         val params = HashMap<String, String>()
-        params["type"] = type.toString()
+        params["type"] = type
         if (currentPage != "1") {
             params["no"] = currentPage
         }
@@ -143,9 +144,9 @@ class BonusListActivity : BaseActivity() {
 
         ApiManager2.post(1, this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
-
                 data.message?.let {
                     if (currentPage == "1") {
+                        refreshLayout.isRefreshing = false
                         mList.clear()
                     }
                     mList.addAll(it)

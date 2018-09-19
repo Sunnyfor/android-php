@@ -124,10 +124,7 @@ class AuthActivity : BaseActivity() {
                             tvMediaState.text = "已认证"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang_ok))
                         }
-//                        AuthenStatus.SERVER_DEALER_ING.type -> {
-//                            tvMediaState.text = "待付款"
-//                            ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
-//                        }
+
                         AuthenStatus.SERVER_DEALER_ING.type -> {
                             tvMediaState.text = "待付款"
                             ivMedia.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.fuwushang))
@@ -140,19 +137,25 @@ class AuthActivity : BaseActivity() {
 
                     entStatus = it.cert.b
                     when (entStatus) {
+                        AuthenStatus.BUSINESS_NO.type -> {
+                            tvCompanyState.text = "未认证"
+                            ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
+                        }
+
                         AuthenStatus.BUSINESS_ACTIVE.type -> {
                             tvCompanyState.text = "待激活"
                             ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
                         }
-                        AuthenStatus.BUSINESS_EXAMINE.type -> {
+                        AuthenStatus.BUSINESS_EXAMINE.type, AuthenStatus.BUSINESS_WAIT.type,AuthenStatus.BUSINESS_CHECK.type -> {
                             tvCompanyState.text = "审核中"
                             ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
                         }
+
                         AuthenStatus.BUSINESS_OK.type -> {
-                            tvCompanyState.text = "已激活"
+                            tvCompanyState.text = "已认证"
                             ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_ok))
                         }
-                        AuthenStatus.BUSINESS_FAIL.type -> {
+                        AuthenStatus.BUSINESS_FAIL.type,AuthenStatus.BUSINESS_REJECT.type -> {
                             tvCompanyState.text = "激活失败"
                             ivCompany.setImageDrawable(ContextCompat.getDrawable(this@AuthActivity, R.drawable.enterprise_no))
                         }

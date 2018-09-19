@@ -5,12 +5,15 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity
 import com.cocosh.shmstore.home.model.Banner
+import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
@@ -116,20 +119,17 @@ class HomeFragment : BaseFragment() {
 
     fun loadBanner() {
         val params = hashMapOf<String, String>()
-        ApiManager.get(0, activity as BaseActivity, params, Constant.HOME_BANNER, object : ApiManager.OnResult<BaseModel<Banner>>() {
-            override fun onSuccess(data: BaseModel<Banner>) {
-                if (data.success) {
-                    data.entity?.let {
-                        getLayoutView().homeAdView.loadData(it.resHomePageBannersVoList
-                                ?: arrayListOf())
+        ApiManager2.get(0, activity as BaseActivity, params, Constant.RP_HOME, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
+                    data.message?.let {
+                        getLayoutView().homeAdView.loadData(it)
                     }
-                }
             }
 
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<Banner>) {
+            override fun onCatch(data:BaseBean<ArrayList<Bonus2>>) {
             }
 
         })

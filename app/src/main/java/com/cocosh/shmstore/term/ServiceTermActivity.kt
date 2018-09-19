@@ -29,6 +29,7 @@ class ServiceTermActivity : BaseActivity() {
 
     private val fac = "f_cert"
     private val recharge = "recharge"
+    private val register = "register"
     private val newcer = "x_cert"
     private val businessman = "b_cert"
     private val help = "help" //帮助中心

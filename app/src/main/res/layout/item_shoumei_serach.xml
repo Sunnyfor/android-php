@@ -14,8 +14,9 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivLogo"
             android:layout_width="@dimen/w138"
-            android:layout_height="@dimen/h138"
+            android:layout_height="@dimen/w138"
             android:layout_marginLeft="@dimen/w40"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_content"
             app:riv_oval="true" />
 

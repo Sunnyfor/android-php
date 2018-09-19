@@ -296,7 +296,7 @@ class ShouMeiCommentActivity : BaseActivity() {
         val params = HashMap<String, String>()
 
         params["comment_id"] = comment_id ?: ""
-        if (replyId != 1) {
+        if (currentPage != 1) {
             params["reply_id"] = currentPage.toString()
         }
         params["num"] = "20"

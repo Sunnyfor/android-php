@@ -139,6 +139,7 @@ object Constant {
     const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
 
     /*红包*/
+    const val RP_HOME = "$VERSION/rp/home" //红包首页大图
     const val RP_POOL = "$VERSION/rp/pool" //红包资金池
     const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
     const val RP_TRANSFER = "$VERSION/rp/transfer" //红包转出(至钱包)

@@ -23,7 +23,10 @@ enum class AuthenStatus(var type: Int) {
     BUSINESS_ACTIVE(1), //待激活
     BUSINESS_EXAMINE(2),//审核中
     BUSINESS_FAIL(3), //激活失败
-    BUSINESS_OK(4), // //已激活
+    BUSINESS_WAIT(4),//待付款
+    BUSINESS_CHECK(5),//(已打款)打款校验
+    BUSINESS_REJECT(6),//(打款校验失败)打款驳回
+    BUSINESS_OK(7), // //已激活
 
 //
     //个人认证状态

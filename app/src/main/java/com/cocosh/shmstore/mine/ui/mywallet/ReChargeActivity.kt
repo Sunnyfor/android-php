@@ -60,7 +60,7 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
         result.message?.let {
             isConfirm = false
             when (it.status) {
-                "2" -> ReChargeResult.start(this, 3, it.detail?.amount ?: "", it.detail?.time
+                "1" -> ReChargeResult.start(this, 3, it.detail?.amount ?: "", it.detail?.time
                         ?: "", it.detail?.pay_type ?: "", it.detail?.flowno ?: "")
                 else -> ReChargeResult.start(this, 2)
             }

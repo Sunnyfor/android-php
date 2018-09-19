@@ -19,7 +19,9 @@ import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.register.presenter.RegisterPresenter
 import com.cocosh.shmstore.sms.model.SMS
+import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.web.WebViewActivity
 import kotlinx.android.synthetic.main.activity_register.*
@@ -238,27 +240,9 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
 
 
     fun intentAgreement() {
-        val params = hashMapOf<String, String>()
-        params["dictionaryKey"] = "yonghuzhucexieyi"
-        ApiManager.get(this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) {
-                if (data.success) {
-                    val intent = Intent(this@RegisterActivity, WebViewActivity::class.java)
-                    intent.putExtra("title", "注册协议")
-                    intent.putExtra("url", data.entity?.url)
-                    intent.putExtra("showButton", true)
-                    startActivityForResult(intent, IntentCode.IS_TERM)
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<ValueByKey>) {
-            }
-        })
-
+        val intent = Intent(this@RegisterActivity, ServiceTermActivity::class.java)
+        intent.putExtra("OPEN_TYPE", OpenType.Register.name)
+        intent.putExtra("title","首媒注册协议")
+        startActivityForResult(intent,IntentCode.IS_TERM)
     }
 }

@@ -4,6 +4,7 @@ package com.cocosh.shmstore.utils
  * Created by lmg on 2018/5/29.
  */
 enum class OpenType {
+    Register, //注册
     Cer,//新媒人
     Fac,//服务商
     Help,//帮助中心
