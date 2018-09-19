@@ -22,6 +22,7 @@ import com.cocosh.shmstore.utils.OpenType
 import kotlinx.android.synthetic.main.partner_splash_activity.*
 
 /**
+ *
  * Created by cjl on 2018/2/1.
  */
 class FacilitatorSplashActivity : BaseActivity() {
