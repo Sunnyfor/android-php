@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/iv"
             android:layout_width="@dimen/w50"
-            android:layout_height="@dimen/h43"
+            android:layout_height="@dimen/w43"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w35"
             android:background="@drawable/service_voice" />
@@ -32,7 +32,7 @@
         <ImageView
             android:id="@+id/iv_close"
             android:layout_width="@dimen/w50"
-            android:layout_height="@dimen/h43"
+            android:layout_height="@dimen/w50"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w35"

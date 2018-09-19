@@ -81,7 +81,8 @@
             android:gravity="center"
             android:text="@string/iconUnChecked"
             android:textColor="@color/grayText"
-            android:textSize="@dimen/w45" />
+            android:textSize="@dimen/w45"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@id/tvDesc"

@@ -15,6 +15,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.ValueByKey
+import com.cocosh.shmstore.title.DefaultTitleFragment
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.OpenType
 import com.cocosh.shmstore.utils.ToastUtil
@@ -34,7 +35,7 @@ class ServiceTermActivity : BaseActivity() {
     private val businessman = "b_cert"
     private val help = "help" //帮助中心
     private val bonus = "rp_rules"//红包规则
-
+    private val privacy = "privacy"
     override fun reTryGetData() {
 
     }
@@ -45,7 +46,7 @@ class ServiceTermActivity : BaseActivity() {
         val ruleUrl = intent.getStringExtra("OPEN_TYPE")
         val title = intent.getStringExtra("title")
         if (title == null) {
-            titleManager.defaultTitle("首媒服务条款")
+            titleManager.defaultTitle(getString(R.string.app_name))
         } else {
             titleManager.defaultTitle(title)
         }
@@ -64,11 +65,20 @@ class ServiceTermActivity : BaseActivity() {
         if (ruleUrl == OpenType.BusinessMan.name) {
             getUrl(businessman)
         }
-        if (ruleUrl == OpenType.Help.name){
+
+        if (ruleUrl == OpenType.Register.name) {
+            getUrl(register)
+        }
+
+        if (ruleUrl == OpenType.Privacy.name){
+            getUrl(privacy)
+        }
+
+        if (ruleUrl == OpenType.Help.name) {
             btnSure.visibility = View.GONE
             getUrl(help)
         }
-        if (ruleUrl == OpenType.Bonus.name){
+        if (ruleUrl == OpenType.Bonus.name) {
             btnSure.visibility = View.GONE
             getUrl(bonus)
         }
@@ -119,7 +129,7 @@ class ServiceTermActivity : BaseActivity() {
             }
 
             override fun onSuccess(data: BaseBean<ValueByKey>) {
-                    initWebView(data.message?.url ?: "")
+                initWebView(data.message?.url ?: "")
             }
 
             override fun onCatch(data: BaseBean<ValueByKey>) {

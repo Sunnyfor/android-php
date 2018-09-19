@@ -20,7 +20,7 @@ import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.layout_home_ad.view.*
 import kotlinx.coroutines.experimental.CommonPool
@@ -151,7 +151,7 @@ class HomeAdView : LinearLayout {
         adapter?.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
 
-                if (!UserManager.isLogin()) {
+                if (!UserManager2.isLogin()) {
                     SmediaDialog(context).showLogin()
                     return
                 }

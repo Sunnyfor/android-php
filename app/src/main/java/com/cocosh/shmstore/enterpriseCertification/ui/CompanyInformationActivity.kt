@@ -230,17 +230,17 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
                         map["name"] = edt_name.text.toString()
                         //        map["addr"] = "" //营业执照住址
                         map["legal"] = edt_layer_name.text.toString()
-                        map["found"] = tv_create.text.toString().replace("年","-").replace("月","-").replace("日","")//成立日期
+                        map["found"] = tv_create.text.toString().replace("年", "-").replace("月", "-").replace("日", "")//成立日期
                         map["addr"] = edt_address.text.toString()//住所
                         map["capital"] = edt_money.text.toString()//注册资本
                         map["kind"] = edt_type.text.toString()//注册类型
-                        map["beg_time"] = tv_start_time.text.toString().replace("年","-").replace("月","-").replace("日","") //营业执照有效期 开始
-                        map["end_time"] = tv_end_time.text.toString().replace("年","-").replace("月","-").replace("日","") //营业执照有效期 结束
+                        map["beg_time"] = tv_start_time.text.toString().replace("年", "-").replace("月", "-").replace("日", "") //营业执照有效期 开始
+                        map["end_time"] = tv_end_time.text.toString().replace("年", "-").replace("月", "-").replace("日", "") //营业执照有效期 结束
 
                         if (pageType == 222) {
                             //跳转地址选择页（服务商），并保存数据，带到下一页
                             SmApplication.getApp().setData(DataCode.FACILITATOR_KEY_MAP, map)
-                            numAuth(edt_code.text.toString())
+                            numAuth()
                         } else {
                             //提交信息（企业主）
                             preserter.pushData(map)
@@ -436,31 +436,22 @@ class CompanyInformationActivity : BaseActivity(), EntLicenseContrat.IView, Bott
         dialog.OnClickListener = View.OnClickListener { startCamera() }
     }
 
-    private fun numAuth(licenseNo: String) {
-//        val params = HashMap<String, String>()
-//        params["licenseNo"] = licenseNo
-//        ApiManager.get(0, this, params, Constant.FACILITOTAAR_AUTH_NUM, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-//            override fun onSuccess(data: BaseModel<Boolean>) {
-//                hideLoading()
-//                if (data.success && data.code == 200) {
-//                    if (data.entity == true) {
-                        startActivity(Intent(this@CompanyInformationActivity, CertificationAddressActivity::class.java).putExtra("FACILITATOR_TYPE", 333))
-//                    } else {
-//                        ToastUtil.show("营业执照号已注册！")
-//                    }
-//                } else {
-//                    ToastUtil.show(data.message)
-//                }
-//            }
-//
-//            override fun onFailed(e: Throwable) {
-//                hideLoading()
-//            }
-//
-//            override fun onCatch(data: BaseModel<Boolean>) {
-//            }
-//
-//        })
+    private fun numAuth() {
+        val params = HashMap<String, String>()
+        params["uscc"] = edt_code.text.toString()
+        params["name"] = edt_name.text.toString()
+        ApiManager2.post(0, this, params, Constant.SVC_CERT_PROVING, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
+                startActivity(Intent(this@CompanyInformationActivity, CertificationAddressActivity::class.java).putExtra("FACILITATOR_TYPE", 333))
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+            }
+
+        })
     }
 
     private val MIN_DELAY_TIME = 1000  // 两次点击间隔不能少于1000ms

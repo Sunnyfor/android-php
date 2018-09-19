@@ -259,7 +259,6 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //支付页面返回处理
         if (requestCode == Pingpp.REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
                 val result = data?.extras?.getString("pay_result")
                 // 处理返回值
                 // "success" - 支付成功
@@ -277,8 +276,6 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                         ToastUtil.show("取消支付")
                     }
                 }
-
-            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

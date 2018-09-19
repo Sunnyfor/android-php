@@ -61,8 +61,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         val style = SpannableStringBuilder(tvDesc.text)
         style.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View?) {
-                intentAgreement()
-//                startActivityForResult(Intent(this@RegisterActivity, ServiceTermActivity::class.java), IntentCode.IS_TERM)
+                intentAgreement(false)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -70,12 +69,28 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
             }
 
         }
-                , 7, tvDesc.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置点击位置
+                , 7, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置点击位置
+
+
+        style.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View?) {
+                intentAgreement(true)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+            }
+
+        }
+                , 14, tvDesc.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置点击位置
+
 
 
         style.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)),
-                7, tvDesc.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置位置颜色
+                7, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置位置颜色
 
+        style.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)),
+                14, tvDesc.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)  //设置位置颜色
 
         tvDesc.movementMethod = LinkMovementMethod.getInstance()  //设置点击事件
         tvDesc.highlightColor = Color.TRANSPARENT
@@ -185,10 +200,10 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
         //下一步校验验证码
             btnNext.id -> {
 
-                if (!isArgeen) {
-                    ToastUtil.show("须同意注册协议后再进行注册")
-                    return
-                }
+//                if (!isArgeen) {
+//                    ToastUtil.show("须同意注册协议后再进行注册")
+//                    return
+//                }
                 if (edtPassWord.text.toString() == editSurePassWord.text.toString()) {
                     //调用注册请求
                     presenter.register(edtPhone.text.toString(), edtPassWord.text.toString(), edtCode.text.toString())
@@ -239,10 +254,16 @@ class RegisterActivity : BaseActivity(), RegisterContract.IView {
     }
 
 
-    fun intentAgreement() {
+    fun intentAgreement(boolean: Boolean) {
         val intent = Intent(this@RegisterActivity, ServiceTermActivity::class.java)
-        intent.putExtra("OPEN_TYPE", OpenType.Register.name)
-        intent.putExtra("title","首媒注册协议")
+        if (boolean){
+            intent.putExtra("OPEN_TYPE", OpenType.Privacy.name)
+            intent.putExtra("title","隐私协议")
+        }else{
+            intent.putExtra("OPEN_TYPE", OpenType.Register.name)
+            intent.putExtra("title","服务条款")
+        }
+
         startActivityForResult(intent,IntentCode.IS_TERM)
     }
 }
