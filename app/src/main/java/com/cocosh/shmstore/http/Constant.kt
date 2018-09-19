@@ -125,6 +125,7 @@ object Constant {
     const val ENT_CERT_ACTIVE = "$VERSION/ent_cert/active" //企业主激活
     const val ENT_CERT_LICENCE = "$VERSION/ent_cert/licence" //企业主提交营业执照
     const val ENT_CERT_ACCT = "$VERSION/ent_cert/acct" //企业主提交对公帐号
+    const val ENT_CERT_DELETE = "$VERSION/ent_cert/delete" //企业主-删除数据
 
     const val EHOME_SEARCH = "$VERSION/ehome/search" //企业搜索
     const val EHOME_POSTS = "$VERSION/ehome/posts" //企业帖子列表

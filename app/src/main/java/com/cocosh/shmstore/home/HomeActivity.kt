@@ -181,31 +181,31 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun getMsgCount() {
-        val map = HashMap<String, String>()
-        ApiManager.get(0, this, map, Constant.MSG_UNREAD, object : ApiManager.OnResult<BaseModel<MsgUnReadCount>>() {
-            override fun onSuccess(data: BaseModel<MsgUnReadCount>) {
-                if (data.success && data.code == 200) {
-                    //更改消息按钮
-                    if (data.entity?.unreadRedPacketMessageCount == 0 && data.entity?.unreadReplyMessageCount == 0 && data.entity?.unreadSystemMessageCount == 0) {
-                        //隐藏
-                        isShowMsgPoint(false)
-                    } else {
-                        //显示
-                        isShowMsgPoint(true)
-                    }
-                } else {
-
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<MsgUnReadCount>) {
-
-            }
-        })
+//        val map = HashMap<String, String>()
+//        ApiManager.get(0, this, map, Constant.MSG_UNREAD, object : ApiManager.OnResult<BaseModel<MsgUnReadCount>>() {
+//            override fun onSuccess(data: BaseModel<MsgUnReadCount>) {
+//                if (data.success && data.code == 200) {
+//                    //更改消息按钮
+//                    if (data.entity?.unreadRedPacketMessageCount == 0 && data.entity?.unreadReplyMessageCount == 0 && data.entity?.unreadSystemMessageCount == 0) {
+//                        //隐藏
+//                        isShowMsgPoint(false)
+//                    } else {
+//                        //显示
+//                        isShowMsgPoint(true)
+//                    }
+//                } else {
+//
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<MsgUnReadCount>) {
+//
+//            }
+//        })
     }
 
     fun isShowMsgPoint(isShow: Boolean) {

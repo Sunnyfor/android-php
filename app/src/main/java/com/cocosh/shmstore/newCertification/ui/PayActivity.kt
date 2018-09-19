@@ -1,17 +1,13 @@
 package com.cocosh.shmstore.newCertification.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.SendBonusResultActivity
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.PayResultModel

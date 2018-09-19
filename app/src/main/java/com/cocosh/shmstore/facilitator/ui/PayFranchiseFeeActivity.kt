@@ -99,7 +99,7 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
                 }
             }
             btn_loading.id -> {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             }
         }

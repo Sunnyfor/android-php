@@ -44,11 +44,24 @@ class BusinessLisenceActivity : BaseActivity(), EntLicenseContrat.IShowView {
 //        presenter.getShowData(1)
         btnChange.setOnClickListener(this)
 
-        SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.let {
+        SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA, true)?.let {
             tv_name.text = it.base.name
             tv_code.text = it.base.uscc
             tv_layer_name.text = it.base.legal
-            tv_useful_time.text = (it.base.beg_time+"-"+it.base.end_time)
+            val useTime = StringBuilder()
+            if (it.base.beg_time.isNotEmpty()) {
+                useTime.append(it.base.beg_time)
+            }
+
+            if (it.base.beg_time.isNotEmpty() && it.base.end_time.isNotEmpty()) {
+                useTime.append("-")
+            }
+
+            if (it.base.end_time.isNotEmpty()) {
+                useTime.append(it.base.end_time)
+            }
+
+            tv_useful_time.text = (useTime.toString())
             tv_address.text = it.base.addr
             tv_money.text = it.base.capital
             tv_create_time.text = it.base.found
@@ -78,8 +91,8 @@ class BusinessLisenceActivity : BaseActivity(), EntLicenseContrat.IShowView {
     }
 
     companion object {
-        fun start(context: Context, entOpenType: Int,infoModel: EntActiveInfoModel?) {
-            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA,infoModel)
+        fun start(context: Context, entOpenType: Int, infoModel: EntActiveInfoModel?) {
+            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA, infoModel)
             context.startActivity(Intent(context, BusinessLisenceActivity::class.java).putExtra("type", entOpenType))
         }
     }

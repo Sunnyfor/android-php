@@ -10,10 +10,11 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.baiduScan.ScanLicenseActivity
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationActiveContrat
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.presenter.EntCertificationActivePresenter
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
@@ -55,7 +56,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 tv_license.text = "已完善"
             }
 
-            if (infoModel?.base?.bank == null || infoModel?.base?.bank =="") {
+            if (infoModel?.base?.bank == null || infoModel?.base?.bank == "") {
                 tv_bankcard.text = "待完善"
             } else {
                 tv_bankcard.text = "已完善"
@@ -101,7 +102,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
 //                rlEnt.visibility = View.VISIBLE
                 rlTitle.visibility = View.GONE
             }
-            AuthenStatus.BUSINESS_FAIL.type -> {
+            AuthenStatus.BUSINESS_FAIL.type,AuthenStatus.BUSINESS_REJECT.type -> {
                 btActive.visibility = View.GONE
                 tv_success.visibility = View.GONE
                 btn_again.text = "修改认证信息"
@@ -170,16 +171,16 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
             }
             rlBL.id -> {
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
-                    if (infoModel?.base?.uscc != null && infoModel?.base?.uscc!= "") {
+                    if (infoModel?.base?.uscc != null && infoModel?.base?.uscc != "") {
                         //展示数据_可以重新填写
-                        BusinessLisenceActivity.start(this, 111,infoModel)
+                        BusinessLisenceActivity.start(this, 111, infoModel)
                     } else {
                         //营业执照填写页
                         startActivity(Intent(this, ScanLicenseActivity::class.java))
                     }
                 } else {
                     //展示数据_不可以重新填写
-                    BusinessLisenceActivity.start(this, -1,infoModel)
+                    BusinessLisenceActivity.start(this, -1, infoModel)
                 }
             }
             rlPA.id -> {
@@ -192,18 +193,18 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 if (infoModel?.cert?.status == AuthenStatus.BUSINESS_ACTIVE.type) {
                     if (infoModel?.base?.bank != null && infoModel?.base?.bank != "") {
                         //展示数据_可以重新填写
-                        CorporateAccountShowActivty.start(this, 111,infoModel)
+                        CorporateAccountShowActivty.start(this, 111, infoModel)
                     } else {
                         //对公账户填写页
-                        if (infoModel?.base?.uscc != null && infoModel?.base?.uscc !="") {
-                            CorporateAccountActivty.start(this,infoModel)
+                        if (infoModel?.base?.uscc != null && infoModel?.base?.uscc != "") {
+                            CorporateAccountActivty.start(this, infoModel)
                         } else {
                             showChangeDialog()
                         }
                     }
                 } else {
                     //展示数据_不可以重新填写
-                    CorporateAccountShowActivty.start(this, -1,infoModel)
+                    CorporateAccountShowActivty.start(this, -1, infoModel)
                 }
             }
 //            rlEnt.comment_id -> {
@@ -232,8 +233,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
             }
 
             btn_again.id -> {
-                EnterpriseCertificationActivity.start(this)
-                finish()
+                delete()
             }
         }
     }
@@ -282,5 +282,22 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
     override fun onResume() {
         super.onResume()
         presenter.getInfoData(1)
+    }
+
+
+    fun delete() {
+        ApiManager2.post(this, hashMapOf(), Constant.ENT_CERT_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                EnterpriseCertificationActivity.start(this@EnterpriseActiveActivity)
+                finish()
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+            }
+        })
+
     }
 }
