@@ -95,6 +95,8 @@ class SelectServiceActivity : BaseActivity() {
     private fun commit() {
         val map = HashMap<String, String>()
         map["svcid"] = operatorId
+        map["province"] = prov.toString()
+        map["city"] = city.toString()
         ApiManager2.post(this, map, Constant.NEW_CERT_DO, object : ApiManager2.OnResult<BaseBean<ApplyPartner>>() {
             override fun onFailed(code: String, message: String) {
 

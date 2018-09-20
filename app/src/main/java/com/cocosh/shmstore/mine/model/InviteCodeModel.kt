@@ -17,10 +17,7 @@ package com.cocosh.shmstore.mine.model
  *   private String invite_code;
  *
  */
-data class InviteCodeModel(var codeInfo: String?,
-                           var inviteImage: String?,
-                           var nickname: String?,
-                           var corpFname: String?,
-                           var userIdentity: String?,
+data class InviteCodeModel(var nickname: String?,
                            var avatar: String?,
-                           var invite_code: String? )
+                           var invite_code: String?,
+                           var url:String)

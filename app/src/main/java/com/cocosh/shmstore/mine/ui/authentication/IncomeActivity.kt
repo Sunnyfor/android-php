@@ -183,6 +183,8 @@ class IncomeActivity : BaseActivity() {
 
         ApiManager2.post(1, this, map, url, object : ApiManager2.OnResult<BaseBean<ArrayList<ProfitModel>>>() {
             override fun onFailed(code: String, message: String) {
+                recyclerView.isRefreshing = false
+                recyclerView.update(null)
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<ProfitModel>>) {
@@ -199,7 +201,7 @@ class IncomeActivity : BaseActivity() {
                         }
                     } else {
                         recyclerView.loadMore(data.message)
-                        list.addAll(data.message!!)
+                        list.addAll(data.message?: arrayListOf())
                         adapter?.notifyDatas()
                     }
             }

@@ -64,7 +64,6 @@
 
     <!--银行卡号码输入框样式-->
     <style name="BankEidttextStyle" parent="EidttextStyle">
-        <item name="android:maxLength">19</item>
         <item name="android:hint">@string/inputPhone</item>
         <item name="android:inputType">number</item>
         <item name="android:lines">1</item>

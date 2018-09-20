@@ -77,7 +77,7 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
             name.text = info?.nickname
             name_nature.text = "新媒人"
         } else {
-            name.text = info?.corpFname
+            name.text = info?.nickname
             name_nature.text = "服务商"
         }
     }
@@ -106,7 +106,7 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
             invite_code_btn.id -> {
                 if (infoData != null) {
                     val dialog = ShareDialog(this)
-                    dialog.showShareBase("首媒约你一起互联网+", "抢不完的现金红包等着你", infoData?.codeInfo ?: "")
+                    dialog.showShareBase("首媒约你一起互联网+", "抢不完的现金红包等着你", infoData?.url ?: "")
                     dialog.show()
                 }
             }

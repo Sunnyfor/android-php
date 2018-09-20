@@ -96,10 +96,10 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
                     cancelOrConfirm(companyList[themeCompanyIndex].eid, "0")
                 } else {
                     if (companyThemeList[themeCompanyIndex!!].bbs.follow == "0") {
-                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id?:"", "1")
+                        cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.eid?:"", "1")
                         return
                     }
-                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.id?:"", "0")
+                    cancelOrConfirm(companyThemeList[themeCompanyIndex].bbs.eid?:"", "0")
                 }
             }
         })
@@ -212,7 +212,7 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
             }
         }
         companyThemeList.forEach {
-            if (it.bbs.id == id) {
+            if (it.bbs.eid == id) {
                 it.bbs.follow = status
             }
         }
@@ -226,25 +226,25 @@ class ShoumeiFindFragment : BaseFragment(), ObserverListener {
     }
 
     private fun readAccount(idCompanyHomeTheme: String) {
-        val params = HashMap<String, String>()
-        params["idCompanyHomeTheme"] = idCompanyHomeTheme
-        ApiManager.post(activity as BaseActivity, params, Constant.SM_READ_ACCOUNT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-                getBaseActivity().isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-            }
-
-        })
+//        val params = HashMap<String, String>()
+//        params["idCompanyHomeTheme"] = idCompanyHomeTheme
+//        ApiManager.post(activity as BaseActivity, params, Constant.SM_READ_ACCOUNT, object : ApiManager.OnResult<BaseModel<String>>() {
+//            override fun onSuccess(data: BaseModel<String>) {
+//                getBaseActivity().isShowLoading = false
+//                if (data.success && data.code == 200) {
+//
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                getBaseActivity().isShowLoading = false
+//            }
+//
+//            override fun onCatch(data: BaseModel<String>) {
+//            }
+//
+//        })
     }
 }

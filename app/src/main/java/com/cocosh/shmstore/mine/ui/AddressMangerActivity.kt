@@ -46,7 +46,7 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
 
     override fun getAddress(result: BaseBean<ArrayList<Address>>) {
-                list.clear()
+        list.clear()
         result.message?.let {
             list.addAll(it)
         }

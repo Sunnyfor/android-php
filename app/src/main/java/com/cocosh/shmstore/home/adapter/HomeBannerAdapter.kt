@@ -33,7 +33,7 @@ class HomeBannerAdapter(var context: Context, var list: ArrayList<Bonus2>) : Pag
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = View.inflate(context, R.layout.item_card_view, null)
-        Glide.with(context).load(list[position].image).into(view.imageView)
+        Glide.with(context).load(list[position].image).placeholder(R.drawable.default_full).into(view.imageView)
         container.addView(view)
         view.setOnClickListener {
             onItemClickListener?.onItemClick(it, position)

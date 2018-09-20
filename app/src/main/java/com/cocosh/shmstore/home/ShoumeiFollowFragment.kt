@@ -224,25 +224,25 @@ class ShoumeiFollowFragment : BaseFragment(), ObserverListener {
     }
 
     private fun readAccount(idCompanyHomeTheme: String) {
-        val params = HashMap<String, String>()
-        params["idCompanyHomeTheme"] = idCompanyHomeTheme
-        ApiManager.post(activity as BaseActivity, params, Constant.SM_READ_ACCOUNT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                getBaseActivity().isShowLoading = false
-                if (data.success && data.code == 200) {
-
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-                getBaseActivity().isShowLoading = false
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-            }
-
-        })
+//        val params = HashMap<String, String>()
+//        params["idCompanyHomeTheme"] = idCompanyHomeTheme
+//        ApiManager.post(activity as BaseActivity, params, Constant.SM_READ_ACCOUNT, object : ApiManager.OnResult<BaseModel<String>>() {
+//            override fun onSuccess(data: BaseModel<String>) {
+//                getBaseActivity().isShowLoading = false
+//                if (data.success && data.code == 200) {
+//
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                getBaseActivity().isShowLoading = false
+//            }
+//
+//            override fun onCatch(data: BaseModel<String>) {
+//            }
+//
+//        })
     }
 }

@@ -77,7 +77,7 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
                 override fun onPickerViewResult(value: String) {
                     list.clear()
                     recyclerView.adapter.notifyDataSetChanged()
-                    selectBegTime = value + "-01"
+                    selectBegTime = value
                     if (TYPE_WATERLIST == Constant.TYPE_ENTERPRISE) {
                         mPresenter.requestEntWalletWaterData(0, "", selectBegTime, "20")
                     } else {
