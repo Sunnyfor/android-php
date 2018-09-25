@@ -334,7 +334,7 @@
             android:name=".mine.ui.mywallet.WithDrawActivity"
             android:launchMode="singleTask" />
         <!--充值-->
-        <activity android:name=".mine.ui.mywallet.ReChargeActivity"/>
+        <activity android:name=".mine.ui.mywallet.ReChargeActivity" />
         <!--提现结果-->
         <activity android:name=".mine.ui.mywallet.WithDrawResult" />
 
@@ -352,8 +352,9 @@
             android:windowSoftInputMode="adjustPan" />
 
         <!--红包推广web页-->
-        <activity android:name=".home.BonusWebActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".home.BonusWebActivity"
+            android:launchMode="singleTask" />
 
         <!--发送红包内容-->
         <activity android:name=".home.SendBonusDetailActivity" />
@@ -435,6 +436,7 @@
         <activity android:name=".mine.ui.WebActivity" />
         <activity
             android:name=".home.ShoumeiDetailActivity"
+            android:hardwareAccelerated="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
@@ -452,9 +454,9 @@
 
         <activity android:name=".mine.ui.HelpActivity" />
 
-        <activity android:name=".mine.ui.InterestingActivity"/>
+        <activity android:name=".mine.ui.InterestingActivity" />
 
-        <activity android:name=".mine.ui.IndustryActivity"/>
+        <activity android:name=".mine.ui.IndustryActivity" />
 
     </application>
 

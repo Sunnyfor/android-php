@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.item_shoumei_v.view.*
  * 我的顶部导航适配器
  * Created by zhangye on 2018/3/13.
  */
-class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mContext: Context, list: ArrayList<SMCompanyThemeData>) : BaseRecycleAdapter<SMCompanyThemeData>(list) {
+class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>, var mContext: Context, list: ArrayList<SMCompanyThemeData>) : BaseRecycleAdapter<SMCompanyThemeData>(list) {
     lateinit var adapter: ShouMeiHAdapter
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) =
             if (getItemViewType(position) == 1) {
@@ -87,7 +87,7 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                     //                        holder.itemView.tvType.text = "用户"
                     //                    }
                     //                }
-                    posts.images?.let {
+                    posts.images?.split(",")?.let {
                         if (it.isNotEmpty()) {
                             when {
                                 it.size == 1 -> {
@@ -130,10 +130,11 @@ class ShouMeiVAdapter(var type: Int, var mList: ArrayList<SMCompanyData>, var mC
                         val number = (oldNumber ?: 0+1)
                         posts.views = number.toString()
 //                        isRead = "1"
-                        notifyItemChanged(position -1)
+                        notifyItemChanged(position - 1)
                         mOnFollowClick?.read(10, position - 1)
                         ShoumeiDetailActivity.start(context, posts.title ?: "", posts.url
-                                ?: "", posts.id ?: "", getData(position -1).bbs.follow
+                                ?: "", bbs.eid ?: "", posts.id
+                                ?: "", getData(position - 1).bbs.follow
                                 ?: "0", getData(position - 1).bbs.silence ?: "0")
                     }
                     holder.itemView.ivLogo.setOnClickListener {

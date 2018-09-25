@@ -6,14 +6,11 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.adapter.ShouMeiVAdapter
 import com.cocosh.shmstore.home.model.SMCompanyData
 import com.cocosh.shmstore.home.model.SMCompanyThemeData
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.observer.ObserverListener
 import com.cocosh.shmstore.widget.observer.ObserverManager

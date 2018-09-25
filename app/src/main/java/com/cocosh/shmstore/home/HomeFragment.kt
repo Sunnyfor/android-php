@@ -15,6 +15,7 @@ import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.title.HomeTitleFragment
@@ -82,18 +83,23 @@ class HomeFragment : BaseFragment() {
      */
     private fun autEnt() {
         UserManager2.getLogin()?.invitee?.let {
-            if (it.code != null){
+            if (it.code != null) {
                 val mDialog = CertificationDialog(activity)
                 val type = it.type
 
                 if (type == "x") {
+                    if (UserManager2.getCommonData()?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type){
+                        return
+                    }
                     //新媒人
                     mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
                 } else {
+                    if (UserManager2.getCommonData()?.cert?.b == AuthenStatus.BUSINESS_OK.type){
+                        return
+                    }
                     //服务商
                     mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
                 }
-                mDialog.show()
 
                 mDialog.OnClickListener = View.OnClickListener {
                     if (type == "x") {
@@ -104,6 +110,7 @@ class HomeFragment : BaseFragment() {
                         EnterpriseCertificationActivity.start(activity)
                     }
                 }
+                mDialog.show()
             }
 
         }
@@ -124,12 +131,12 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
-                    data.message?.let {
-                        getLayoutView().homeAdView.loadData(it)
-                    }
+                data.message?.let {
+                    getLayoutView().homeAdView.loadData(it)
+                }
             }
 
-            override fun onCatch(data:BaseBean<ArrayList<Bonus2>>) {
+            override fun onCatch(data: BaseBean<ArrayList<Bonus2>>) {
             }
 
         })

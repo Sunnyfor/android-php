@@ -45,7 +45,7 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
             //品牌专属论坛
             var bbs: SMCompanyThemeData.BBS? = null
             list[position].apply {
-                bbs = SMCompanyThemeData.BBS(id, eid, name, logo, desc, follow, follow_nums, silence)
+                bbs = SMCompanyThemeData.BBS(id, eid, company, name, logo, desc, follow, follow_nums, silence)
             }
             bbs?.let {
                 ShouMeiBrandActivity.start(context, it)

@@ -26,6 +26,7 @@ class CertificationDialog : Dialog, View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_certification_main)
         tvCancel.setOnClickListener(this)
+        btn_certification.setOnClickListener(this)
         setCanceledOnTouchOutside(false)
         window.setBackgroundDrawable(ColorDrawable())
         window.setBackgroundDrawableResource(R.color.transparent)
@@ -34,6 +35,10 @@ class CertificationDialog : Dialog, View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             tvCancel.id -> {
+                dismiss()
+            }
+            btn_certification.id -> {
+                OnClickListener?.onClick(v)
                 dismiss()
             }
         }

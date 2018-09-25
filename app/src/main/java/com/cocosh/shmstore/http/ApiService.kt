@@ -39,4 +39,12 @@ interface ApiService {
     @GET
     fun get(@Url url: String): Observable<ResponseBody>
 
+
+    /*
+     * 文件下载
+     */
+    @Streaming
+    @GET
+   fun download(@Url url:String): Observable<ResponseBody>
+
 }

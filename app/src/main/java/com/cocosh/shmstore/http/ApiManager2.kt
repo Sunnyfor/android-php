@@ -203,6 +203,11 @@ object ApiManager2 {
     }
 
 
+    fun<T> downLoadFile(baseActivity: BaseActivity,url:String,onResult: OnResult<T>){
+
+    }
+
+
     /**
      * 结果回调
      */

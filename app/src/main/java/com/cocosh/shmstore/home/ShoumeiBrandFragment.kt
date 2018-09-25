@@ -25,7 +25,6 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
     var lastTimeStamp: String? = ""
     var followType: String? = ""
     var silence: String? = ""
-    var baseId: String? = ""
     var themePageUrl: String? = ""
     lateinit var adapter: ShouMeiBrandAdapter
 
@@ -81,7 +80,7 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
 //                readAccount(list[index].posts.id ?: "")
                 //跳转内容详情页
                 ShoumeiDetailActivity.start(activity, list[index].title ?: "", list[index].url
-                        ?: "", list[index].id ?: "", followType?:"0",silence?:"0")
+                        ?: "", eid ?: "", list[index].id ?: "", followType ?: "0", silence ?: "0")
                 //浏览数
                 list[index].views = (list[index].views ?: "0".toInt()+1).toString()
                 adapter.notifyItemChanged(index)
@@ -223,7 +222,7 @@ class ShoumeiBrandFragment : BaseFragment(), ObserverListener {
                     list.clear()
                     adapter.notifyDataSetChanged()
                     getLayoutView().vRecyclerView.update(arrayListOf<SMThemeData>())
-                }else{
+                } else {
                     getLayoutView().vRecyclerView.loadMore(arrayListOf<SMThemeData>())
                 }
             }

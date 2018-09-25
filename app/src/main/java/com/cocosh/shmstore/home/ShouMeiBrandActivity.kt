@@ -36,8 +36,8 @@ class ShouMeiBrandActivity : BaseActivity() {
     override fun initView() {
         SmApplication.getApp().getData<SMCompanyThemeData.BBS>(DataCode.BBS, true)?.let {
             baseId = it.eid
-            setData(it.logo ?: "", it.name ?: "", it.follow_nums ?: "", it.desc ?: "", it.follow
-                    ?: "")
+            setData(it.logo ?: "", it.company ?: "", it.name ?: "", it.follow_nums ?: "", it.desc
+                    ?: "", it.follow ?: "")
 
             val titleList = arrayListOf<String>()
             titleList.add("全部")
@@ -117,10 +117,10 @@ class ShouMeiBrandActivity : BaseActivity() {
     }
 
     var status: String? = ""
-    fun setData(url: String, name: String, number: String, content: String, status: String) {
+    fun setData(url: String, company: String, name: String, number: String, content: String, status: String) {
         GlideUtils.loadRound(1, this, url, ivLogo)
         titleManager.defaultTitle(name)
-        tvName.text = name
+        tvName.text = company
         tvNumber.text = ("关注人数：$number 人")
         desc.text = content
         this.status = status
@@ -138,7 +138,7 @@ class ShouMeiBrandActivity : BaseActivity() {
         isShowLoading = true
         val params = HashMap<String, String>()
         params["eid"] = idCompanyHomeBaseInfo
-        params["op"] = if(isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
+        params["op"] = if (isFollow == "1") "follow" else "cancel" //动作类型 (必填,'cancel'-取消关注,'follow'-关注)
         ApiManager2.post(this, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
                 isShowLoading = false
@@ -146,12 +146,12 @@ class ShouMeiBrandActivity : BaseActivity() {
 
             override fun onSuccess(data: BaseBean<String>) {
                 isShowLoading = false
-                    if (isFollow == "0") {
-                        followStatus(false)
-                    } else {
-                        followStatus(true)
-                    }
-                    ObserverManager.getInstance().notifyObserver(3, baseId ?: "", isFollow, "")
+                if (isFollow == "0") {
+                    followStatus(false)
+                } else {
+                    followStatus(true)
+                }
+                ObserverManager.getInstance().notifyObserver(3, baseId ?: "", isFollow, "")
             }
 
             override fun onCatch(data: BaseBean<String>) {
@@ -161,16 +161,16 @@ class ShouMeiBrandActivity : BaseActivity() {
     }
 
 
-    fun followStatus(isFollow: Boolean){
-        if (!isFollow){
+    fun followStatus(isFollow: Boolean) {
+        if (!isFollow) {
             tvStatus.text = "+关注"
             status = "0"
-            tvStatus.setTextColor(ContextCompat.getColor(this,R.color.white))
+            tvStatus.setTextColor(ContextCompat.getColor(this, R.color.white))
             tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
-        }else{
+        } else {
             tvStatus.text = "已关注"
             status = "1"
-            tvStatus.setTextColor(ContextCompat.getColor(this,R.color.blackText))
+            tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blackText))
             tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
         }
     }

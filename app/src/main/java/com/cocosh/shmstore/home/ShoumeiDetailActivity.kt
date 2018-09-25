@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
+import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,12 +14,11 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.webkit.JavascriptInterface
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.FutureTarget
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
@@ -26,6 +28,8 @@ import com.cocosh.shmstore.home.model.CommentData
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.utils.FileUtlis
+import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
@@ -37,9 +41,9 @@ import com.cocosh.shmstore.widget.observer.ObserverListener
 import com.cocosh.shmstore.widget.observer.ObserverManager
 import kotlinx.android.synthetic.main.activity_shoumei_detail.*
 import kotlinx.android.synthetic.main.item_shoumei_detail_webview.view.*
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import java.net.URL
 
 
 /**
@@ -55,7 +59,8 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     var isSend = false
     lateinit var headView: LinearLayout
     private lateinit var adapter: ShouMeiDetailAdapter
-    var silence:String = "0"
+    var silence: String = "0"
+    var job: Deferred<Uri>? = null
     override fun setLayout(): Int = R.layout.activity_shoumei_detail
 
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
@@ -81,22 +86,32 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         }
     }
 
-    var id: String? = ""
+    var eid: String? = ""
     var followType: String? = ""
     var post_id: String? = ""
     override fun initView() {
         post_id = intent.getStringExtra("post_id")
+        followType = intent?.getStringExtra("FOLLOWTYPE")
+        silence = intent?.getStringExtra("silence") ?: "0"
+        eid = intent?.getStringExtra("eid")
+        post_id = intent?.getStringExtra("post_id")
         val themeUrl = intent.getStringExtra("THEMEURL")
         //禁言
         if (silence == "1") {
             etcontent.isFocusable = false
             tvError.visibility = View.VISIBLE
         } else {
-        etcontent.isFocusable = true
-        tvError.visibility = View.GONE
+            etcontent.isFocusable = true
+            tvError.visibility = View.GONE
         }
 
-        titleManager.defaultTitle(intent.getStringExtra("title"))
+        titleManager.defaultTitle(intent.getStringExtra("title")).setLeftOnClickListener(View.OnClickListener {
+            if (headView.webView.canGoBack()) {
+                headView.webView.goBack()
+            } else {
+                finish()
+            }
+        })
         headView = LayoutInflater.from(this).inflate(R.layout.item_shoumei_detail_webview, null, false) as LinearLayout
         initWebView(headView.webView, themeUrl)
         vRecyclerView.recyclerView.addHeaderView(headView)
@@ -243,7 +258,8 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "AddJavascriptInterface")
     private fun initWebView(webView: SMediaWebView, url: String) {
         val mobile = Mobile()
-        webView.loadUrl("$url?at=$followType")
+//        webView.loadUrl("$url?at=$followType")
+        webView.loadUrl(url)
         webView.settings.javaScriptEnabled = true
         webView.addJavascriptInterface(this, "android")
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
@@ -266,8 +282,46 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
                 showLoading()
             }
 
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
+                if (url.contains(".jpg")) {
+                    showLoading()
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    job = async(CommonPool) {
+
+                        val httpUrl = URL(url)
+                        val inputStream = httpUrl.openStream()
+
+                        val file = FileUtlis().getFile("preview.jpg")
+                        file.writeBytes(inputStream.readBytes())
+
+                        val uri: Uri
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            uri = FileProvider.getUriForFile(this@ShoumeiDetailActivity, "${this@ShoumeiDetailActivity.packageName}.provider", file)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//注意加上这句话
+
+                        } else {
+                            uri = Uri.fromFile(file)
+                            LogUtil.i("uri内容："+uri)
+                        }
+                        return@async uri
+
+                    }
+                    launch(UI) {
+                        val uri = job?.await()
+                        hideLoading()
+                        intent.setDataAndType(uri, "image/*")
+                        startActivity(intent)
+                    }
+                } else {
+                    return super.shouldOverrideUrlLoading(view, url)
+                }
+                return true
+            }
+
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                LogUtil.i("web:$url")
                 hideLoading()
             }
         })
@@ -290,12 +344,13 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     }
 
     companion object {
-        fun start(mContext: Context, title: String, themeUrl: String, commentId: String,followType:String ,silence: String) {
+        fun start(mContext: Context, title: String, themeUrl: String, eid: String, commentId: String, followType: String, silence: String) {
             mContext.startActivity(Intent(mContext, ShoumeiDetailActivity::class.java)
                     .putExtra("title", title)
                     .putExtra("THEMEURL", themeUrl)
                     .putExtra("post_id", commentId)
-                    .putExtra("followType",followType)
+                    .putExtra("followType", followType)
+                    .putExtra("eid", eid) //企业ID
                     .putExtra("silence", silence))  //是否禁言
 
         }
@@ -490,32 +545,29 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     @JavascriptInterface
     fun jsCancelOrConfirm() {
         val params = HashMap<String, String>()
-        params["idCompanyHomeBaseInfo"] = post_id ?: ""
-        if (followType == "0") {
-            params["isFollow"] = "1"
+        params["eid"] = eid ?: ""
+        if (followType == "1") {
+            params["op"] = "cancel"
         } else {
-            params["isFollow"] = "0"
+            params["op"] = "follow"
         }
 
-        ApiManager.post(this, params, Constant.SM_FOLLOW_OR_CANCEL, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                isShowLoading = false
-                if (data.success && data.code == 200) {
-                    //调用html方法改变字段
-                    followType = params["isFollow"]
-                    headView.webView.loadUrl("javascript:atCallBack($followType)")
-                    ObserverManager.getInstance().notifyObserver(3, post_id
-                            ?: "", followType ?: "", "")
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
+        ApiManager2.post(this, params, Constant.EHOME_FOLLOW_OPERATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
                 isShowLoading = false
             }
 
-            override fun onCatch(data: BaseModel<String>) {
+            override fun onSuccess(data: BaseBean<String>) {
+                isShowLoading = false
+                //调用html方法改变字段
+                followType = if (params["op"] == "follow") "1" else "0"
+                headView.webView.loadUrl("javascript:atCallBack($followType)")
+                ObserverManager.getInstance().notifyObserver(3, eid
+                        ?: "", followType ?: "", "")
+            }
+
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
@@ -536,8 +588,8 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         followType = intent?.getStringExtra("FOLLOWTYPE")
-        silence = intent?.getStringExtra("silence")?:"0"
-        id = intent?.getStringExtra("baseId")
+        silence = intent?.getStringExtra("silence") ?: "0"
+        eid = intent?.getStringExtra("eid")
         post_id = intent?.getStringExtra("post_id")
         val themeUrl = intent?.getStringExtra("THEMEURL")
         //禁言
@@ -550,5 +602,14 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
         }
         initWebView(headView.webView, themeUrl ?: "")
         getCommentList(true)
+    }
+
+    //拦截返回键
+    override fun onBackPressed() {
+        if (headView.webView.canGoBack()) {
+            headView.webView.goBack()
+        } else {
+            finish()
+        }
     }
 }

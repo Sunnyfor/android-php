@@ -166,7 +166,7 @@
             android:layout_alignParentRight="true"
             android:background="@null"
             android:gravity="center_vertical|right"
-            android:hint="此手机号用于打款认证核实" />
+            android:hint="请输入开户银行预留的手机号码" />
 
         <View
             android:layout_width="match_parent"

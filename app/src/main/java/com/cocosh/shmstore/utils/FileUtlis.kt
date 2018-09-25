@@ -30,7 +30,7 @@ class FileUtlis {
         return file
     }
 
-    private fun getDir(): String = (Environment.getExternalStorageDirectory().path + "/temp/sm")
+        private fun getDir(): String = (Environment.getExternalStorageDirectory().path + "/temp/sm")
 
 
     fun getFileSize(): String {
