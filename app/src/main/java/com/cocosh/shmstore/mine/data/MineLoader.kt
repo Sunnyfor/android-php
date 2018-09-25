@@ -723,20 +723,20 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      * 获取提现流水号
      */
     fun requestRunningNum(flag: Int) {
-        var map = HashMap<String, String>()
-        ApiManager.get(flag, activity, map, Constant.RUNNING_NUM, object : ApiManager.OnResult<BaseBean<String>>() {
-            override fun onSuccess(data: BaseBean<String>) {
-                (view as MineContrat.IMyWalletDrawView).runningNum(data)
-            }
-
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
-
-            override fun onCatch(data: BaseBean<String>) {
-                LogUtil.d(data.toString())
-            }
-        })
+//        var map = HashMap<String, String>()
+//        ApiManager.get(flag, activity, map, Constant.RUNNING_NUM, object : ApiManager.OnResult<BaseBean<String>>() {
+//            override fun onSuccess(data: BaseBean<String>) {
+//                (view as MineContrat.IMyWalletDrawView).runningNum(data)
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//                LogUtil.d(e.message.toString())
+//            }
+//
+//            override fun onCatch(data: BaseBean<String>) {
+//                LogUtil.d(data.toString())
+//            }
+//        })
     }
 
 

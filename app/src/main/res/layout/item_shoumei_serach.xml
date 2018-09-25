@@ -55,6 +55,7 @@
                     android:background="@color/red"
                     android:padding="@dimen/h4"
                     android:text="企业主"
+                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="@dimen/w25" />
             </LinearLayout>

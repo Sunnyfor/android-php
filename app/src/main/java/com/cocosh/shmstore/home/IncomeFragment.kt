@@ -148,7 +148,7 @@ class IncomeFragment : BaseFragment() {
 
                     cerUrl = it.x_link
 
-                    if (it.f != null) {
+                    if (it.cert_f == AuthenStatus.SERVER_DEALER_OK.type.toString()) {
                         getLayoutView().facDesc.visibility = View.INVISIBLE
                         getLayoutView().facShow.text = "查看详情"
                     } else {
@@ -156,7 +156,7 @@ class IncomeFragment : BaseFragment() {
                         getLayoutView().facShow.text = "前往认证"
                     }
 
-                    if (it.x != null) {
+                    if (it.cert_x == AuthenStatus.NEW_MATCHMAKER_OK.type.toString()) {
                         getLayoutView().cerDesc.visibility = View.INVISIBLE
                         getLayoutView().cerShow.text = "查看详情"
                     } else {
@@ -164,7 +164,7 @@ class IncomeFragment : BaseFragment() {
                         getLayoutView().cerShow.text = "前往认证"
                     }
 
-                    if (it.x == null && it.f == null) {
+                    if (it.cert_x == AuthenStatus.NEW_MATCHMAKER_OK.type.toString() && it.cert_f == AuthenStatus.SERVER_DEALER_OK.type.toString()) {
                         cerLl.visibility = View.GONE
                     } else {
                         cerLl.visibility = View.VISIBLE

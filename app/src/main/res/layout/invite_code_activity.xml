@@ -1,142 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/h100"
-        android:gravity="center"
-        android:text="快邀请好友一起来参加首媒创业吧"
-        android:textColor="@color/blackText"
-        android:textSize="@dimen/h43" />
-
-    <RelativeLayout
-        android:id="@+id/visit_code"
-        android:layout_width="@dimen/w710"
-        android:layout_height="@dimen/h290"
-        android:layout_below="@+id/shm_text_layout"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/h35"
-        android:background="@drawable/bg_rect">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/h60"
-            android:text="邀请码"
-            android:textColor="@color/blackText"
-            android:textSize="@dimen/h37" />
-
-        <EditText
-            android:id="@+id/input_visit_code"
-            android:layout_width="@dimen/w460"
-            android:layout_height="@dimen/h91"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/h151"
-            android:background="@drawable/bg_btn"
+            android:layout_marginTop="@dimen/h100"
             android:gravity="center"
-            android:hint="邀请码(选填)"
-            android:textSize="@dimen/h37"
-            android:visibility="gone" />
+            android:text="快邀请好友一起来参加首媒创业吧"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h43" />
+
+        <RelativeLayout
+            android:id="@+id/visit_code"
+            android:layout_width="@dimen/w710"
+            android:layout_height="@dimen/h290"
+            android:layout_below="@+id/shm_text_layout"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h35"
+            android:background="@drawable/bg_rect">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h60"
+                android:text="邀请码"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h37" />
+
+            <EditText
+                android:id="@+id/input_visit_code"
+                android:layout_width="@dimen/w460"
+                android:layout_height="@dimen/h91"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h151"
+                android:background="@drawable/bg_btn"
+                android:gravity="center"
+                android:hint="邀请码(选填)"
+                android:textSize="@dimen/h37"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_invite_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h130"
+                android:text="126808"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h48"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_invite_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h100"
+            android:gravity="center"
+            android:text="扫描二维码直接邀请"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h43" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/w770"
+            android:layout_height="@dimen/h600"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h55"
+            android:background="@drawable/di">
+
+            <ImageView
+                android:id="@+id/name_icon"
+                android:layout_width="@dimen/w130"
+                android:layout_height="@dimen/h130"
+                android:layout_marginLeft="@dimen/w120"
+                android:layout_marginTop="@dimen/h90"
+                android:background="@drawable/default_content" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w24"
+                android:layout_marginRight="@dimen/w30"
+                android:layout_marginTop="@dimen/h95"
+                android:layout_toEndOf="@+id/name_icon"
+                android:layout_toRightOf="@+id/name_icon"
+                android:text="白羊"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/h40" />
+
+            <TextView
+                android:id="@+id/name_nature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginLeft="@dimen/w24"
+                android:layout_marginTop="@dimen/h15"
+                android:layout_toEndOf="@+id/name_icon"
+                android:layout_toRightOf="@+id/name_icon"
+                android:text="新媒人"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/h37" />
+
+            <ImageView
+                android:id="@+id/qr_code"
+                android:layout_width="@dimen/w216"
+                android:layout_height="@dimen/h216"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/h260"
+                android:background="@drawable/default_content" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_conserve_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h50"
+            android:autoLink="all"
+            android:gravity="center"
+            android:text="保存二维码到相册"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/h43" />
+
+        <Button
+            android:id="@+id/invite_code_btn"
+            android:layout_width="@dimen/w1043"
+            android:layout_height="@dimen/h148"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/h130"
-            android:text="126808"
-            android:textColor="@color/blackText"
-            android:textSize="@dimen/h48"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:background="@color/red"
+            android:text="其他邀请方式"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h51" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/h100"
-        android:gravity="center"
-        android:text="扫描二维码直接邀请"
-        android:textColor="@color/blackText"
-        android:textSize="@dimen/h43" />
-
-    <RelativeLayout
-        android:layout_width="@dimen/w770"
-        android:layout_height="@dimen/h600"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/h55"
-        android:background="@drawable/di">
-
-        <ImageView
-            android:id="@+id/name_icon"
-            android:layout_width="@dimen/w130"
-            android:layout_height="@dimen/h130"
-            android:layout_marginLeft="@dimen/w120"
-            android:layout_marginTop="@dimen/h90"
-            android:background="@drawable/default_content" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/w24"
-            android:layout_marginRight="@dimen/w30"
-            android:layout_marginTop="@dimen/h95"
-            android:layout_toEndOf="@+id/name_icon"
-            android:layout_toRightOf="@+id/name_icon"
-            android:text="白羊"
-            android:textColor="@color/blackText"
-            android:textSize="@dimen/h40" />
-
-        <TextView
-            android:id="@+id/name_nature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_marginLeft="@dimen/w24"
-            android:layout_marginTop="@dimen/h15"
-            android:layout_toEndOf="@+id/name_icon"
-            android:layout_toRightOf="@+id/name_icon"
-            android:text="新媒人"
-            android:textColor="@color/textGray"
-            android:textSize="@dimen/h37" />
-
-        <ImageView
-            android:id="@+id/qr_code"
-            android:layout_width="@dimen/w216"
-            android:layout_height="@dimen/h216"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/h260"
-            android:background="@drawable/default_content" />
-    </RelativeLayout>
-
-
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_conserve_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/h50"
-        android:autoLink="all"
-        android:gravity="center"
-        android:text="保存二维码到相册"
-        android:textColor="@color/blackText"
-        android:textSize="@dimen/h43" />
-
-    <Button
-        android:id="@+id/invite_code_btn"
-        android:layout_width="@dimen/w1043"
-        android:layout_height="@dimen/h148"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/h130"
-        android:background="@color/red"
-        android:text="其他邀请方式"
-        android:textColor="@color/white"
-        android:textSize="@dimen/h51" />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

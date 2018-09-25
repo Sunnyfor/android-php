@@ -55,6 +55,7 @@
                     android:layout_marginLeft="@dimen/w20"
                     android:background="@color/red"
                     android:padding="@dimen/h4"
+                    android:visibility="gone"
                     android:text="企业"
                     android:textColor="@color/white"
                     android:textSize="@dimen/w25" />

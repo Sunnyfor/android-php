@@ -91,7 +91,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     var post_id: String? = ""
     override fun initView() {
         post_id = intent.getStringExtra("post_id")
-        followType = intent?.getStringExtra("FOLLOWTYPE")
+        followType = intent?.getStringExtra("followType")
         silence = intent?.getStringExtra("silence") ?: "0"
         eid = intent?.getStringExtra("eid")
         post_id = intent?.getStringExtra("post_id")
@@ -587,7 +587,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        followType = intent?.getStringExtra("FOLLOWTYPE")
+        followType = intent?.getStringExtra("followType")
         silence = intent?.getStringExtra("silence") ?: "0"
         eid = intent?.getStringExtra("eid")
         post_id = intent?.getStringExtra("post_id")

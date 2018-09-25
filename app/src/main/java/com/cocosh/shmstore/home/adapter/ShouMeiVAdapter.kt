@@ -17,6 +17,7 @@ import com.cocosh.shmstore.home.model.SMCompanyData
 import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.mine.adapter.SpaceHItem
 import com.cocosh.shmstore.utils.GlideUtils
+import com.cocosh.shmstore.utils.StringUtils
 import kotlinx.android.synthetic.main.item_shoumei_t.view.*
 import kotlinx.android.synthetic.main.item_shoumei_v.view.*
 
@@ -52,8 +53,8 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
                 }
                 with(list[position - 1]) {
                     GlideUtils.loadRound(1, mContext, bbs.logo, holder.itemView.ivLogo)
-                    holder.itemView.tvName.text = bbs.name
-                    holder.itemView.tvTime.text = posts.time
+                    holder.itemView.tvName.text = bbs.company
+                    holder.itemView.tvTime.text = StringUtils.dateFormat(posts.time?:"")
                     holder.itemView.tvDesc.text = posts.title       //帖子标题
                     holder.itemView.showNumber.text = posts.views   //浏览次数
                     holder.itemView.commentNumber.text = posts.sum.toString()  //评论数量
