@@ -89,6 +89,7 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
      * 取消操作
      */
     override fun onCancel(platform: SHARE_MEDIA?, action: Int) {
+
     }
 
     /**

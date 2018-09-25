@@ -38,7 +38,7 @@ class WeatherFragment : BaseFragment() {
         val today = weather.week
         //当前温度
         if (getLayoutView().tv_now != null) {
-            getLayoutView().tv_now.text = ("${weather.temp}°")
+            getLayoutView().tv_now.text = ("${weather.temp?:"0"}°")
         }
         //星期
         try {
@@ -50,8 +50,8 @@ class WeatherFragment : BaseFragment() {
         getLayoutView().tv_wealth.text = weather.weather
         getLayoutView().tv_day.text = weather.date_y
 
-        val fa = weather.weather_id.fa
-        val fb = weather.weather_id.fb
+        val fa = weather.weather_id?.fa
+        val fb = weather.weather_id?.fb
 
         if (fa == fb) {
             rl_sung.visibility = View.GONE

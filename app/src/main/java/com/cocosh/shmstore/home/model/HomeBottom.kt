@@ -17,12 +17,12 @@ data class HomeBottom(
     )
 
     data class WeatherEntity(
-            var temp: String, // 温度，单位为c摄氏度或f华氏度
+            var temp: String?, // 温度，单位为c摄氏度或f华氏度
             var temperature: String, //天气现象文字
             var weather: String, //天气现象代码
             var week: String, //体感温度，单位为c摄氏度或f华氏度
             var date_y: String,
-            var weather_id: WeatherId
+            var weather_id: WeatherId?
     ) {
         data class WeatherId(
                 var fa: String,
