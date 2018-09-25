@@ -21,6 +21,7 @@ import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.layout_bonus_list.*
+import org.json.JSONObject
 
 
 /**
@@ -136,13 +137,20 @@ class BonusListActivity : BaseActivity() {
 
     fun loadData() {
         val params = HashMap<String, String>()
-        params["type"] = type
+        params["type_word"] = type
         if (currentPage != "1") {
             params["no"] = currentPage
         }
         params["num"] = "20"
+//
+//        val jsonObject = JSONObject()
+//        jsonObject.put("type_word", type)
+//        jsonObject.put("num", 20)
+//        if (currentPage != "1") {
+//            jsonObject.put("no", currentPage)
+//        }
 
-        ApiManager2.post(1, this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
+        ApiManager2.post(1,this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
                 data.message?.let {
                     if (currentPage == "1") {

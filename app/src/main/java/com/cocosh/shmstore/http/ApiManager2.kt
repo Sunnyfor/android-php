@@ -54,7 +54,7 @@ object ApiManager2 {
         return "http://dev.api.shoumeiapp.com"
     }
 
-    fun getBonusHost():String = "http://116.196.74.169:9001"
+    fun getBonusHost():String = "http://10.10.89.6:9001"
 
 
     fun init() {
@@ -179,7 +179,9 @@ object ApiManager2 {
      *  Post请求
      */
     fun <T> post(flag: Int, baseActivity: BaseActivity, params: Map<String, String>, url: String, onResult: OnResult<T>) {
-        request(flag, baseActivity, apiService.post(params, url), onResult)
+        val jsonObject  = JSONObject(params)
+        val requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        request(flag, baseActivity, apiService.post(requestBody, url), onResult)
     }
 
 
@@ -189,6 +191,14 @@ object ApiManager2 {
     fun <T> postJson(baseActivity: BaseActivity, params: String, url: String, onResult: OnResult<T>) {
         val requestBody = RequestBody.create(MediaType.parse("application/json"), params)
         request(0, baseActivity, apiService.post(requestBody, url), onResult)
+    }
+
+    /**
+     * Post一个JSON
+     */
+    fun <T> postJson(flag: Int,baseActivity: BaseActivity, params: String, url: String, onResult: OnResult<T>) {
+        val requestBody = RequestBody.create(MediaType.parse("application/json"), params)
+        request(flag, baseActivity, apiService.post(requestBody, url), onResult)
     }
 
 

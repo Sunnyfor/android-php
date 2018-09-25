@@ -147,7 +147,7 @@ object Constant {
     val RP_POOL = "${ApiManager2.getBonusHost()}/$VERSION/rp/pool" //红包资金池
     const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
     const val RP_TRANSFER = "$VERSION/rp/transfer" //红包转出(至钱包)
-    val RP_LIST = "${ApiManager2.getBonusHost()}/VERSION/rp/list"
+    val RP_LIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/list"
     val RP_TYPE_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/type/attrs" //红包属性
     val RP_AD_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/ad/attrs" //广告属性
     val RP_CREATE = "${ApiManager2.getBonusHost()}/$VERSION/rp/create" //创建红包
