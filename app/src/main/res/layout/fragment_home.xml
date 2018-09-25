@@ -15,7 +15,7 @@
             <com.cocosh.shmstore.home.widget.HomeAdView
                 android:id="@+id/homeAdView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/h1023" />
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
@@ -108,6 +108,7 @@
                         android:textSize="@dimen/w43" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h2"
@@ -116,7 +117,7 @@
             <com.cocosh.shmstore.home.widget.HomeBottomView
                 android:id="@+id/homeBottomView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/h360" />
+                android:layout_height="@dimen/h275" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

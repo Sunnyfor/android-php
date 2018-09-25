@@ -40,8 +40,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:clipChildren="false"
         android:layerType="software">
@@ -49,7 +48,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPagerAd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/h1023"
             android:layout_marginLeft="@dimen/w81"
             android:layout_marginRight="@dimen/w81"
             android:background="@color/white"

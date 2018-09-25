@@ -143,19 +143,19 @@ object Constant {
     const val EHOME_REPLY_DELETE = "$VERSION/ehome/reply/delete" //删除回复
 
     /*红包*/
-    const val RP_HOME = "$VERSION/rp/home" //红包首页大图
-    const val RP_POOL = "$VERSION/rp/pool" //红包资金池
+    val RP_HOME = "${ApiManager2.getBonusHost()}/$VERSION/rp/home" //红包首页大图
+    val RP_POOL = "${ApiManager2.getBonusHost()}/$VERSION/rp/pool" //红包资金池
     const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
     const val RP_TRANSFER = "$VERSION/rp/transfer" //红包转出(至钱包)
-    const val RP_LIST = "$VERSION/rp/list"
-    const val RP_TYPE_ATTRS = "$VERSION/rp/type/attrs" //红包属性
-    const val RP_AD_ATTRS = "$VERSION/rp/ad/attrs" //广告属性
-    const val RP_CREATE = "$VERSION/rp/create" //创建红包
+    val RP_LIST = "${ApiManager2.getBonusHost()}/VERSION/rp/list"
+    val RP_TYPE_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/type/attrs" //红包属性
+    val RP_AD_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/ad/attrs" //广告属性
+    val RP_CREATE = "${ApiManager2.getBonusHost()}/$VERSION/rp/create" //创建红包
     const val MYSELF_SENDRP_LIST = "$VERSION/sendrp/list" //发出的红包
     const val MYSELF_SENDRP_RPINFO = "$VERSION/sendrp/info" //获取修改的红包信息
     const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/sendrp/update"  //修改红包信息
     const val FANSRP_GOODS_BUY_INFO = "$VERSION/fansrp/goods/buy/info" //商品购买详情
-    const val RP_FAVLIST = "$VERSION/rp/favlist" //收藏红包
+    val RP_FAVLIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/favlist" //收藏红包
     /**
      * 支付
      */

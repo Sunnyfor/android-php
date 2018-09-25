@@ -1,15 +1,20 @@
 package com.cocosh.shmstore.home.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.OnItemClickListener
-import com.cocosh.shmstore.home.model.Banner
 import com.cocosh.shmstore.home.model.Bonus2
 import kotlinx.android.synthetic.main.item_card_view.view.*
+import java.lang.Exception
 
 /**
  * 首页bannerAdapter
@@ -33,7 +38,20 @@ class HomeBannerAdapter(var context: Context, var list: ArrayList<Bonus2>) : Pag
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = View.inflate(context, R.layout.item_card_view, null)
-        Glide.with(context).load(list[position].image).placeholder(R.drawable.default_full).into(view.imageView)
+
+        Glide.with(context).load(list[position].image).asBitmap().centerCrop().into(object : BitmapImageViewTarget(view.imageView){
+            override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                val roundedBit = RoundedBitmapDrawableFactory.create(context.resources,resource)
+                roundedBit.cornerRadius = context.resources.getDimension(R.dimen.w12)
+                view.imageView.setImageDrawable(roundedBit)
+            }
+            override fun onLoadFailed(e: Exception?, errorDrawable: Drawable?) {
+                super.onLoadFailed(e, errorDrawable)
+                Glide.with(context).load(R.drawable.home_ad_default).into(view.imageView)
+            }
+        })
+
+
         container.addView(view)
         view.setOnClickListener {
             onItemClickListener?.onItemClick(it, position)
