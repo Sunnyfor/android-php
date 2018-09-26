@@ -258,8 +258,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "AddJavascriptInterface")
     private fun initWebView(webView: SMediaWebView, url: String) {
         val mobile = Mobile()
-//        webView.loadUrl("$url?at=$followType")
-        webView.loadUrl(url)
+        webView.loadUrl("$url&at=$followType")
         webView.settings.javaScriptEnabled = true
         webView.addJavascriptInterface(this, "android")
         webView.settings.javaScriptCanOpenWindowsAutomatically = true

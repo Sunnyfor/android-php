@@ -7,21 +7,16 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity
-import com.cocosh.shmstore.home.model.Banner
 import com.cocosh.shmstore.home.model.Bonus2
-import com.cocosh.shmstore.home.model.BonusAction
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
 import com.cocosh.shmstore.mine.ui.AuthActivity
+import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.model.Location
-import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.title.HomeTitleFragment
 import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.CertificationDialog
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -85,33 +80,47 @@ class HomeFragment : BaseFragment() {
     private fun autEnt() {
         UserManager2.getLogin()?.invitee?.let {
             if (it.code != null) {
-                val mDialog = CertificationDialog(activity)
-                val type = it.type
 
-                if (type == "x") {
-                    if (UserManager2.getCommonData()?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type){
-                        return
-                    }
-                    //新媒人
-                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
-                } else {
-                    if (UserManager2.getCommonData()?.cert?.b == AuthenStatus.BUSINESS_OK.type){
-                        return
-                    }
-                    //服务商
-                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
-                }
+                UserManager2.loadCommonData(0, getBaseActivity(), object : ApiManager2.OnResult<BaseBean<CommonData>>() {
+                    override fun onSuccess(data: BaseBean<CommonData>) {
+                        UserManager2.setCommonData(data.message)
+                        val mDialog = CertificationDialog(activity)
+                        val type = it.type
 
-                mDialog.OnClickListener = View.OnClickListener {
-                    if (type == "x") {
-                        //新媒人
-                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type","NEW_MATCHMAKER"))
-                    } else {
-                        //服务商
-                        EnterpriseCertificationActivity.start(activity)
+                        if (type == "x") {
+                            if (data.message?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
+                                return
+                            }
+                            //新媒人
+                            mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
+                        } else {
+                            if (data.message?.cert?.b == AuthenStatus.BUSINESS_OK.type) {
+                                return
+                            }
+                            //服务商
+                            mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
+                        }
+
+                        mDialog.OnClickListener = View.OnClickListener {
+                            if (type == "x") {
+                                //新媒人
+                                startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "NEW_MATCHMAKER"))
+                            } else {
+                                //服务商
+                                startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "BUSINESS"))
+                            }
+                        }
+                        mDialog.show()
                     }
-                }
-                mDialog.show()
+
+                    override fun onFailed(code: String, message: String) {
+                    }
+
+                    override fun onCatch(data: BaseBean<CommonData>) {
+                    }
+
+                })
+
             }
 
         }

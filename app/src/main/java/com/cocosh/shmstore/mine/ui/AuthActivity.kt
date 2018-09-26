@@ -166,6 +166,10 @@ class AuthActivity : BaseActivity() {
                     if (it == "NEW_MATCHMAKER"){
                         llparnter()
                     }
+
+                    if (it == "BUSINESS"){
+                        llcompany()
+                    }
                 }
 
             }

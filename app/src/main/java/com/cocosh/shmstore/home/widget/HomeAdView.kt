@@ -39,7 +39,7 @@ class HomeAdView : LinearLayout {
     private var initThred = false
     private var job: Job? = null
     private var pointList = arrayListOf<View>()
-    private var adapter:HomeBannerAdapter? = null
+    private var adapter: HomeBannerAdapter? = null
     private var currentIndex = 0
 
     constructor(context: Context?) : super(context)
@@ -129,8 +129,8 @@ class HomeAdView : LinearLayout {
 
         if (list.isEmpty()) {
             tv_name.text = resources.getString(R.string.app_name)
-            if (adapter != null){
-                adapter = HomeBannerAdapter(context,list)
+            if (adapter != null) {
+                adapter = HomeBannerAdapter(context, list)
                 viewPagerAd.adapter = adapter
             }
             return
@@ -157,17 +157,22 @@ class HomeAdView : LinearLayout {
                 }
 
                 list[index].let {
+                    val intent = Intent(context, BonusWebActivity::class.java)
+                    intent.putExtra("title",it.name)
+                    intent.putExtra("no", it.no)
+                    context.startActivity(intent)
+
                     //已抢
-                    when {
-                        it.draw == "1" -> {
-//                            intentWeb(it,"RECEIVE")
-                        }
-                        it.draw == "" -> {
-//                            intentWeb(it,"NONE")
-                        }
-//                        else -> //开始抢红包
-//                            hitBonus(it)
-                    }
+//                    when {
+//                        it.draw == "1" -> {
+////                            intentWeb(it,"RECEIVE")
+//                        }
+//                        it.draw == "" -> {
+////                            intentWeb(it,"NONE")
+//                        }
+////                        else -> //开始抢红包
+////                            hitBonus(it)
+//                    }
                 }
             }
 
@@ -187,12 +192,12 @@ class HomeAdView : LinearLayout {
             while (true) {
                 delay(delay)
 
-                val index =  when {
+                val index = when {
                     viewPagerAd.currentItem >= viewPagerAd.offscreenPageLimit - 2 -> 2
                     viewPagerAd.currentItem <= 1 -> viewPagerAd.offscreenPageLimit - 3
                     else -> viewPagerAd.currentItem + 1
                 }
-                launch( UI) {
+                launch(UI) {
                     viewPagerAd.setCurrentItem(index, true)
 
                 }
@@ -230,8 +235,8 @@ class HomeAdView : LinearLayout {
      */
     fun hitBonus(bannerData: Banner.Data) {
 
-        if (bannerData.typeInfo != "1" && bannerData.typeInfo != "2" && bannerData.typeInfo != "3"){
-            intentWeb(bannerData,"RECEIVE")
+        if (bannerData.typeInfo != "1" && bannerData.typeInfo != "2" && bannerData.typeInfo != "3") {
+            intentWeb(bannerData, "RECEIVE")
             return
         }
 
@@ -243,7 +248,7 @@ class HomeAdView : LinearLayout {
             override fun onSuccess(data: BaseModel<String>) {
                 if (data.success) {
 //                    抢红包 RECEIVE("已领取"),SEIZE("已占位"),NONE("已抢光")
-                    intentWeb(bannerData,data.entity?:"NONE")
+                    intentWeb(bannerData, data.entity ?: "NONE")
                 } else {
                     ToastUtil.show(data.message)
                 }
@@ -270,7 +275,7 @@ class HomeAdView : LinearLayout {
         intentWeb.putExtra("typeInfo", it.typeInfo)
         intentWeb.putExtra("companyLogo", it.companyLogo)
         intentWeb.putExtra("companyName", it.companyName)
-        intentWeb.putExtra("advertisementBaseType",it.advertisementBaseType)
+        intentWeb.putExtra("advertisementBaseType", it.advertisementBaseType)
         context.startActivity(intentWeb)
     }
 }
