@@ -223,17 +223,18 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
                     finish()
 
-//                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-//                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-//                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
-//                        setResult(IntentCode.IS_INPUT)
-//                    }
+                    //红包类型
+                    if (payOperatStatus == "2") {
+                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
+                        setResult(IntentCode.IS_INPUT)
+                    }
                 } else {
                     //失败
-//                    if (payOperatStatus == AuthenStatus.SEND_RED_PACKET.type) {
-//                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
-//                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
-//                    }
+                    if (payOperatStatus == "2") {
+                        SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
+                        startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+                    }
                 }
             }
         })

@@ -54,7 +54,7 @@ object ApiManager2 {
         return "http://dev.api.shoumeiapp.com"
     }
 
-    fun getBonusHost():String = "http://10.10.89.6:9001"
+    fun getBonusHost():String = "http://116.196.74.169:9001"
 
 
     fun init() {

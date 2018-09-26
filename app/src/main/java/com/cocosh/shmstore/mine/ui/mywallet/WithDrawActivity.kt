@@ -33,6 +33,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
     lateinit var mOnItemClickListener: BankListDialog.OnItemClickListener
     var mPresenter = MyWalletDrawPresenter(this, this)
     var listDatas = arrayListOf<BankModel>()
+    var corporateAccountModel:CorporateAccountModel? = null
     var money: String? = "0"
     var checkBankId = ""
     var isClick = false
@@ -81,7 +82,7 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
 
 
     override fun corporateAccountData(result: BaseBean<CorporateAccountModel>) {
-
+        corporateAccountModel= result.message
         edtBankAccount.setText(result.message?.acct?.account)
         etName.text = result.message?.acct?.name
         edtBankName.setText(result.message?.acct?.bank)
@@ -275,13 +276,13 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                         WithDrawResult.start(this@WithDrawActivity, TYPE_WITHDRAW,
                                 tvMoney.text.toString(),
                                 "2.00",
-                                bank?.card_no ?: "",
+                                corporateAccountModel?.acct?.account ?: "",
                                 data?.time ?: "",
                                 data?.intime ?: "",
                                 data?.no ?: "",
                                 data?.status ?: "",
-                                bank?.bank_name ?: "",
-                                bank?.realname ?: "")
+                                    corporateAccountModel?.acct?.bank ?: "",
+                                corporateAccountModel?.acct?.name ?: "")
                     } else {
                         WithDrawResult.start(this@WithDrawActivity, TYPE_WITHDRAW,
                                 tvMoney.text.toString(),

@@ -350,6 +350,9 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
         paramsList.add(BonusParam("base", "amount", money.toString()))
 
+        paramsList.add(BonusParam("base","price",price))
+
+
         SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
 
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)

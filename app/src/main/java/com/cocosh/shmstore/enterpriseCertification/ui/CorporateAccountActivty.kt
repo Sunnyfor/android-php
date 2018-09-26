@@ -16,7 +16,9 @@ import com.cocosh.shmstore.enterpriseCertification.ui.contrat.EntCertificationCo
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.enterpriseCertification.ui.presenter.EntBankPresenter
 import com.cocosh.shmstore.facilitator.ui.PayFranchiseFeeActivity
+import com.cocosh.shmstore.mine.model.BankTypeModel
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.PickerViewUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_public_account.*
 import java.util.regex.Pattern
@@ -26,6 +28,36 @@ import java.util.regex.Pattern
  * 对公账户
  */
 class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankView, TextWatcher {
+
+    private val pickerViewUtils: PickerViewUtils by lazy {
+        PickerViewUtils(this)
+    }
+    private val bankData = arrayListOf(
+            BankTypeModel("中国工商银行","",""),
+            BankTypeModel("招商银行","",""),
+            BankTypeModel("中国建设银行","",""),
+            BankTypeModel("中国农业银行","",""),
+            BankTypeModel("中国银行","",""),
+            BankTypeModel("上海浦东发展银行","",""),
+            BankTypeModel("交通银行","",""),
+            BankTypeModel("中国民生银行","",""),
+            BankTypeModel("深圳发展银行","",""),
+            BankTypeModel("广东发展银行","",""),
+            BankTypeModel("中信银行","",""),
+            BankTypeModel("华夏银行","",""),
+            BankTypeModel("兴业银行","",""),
+            BankTypeModel("广州市农村信用合作社","",""),
+            BankTypeModel("广州市商业银行","",""),
+            BankTypeModel("上海农村商业银行","",""),
+            BankTypeModel("中国邮政储蓄","",""),
+            BankTypeModel("中国光大银行","",""),
+            BankTypeModel("上海银行","",""),
+            BankTypeModel("北京银行","",""),
+            BankTypeModel("渤海银行","",""),
+            BankTypeModel("北京农村商业银行","","")
+    )
+
+
     override fun reTryGetData() {
 
     }
@@ -34,7 +66,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
     var openType = -1
     var presenter = EntBankPresenter(this, this)
     override fun setData(data: BaseBean<String>) {
-            EnterpriseActiveActivity.start(this)
+        EnterpriseActiveActivity.start(this)
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -97,7 +129,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
             tvName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["name"])
             tvLayerName.setText(SmApplication.getApp().getData<HashMap<String, String>>(DataCode.FACILITATOR_KEY_MAP, false)!!["legal"])
         } else {
-            SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA,true)?.apply {
+            SmApplication.getApp().getData<EntActiveInfoModel>(DataCode.ENT_AUTHER_DATA, true)?.apply {
                 tvName.setText(base.name)
                 tvLayerName.setText(base.legal)
             }
@@ -110,6 +142,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
         edtBankName.addTextChangedListener(this)
         edtPhoneNumber.addTextChangedListener(this)
         btnInput.setOnClickListener(this)
+        edtBankName.setOnClickListener(this)
     }
 
     override fun onListener(view: View) {
@@ -143,14 +176,20 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                     }
                 }
             }
-            else -> {
+            edtBankName.id -> {
+                pickerViewUtils.showBankType(object :PickerViewUtils.OnResultListener{
+                    override fun onResult(data: BankTypeModel) {
+                        edtBankName.setText(data.name)
+                    }
+
+                },bankData)
             }
         }
     }
 
     companion object {
-        fun start(context: Context,infoModel: EntActiveInfoModel?) {
-            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA,infoModel)
+        fun start(context: Context, infoModel: EntActiveInfoModel?) {
+            SmApplication.getApp().setData(DataCode.ENT_AUTHER_DATA, infoModel)
             context.startActivity(Intent(context, CorporateAccountActivty::class.java))
         }
 

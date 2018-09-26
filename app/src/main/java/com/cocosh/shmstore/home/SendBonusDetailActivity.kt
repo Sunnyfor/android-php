@@ -238,7 +238,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     fun loadData() {
         val param = hashMapOf<String, String>()
         param["ad_id"] = "1"
-        param["type_id"] = type ?: "1"
+        param["type_word"] = type ?: "comm_person"
 
         ApiManager2.get(1, this, param, Constant.RP_AD_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusParam>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<BonusParam>>) {

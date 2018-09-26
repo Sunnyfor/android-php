@@ -31,7 +31,7 @@ import org.json.JSONObject
  */
 class BonusListActivity : BaseActivity() {
     var currentPage = "1"
-    var type = "comm"
+    var type = "common"
     var title: String? = null
     var adapter: BonusListAdapter? = null
     var selectIndex = -2
@@ -116,7 +116,7 @@ class BonusListActivity : BaseActivity() {
                 if (UserManager2.isLogin()) {
                     startActivity(
                             Intent(this, SendBonusActivity::class.java)
-                                    .putExtra("type", type))
+                                    .putExtra("type", "comm_person"))
                 } else {
                     SmediaDialog(this).showLogin()
                 }

@@ -135,22 +135,23 @@ class BonusWebActivity : BaseActivity() {
                 btnSure.isClickable = false
                 btnOpen.isClickable = false
                 titleManager.defaultTitle(title ?: "")
-            } else {
-
-                if (typeInfo == "1") {
-                    titleManager.rightText(title ?: "", "分享", View.OnClickListener {
-                        //                        val diaolog = ReportDialog(this, comment_id.toString(), "1")
-//                        diaolog.show()
-                        share(true)
-                    })
-                } else if (typeInfo == "2" || typeInfo == "3") {
-                    titleManager.defaultTitle(title ?: "")
-                } else {
-                    titleManager.rightText(title ?: "", "分享", View.OnClickListener {
-                        share(false)
-                    })
-                }
             }
+//            else {
+//
+//                if (typeInfo == "1") {
+//                    titleManager.rightText(title ?: "", "分享", View.OnClickListener {
+//                        //                        val diaolog = ReportDialog(this, comment_id.toString(), "1")
+////                        diaolog.show()
+//                        share(true)
+//                    })
+//                } else if (typeInfo == "2" || typeInfo == "3") {
+//                    titleManager.defaultTitle(title ?: "")
+//                } else {
+//                    titleManager.rightText(title ?: "", "分享", View.OnClickListener {
+//                        share(false)
+//                    })
+//                }
+//            }
         }
 
         loadData()
@@ -283,37 +284,37 @@ class BonusWebActivity : BaseActivity() {
         }
     }
 
-    private fun share(type: Boolean) {
-        val params = HashMap<String, String>()
-        params["dictionaryKey"] = "index_share_url"
-        ApiManager.get(0, this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
-            override fun onSuccess(data: BaseModel<ValueByKey>) {
-                if (data.success) {
-                    val diaolog = ShareDialog(this@BonusWebActivity)
-                    if (typeInfo == "4" || typeInfo == "5") {
-                        if (type) {
-                            diaolog.showShareBase("温暖中国  媒体扶贫行动！", "参与扶贫，无需捐款，一次点击就是一次扶贫行动！", data.entity?.url
-                                    ?: "")
-                        } else {
-                            diaolog.showShareApp(data.entity?.url ?: "")
-                        }
-                    } else {
-                        diaolog.showShareApp(data.entity?.url ?: "")
-                    }
-                    diaolog.show()
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<ValueByKey>) {
-            }
-
-        })
-    }
+//    private fun share(type: Boolean) {
+//        val params = HashMap<String, String>()
+//        params["dictionaryKey"] = "index_share_url"
+//        ApiManager.get(0, this, params, Constant.GET_SHARE_URL, object : ApiManager.OnResult<BaseModel<ValueByKey>>() {
+//            override fun onSuccess(data: BaseModel<ValueByKey>) {
+//                if (data.success) {
+//                    val diaolog = ShareDialog(this@BonusWebActivity)
+//                    if (typeInfo == "4" || typeInfo == "5") {
+//                        if (type) {
+//                            diaolog.showShareBase("温暖中国  媒体扶贫行动！", "参与扶贫，无需捐款，一次点击就是一次扶贫行动！", data.entity?.url
+//                                    ?: "")
+//                        } else {
+//                            diaolog.showShareApp(data.entity?.url ?: "")
+//                        }
+//                    } else {
+//                        diaolog.showShareApp(data.entity?.url ?: "")
+//                    }
+//                    diaolog.show()
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//            }
+//
+//            override fun onCatch(data: BaseModel<ValueByKey>) {
+//            }
+//
+//        })
+//    }
 
     private fun checkFollow() {
         val params = HashMap<String, String>()
