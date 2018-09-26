@@ -63,15 +63,23 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
     var job: Deferred<Uri>? = null
     override fun setLayout(): Int = R.layout.activity_shoumei_detail
 
+    @Suppress("UNCHECKED_CAST")
     override fun observerUpData(type: Int, data: Any, content: Any, dataExtra: Any) {
         if (type == 2) {
             mList.let {
-                val index = it.indexOfFirst {
+                val position = it.indexOfFirst {
                     it.id == data as String
                 }
-                if (index != -1) {
-                    it[index].replies += content as Int
-                    adapter.notifyItemRangeChanged(index, it.size - index)
+                if (position != -1) {
+                    it[position].replies += content as Int
+                    it[position].portion?.clear()
+                    (dataExtra as ArrayList<CommentData.Portion>).forEachIndexed { index, portion ->
+                        if (index < 2){
+                            it[position].portion?.add(portion)
+                        }
+                    }
+
+                    adapter.notifyItemRangeChanged(position, it.size - position)
                     ObserverManager.getInstance().notifyObserver(1, post_id
                             ?: "", content, "")
                 }
