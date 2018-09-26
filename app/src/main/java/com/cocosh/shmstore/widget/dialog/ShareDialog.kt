@@ -13,11 +13,13 @@ import android.widget.RelativeLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.BonusDetailActivity
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusGive
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
 import com.umeng.socialize.ShareAction
@@ -33,8 +35,7 @@ import kotlinx.android.synthetic.main.include_share.*
  *
  * Created by lmg on 2018/4/8.
  */
-class ShareDialog(var baseActivity: BaseActivity,var params:HashMap<String,String>?) : Dialog(baseActivity), View.OnClickListener {
-    constructor(baseActivity: BaseActivity) : this(baseActivity,null)
+class ShareDialog(var baseActivity: BaseActivity) : Dialog(baseActivity), View.OnClickListener {
     private lateinit var shareApi: UMShareAPI
     private var url: String? = null
     var isFinish = false
@@ -227,7 +228,7 @@ class ShareDialog(var baseActivity: BaseActivity,var params:HashMap<String,Strin
 
 
     //赠送红包
-    fun showGiveBouns(redPacketOrderId: String, redpacketId: String?) {
+    fun showGiveBouns(no: String, token: String) {
         isFinish = true
         onlyWxAndQQ()
         mOnItemClickListener = object : OnItemClickListener {
@@ -236,7 +237,7 @@ class ShareDialog(var baseActivity: BaseActivity,var params:HashMap<String,Strin
                 dialog.onClickResult = object : OnDialogResult {
                     override fun onResult(result: Any) {
                         (result as String).let {
-                            bonusGive(result, redPacketOrderId, redpacketId, index)
+                            bonusGive(result, no, token, index)
                         }
                     }
                 }
@@ -254,52 +255,36 @@ class ShareDialog(var baseActivity: BaseActivity,var params:HashMap<String,Strin
 
 
     //赠送红包
-    private fun bonusGive(desc: String, redPacketOrderId: String, redpacketId: String?, index: Int) {
-        params?.let {
-            it["redPacketOrderId"] = redPacketOrderId
-            val url: String
-            if (redpacketId != null) {
-                url = Constant.BONUS_GIVE_COLLECT
-                it["redPacketId"] = redpacketId
-            } else {
-                url = Constant.BONUS_GIVE
+    private fun bonusGive(desc: String, no: String, token: String, index: Int) {
+        val params = hashMapOf<String, String>()
+        params["no"] = no
+        params["token"] = token
+
+        ApiManager2.post(baseActivity, params, Constant.RP_DO_GIVE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
             }
 
-            ApiManager.post(baseActivity, it, url, object : ApiManager.OnResult<BaseModel<String>>() {
-                override fun onCatch(data: BaseModel<String>) {
+            override fun onCatch(data: BaseBean<String>) {
 
-                }
+            }
 
-                override fun onSuccess(data: BaseModel<String>) {
-                    if (data.success) {
-                        SmApplication.getApp().setData(DataCode.BONUS, BonusAction.GIVE)
-                        val htmlUrl = data.entity
-                        val shareAction = ShareAction(baseActivity)
-                        val web = UMWeb(Uri.encode(htmlUrl, "-![.:/,%?&=]"))
-                        web.description = "抢不完的现金红包等着你!"
+            override fun onSuccess(data: BaseBean<String>) {
+                    SmApplication.getApp().setData(DataCode.BONUS, BonusAction.GIVE)
+                    val htmlUrl = data.message
+                    val shareAction = ShareAction(baseActivity)
+                    val web = UMWeb(Uri.encode(htmlUrl, "-![.:/,%?&=]"))
+                    web.description = "抢不完的现金红包等着你!"
 
-                        if (desc.isEmpty()) {
-                            web.title = "我送你一个红包，快来领取吧"
-                        } else {
-                            web.title = desc
-                        }
-                        web.setThumb(UMImage(baseActivity, R.drawable.ic_share))
-                        shareAction.withMedia(web)
-                        shareDownloadLink(index, shareAction)
+                    if (desc.isEmpty()) {
+                        web.title = "我送你一个红包，快来领取吧"
                     } else {
-                        if (baseActivity is BonusDetailActivity) {
-                            (baseActivity as BonusDetailActivity).showErrorDialog(data.code, data.message)
-                        } else {
-                            ToastUtil.show(data.message)
-                        }
+                        web.title = desc
                     }
-                }
-
-                override fun onFailed(e: Throwable) {
-
-                }
-            })
-        }
+                    web.setThumb(UMImage(baseActivity, R.drawable.ic_share))
+                    shareAction.withMedia(web)
+                    shareDownloadLink(index, shareAction)
+            }
+        })
 
     }
 }

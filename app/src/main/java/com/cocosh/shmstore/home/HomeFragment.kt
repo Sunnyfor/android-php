@@ -79,48 +79,35 @@ class HomeFragment : BaseFragment() {
      */
     private fun autEnt() {
         UserManager2.getLogin()?.invitee?.let {
+
             if (it.code != null) {
+                val mDialog = CertificationDialog(activity)
+                val type = it.type
 
-                UserManager2.loadCommonData(0, getBaseActivity(), object : ApiManager2.OnResult<BaseBean<CommonData>>() {
-                    override fun onSuccess(data: BaseBean<CommonData>) {
-                        UserManager2.setCommonData(data.message)
-                        val mDialog = CertificationDialog(activity)
-                        val type = it.type
-
-                        if (type == "x") {
-                            if (data.message?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type) {
-                                return
-                            }
-                            //新媒人
-                            mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
-                        } else {
-                            if (data.message?.cert?.b == AuthenStatus.BUSINESS_OK.type) {
-                                return
-                            }
-                            //服务商
-                            mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
-                        }
-
-                        mDialog.OnClickListener = View.OnClickListener {
-                            if (type == "x") {
-                                //新媒人
-                                startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "NEW_MATCHMAKER"))
-                            } else {
-                                //服务商
-                                startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "BUSINESS"))
-                            }
-                        }
-                        mDialog.show()
+                if (type == "x") {
+                    if (UserManager2.getCommonData()?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type){
+                        return
                     }
-
-                    override fun onFailed(code: String, message: String) {
+                    //新媒人
+                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
+                } else {
+                    if (UserManager2.getCommonData()?.cert?.b == AuthenStatus.BUSINESS_OK.type){
+                        return
                     }
+                    //服务商
+                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
+                }
 
-                    override fun onCatch(data: BaseBean<CommonData>) {
+                mDialog.OnClickListener = View.OnClickListener {
+                    if (type == "x") {
+                        //新媒人
+                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type","NEW_MATCHMAKER"))
+                    } else {
+                        //服务商
+                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "BUSINESS"))
                     }
-
-                })
-
+                }
+                mDialog.show()
             }
 
         }

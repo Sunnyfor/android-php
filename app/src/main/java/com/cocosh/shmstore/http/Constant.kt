@@ -145,6 +145,11 @@ object Constant {
     /*红包*/
     val RP_HOME = "${ApiManager2.getBonusHost()}/$VERSION/rp/home" //红包首页大图
     val RP_POOL = "${ApiManager2.getBonusHost()}/$VERSION/rp/pool" //红包资金池
+    val RP_DO_RECIVE = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/recive" //领取红包
+    val RP_DO_FAV = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/fav" //收藏红包
+    val RP_DO_OPEN = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/open" //拆红包
+    val RP_DO_GIVE = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/give" //赠送红包
+
     const val RP_TRANS = "$VERSION/rp/trans" //红包账户明细
     const val RP_TRANSFER = "$VERSION/rp/transfer" //红包转出(至钱包)
     val RP_LIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/list"
@@ -157,6 +162,7 @@ object Constant {
     const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/sendrp/update"  //修改红包信息
     const val FANSRP_GOODS_BUY_INFO = "$VERSION/fansrp/goods/buy/info" //商品购买详情
     val RP_FAVLIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/favlist" //收藏红包
+    val RP_RANK = "${ApiManager2.getBonusHost()}/$VERSION/rp/rank" //红包排行榜
     /**
      * 支付
      */

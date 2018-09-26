@@ -12,8 +12,11 @@ import android.webkit.*
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.BonusAction
+import com.cocosh.shmstore.home.model.GetRedPackage
+import com.cocosh.shmstore.home.model.RedPackage
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
@@ -36,18 +39,17 @@ import org.json.JSONObject
  */
 class BonusWebActivity : BaseActivity() {
 
-    var type = 0
+    var type = "comm_person"  //红包类型
     var title: String? = null
-    var id: String? = null
+    var no: String? = null
     var state: String? = null
     private var htmlURL: String? = null
     private var downURL: String? = null
     private var companyLogo: String? = null
     private var companyName: String? = null
-    private var typeInfo: String? = null
     override fun setLayout(): Int = R.layout.activity_bonus_web
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
     override fun initView() {
 
         webView.settings.javaScriptEnabled = true
@@ -77,64 +79,29 @@ class BonusWebActivity : BaseActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 hideLoading()
-                if (typeInfo == "1" || typeInfo == "2" || typeInfo == "3") {
-                    llayoutBtn.visibility = View.VISIBLE
-                }
+//                if (typeInfo == "1" || typeInfo == "2" || typeInfo == "3") {
+                llayoutBtn.visibility = View.VISIBLE
+//                }
             }
         })
         btnSure.setOnClickListener(this)
         btnOpen.setOnClickListener(this)
 
-        id = intent.getStringExtra("comment_id")
         title = intent.getStringExtra("title")
-        state = intent.getStringExtra("state")
-        htmlURL = intent.getStringExtra("htmUrl")
-        downURL = intent.getStringExtra("downUrl")
+        state = intent.getStringExtra("state")  //用于预览模式
+
         companyLogo = intent.getStringExtra("companyLogo")
         companyName = intent.getStringExtra("companyName")
-        type = intent.getIntExtra("advertisementBaseType", 0)
-        typeInfo = intent.getStringExtra("typeInfo")
-
-        htmlURL?.let { webView.loadUrl(it) }
 
 
-        when (type) {
-            1 -> {
-                //App下载
-                btnSure.text = "立即下载"
-            }
-            2 -> {
-                //购买
-                btnSure.visibility = View.VISIBLE
-            }
-            else -> {
-                //不可购买
-                btnSure.visibility = View.GONE
-            }
-        }
+        titleManager.defaultTitle(title ?: "")
+
 
 
         state?.let {
-            if (it == "RECEIVE") {
-                btnOpen.text = "已领取"
-                cannotReceive()
-            }
-
-            if (it == "ISGIVE") {
-                btnOpen.text = "已赠送"
-                cannotReceive()
-            }
-
-            if (it == "NONE") {
-                BonusErrorDialog(this).showNone(companyLogo, companyName)
-                btnOpen.text = "已抢光"
-                cannotReceive()
-            }
-
             if (it == "PREVIEW") {
                 btnSure.isClickable = false
                 btnOpen.isClickable = false
-                titleManager.defaultTitle(title ?: "")
             }
 //            else {
 //
@@ -160,7 +127,7 @@ class BonusWebActivity : BaseActivity() {
     override fun onListener(view: View) {
         when (view.id) {
             btnSure.id -> {
-                if (type == 1) {
+                if (btnSure.text.toString() == "立即下载") {
                     try {
                         val intent = Intent()
                         intent.action = Intent.ACTION_VIEW
@@ -177,23 +144,13 @@ class BonusWebActivity : BaseActivity() {
                 }
             }
             btnOpen.id -> {
-                if (typeInfo == "3"){
+                if (type == "fans") {
                     checkFollow()
-                }else{
-                    openBonus()
+                } else {
+                    getBonus()
                 }
             }
         }
-    }
-
-    private fun openBonus(){
-        val intent = Intent(this, BonusDetailActivity::class.java)
-        intent.putExtra("comment_id", id)
-        intent.putExtra("typeInfo", typeInfo)
-        intent.putExtra("title", intent.getStringExtra("title"))
-        intent.putExtra("companyLogo", companyLogo)
-        intent.putExtra("companyName", companyName)
-        startActivity(intent)
     }
 
 
@@ -213,32 +170,32 @@ class BonusWebActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, false)?.let {
-            cannotReceive()
-            if (it == BonusAction.GIVE) {
-                btnOpen.text = "已赠送"
-            } else {
-                btnOpen.text = "已领取"
-            }
-        }
+//        SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, false)?.let {
+//            cannotReceive()
+//            if (it == BonusAction.GIVE) {
+//                btnOpen.text = "已赠送"
+//            } else {
+//                btnOpen.text = "已领取"
+//            }
+//        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        SmApplication.getApp().removeData(DataCode.BONUS_ID)
-        if (webView != null) {
-            val parent = webView.parent
-            if (parent != null) {
-                (parent as ViewGroup).removeView(webView)
-            }
-            webView.stopLoading()
-            webView.settings.javaScriptEnabled = false
-            webView.clearCache(true)
-            webView.clearHistory()
-            webView.clearView()
-            webView.removeAllViews()
-            webView.destroy()
-        }
+//        SmApplication.getApp().removeData(DataCode.BONUS_ID)
+//        if (webView != null) {
+//            val parent = webView.parent
+//            if (parent != null) {
+//                (parent as ViewGroup).removeView(webView)
+//            }
+//            webView.stopLoading()
+//            webView.settings.javaScriptEnabled = false
+//            webView.clearCache(true)
+//            webView.clearHistory()
+//            webView.clearView()
+//            webView.removeAllViews()
+//            webView.destroy()
+//        }
     }
 
     @JavascriptInterface
@@ -318,17 +275,17 @@ class BonusWebActivity : BaseActivity() {
 
     private fun checkFollow() {
         val params = HashMap<String, String>()
-        params["redPacketOrderId"] = id ?: ""
+        params["redPacketOrderId"] = no ?: ""
         ApiManager.get(0, this, params, Constant.BONUS_CHECKFOLLOW, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) = if (data.entity == "1"){
-                openBonus()
-            }else{
-               val dialog = SmediaDialog(this@BonusWebActivity)
+            override fun onSuccess(data: BaseModel<String>) = if (data.entity == "1") {
+//                openBonus()
+            } else {
+                val dialog = SmediaDialog(this@BonusWebActivity)
                 dialog.setTitle("该企业将获取你的头像和昵称等信息")
                 dialog.setDesc("点击同意同时关注该企业")
-                dialog.setDescColor(ContextCompat.getColor(this@BonusWebActivity,R.color.grayText))
+                dialog.setDescColor(ContextCompat.getColor(this@BonusWebActivity, R.color.grayText))
                 dialog.OnClickListener = View.OnClickListener {
-                    openBonus()
+//                    openBonus()
                 }
                 dialog.show()
             }
@@ -342,19 +299,134 @@ class BonusWebActivity : BaseActivity() {
         })
     }
 
-    fun loadData(){
-        val params = HashMap<String,String>()
+    fun loadData() {
+        val params = HashMap<String, String>()
         params["no"] = intent.getStringExtra("no")
-        ApiManager2.get(1,this,params,Constant.RP_DETAIL,object :ApiManager2.OnResult<String>(){
-            override fun onSuccess(data: String) {
+        ApiManager2.get(1, this, params, Constant.RP_DETAIL, object : ApiManager2.OnResult<BaseBean<RedPackage>>() {
+            override fun onSuccess(data: BaseBean<RedPackage>) {
+                data.message?.let {
+
+                    type = it.base?.type ?: "comm_person"
+                    no = it.base?.no
+
+                    when (it.hold) {
+                        "1" -> {
+                            //成功占位(注意:占位有效期为30分钟),可领取状态
+                        }
+                        "2" -> {
+                            //已占位未领取,可领取状态
+                        }
+                        "3" -> {
+                            //已占位已领取(注意:领取但未拆的有效期为10分钟),跳转至<拆红包UI>
+                        }
+
+                        "4" -> {
+                            //占位已满,不可领取状态
+                            cannotReceive()
+                        }
+
+                        "5" -> {
+                            //已抢过该红包,不可领取状态,显示广告对象相关按钮(立即下载或立即购买)
+                            btnOpen.text = "已领取"
+                            cannotReceive()
+                        }
+
+                        "8" -> {
+                            //已抢完,跳转至<哭脸UI>
+                            val dialog = BonusErrorDialog(this@BonusWebActivity)
+                            dialog.setOnDismissListener {
+                                finish()
+                            }
+                            dialog.showNone(companyLogo, companyName)
+                            cannotReceive()
+                        }
+
+                        "9" -> {
+                            //数据异常,跳转至<数据异常UI>
+                        }
+                    }
+
+                    it.attrs?.forEach {
+                        if (it["item"] as String == "ad") {
+                            when (it["val"].toString()) {
+                                "2" -> {
+                                    //App下载
+                                    btnSure.text = "立即下载"
+                                }
+                                "3" -> {
+                                    //购买
+                                    btnSure.visibility = View.VISIBLE
+                                }
+                                else -> {
+                                    //不可购买
+                                    btnSure.visibility = View.GONE
+                                }
+                            }
+                        }
+
+                        if (it["item"] as String == "ado_url_apk") {
+                            downURL = it["val"] as String  //获取下载地址
+                        }
+
+
+                    }
+                    it.h5url?.let { webView.loadUrl(it) }
+                }
+
+
             }
 
             override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: String) {
+            override fun onCatch(data: BaseBean<RedPackage>) {
             }
         })
 
+    }
+
+
+    private fun getBonus() {
+        val params = hashMapOf<String, String>()
+        params["no"] = no ?: ""
+        ApiManager2.post(this, params, Constant.RP_DO_RECIVE, object : ApiManager2.OnResult<BaseBean<GetRedPackage>>() {
+            override fun onSuccess(data: BaseBean<GetRedPackage>) {
+                data.message?.let {
+                    when (it.hold) {
+                        "1" -> {
+                            //跳转拆红包页面
+                            val intent = Intent(this@BonusWebActivity, BonusDetailActivity::class.java)
+                            intent.putExtra("comment_id", no)
+                            intent.putExtra("typeInfo", type)
+                            intent.putExtra("title", intent.getStringExtra("title"))
+                            intent.putExtra("token",it.token)
+                            intent.putExtra("companyLogo", companyLogo)
+                            intent.putExtra("companyName", companyName)
+                            startActivity(intent)
+                        }
+
+                        "8" -> {
+                            val dialog = BonusErrorDialog(this@BonusWebActivity)
+                            dialog.setOnDismissListener {
+                                finish()
+                            }
+                            dialog.showNone(companyLogo, companyName)
+                        }
+
+                        else -> {
+                            ToastUtil.show(it.tip)
+                        }
+                    }
+
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<GetRedPackage>) {
+            }
+
+        })
     }
 }

@@ -7,10 +7,12 @@ import android.view.animation.Animation
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusOpen
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.HelpActivity
 import com.cocosh.shmstore.model.Location
@@ -34,6 +36,7 @@ class BonusDetailActivity : BaseActivity() {
     var id: String? = null
     var type: String? = null
     var bonusOpen: BonusOpen? = null
+    var token = ""
     var animation = BonusYAnimation()
     var companyLogo: String? = null
     var companyName: String? = null
@@ -75,11 +78,15 @@ class BonusDetailActivity : BaseActivity() {
         id = intent.getStringExtra("comment_id")
 
         type = intent.getStringExtra("typeInfo")
+
         type?.let {
-            if (it != "1") {
+            if (it != "common" && it != "comm_person") {
                 btnShare.visibility = View.GONE
             }
         }
+
+        token = intent.getStringExtra("token")
+
 
         btnOpen.setOnClickListener(this)
         btnShare.setOnClickListener(this)
@@ -113,10 +120,10 @@ class BonusDetailActivity : BaseActivity() {
             }
             btnShare.id -> { //分享红包
                 id?.let {
-                    val shareDialog = ShareDialog(this, getParams())
+                    val shareDialog = ShareDialog(this)
                     shareDialog.isFinish = true
                     shareDialog.showGiveBouns(
-                            it, redpacketId)
+                            it, token)
                 }
             }
             btnCollect.id -> { //收藏红包
@@ -131,28 +138,25 @@ class BonusDetailActivity : BaseActivity() {
 
     //收藏成功
     private fun collect() {
-        val params = getParams()
+        val params = hashMapOf<String,String>()
         id?.let {
-            params["redPacketOrderId"] = it
+            params["no"] = it
         }
+        params["token"] = token
 
-        ApiManager.post(this, params, Constant.BONUS_COLLECT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
+        ApiManager2.post(this, params, Constant.RP_DO_FAV, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+            override fun onSuccess(data: BaseBean<String>) {
                     ToastUtil.showIcon(null, "收藏成功")
                     SmApplication.getApp().setData(DataCode.BONUS, BonusAction.COLLECT)
                     finish()
-                } else {
-                    showErrorDialog(data.code, data.message)
-                }
             }
 
-            override fun onFailed(e: Throwable) {
+            override fun onCatch(data: BaseBean<String>) {
 
             }
 
-            override fun onCatch(data: BaseModel<String>) {
-
+            override fun onFailed(code: String, message: String) {
             }
         })
     }
@@ -161,22 +165,17 @@ class BonusDetailActivity : BaseActivity() {
     //开红包
 
     private fun open() {
-        val params: HashMap<String, String>
-        val url: String
-        if (redpacketId != null) {
-            params = hashMapOf()
-            url = Constant.BONUS_OPEN_COLLECT
-            params["redPacketId"] = redpacketId ?: ""
-        } else {
-            params = getParams()
-            url = Constant.BONUS_OPEN
-        }
-
+        val params = hashMapOf<String, String>()
         id?.let {
-            params["redPacketOrderId"] = it
+            params["no"] = it
         }
+        params["token"] = token
 
-        ApiManager.post(this, params, url, object : ApiManager.OnResult<BaseModel<BonusOpen>>() {
+        ApiManager2.post(this, params, Constant.RP_DO_OPEN, object : ApiManager2.OnResult<BaseModel<BonusOpen>>() {
+            override fun onFailed(code: String, message: String) {
+
+            }
+
             override fun onSuccess(data: BaseModel<BonusOpen>) {
                 if (data.success) {
                     bonusOpen = data.entity
@@ -185,10 +184,6 @@ class BonusDetailActivity : BaseActivity() {
                 } else {
                     showErrorDialog(data.code, data.message)
                 }
-            }
-
-            override fun onFailed(e: Throwable) {
-
             }
 
             override fun onCatch(data: BaseModel<BonusOpen>) {
@@ -216,15 +211,4 @@ class BonusDetailActivity : BaseActivity() {
         }
     }
 
-
-    //开红包、赠送红包、收藏红包put定位数据参数
-    private fun getParams(): HashMap<String, String> {
-        val params = HashMap<String, String>()
-        SmApplication.getApp().getData<Location>(DataCode.LOCATION, false)?.let {
-            params["areaCode"] = it.adcode
-            params["lat"] = it.latitude
-            params["lng"] = it.longitude
-        }
-        return params
-    }
 }
