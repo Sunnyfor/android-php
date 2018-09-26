@@ -16,6 +16,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.AuthenStatus
+import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.newCertification.ui.PartnerSplashActivity
 import com.cocosh.shmstore.title.HomeTitleFragment
@@ -104,7 +105,7 @@ class HomeFragment : BaseFragment() {
                 mDialog.OnClickListener = View.OnClickListener {
                     if (type == "x") {
                         //新媒人
-                        PartnerSplashActivity.start(activity)
+                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type","NEW_MATCHMAKER"))
                     } else {
                         //服务商
                         EnterpriseCertificationActivity.start(activity)

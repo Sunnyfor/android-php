@@ -9,6 +9,7 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.adapter.BonusListAdapter
 import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.home.model.BonusAction
@@ -86,6 +87,14 @@ class BonusListActivity : BaseActivity() {
         }
         adapter = BonusListAdapter(mList)
         refreshLayout.recyclerView.adapter = adapter
+        adapter?.setOnItemClickListener(object:OnItemClickListener{
+            override fun onItemClick(v: View, index: Int) {
+                val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
+                intentWeb.putExtra("no",mList[index].no)
+                startActivity(intentWeb)
+            }
+        })
+
 
 
         loadData()
@@ -142,15 +151,8 @@ class BonusListActivity : BaseActivity() {
             params["no"] = currentPage
         }
         params["num"] = "20"
-//
-//        val jsonObject = JSONObject()
-//        jsonObject.put("type_word", type)
-//        jsonObject.put("num", 20)
-//        if (currentPage != "1") {
-//            jsonObject.put("no", currentPage)
-//        }
 
-        ApiManager2.post(1,this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
+        ApiManager2.post(1, this, params, Constant.RP_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
                 data.message?.let {
                     if (currentPage == "1") {
@@ -163,6 +165,11 @@ class BonusListActivity : BaseActivity() {
             }
 
             override fun onFailed(code: String, message: String) {
+                if (currentPage == "1") {
+                    refreshLayout.isRefreshing = false
+                    mList.clear()
+                    adapter?.notifyDataSetChanged()
+                }
             }
 
             override fun onCatch(data: BaseBean<ArrayList<Bonus2>>) {

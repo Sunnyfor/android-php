@@ -161,6 +161,13 @@ class AuthActivity : BaseActivity() {
                         }
                     }
                 }
+
+                intent.getStringExtra("type")?.let {
+                    if (it == "NEW_MATCHMAKER"){
+                        llparnter()
+                    }
+                }
+
             }
 
             override fun onFailed(code: String, message: String) {

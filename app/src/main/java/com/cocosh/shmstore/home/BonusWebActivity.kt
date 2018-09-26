@@ -15,6 +15,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.model.ValueByKey
@@ -151,6 +152,8 @@ class BonusWebActivity : BaseActivity() {
                 }
             }
         }
+
+        loadData()
     }
 
     override fun onListener(view: View) {
@@ -196,9 +199,6 @@ class BonusWebActivity : BaseActivity() {
     override fun reTryGetData() {
     }
 
-    fun loadData() {
-
-    }
 
     //领取红包按钮不可点击状态
     private fun cannotReceive() {
@@ -339,5 +339,21 @@ class BonusWebActivity : BaseActivity() {
             }
 
         })
+    }
+
+    fun loadData(){
+        val params = HashMap<String,String>()
+        params["no"] = intent.getStringExtra("no")
+        ApiManager2.get(1,this,params,Constant.RP_DETAIL,object :ApiManager2.OnResult<String>(){
+            override fun onSuccess(data: String) {
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: String) {
+            }
+        })
+
     }
 }

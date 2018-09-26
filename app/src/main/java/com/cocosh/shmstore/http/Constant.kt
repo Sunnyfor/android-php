@@ -151,6 +151,7 @@ object Constant {
     val RP_TYPE_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/type/attrs" //红包属性
     val RP_AD_ATTRS = "${ApiManager2.getBonusHost()}/$VERSION/rp/ad/attrs" //广告属性
     val RP_CREATE = "${ApiManager2.getBonusHost()}/$VERSION/rp/create" //创建红包
+    val RP_DETAIL = "${ApiManager2.getBonusHost()}/$VERSION/rp/detail" //红包详情页
     const val MYSELF_SENDRP_LIST = "$VERSION/sendrp/list" //发出的红包
     const val MYSELF_SENDRP_RPINFO = "$VERSION/sendrp/info" //获取修改的红包信息
     const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/sendrp/update"  //修改红包信息
