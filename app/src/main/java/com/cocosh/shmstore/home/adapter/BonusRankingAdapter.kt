@@ -16,12 +16,12 @@ import kotlinx.android.synthetic.main.layout_bonus_ranking_item.view.*
  * 红包排行榜
  * Created by zhangye on 2018/4/24.
  */
-class BonusRankingAdapter(bonusRanking: BonusRanking) : BaseRecycleAdapter<BonusRanking.Data>(bonusRanking.rankingListVOS!!) {
+class BonusRankingAdapter(bonusRanking: BonusRanking) : BaseRecycleAdapter<BonusRanking.Data>(bonusRanking.list?: arrayListOf()) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvNo.text = getData(position).rank
-        holder.itemView.tvName.text = getData(position).userName
-        holder.itemView.tvMoney.text = (getData(position).totalAmount + "元")
+        holder.itemView.tvName.text = getData(position).nickname
+        holder.itemView.tvMoney.text = (getData(position).amount + "元")
 
         if (getData(position).rank == "1" || getData(position).rank == "2" || getData(position).rank == "3") {
             holder.itemView.tvNo.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.w57))
@@ -31,7 +31,7 @@ class BonusRankingAdapter(bonusRanking: BonusRanking) : BaseRecycleAdapter<Bonus
             holder.itemView.tvNo.setTextColor(ContextCompat.getColor(context, R.color.textGray))
         }
 
-        getData(position).headPic?.let {
+        getData(position).avatar?.let {
             if (it.isNotEmpty())
                 GlideUtils.loadHead(context, it, holder.itemView.ivPhoto)
         }

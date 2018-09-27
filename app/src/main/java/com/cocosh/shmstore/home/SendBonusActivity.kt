@@ -19,10 +19,8 @@ import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_bonus_send.*
-import org.json.JSONArray
 import java.io.File
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -308,7 +306,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     isvLocation.setValue("${it.pos_prov}-${it.pos_city}") //投放位置
                     isvLocation.setOnClickListener(null)
 
-                    isvTime.setValue(StringUtils.dateFormat(it.pubtime))
+                    isvTime.setValue(StringUtils.dateYYMMddFormatToTimeStamp(it.pubtime))
                     isvTime.setOnClickListener(null)
 
                     edtNumber.isFocusable = false

@@ -10,7 +10,9 @@ enum class OpenType {
     Cer,//新媒人
     Fac,//服务商
     Help,//帮助中心
-    Bonus,//红包规则
+    BonusPublic,//大众红包规则
+    BonusAccurate, //精准红包规则
+    BonusFans,//粉丝红包规则
     SysMessage,//系统图文消息
     Charge,//充值
     BusinessMan//企业主

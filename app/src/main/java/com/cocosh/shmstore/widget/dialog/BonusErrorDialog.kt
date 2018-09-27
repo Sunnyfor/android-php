@@ -34,18 +34,17 @@ class BonusErrorDialog : Dialog, View.OnClickListener {
 
     //抢光
     fun showNone(head: String?, nickname: String?) {
-        tvDesc.text = "手慢了!红包已被抢空"
-        load(head, nickname)
+        showDialog(head,nickname,"手慢了!红包已被抢空")
     }
 
 
     //过期
     fun showOverdue(head: String?, nickname: String?) {
-        tvDesc.text = "该红包已过期"
-        load(head, nickname)
+        showDialog(head,nickname,"该红包已过期")
     }
 
-    private fun load(head: String?, nickname: String?) {
+    fun showDialog(head: String?, nickname: String?,message:String?){
+        tvDesc.text = message
         head?.let {
             GlideUtils.loadHead(context, it, ivHead)
         }

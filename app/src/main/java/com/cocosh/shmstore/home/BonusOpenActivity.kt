@@ -33,7 +33,7 @@ class BonusOpenActivity : BaseActivity() {
         bonusOpen = intent.getSerializableExtra(DataCode.BONUS_MONEY) as BonusOpen?
 
         bonusOpen?.let {
-            tvMoney.text = (it.money + " 元")
+            tvMoney.text = (it.amt + " 元")
 
         }
     }
@@ -46,7 +46,7 @@ class BonusOpenActivity : BaseActivity() {
                 startActivity(intent)
             }
             btnShare.id -> {
-                bonusOpen?.url?.let {
+                bonusOpen?.share?.let {
                     ShareDialog(this).showShareBonus(it)
                 }
             }

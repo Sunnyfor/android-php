@@ -170,32 +170,15 @@ class BonusWebActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-//        SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, false)?.let {
-//            cannotReceive()
-//            if (it == BonusAction.GIVE) {
-//                btnOpen.text = "已赠送"
-//            } else {
-//                btnOpen.text = "已领取"
-//            }
-//        }
+        SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, false)?.let {
+            btnOpen.text = "已领取"
+            cannotReceive()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-//        SmApplication.getApp().removeData(DataCode.BONUS_ID)
-//        if (webView != null) {
-//            val parent = webView.parent
-//            if (parent != null) {
-//                (parent as ViewGroup).removeView(webView)
-//            }
-//            webView.stopLoading()
-//            webView.settings.javaScriptEnabled = false
-//            webView.clearCache(true)
-//            webView.clearHistory()
-//            webView.clearView()
-//            webView.removeAllViews()
-//            webView.destroy()
-//        }
+        SmApplication.getApp().removeData(DataCode.BONUS_ID)
     }
 
     @JavascriptInterface
@@ -285,7 +268,7 @@ class BonusWebActivity : BaseActivity() {
                 dialog.setDesc("点击同意同时关注该企业")
                 dialog.setDescColor(ContextCompat.getColor(this@BonusWebActivity, R.color.grayText))
                 dialog.OnClickListener = View.OnClickListener {
-//                    openBonus()
+                    //                    openBonus()
                 }
                 dialog.show()
             }
@@ -333,16 +316,23 @@ class BonusWebActivity : BaseActivity() {
 
                         "8" -> {
                             //已抢完,跳转至<哭脸UI>
+                            companyName = it.name
+                            companyLogo = it.avatar
                             val dialog = BonusErrorDialog(this@BonusWebActivity)
                             dialog.setOnDismissListener {
                                 finish()
                             }
                             dialog.showNone(companyLogo, companyName)
-                            cannotReceive()
                         }
 
                         "9" -> {
                             //数据异常,跳转至<数据异常UI>
+                            //已抢完,跳转至<哭脸UI>
+                            val dialog = BonusErrorDialog(this@BonusWebActivity)
+                            dialog.setOnDismissListener {
+                                finish()
+                            }
+                            dialog.showDialog(companyLogo, companyName, it.tip)
                         }
                     }
 
@@ -392,14 +382,16 @@ class BonusWebActivity : BaseActivity() {
         ApiManager2.post(this, params, Constant.RP_DO_RECIVE, object : ApiManager2.OnResult<BaseBean<GetRedPackage>>() {
             override fun onSuccess(data: BaseBean<GetRedPackage>) {
                 data.message?.let {
+                    companyName = it.name
+                    companyLogo = it.avatar
                     when (it.hold) {
-                        "1" -> {
+                        "1", "2" -> {
                             //跳转拆红包页面
                             val intent = Intent(this@BonusWebActivity, BonusDetailActivity::class.java)
                             intent.putExtra("comment_id", no)
                             intent.putExtra("typeInfo", type)
                             intent.putExtra("title", intent.getStringExtra("title"))
-                            intent.putExtra("token",it.token)
+                            intent.putExtra("token", it.token)
                             intent.putExtra("companyLogo", companyLogo)
                             intent.putExtra("companyName", companyName)
                             startActivity(intent)

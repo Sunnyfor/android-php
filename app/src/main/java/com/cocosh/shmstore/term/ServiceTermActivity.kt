@@ -34,7 +34,9 @@ class ServiceTermActivity : BaseActivity() {
     private val newcer = "x_cert"
     private val businessman = "b_cert"
     private val help = "help" //帮助中心
-    private val bonus = "rp_rules"//红包规则
+    private val bonusCommon = "public"//大众红包规则
+    private val bonusSpecial = "accurate"//精准红包规则
+    private val bonusFans = "fans"//粉丝红包规则
     private val privacy = "privacy"
     override fun reTryGetData() {
 
@@ -78,9 +80,19 @@ class ServiceTermActivity : BaseActivity() {
             btnSure.visibility = View.GONE
             getUrl(help)
         }
-        if (ruleUrl == OpenType.Bonus.name) {
+        if (ruleUrl == OpenType.BonusPublic.name) {
             btnSure.visibility = View.GONE
-            getUrl(bonus)
+            getUrl(bonusCommon)
+        }
+
+        if (ruleUrl == OpenType.BonusAccurate.name) {
+            btnSure.visibility = View.GONE
+            getUrl(bonusSpecial)
+        }
+
+        if (ruleUrl == OpenType.BonusFans.name) {
+            btnSure.visibility = View.GONE
+            getUrl(bonusFans)
         }
     }
 

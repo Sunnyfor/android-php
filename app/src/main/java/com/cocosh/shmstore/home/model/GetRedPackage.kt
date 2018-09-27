@@ -17,6 +17,8 @@ package com.cocosh.shmstore.home.model
 
 data class GetRedPackage(
         var hold: String?,  // 操作结果说明:(默认进入拆红包页)
+        var avatar:String?,
+        var name:String?,
         var tip: String?, // 占位提示语
         var token: String?, // 红包的操作令牌,用于后续操作,仅当`hold`=1时生效
         var time: String?, // 红包的领取时间,仅当`hold`=1时生效

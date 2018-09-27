@@ -126,12 +126,11 @@ class PickerViewUtils(val activity: BaseActivity) {
 
         val startCalendar = Calendar.getInstance()
         startCalendar.set(Calendar.DATE, startCalendar.get(Calendar.DATE))
-
         timePickerView = TimePickerBuilder(activity, OnTimeSelectListener { date, _ ->
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             onPickerViewResultListener.onPickerViewResult(dateFormat.format(date))
         })
-                .setContentTextSize(22)
+                .setContentTextSize(20)
                 .setRangDate(startCalendar, null)
                 .setType(booleanArrayOf(true, true, true, false, false, false))
                 .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))

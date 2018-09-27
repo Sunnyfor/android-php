@@ -10,6 +10,8 @@ data class RedPackage(
         var result:String?,
         var hold:String?,
         var tip:String?,
+        var name:String?,
+        var avatar:String?,
         var base:Base?,
         var h5url:String?,
         var attrs:ArrayList<LinkedTreeMap<String,Any>>?
@@ -31,4 +33,5 @@ data class RedPackage(
             var item:String?,
             var `val`:String?
     )
+
 }

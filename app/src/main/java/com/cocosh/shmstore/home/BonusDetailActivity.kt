@@ -1,30 +1,20 @@
 package com.cocosh.shmstore.home
 
 import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.view.animation.Animation
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.BonusOpen
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.ui.HelpActivity
-import com.cocosh.shmstore.model.Location
-import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.*
-import com.cocosh.shmstore.web.WebViewActivity
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
 import com.cocosh.shmstore.widget.dialog.ShareDialog
-import com.umeng.socialize.ShareAction
-import com.umeng.socialize.media.UMImage
-import com.umeng.socialize.media.UMWeb
 import kotlinx.android.synthetic.main.activity_bonus_detail.*
 
 /**
@@ -67,14 +57,6 @@ class BonusDetailActivity : BaseActivity() {
         })
 
 
-        titleManager.rightText("红包", "红包规则", View.OnClickListener {
-            val intent = Intent(this, ServiceTermActivity::class.java).apply {
-                putExtra("title", "红包规则")
-                putExtra("OPEN_TYPE", OpenType.Bonus.name)
-            }
-            startActivity(intent)
-        })
-
         id = intent.getStringExtra("comment_id")
 
         type = intent.getStringExtra("typeInfo")
@@ -84,6 +66,20 @@ class BonusDetailActivity : BaseActivity() {
                 btnShare.visibility = View.GONE
             }
         }
+
+        titleManager.rightText("红包", "红包规则", View.OnClickListener {
+            val intent = Intent(this, ServiceTermActivity::class.java).apply {
+                putExtra("title", "红包规则")
+                putExtra("OPEN_TYPE", when (type) {
+                    "common" -> OpenType.BonusPublic.name
+                    "special" -> OpenType.BonusAccurate.name
+                    "fans" -> OpenType.BonusFans.name
+                    else -> OpenType.BonusPublic.name
+                })
+            }
+            startActivity(intent)
+        })
+
 
         token = intent.getStringExtra("token")
 
@@ -138,7 +134,7 @@ class BonusDetailActivity : BaseActivity() {
 
     //收藏成功
     private fun collect() {
-        val params = hashMapOf<String,String>()
+        val params = hashMapOf<String, String>()
         id?.let {
             params["no"] = it
         }
@@ -147,9 +143,9 @@ class BonusDetailActivity : BaseActivity() {
         ApiManager2.post(this, params, Constant.RP_DO_FAV, object : ApiManager2.OnResult<BaseBean<String>>() {
 
             override fun onSuccess(data: BaseBean<String>) {
-                    ToastUtil.showIcon(null, "收藏成功")
-                    SmApplication.getApp().setData(DataCode.BONUS, BonusAction.COLLECT)
-                    finish()
+                ToastUtil.showIcon(null, "收藏成功")
+                SmApplication.getApp().setData(DataCode.BONUS, BonusAction.COLLECT)
+                finish()
             }
 
             override fun onCatch(data: BaseBean<String>) {
@@ -171,22 +167,18 @@ class BonusDetailActivity : BaseActivity() {
         }
         params["token"] = token
 
-        ApiManager2.post(this, params, Constant.RP_DO_OPEN, object : ApiManager2.OnResult<BaseModel<BonusOpen>>() {
+        ApiManager2.post(this, params, Constant.RP_DO_OPEN, object : ApiManager2.OnResult<BaseBean<BonusOpen>>() {
             override fun onFailed(code: String, message: String) {
 
             }
 
-            override fun onSuccess(data: BaseModel<BonusOpen>) {
-                if (data.success) {
-                    bonusOpen = data.entity
-                    btnOpen.setBackgroundResource(R.drawable.bg_btn_money)
-                    btnOpen.startAnimation(animation)
-                } else {
-                    showErrorDialog(data.code, data.message)
-                }
+            override fun onSuccess(data: BaseBean<BonusOpen>) {
+                bonusOpen = data.message
+                btnOpen.setBackgroundResource(R.drawable.bg_btn_money)
+                btnOpen.startAnimation(animation)
             }
 
-            override fun onCatch(data: BaseModel<BonusOpen>) {
+            override fun onCatch(data: BaseBean<BonusOpen>) {
 
             }
 
@@ -203,12 +195,8 @@ class BonusDetailActivity : BaseActivity() {
         }
     }
 
-    fun showErrorDialog(code: Int, message: String?) {
-        if (code == 19002) {
-            BonusErrorDialog(this).showNone(companyLogo, companyName)
-        } else {
-            ToastUtil.show(message)
-        }
+    fun showErrorDialog(message: String?) {
+        BonusErrorDialog(this).showDialog(companyLogo, companyName, message)
     }
 
 }

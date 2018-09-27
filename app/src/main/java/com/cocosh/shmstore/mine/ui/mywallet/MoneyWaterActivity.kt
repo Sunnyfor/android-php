@@ -55,10 +55,10 @@ class MoneyWaterActivity : BaseActivity(), MineContrat.IEntWalletWaterView {
         var title = ""
         TYPE_WATERLIST = intent.getStringExtra("TYPE_WATERLIST")
 
-//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        val dateYYMMddFormatToTimeStamp = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 //        var urlStr = ""
 //        try {
-//            urlStr = URLEncoder.encode(dateFormat.format(System.currentTimeMillis()), "Utf-8")
+//            urlStr = URLEncoder.encode(dateYYMMddFormatToTimeStamp.format(System.currentTimeMillis()), "Utf-8")
 //        } catch (e: UnsupportedEncodingException) {
 //            e.printStackTrace()
 //        }

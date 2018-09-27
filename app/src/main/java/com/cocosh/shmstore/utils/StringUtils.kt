@@ -46,35 +46,43 @@ object StringUtils {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val mDate = dateFormat.parse(date)
         val calendar = Calendar.getInstance()
-        val currentDate =  dateFormat.parse( dateFormat.format(calendar.time))
-        return if (mDate.time < currentDate.time){
+        val currentDate = dateFormat.parse(dateFormat.format(calendar.time))
+        return if (mDate.time < currentDate.time) {
             dateFormat.format(calendar.time)
-        }else{
+        } else {
             date
         }
     }
 
 
     //时间戳格式化时间
-    fun dateFormat(date:String):String{
-        if (date.isEmpty()){
+    fun dateYYMMddFormatToTimeStamp(date: String): String {
+        if (date.isEmpty()) {
             return ""
         }
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date(date.toLong() * 1000))
     }
 
-
-    fun strFormat(date:String):String{
-        if (date.isEmpty()){
+    fun dateYYMMddHHssmmFormatToTimeStamp(date: String): String {
+        if (date.isEmpty()) {
             return ""
         }
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return (dateFormat.parse(date).time/1000).toString()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:ss:mm", Locale.getDefault())
+        return dateFormat.format(Date(date.toLong() * 1000))
     }
 
 
-    fun getTimeStamp():String =  (System.currentTimeMillis()/1000).toString()
+    fun strFormat(date: String): String {
+        if (date.isEmpty()) {
+            return ""
+        }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return (dateFormat.parse(date).time / 1000).toString()
+    }
+
+
+    fun getTimeStamp(): String = (System.currentTimeMillis() / 1000).toString()
 
 
     //根据长度生成随机字符串
