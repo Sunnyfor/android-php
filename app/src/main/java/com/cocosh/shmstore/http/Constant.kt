@@ -147,6 +147,8 @@ object Constant {
     val RP_POOL = "${ApiManager2.getBonusHost()}/$VERSION/rp/pool" //红包资金池
     val RP_DO_RECIVE = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/recive" //领取红包
     val RP_DO_FAV = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/fav" //收藏红包
+    val RP_FAV_TO_OPEN = "${ApiManager2.getBonusHost()}/$VERSION/rp/fav/to_open" //收藏页拆红包
+    val RP_FAV_TO_GIVE = "${ApiManager2.getBonusHost()}/$VERSION/rp/fav/to_give" //
     val RP_DO_OPEN = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/open" //拆红包
     val RP_DO_GIVE = "${ApiManager2.getBonusHost()}/$VERSION/rp/do/give" //赠送红包
 
@@ -159,9 +161,11 @@ object Constant {
     val RP_DETAIL = "${ApiManager2.getBonusHost()}/$VERSION/rp/detail" //红包详情页
     const val MYSELF_SENDRP_LIST = "$VERSION/sendrp/list" //发出的红包
     const val MYSELF_SENDRP_RPINFO = "$VERSION/sendrp/info" //获取修改的红包信息
+    const val SENDRP_CANCEL = "$VERSION/sendrp/cancel" //红包取消投放
+    const val SENDRP_LAUNCH_DATA = "$VERSION/sendrp/launch/data" //我发的红包-投放数据
     const val MYSELF_SENDRP_RPINFO_UPDATE = "$VERSION/sendrp/update"  //修改红包信息
     const val FANSRP_GOODS_BUY_INFO = "$VERSION/fansrp/goods/buy/info" //商品购买详情
-    val RP_FAVLIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/favlist" //收藏红包
+    val RP_FAVLIST = "${ApiManager2.getBonusHost()}/$VERSION/rp/fav" //收藏红包
     val RP_RANK = "${ApiManager2.getBonusHost()}/$VERSION/rp/rank" //红包排行榜
     /**
      * 支付

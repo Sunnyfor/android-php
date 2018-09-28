@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
     <View
@@ -274,7 +275,7 @@
                     android:id="@+id/createNumber"
                     style="@style/text_nomal_min"
                     android:layout_marginLeft="@dimen/w20"
-                    android:text="1248723897587888"
+                    tools:text="1248723897587888"
                     android:textColor="@color/grayText"
                     android:textSize="@dimen/w40" />
             </LinearLayout>

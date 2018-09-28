@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -81,7 +82,7 @@
                 style="@style/text_nomal_min"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/w55"
-                android:text="300元"
+                tools:text="300元"
                 android:textSize="@dimen/h34" />
         </RelativeLayout>
     </LinearLayout>

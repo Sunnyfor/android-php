@@ -7,15 +7,6 @@ package com.cocosh.shmstore.mine.model
 data class CommonModel(
         var name: String?,
         var smno: String?,
-        var listType: String?,
-        var infoList: ArrayList<SubCommonModel>) {
-
-    data class SubCommonModel(var isExpand: Boolean? = false,
-                              var itemType: String?,
-                              var lowLevelUserName: String?,
-                              var lowLevelUserNameSMNumber: String?,
-                              var idxLowLevelUserSpecialInfo: String?,
-                              var lowLevelUserSpecialType: String?,
-                              var isBeDistribution: String?,
-                              var entList: ArrayList<SubCommonModel>?)
-}
+        var isExpand: Boolean? = false,
+        var itemType: String,
+        var new: ArrayList<CommonModel>)

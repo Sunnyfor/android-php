@@ -9,22 +9,15 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
-import com.cocosh.shmstore.home.BonusDetailActivity
 import com.cocosh.shmstore.home.BonusWebActivity
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.mine.adapter.CollectionAdapter
 import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
-import com.cocosh.shmstore.mine.model.CollectionListModel
-import com.cocosh.shmstore.mine.model.CollectionModel
 import com.cocosh.shmstore.mine.model.NewCollection
 import com.cocosh.shmstore.mine.presenter.CollectionPresenter
 import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.RxBus
-import com.cocosh.shmstore.utils.RxMessageEvent
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.DefineLoadMoreView
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
 import kotlinx.android.synthetic.main.activity_collection.*
@@ -53,6 +46,7 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
          */
         val mLoadMoreListener = SwipeMenuRecyclerView.LoadMoreListener {
             recyclerView.postDelayed(Runnable {
+                pageNumber = listDatas.last().no
                 mPresenter.requestCollectionData(0, pageNumber.toString(), pageCount.toString(), timeStamp)
             }, 300)
         }
@@ -80,31 +74,25 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
         }
 
         adapter?.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(v: View, position: Int) {
-                selectIndex = position
+            override fun onItemClick(v: View, index: Int) {
+                selectIndex = index
                 val intent = Intent(this@CollectionActivity, BonusWebActivity::class.java)
-                SmApplication.getApp().setData(DataCode.BONUS_ID, listDatas[position].no)
-                intent.putExtra("title", listDatas[position].name)
-                intent.putExtra("comment_id", listDatas[position].no)
-                if (listDatas[position].status == "1") {//未打开
+                SmApplication.getApp().setData(DataCode.BONUS_ID, listDatas[index].no)
+                intent.putExtra("title", listDatas[index].name)
+                intent.putExtra("no", listDatas[index].no)
+                intent.putExtra("collection", listDatas[index].status)
+                if (listDatas[index].status == "1") {//未打开
                     intent.putExtra("state", "SEIZE")
                 }
 
-                if (listDatas[position].status == "2") { //已打开
+                if (listDatas[index].status == "2") { //已打开
                     intent.putExtra("state", "RECEIVE")
                 }
 
-                if (listDatas[position].status == "1") {//已赠送
+                if (listDatas[index].status == "1") {//已赠送
                     intent.putExtra("state", "ISGIVE")
                 }
-
-//                intent.putExtra("htmUrl", listDatas[position].htmlUrl)
-//                intent.putExtra("downUrl", listDatas[position].androidUrl)
-//                intent.putExtra("typeInfo", listDatas[position].typeInfo)
-//                intent.putExtra("companyName", listDatas[position].companyName)
-//                intent.putExtra("companyLogo", listDatas[position].companyLogo)
-//                intent.putExtra("advertisementBaseType",listDatas[position].advertisementBaseType)
-//                startActivity(intent)
+                startActivity(intent)
             }
 
         })
@@ -112,19 +100,18 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
 
 
     override fun collection(result: BaseBean<ArrayList<NewCollection>>) {
-            sfSwiperefresh.isRefreshing = false
-            if (result.message!= null) {
-                if (result.message?.size == 0) {
-                    recyclerView.loadMoreFinish(true, false);
-                    return
-                }
-                listDatas.addAll(result.message!!)
-                recyclerView.adapter.notifyDataSetChanged()
-                recyclerView.loadMoreFinish(false, true)
-                pageNumber = listDatas.last().no
-            }else{
-                showReTryLayout("暂无数据")
+        sfSwiperefresh.isRefreshing = false
+        if (result.message != null){
+            if (result.message?.size == 0) {
+                recyclerView.loadMoreFinish(true, false)
+                return
             }
+            listDatas.addAll(result.message!!)
+            recyclerView.adapter.notifyDataSetChanged()
+            recyclerView.loadMoreFinish(false, true)
+        }else{
+            recyclerView.loadMoreFinish(true, false)
+        }
     }
 
     override fun onListener(view: View) {

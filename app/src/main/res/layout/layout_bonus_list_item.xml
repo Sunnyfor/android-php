@@ -9,7 +9,7 @@
         android:id="@id/ivPhoto"
         android:layout_width="match_parent"
         android:layout_height="@dimen/h620"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         android:src="@drawable/default_long"/>
 
     <RelativeLayout
@@ -43,7 +43,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/w34"
             android:text="最大金额100元"
-            android:textColor="@color/red"/>
+            android:textColor="@color/red"
+            android:visibility="gone"/>
         </LinearLayout>
 
         <TextView

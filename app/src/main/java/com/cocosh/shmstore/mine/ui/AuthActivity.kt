@@ -170,6 +170,8 @@ class AuthActivity : BaseActivity() {
                     if (it == "BUSINESS"){
                         llcompany()
                     }
+
+                    intent.removeExtra("type")
                 }
 
             }

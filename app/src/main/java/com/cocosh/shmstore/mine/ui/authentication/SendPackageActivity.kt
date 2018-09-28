@@ -11,9 +11,11 @@ import android.widget.LinearLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.SendBonus
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.SendListAdapter
 import com.cocosh.shmstore.utils.DataCode
@@ -38,16 +40,16 @@ class SendPackageActivity : BaseActivity() {
     val fragmentList = arrayListOf<SendPackageFragment>()
     private var isDestory = false
 
-    var handler = Handler {
-        val message = it
-        val position = message.obj
-        fragmentList[it.what].let {
-            if (it.userVisibleHint) {
-                it.notifyDataSetChanged(position as Int)
-            }
-        }
-        return@Handler false
-    }
+//    var handler = Handler {
+//        val message = it
+//        val position = message.obj
+//        fragmentList[it.what].let {
+//            if (it.userVisibleHint) {
+//                it.notifyDataSetChanged(position as Int)
+//            }
+//        }
+//        return@Handler false
+//    }
 
 
     override fun setLayout(): Int = R.layout.activity_send_packages
@@ -155,23 +157,19 @@ class SendPackageActivity : BaseActivity() {
         dialog.setTitle("您确定取消投放吗？")
         dialog.OnClickListener = View.OnClickListener {
             val params = hashMapOf<String, String>()
-            params["redPacketOrderId"] = bonus.pay_sn ?: ""
-            ApiManager.get(this, params, Constant.BONUS_CANCLE, object : ApiManager.OnResult<BaseModel<String>>() {
-                override fun onSuccess(data: BaseModel<String>) {
-                    if (data.success) {
-                        fragmentList[0].list.remove(bonus)
-                        fragmentList[1].list.remove(bonus)
-                        fragmentList[0].notifyDataSetChanged()
-                        fragmentList[1].notifyDataSetChanged()
-                    } else {
-                        ToastUtil.show(data.message)
-                    }
+            params["no"] = bonus.no ?: ""
+            ApiManager2.post(this, params, Constant.SENDRP_CANCEL, object : ApiManager2.OnResult<BaseBean<String>>() {
+                override fun onFailed(code: String, message: String) {
+
                 }
 
-                override fun onFailed(e: Throwable) {
+                override fun onSuccess(data: BaseBean<String>) {
+                    fragmentList[0].list.remove(bonus)
+                    fragmentList[1].list.remove(bonus)
+                    fragmentList[0].notifyDataSetChanged()
+                    fragmentList[1].notifyDataSetChanged()
                 }
-
-                override fun onCatch(data: BaseModel<String>) {
+                override fun onCatch(data: BaseBean<String>) {
 
                 }
             })

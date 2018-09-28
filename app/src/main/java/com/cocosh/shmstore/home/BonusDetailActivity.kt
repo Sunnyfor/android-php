@@ -26,7 +26,7 @@ class BonusDetailActivity : BaseActivity() {
     var id: String? = null
     var type: String? = null
     var bonusOpen: BonusOpen? = null
-    var token = ""
+    var token:String? = null
     var animation = BonusYAnimation()
     var companyLogo: String? = null
     var companyName: String? = null
@@ -119,7 +119,7 @@ class BonusDetailActivity : BaseActivity() {
                     val shareDialog = ShareDialog(this)
                     shareDialog.isFinish = true
                     shareDialog.showGiveBouns(
-                            it, token)
+                            it, token?:"",redpacketId)
                 }
             }
             btnCollect.id -> { //收藏红包
@@ -138,7 +138,7 @@ class BonusDetailActivity : BaseActivity() {
         id?.let {
             params["no"] = it
         }
-        params["token"] = token
+        params["token"] = token?:""
 
         ApiManager2.post(this, params, Constant.RP_DO_FAV, object : ApiManager2.OnResult<BaseBean<String>>() {
 
@@ -159,15 +159,21 @@ class BonusDetailActivity : BaseActivity() {
 
 
     //开红包
-
     private fun open() {
+
+        val url = if (redpacketId != null) {
+            Constant.RP_FAV_TO_OPEN
+        } else {
+            Constant.RP_DO_OPEN
+        }
+
         val params = hashMapOf<String, String>()
         id?.let {
             params["no"] = it
         }
-        params["token"] = token
+        params["token"] = token?:""
 
-        ApiManager2.post(this, params, Constant.RP_DO_OPEN, object : ApiManager2.OnResult<BaseBean<BonusOpen>>() {
+        ApiManager2.post(this, params, url, object : ApiManager2.OnResult<BaseBean<BonusOpen>>() {
             override fun onFailed(code: String, message: String) {
 
             }

@@ -11,9 +11,8 @@ redPacketNumber (string, optional): 红包领取数 ,
 totalMoney (string, optional): 红包投放金额
  *
  */
-data class RedPushData(var advertisingExposure: String?,
-                       var paidAmount: String?,
-                       var realAdvertisingExposure: String?,
-                       var realRedPacketNumber: String?,
-                       var redPacketNumber: String?,
-                       var totalMoney: String?)
+data class RedPushData(var amount: String?,  //红包总金额
+                       var receive_amount: String?, // 领取金额
+                       var total: String?, //红包总数量
+                       var receive_total: String?//
+)

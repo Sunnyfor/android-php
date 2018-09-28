@@ -14,21 +14,18 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.BonusDetailActivity
 import com.cocosh.shmstore.home.model.BonusAction
-import com.cocosh.shmstore.home.model.BonusGive
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.ToastUtil
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
-import kotlinx.android.synthetic.main.dialog_ok.*
 import kotlinx.android.synthetic.main.include_share.*
 
 /**
@@ -228,7 +225,7 @@ class ShareDialog(var baseActivity: BaseActivity) : Dialog(baseActivity), View.O
 
 
     //赠送红包
-    fun showGiveBouns(no: String, token: String) {
+    fun showGiveBouns(no: String, token: String,redpacketId:String?) {
         isFinish = true
         onlyWxAndQQ()
         mOnItemClickListener = object : OnItemClickListener {
@@ -237,7 +234,7 @@ class ShareDialog(var baseActivity: BaseActivity) : Dialog(baseActivity), View.O
                 dialog.onClickResult = object : OnDialogResult {
                     override fun onResult(result: Any) {
                         (result as String).let {
-                            bonusGive(result, no, token, index)
+                            bonusGive(result, no, token, index,redpacketId)
                         }
                     }
                 }
@@ -255,12 +252,19 @@ class ShareDialog(var baseActivity: BaseActivity) : Dialog(baseActivity), View.O
 
 
     //赠送红包
-    private fun bonusGive(desc: String, no: String, token: String, index: Int) {
+    private fun bonusGive(desc: String, no: String, token: String, index: Int,redpacketId:String?) {
+
+        val url = if (redpacketId != null){
+            Constant.RP_FAV_TO_GIVE
+        }else{
+            Constant.RP_DO_GIVE
+        }
+
         val params = hashMapOf<String, String>()
         params["no"] = no
         params["token"] = token
 
-        ApiManager2.post(baseActivity, params, Constant.RP_DO_GIVE, object : ApiManager2.OnResult<BaseBean<String>>() {
+        ApiManager2.post(baseActivity, params, url, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
             }
 

@@ -471,7 +471,9 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
      */
     fun requestCollectionData(flag: Int, currentPage: String, showCount: String) {
         val map = HashMap<String, String>()
-        map["no"] = currentPage
+        if (currentPage != "1"){
+            map["no"] = currentPage
+        }
         map["num"] = showCount
         ApiManager2.post(flag, activity, map, Constant.RP_FAVLIST, object : ApiManager2.OnResult<BaseBean<ArrayList<NewCollection>>>() {
             override fun onFailed(code: String, message: String) {

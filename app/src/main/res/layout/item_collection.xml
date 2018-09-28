@@ -45,7 +45,7 @@
                 android:id="@+id/number"
                 style="@style/text_nomal_small"
                 android:layout_marginLeft="@dimen/w10"
-                android:text="红包总金额:0人"
+                android:text="红包总金额:0元"
                 android:textSize="@dimen/h34" />
         </LinearLayout>
 

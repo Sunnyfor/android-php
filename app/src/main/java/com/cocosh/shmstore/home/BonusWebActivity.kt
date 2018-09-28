@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v4.content.ContextCompat
 import android.view.View
-import android.view.ViewGroup
 import android.webkit.*
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -21,14 +20,11 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
-import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
-import com.cocosh.shmstore.widget.dialog.ReportDialog
-import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_bonus_web.*
 import org.json.JSONObject
@@ -47,6 +43,7 @@ class BonusWebActivity : BaseActivity() {
     private var downURL: String? = null
     private var companyLogo: String? = null
     private var companyName: String? = null
+    private var isCollection = false
     override fun setLayout(): Int = R.layout.activity_bonus_web
 
     @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
@@ -87,21 +84,23 @@ class BonusWebActivity : BaseActivity() {
         btnSure.setOnClickListener(this)
         btnOpen.setOnClickListener(this)
 
+        no = intent.getStringExtra("no")
         title = intent.getStringExtra("title")
         state = intent.getStringExtra("state")  //用于预览模式
 
-        companyLogo = intent.getStringExtra("companyLogo")
-        companyName = intent.getStringExtra("companyName")
-
-
         titleManager.defaultTitle(title ?: "")
 
-
+        intent?.getStringExtra("collection")?.let {
+            isCollection = true
+            btnOpen.text = "打开红包"
+        }
 
         state?.let {
             if (it == "PREVIEW") {
                 btnSure.isClickable = false
                 btnOpen.isClickable = false
+                webView.loadUrl(intent.getStringExtra("htmUrl"))
+                return
             }
 //            else {
 //
@@ -147,7 +146,17 @@ class BonusWebActivity : BaseActivity() {
                 if (type == "fans") {
                     checkFollow()
                 } else {
-                    getBonus()
+                    if (isCollection){
+                        val intent = Intent(this@BonusWebActivity, BonusDetailActivity::class.java)
+                        intent.putExtra("comment_id", no)
+                        intent.putExtra("typeInfo", type)
+                        intent.putExtra("title", intent.getStringExtra("title"))
+                        intent.putExtra("companyLogo", companyLogo)
+                        intent.putExtra("companyName", companyName)
+                        startActivity(intent)
+                    }else{
+                        getBonus()
+                    }
                 }
             }
         }
@@ -284,13 +293,17 @@ class BonusWebActivity : BaseActivity() {
 
     fun loadData() {
         val params = HashMap<String, String>()
-        params["no"] = intent.getStringExtra("no")
+        params["no"] = no ?: ""
+
+        if (isCollection){
+            params["inhold"] = "0"  //收藏类型
+        }
         ApiManager2.get(1, this, params, Constant.RP_DETAIL, object : ApiManager2.OnResult<BaseBean<RedPackage>>() {
             override fun onSuccess(data: BaseBean<RedPackage>) {
                 data.message?.let {
-
                     type = it.base?.type ?: "comm_person"
-                    no = it.base?.no
+
+                    it.h5url?.let { webView.loadUrl(it) }
 
                     when (it.hold) {
                         "1" -> {
@@ -360,7 +373,6 @@ class BonusWebActivity : BaseActivity() {
 
 
                     }
-                    it.h5url?.let { webView.loadUrl(it) }
                 }
 
 

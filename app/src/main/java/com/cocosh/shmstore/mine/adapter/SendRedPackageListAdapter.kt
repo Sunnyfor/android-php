@@ -73,14 +73,14 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
             holder.itemView.createNumberLL.visibility = View.VISIBLE
             holder.itemView.payWeyLL.visibility = View.VISIBLE
             holder.itemView.payTimeLL.visibility = View.VISIBLE
-            holder.itemView.createNumber.text = StringUtils.dateYYMMddFormatToTimeStamp(getData(position).addtime?:"")
+            holder.itemView.createNumber.text = getData(position).flowno?:""
             holder.itemView.payWey.text = getData(position).pay_type
         }
         if (getData(position).status == "5") {
             holder.itemView.btnData.visibility = View.VISIBLE
             holder.itemView.btnData.setOnClickListener {
                 val intent = Intent(context, PackagePushInfoActivity::class.java)
-                intent.putExtra("redPacketOrderId", getData(position).flowno)
+                intent.putExtra("redPacketOrderId", getData(position).no)
                 context.startActivity(intent)
             }
 
@@ -106,15 +106,15 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
         if (getData(position).status == "3") {
             holder.itemView.btnMotify.visibility = View.VISIBLE
             holder.itemView.rejectTimeLL.visibility = View.VISIBLE
-            holder.itemView.rejectTime.text = StringUtils.dateYYMMddFormatToTimeStamp(getData(position).reject_time?:"")
-            holder.itemView.turnTime.text = StringUtils.dateYYMMddFormatToTimeStamp(getData(position).reject_time?:"") //驳回时间
+            holder.itemView.rejectTime.text = StringUtils.timeStampFormatDateYYMMdd(getData(position).reject_time?:"")
+            holder.itemView.turnTime.text = StringUtils.timeStampFormatDateYYMMdd(getData(position).reject_time?:"") //驳回时间
             holder.itemView.turnReson.text = getData(position).reject  //驳回原因
             holder.itemView.turnTimeLL.visibility = View.VISIBLE
             holder.itemView.llayout_1.visibility = View.GONE
 
             holder.itemView.btnMotify.setOnClickListener {
                 val intent = Intent(context, SendBonusActivity::class.java)
-                intent.putExtra("id",getData(position).rp_id)
+                intent.putExtra("id",getData(position).no)
                 context.startActivity(intent)
             }
 
@@ -125,14 +125,14 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
             holder.itemView.rejectTimeLL.visibility = View.GONE
         }
 
-        holder.itemView.createTime.text = getData(position).addtime
+        holder.itemView.createTime.text = StringUtils.timeStampFormatDateYYMMdd(getData(position).addtime?:"")
 
 
 
-        holder.itemView.payTime.text = StringUtils.dateYYMMddFormatToTimeStamp(getData(position).payment_time?:"") //付款时间
+        holder.itemView.payTime.text = StringUtils.timeStampFormatDateYYMMdd(getData(position).payment_time?:"") //付款时间
         holder.itemView.number.text = getData(position).pay_sn //订单编号
         holder.itemView.shopName.text = getData(position).name
-        holder.itemView.pushTime.text = StringUtils.dateYYMMddFormatToTimeStamp(getData(position).pubtime?:"") //投放时间
+        holder.itemView.pushTime.text = StringUtils.timeStampFormatDateYYMMdd(getData(position).pubtime?:"") //投放时间
         holder.itemView.pushLocation.text = getData(position).city ?: "全国" //投放位置
         holder.itemView.pushMoney.text = (getData(position).amount + "元") //投放金额
         holder.itemView.pushTotal.text = (getData(position).total.toString() + "个")
@@ -168,8 +168,8 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
 
             val intent = Intent(context, BonusWebActivity::class.java)
             intent.putExtra("title", getData(position).name)
-            intent.putExtra("typeInfo", "1")
-            intent.putExtra("htmUrl", getData(position).htmlUrl)
+            intent.putExtra("no", getData(position).no)
+            intent.putExtra("htmUrl", getData(position).url)
             intent.putExtra("state", "PREVIEW")
             context.startActivity(intent)
         }

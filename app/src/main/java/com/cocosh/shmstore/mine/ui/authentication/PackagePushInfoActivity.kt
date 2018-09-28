@@ -5,12 +5,14 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.RedPushData
 import com.cocosh.shmstore.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_push_package_info.*
 
 /**
+ *
  * Created by lmg on 2018/4/23.
  */
 class PackagePushInfoActivity : BaseActivity() {
@@ -30,35 +32,35 @@ class PackagePushInfoActivity : BaseActivity() {
         requestData(redPacketOrderId ?: "")
     }
 
-    fun requestData(id: String) {
-        var map = HashMap<String, String>()
-        map["redPacketOrderId"] = id
-        ApiManager.get(1, this, map, Constant.BONUS_PUSH_DATA, object : ApiManager.OnResult<BaseModel<RedPushData>>() {
+    private fun requestData(id: String) {
+        val map = HashMap<String, String>()
+        map["no"] = id
+        ApiManager2.get(1, this, map, Constant.SENDRP_LAUNCH_DATA, object : ApiManager2.OnResult<BaseModel<RedPushData>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
             override fun onSuccess(data: BaseModel<RedPushData>) {
                 if (data.success && data.code == 200) {
-                    push.text = data.entity?.totalMoney + "元"
-                    pull.text = data.entity?.paidAmount + "元"
-                    var ts1 = (data.entity?.totalMoney?.toDouble() ?: 2.0)
-                    var ts2 = (data.entity?.paidAmount?.toDouble() ?: 1.0)
+                    push.text = (data.entity?.amount + "元")
+                    pull.text = (data.entity?.receive_amount + "元")
+                    val ts1 = (data.entity?.amount?.toDouble() ?: 2.0)
+                    val ts2 = (data.entity?.receive_amount?.toDouble() ?: 1.0)
                     pullMoney.secondaryProgress = ((ts2 / ts1) * 100).toInt()
 
-                    claim.text = data.entity?.redPacketNumber + "次"
-                    realClaim.text = data.entity?.realRedPacketNumber + "次"
-                    realClaimNumber.secondaryProgress = (((data.entity?.realRedPacketNumber?.toDouble()
-                            ?: 1.0) / (data.entity?.redPacketNumber?.toDouble()
+                    claim.text = (data.entity?.total + "次")
+                    realClaim.text = (data.entity?.receive_total + "次")
+                    realClaimNumber.secondaryProgress = (((data.entity?.total?.toDouble()
+                            ?: 1.0) / (data.entity?.receive_total?.toDouble()
                             ?: 1.0)) * 100).toInt()
 
-                    light.text = data.entity?.advertisingExposure + "次"
-                    realLight.text = data.entity?.realAdvertisingExposure + "次"
-                    realLightNumber.secondaryProgress = (((data.entity?.realAdvertisingExposure?.toDouble()
-                            ?: 1.0) / (data.entity?.advertisingExposure?.toDouble()
-                            ?: 1.0)) * 100).toInt()
+//                    light.text = data.entity?.advertisingExposure + "次"
+//                    realLight.text = data.entity?.realAdvertisingExposure + "次"
+//                    realLightNumber.secondaryProgress = (((data.entity?.realAdvertisingExposure?.toDouble()
+//                            ?: 1.0) / (data.entity?.advertisingExposure?.toDouble()
+//                            ?: 1.0)) * 100).toInt()
                 }
             }
 
-            override fun onFailed(e: Throwable) {
-                LogUtil.d(e.message.toString())
-            }
 
             override fun onCatch(data: BaseModel<RedPushData>) {
                 LogUtil.d(data.toString())

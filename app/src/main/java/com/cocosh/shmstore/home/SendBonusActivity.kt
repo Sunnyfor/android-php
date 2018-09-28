@@ -32,7 +32,7 @@ import kotlin.collections.HashMap
 class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener, CameraPhotoUtils.OnResultListener {
     private val cameraPhotoUtils = CameraPhotoUtils(this)
     private val pickerViewUtils = PickerViewUtils(this)
-    var bonusConfig: BonusConfig? = null
+    private var bonusConfig: BonusConfig? = null
     private var money: Float = 1.0f
     var url: String? = null
     var file: File? = null
@@ -295,7 +295,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
     private fun loadMotifyData() {
         val params = HashMap<String, String>()
-        params["rp_id"] = intent.getStringExtra("id")
+        params["no"] = intent.getStringExtra("id")
         ApiManager2.get(1, this, params, Constant.MYSELF_SENDRP_RPINFO, object : ApiManager2.OnResult<BaseBean<MotifyBonus>>() {
             override fun onSuccess(data: BaseBean<MotifyBonus>) {
                 data.message?.let {
@@ -306,7 +306,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     isvLocation.setValue("${it.pos_prov}-${it.pos_city}") //投放位置
                     isvLocation.setOnClickListener(null)
 
-                    isvTime.setValue(StringUtils.dateYYMMddFormatToTimeStamp(it.pubtime))
+                    isvTime.setValue(StringUtils.timeStampFormatDateYYMMdd(it.pubtime))
                     isvTime.setOnClickListener(null)
 
                     edtNumber.isFocusable = false
@@ -342,7 +342,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             paramsList.add(BonusParam("base", "pos_prov", it[0]))
             paramsList.add(BonusParam("base", "pos_city", it[1]))
         }
-        paramsList.add(BonusParam("base", "pubtime",  StringUtils.strFormat(isvTime.getValue()) ))
+        paramsList.add(BonusParam("base", "pubtime",  StringUtils.dateFormatTimeStampYYMMdd(isvTime.getValue()) ))
 
         paramsList.add(BonusParam("base", "total", edtNumber.text.toString()))
 

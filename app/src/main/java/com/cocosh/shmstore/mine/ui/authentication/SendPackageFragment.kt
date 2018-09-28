@@ -149,9 +149,9 @@ class SendPackageFragment : BaseFragment() {
         adapter?.notifyDataSetChanged()
     }
 
-    fun notifyDataSetChanged(position: Int) {
+//    fun notifyDataSetChanged(position: Int) {
 //        adapter?.notifyTimeLeave(position)
-    }
+//    }
 
     fun update() {
         launch(UI) {

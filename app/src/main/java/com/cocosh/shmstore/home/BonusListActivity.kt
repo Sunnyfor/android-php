@@ -91,6 +91,7 @@ class BonusListActivity : BaseActivity() {
             override fun onItemClick(v: View, index: Int) {
                 val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
                 intentWeb.putExtra("no",mList[index].no)
+                intentWeb.putExtra("title",mList[index].name)
                 startActivity(intentWeb)
             }
         })

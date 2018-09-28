@@ -79,23 +79,23 @@ class CommListActivity : BaseActivity() {
         adapter = CommonListAdapter(list, dataType)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-//        adapter.setOnItemClickListener(object : OnItemClickListener {
-//            override fun onItemClick(v: View, index: Int) {
-//                if (list[index].itemType == "0" && adapter.dataType == 1) {
-//                    if (list[index].isExpand == true) {
-//                        list[index].isExpand = false
-//                        list.removeAll(list[index].entList ?: arrayListOf())
-//                        adapter.notifyItemMoved(index + 1, list[index].entList?.size ?: 1)
-//                        adapter.notifyDataSetChanged()
-//                    } else {
-//                        list[index].isExpand = true
-//                        list.addAll(index + 1, list[index].entList ?: arrayListOf())
-//                        adapter.notifyItemRangeInserted(index + 1, list[index].entList?.size ?: 1)
-//                        adapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//        })
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View, index: Int) {
+                if (list[index].itemType == "0" && adapter.dataType == 1) {
+                    if (list[index].isExpand == true) {
+                        list[index].isExpand = false
+                        list.removeAll(list[index].new)
+                        adapter.notifyItemMoved(index + 1, list[index].new.size)
+                        adapter.notifyDataSetChanged()
+                    } else {
+                        list[index].isExpand = true
+                        list.addAll(index + 1, list[index].new)
+                        adapter.notifyItemRangeInserted(index + 1, list[index].new.size)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
     }
 
     override fun onListener(view: View) {
@@ -122,25 +122,25 @@ class CommListActivity : BaseActivity() {
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<CommonModel>>) {
-//                    if (dataType == 0) {
-//                        list.addAll(data.message?.infoList ?: arrayListOf())
-//                    } else {
-//                        data.message?.infoList.let {
-//                            it?.forEachIndexed { index, subCommonModel ->
-//                                it[index].entList?.forEach {
-//                                    it.itemType = "1"
-//                                }
-//                                it[index].entList?.add(0, CommonModel.SubCommonModel(false, 2.toString(), "该新媒人拓展企业主", index.toString(), index.toString(), index.toString(), index.toString(), null))
-//                                it[index].itemType = "0"
-//                            }
-//                        }
-//                        list.addAll(data.message?.infoList ?: arrayListOf())
-//                    }
-                list.clear()
-                data.message?.let {
-                    list.addAll(it)
+                    if (dataType == 0) {
+                        list.addAll(data.message?: arrayListOf())
+                    } else {
+                        data.message?.let {
+                            it.forEach {
+                                it.new.forEach {
+                                    it.itemType = "1"
+                                }
+                                it.new.add(0, CommonModel("该新媒人拓展企业主","",false , 2.toString(), arrayListOf()))
+                                it.itemType = "0"
+                            }
+                        }
+                        list.addAll(data.message?: arrayListOf())
+                    }
+//                list.clear()
+//                data.message?.let {
+//                    list.addAll(it)
                     adapter.notifyDataSetChanged()
-                }
+//                }
 
                 if (list.isEmpty()){
                     showReTryLayout("暂无数据")
