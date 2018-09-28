@@ -27,7 +27,7 @@ class AboutActivity : BaseActivity() {
     override fun initView() {
         titleManager.defaultTitle("关于小红娘")
 
-        tvDesc.text = ("版本号：小红娘${SmApplication.getApp().getVersionName()}")
+        tvDesc.text = ("版本号：${SmApplication.getApp().getVersionName()}")
         tvDesc.setOnClickListener(this)
     }
 

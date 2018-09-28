@@ -122,11 +122,11 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
         super.onResume()
         SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, true)?.let {
             if (it == BonusAction.OPEN) {
-                listDatas[selectIndex].status = "2"
+                listDatas[selectIndex].status = "1"
             }
 
             if (it == BonusAction.GIVE) {
-                listDatas[selectIndex].status = "1"
+                listDatas[selectIndex].status = "2"
             }
             adapter?.notifyDataSetChanged()
         }

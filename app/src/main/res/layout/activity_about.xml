@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,16 +8,18 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/bg_text_logo"
-        android:contentDescription="@null"
-        android:layout_marginTop="@dimen/h100"/>
+        android:layout_height="@dimen/h1196"
+        android:background="@drawable/bg_about"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:textSize="@dimen/w46"
-        android:layout_marginTop="@dimen/h150"/>
-</LinearLayout>
+        android:textColor="@color/blackText"
+        android:layout_marginBottom="@dimen/h80"
+        tools:text="版本号：1.0.0" />
+</RelativeLayout>

@@ -37,10 +37,11 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@id/ivHead"
             android:layout_width="@dimen/w160"
-            android:layout_height="@dimen/h160"
+            android:layout_height="@dimen/w160"
             android:src="@drawable/default_head"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/h90"
+            android:scaleType="centerCrop"
             app:riv_oval="true" />
         
         

@@ -42,11 +42,11 @@
     <application
         android:name=".application.SmApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/new_ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:resizeableActivity="false"
-        android:roundIcon="@mipmap/new_ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/SMTheme"
         tools:replace="android:allowBackup,android:supportsRtl,android:theme"
@@ -126,7 +126,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1105781269" />
+                <data android:scheme="tencent1106986884" />
             </intent-filter>
         </activity>
         <activity

@@ -95,11 +95,11 @@ class BonusWebActivity : BaseActivity() {
             when (it) {
                 "0" -> btnOpen.text = "打开红包"
                 "1" -> {
-                    btnOpen.isClickable = false
+                    cannotReceive()
                     btnOpen.text = "已打开"
                 }
                 "2" -> {
-                    btnOpen.isClickable = false
+                    cannotReceive()
                     btnOpen.text = "已赠送"
                 }
             }
@@ -191,8 +191,8 @@ class BonusWebActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         SmApplication.getApp().getData<BonusAction>(DataCode.BONUS, false)?.let {
-            btnOpen.text = "已领取"
             cannotReceive()
+            btnOpen.text = "已领取"
         }
     }
 

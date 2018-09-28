@@ -3,6 +3,7 @@ package com.cocosh.shmstore.mine.ui.authentication
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
@@ -35,22 +36,21 @@ class PackagePushInfoActivity : BaseActivity() {
     private fun requestData(id: String) {
         val map = HashMap<String, String>()
         map["no"] = id
-        ApiManager2.get(1, this, map, Constant.SENDRP_LAUNCH_DATA, object : ApiManager2.OnResult<BaseModel<RedPushData>>() {
+        ApiManager2.get(1, this, map, Constant.SENDRP_LAUNCH_DATA, object : ApiManager2.OnResult<BaseBean<RedPushData>>() {
             override fun onFailed(code: String, message: String) {
             }
 
-            override fun onSuccess(data: BaseModel<RedPushData>) {
-                if (data.success && data.code == 200) {
-                    push.text = (data.entity?.amount + "元")
-                    pull.text = (data.entity?.receive_amount + "元")
-                    val ts1 = (data.entity?.amount?.toDouble() ?: 2.0)
-                    val ts2 = (data.entity?.receive_amount?.toDouble() ?: 1.0)
+            override fun onSuccess(data: BaseBean<RedPushData>) {
+                    push.text = (data.message?.amount + "元")
+                    pull.text = (data.message?.receive_amount + "元")
+                    val ts1 = (data.message?.amount?.toDouble() ?: 2.0)
+                    val ts2 = (data.message?.receive_amount?.toDouble() ?: 1.0)
                     pullMoney.secondaryProgress = ((ts2 / ts1) * 100).toInt()
 
-                    claim.text = (data.entity?.total + "次")
-                    realClaim.text = (data.entity?.receive_total + "次")
-                    realClaimNumber.secondaryProgress = (((data.entity?.total?.toDouble()
-                            ?: 1.0) / (data.entity?.receive_total?.toDouble()
+                    claim.text = (data.message?.total + "次")
+                    realClaim.text = (data.message?.receive_total + "次")
+                    realClaimNumber.secondaryProgress = (((data.message?.total?.toDouble()
+                            ?: 1.0) / (data.message?.receive_total?.toDouble()
                             ?: 1.0)) * 100).toInt()
 
 //                    light.text = data.entity?.advertisingExposure + "次"
@@ -58,11 +58,9 @@ class PackagePushInfoActivity : BaseActivity() {
 //                    realLightNumber.secondaryProgress = (((data.entity?.realAdvertisingExposure?.toDouble()
 //                            ?: 1.0) / (data.entity?.advertisingExposure?.toDouble()
 //                            ?: 1.0)) * 100).toInt()
-                }
             }
 
-
-            override fun onCatch(data: BaseModel<RedPushData>) {
+            override fun onCatch(data: BaseBean<RedPushData>) {
                 LogUtil.d(data.toString())
             }
         })

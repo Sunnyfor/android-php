@@ -4,12 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
-import com.cocosh.shmstore.mine.model.CollectionModel
 import com.cocosh.shmstore.mine.model.NewCollection
-import com.cocosh.shmstore.utils.GlideUtils
 import kotlinx.android.synthetic.main.layout_bonus_list_item.view.*
 
 /**
@@ -37,7 +36,7 @@ class CollectionAdapter(var mContext: Context, list: ArrayList<NewCollection>) :
             }
         }
 //        holder.itemView.number.text = "红包总金额:￥" + getData(position).redPacketMoney
-        GlideUtils.loadFullScreen(mContext, getData(position).image, holder.itemView.ivPhoto)
+        Glide.with(mContext).load(getData(position).image).placeholder(R.drawable.default_long).into(holder.itemView.ivPhoto)
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View =
