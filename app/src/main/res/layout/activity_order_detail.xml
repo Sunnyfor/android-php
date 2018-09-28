@@ -359,7 +359,7 @@
                 <TextView
                     android:id="@+id/showPayWay"
                     style="@style/text_nomal_small"
-                    tools:text="首媒支付"
+                    tools:text="小红娘支付"
                     android:textColor="@color/blackText" />
 
             </LinearLayout>

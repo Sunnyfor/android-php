@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w160"
-            android:text="首媒支付"
+            android:text="小红娘支付"
             android:textSize="@dimen/w40" />
 
         <TextView

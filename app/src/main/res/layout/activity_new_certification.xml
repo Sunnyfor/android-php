@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/h146">
 
                     <TextView
-                        android:text="首媒号"
+                        android:text="小红娘号"
                         style="@style/newCertiTextStyle1" />
 
                     <TextView

@@ -106,7 +106,7 @@
             android:id="@+id/isvAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="关于首媒" />
+            app:nameText="关于小红娘" />
     </LinearLayout>
 
     <Button

@@ -41,7 +41,7 @@
             android:id="@+id/isvEntNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="首媒号" />
+            app:nameText="小红娘号" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/isvEntAccount"

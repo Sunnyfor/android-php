@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/w50"
                     android:layout_marginTop="@dimen/h100"
-                    android:text="由于线上交易扣款金额受限，首媒为企业提供线下\n支付服务。汇款详情如下："
+                    android:text="由于线上交易扣款金额受限，小红娘为企业提供线下\n支付服务。汇款详情如下："
                     android:textColor="#ECA56C"
                     android:textSize="@dimen/h43" />
 
@@ -152,7 +152,7 @@
                     android:layout_below="@id/tv_red3"
                     android:layout_marginLeft="@dimen/w50"
                     android:layout_marginTop="@dimen/h10"
-                    android:text="3.资金到账后，首媒会给贵企业注册时使用的手机号码发"
+                    android:text="3.资金到账后，小红娘会给贵企业注册时使用的手机号码发"
                     android:textColor="#DD5A6E"
                     android:textSize="@dimen/h38" />
 
@@ -163,7 +163,7 @@
                     android:layout_below="@id/tv_red4"
                     android:layout_marginLeft="@dimen/w50"
                     android:layout_marginTop="@dimen/h10"
-                    android:text="送资金到账通知，同时在首媒APP端会为您开通相关业务。"
+                    android:text="送资金到账通知，同时在小红娘APP端会为您开通相关业务。"
                     android:textColor="#DD5A6E"
                     android:textSize="@dimen/h38" />
 

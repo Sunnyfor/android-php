@@ -231,7 +231,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/h75"
         android:gravity="center"
-        android:text="首媒将会根据你所提供的手机号进行打款认证核实！"
+        android:text="小红娘将会根据你所提供的手机号进行打款认证核实！"
         android:textColor="#454545"
         android:textSize="@dimen/h35" />
 
@@ -240,7 +240,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/h75"
         android:gravity="center"
-        android:text="如有疑问请拨打首媒客服热线：400-966-1168"
+        android:text="如有疑问请拨打客服热线：400-966-1168"
         android:textColor="#454545"
         android:textSize="@dimen/h35" />
 </LinearLayout>

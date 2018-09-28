@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/w176"
         android:layout_toRightOf="@+id/name"
-        android:text="首媒号：12345678900"
+        android:text="小红娘号：12345678900"
         android:textColor="@color/gray_text"
         android:textSize="@dimen/h37" />
 

@@ -298,7 +298,7 @@
                     style="@style/text_nomal_min"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/w20"
-                    android:text="首媒支付"
+                    android:text="小红娘支付"
                     android:textColor="@color/grayText"
                     android:textSize="@dimen/w40" />
             </LinearLayout>

@@ -22,9 +22,9 @@ class CommonListAdapter(list: ArrayList<CommonModel>, var dataType: Int) : BaseR
             itemView.setName(list[position].name)
 
             if (dataType == 0) {
-                itemView.setNoIconValue("首媒号:${list[position].smno}")
+                itemView.setNoIconValue("小红娘号:${list[position].smno}")
             } else {
-                itemView.setValue("首媒号:${list[position].name}")
+                itemView.setValue("小红娘号:${list[position].name}")
                 if (getData(position).isExpand == true) {
                     itemView.setIcon(context.getString(R.string.iconMoreDown))
                 } else {
@@ -35,7 +35,7 @@ class CommonListAdapter(list: ArrayList<CommonModel>, var dataType: Int) : BaseR
 
         if (getItemViewType(position) == 1) {
             holder.itemView.nameSub.text = list[position].name
-            holder.itemView.shouMeiNumberSub.text = ("首媒号:${list[position].smno}")
+            holder.itemView.shouMeiNumberSub.text = ("小红娘号:${list[position].smno}")
         }
     }
 

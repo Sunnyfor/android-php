@@ -52,7 +52,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    app:nameText="首媒号" />
+                    app:nameText="小红娘号" />
 
 
                 <com.cocosh.shmstore.widget.view.ItemShowView

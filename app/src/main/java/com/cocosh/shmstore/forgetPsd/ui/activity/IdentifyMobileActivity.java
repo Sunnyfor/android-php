@@ -156,7 +156,7 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
 
     private void showDialog() {
         SmediaDialog dialog = new SmediaDialog(IdentifyMobileActivity.this);
-        dialog.setTitle("首媒客服：01078334322");
+        dialog.setTitle("客服：01078334322");
         dialog.setPositiveText("拨打");
         dialog.setOnClickListener(new View.OnClickListener() {
             @Override

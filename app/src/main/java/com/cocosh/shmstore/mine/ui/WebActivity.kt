@@ -150,7 +150,7 @@ class WebActivity : BaseActivity() {
     fun jsCallPhone(number: String) {
         phoneNumber = number
         val dialog = SmediaDialog(this)
-        dialog.setTitle("首媒客服电话")
+        dialog.setTitle("小红娘客服电话")
         dialog.setDesc(number)
         dialog.setPositiveText("呼叫")
         dialog.OnClickListener = View.OnClickListener {

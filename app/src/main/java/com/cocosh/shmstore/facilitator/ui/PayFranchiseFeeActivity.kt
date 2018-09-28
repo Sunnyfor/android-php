@@ -116,7 +116,7 @@ class PayFranchiseFeeActivity : BaseActivity(), FacilitatorContrat.ICommitView {
     private lateinit var permissionUtil: PermissionUtil
     private fun showDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("首媒客服电话")
+        dialog.setTitle("客服电话")
         dialog.setDesc("400-966-1168")
         dialog.setPositiveText("呼叫")
         dialog.OnClickListener = View.OnClickListener {

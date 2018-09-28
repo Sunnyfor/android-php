@@ -37,7 +37,7 @@
         android:layout_below="@id/icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/h157"
-        android:text="已为您认证首媒企业主，点击激活享受更多服务"
+        android:text="已为您认证小红娘企业主，点击激活享受更多服务"
         android:textColor="#8F8F8F"
         android:textSize="@dimen/h42" />
 

@@ -92,7 +92,17 @@ class BonusWebActivity : BaseActivity() {
 
         intent?.getStringExtra("collection")?.let {
             isCollection = true
-            btnOpen.text = "打开红包"
+            when (it) {
+                "0" -> btnOpen.text = "打开红包"
+                "1" -> {
+                    btnOpen.isClickable = false
+                    btnOpen.text = "已打开"
+                }
+                "2" -> {
+                    btnOpen.isClickable = false
+                    btnOpen.text = "已赠送"
+                }
+            }
         }
 
         state?.let {
@@ -102,6 +112,7 @@ class BonusWebActivity : BaseActivity() {
                 webView.loadUrl(intent.getStringExtra("htmUrl"))
                 return
             }
+
 //            else {
 //
 //                if (typeInfo == "1") {
@@ -146,7 +157,7 @@ class BonusWebActivity : BaseActivity() {
                 if (type == "fans") {
                     checkFollow()
                 } else {
-                    if (isCollection){
+                    if (isCollection) {
                         val intent = Intent(this@BonusWebActivity, BonusDetailActivity::class.java)
                         intent.putExtra("comment_id", no)
                         intent.putExtra("typeInfo", type)
@@ -154,7 +165,7 @@ class BonusWebActivity : BaseActivity() {
                         intent.putExtra("companyLogo", companyLogo)
                         intent.putExtra("companyName", companyName)
                         startActivity(intent)
-                    }else{
+                    } else {
                         getBonus()
                     }
                 }
@@ -295,7 +306,7 @@ class BonusWebActivity : BaseActivity() {
         val params = HashMap<String, String>()
         params["no"] = no ?: ""
 
-        if (isCollection){
+        if (isCollection) {
             params["inhold"] = "0"  //收藏类型
         }
         ApiManager2.get(1, this, params, Constant.RP_DETAIL, object : ApiManager2.OnResult<BaseBean<RedPackage>>() {

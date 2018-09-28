@@ -189,7 +189,7 @@ class OrderDetailActivity : BaseActivity() {
                     showPayWay.text = when (it.pay_type) {
                         "1" -> "支付宝"
                         "2" -> "微信"
-                        else -> "首媒支付"
+                        else -> "小红娘支付"
                     }
                     showPlaceTime.text = it.addtime
                     showPayTime.text = it.pay_time

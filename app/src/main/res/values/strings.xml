@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">首媒</string>
+    <string name="app_name">小红娘</string>
 
     <!--首页Title-->
     <string name="default_city">定位中</string>
-    <string name="formal_title">首媒中国</string>
+    <!--<string name="formal_title">首媒中国</string>-->
     <string name="dev_title">开发版本</string>
 
     <!--首页导航-->
@@ -25,7 +25,7 @@
     <string name="cancle">取消</string>
     <string name="call">拨打</string>
     <string name="sure">确定</string>
-    <string name="smPhone">首媒客服：01078334322</string>
+    <string name="smPhone">客服：01078334322</string>
 
     <string name="lockPhone">登录密码出错已达上限将锁定密码\n3小时，请稍后登录。</string>
 
@@ -94,7 +94,7 @@
     <string name="notQQ">请安装QQ</string>
     <string name="notSina">请安装新浪微博</string>
 
-    <string name="shejiaoyingxiao">首媒社交营销</string>
+    <!--<string name="shejiaoyingxiao">首媒社交营销</string>-->
 
     <string name="agree">同意</string>
     <string name="comple">完成</string>
@@ -294,8 +294,8 @@
 
     <string name="address_sheng">选择省/直辖市</string>
     <string name="address_shi">选择市/区</string>
-    <string name="partner_title">请仔细阅读《首媒新媒人协议》，\n加入前,需同意协议中的所有内容。</string>
-    <string name="facilitator_title">请仔细阅读《首媒服务商协议》，\n加入前,需同意协议中的所有内容。</string>
+    <string name="partner_title">请仔细阅读《新媒人协议》，\n加入前,需同意协议中的所有内容。</string>
+    <string name="facilitator_title">请仔细阅读《服务商协议》，\n加入前,需同意协议中的所有内容。</string>
 
     <string name="corporation">我是法人代表</string>
     <string name="commission_agent">我是代办人</string>

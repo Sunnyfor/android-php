@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/w50"
         android:layout_marginTop="@dimen/h30"
-        android:text="注：红包可以直接购物及支付首媒平台的各类费用"
+        android:text="注：红包可以直接购物及支付平台的各类费用"
         android:textSize="@dimen/h37" />
 
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView

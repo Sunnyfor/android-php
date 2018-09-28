@@ -81,17 +81,7 @@ class CollectionActivity : BaseActivity(), MineContrat.ICollectionView {
                 intent.putExtra("title", listDatas[index].name)
                 intent.putExtra("no", listDatas[index].no)
                 intent.putExtra("collection", listDatas[index].status)
-                if (listDatas[index].status == "1") {//未打开
-                    intent.putExtra("state", "SEIZE")
-                }
-
-                if (listDatas[index].status == "2") { //已打开
-                    intent.putExtra("state", "RECEIVE")
-                }
-
-                if (listDatas[index].status == "1") {//已赠送
-                    intent.putExtra("state", "ISGIVE")
-                }
+                intent.putExtra("state", listDatas[index].status)
                 startActivity(intent)
             }
 

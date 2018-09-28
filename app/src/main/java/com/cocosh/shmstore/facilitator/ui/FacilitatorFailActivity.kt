@@ -36,7 +36,7 @@ class FacilitatorFailActivity : BaseActivity() {
         if (openType == 777) {
             //认证中
             btn_again.visibility = View.GONE
-            tv_red2.text = ("该企业已完成服务商认证\n" + "如有疑问联系首媒客服：400-966-1168")
+            tv_red2.text = ("该企业已完成服务商认证\n" + "如有疑问联系小红娘客服：400-966-1168")
         } else {
             tv_red2.text = "打款金额有误，钱款已退回"
         }
@@ -56,7 +56,7 @@ class FacilitatorFailActivity : BaseActivity() {
     private lateinit var permissionUtil: PermissionUtil
     private fun showDialog() {
         val dialog = SmediaDialog(this)
-        dialog.setTitle("首媒客服电话")
+        dialog.setTitle("客服电话")
         dialog.setDesc("400-966-1168")
         dialog.setPositiveText("呼叫")
         dialog.OnClickListener = View.OnClickListener {

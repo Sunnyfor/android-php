@@ -1,1 +1,1 @@
-首媒APP（PHP版本）
+Androida版本重构架子（包含一个重构登录功能）MVP

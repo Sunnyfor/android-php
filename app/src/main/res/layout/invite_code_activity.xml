@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h100"
             android:gravity="center"
-            android:text="快邀请好友一起来参加首媒创业吧"
+            android:text="快邀请好友一起来参加小红娘创业吧"
             android:textColor="@color/blackText"
             android:textSize="@dimen/h43" />
 

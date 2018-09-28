@@ -87,7 +87,7 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
 //                rlEnt.visibility = View.VISIBLE
                 tv_status_title.setText(R.string.ent_prise_ing)
                 tv_review.text = ("审核情况会通过您提交的手机号：${infoModel?.base?.tel}\n" +
-                        "短信通知您！如有疑问请拨打首媒\n" +
+                        "短信通知您！如有疑问请拨打\n" +
                         "客服热线：400-966-1168 ")
                 tv_review.visibility = View.VISIBLE
                 tv_status_indicate.visibility = View.GONE
@@ -109,14 +109,14 @@ class EnterpriseActiveActivity : BaseActivity(), EntCertificationActiveContrat.I
                 btn_again.visibility = View.VISIBLE
                 tv_notice.visibility = View.VISIBLE
                 if (TextUtils.isEmpty(infoModel?.cert?.reason)) {
-                    tv_notice.text = ("如有疑问致电首媒：400-966-1168")
+                    tv_notice.text = ("如有疑问致电：400-966-1168")
                 } else {
                     tv_notice.text = ("失败原因:\n" + infoModel?.cert?.reason + "\n" +
-                            "如有疑问致电首媒：400-966-1168")
+                            "如有疑问致电：400-966-1168")
                 }
 //                rlEnt.visibility = View.VISIBLE
                 tv_status_title.setText(R.string.ent_error)
-                tv_status_desc.text = "首媒平台审核未通过"
+                tv_status_desc.text = "小红娘平台审核未通过"
                 tv_status_indicate.visibility = View.GONE
                 tv_status_title.visibility = View.VISIBLE
                 tv_status_desc.visibility = View.VISIBLE

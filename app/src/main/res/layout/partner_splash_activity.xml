@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="成为首媒新媒人"
+                android:text="成为小红娘新媒人"
                 android:textColor="@color/top_color_orange"
                 android:textSize="@dimen/w60" />
 
@@ -79,7 +79,7 @@
                     android:layout_height="28dp"
                     android:layout_toRightOf="@+id/text_shm"
                     android:gravity="center_horizontal"
-                    android:text="首媒新媒人协议"
+                    android:text="小红娘新媒人协议"
                     android:textColor="@color/bg_btn"
                     android:textSize="@dimen/w40" />
 
@@ -103,7 +103,7 @@
                     android:layout_height="28dp"
                     android:layout_toRightOf="@+id/text_shm"
                     android:gravity="center_horizontal"
-                    android:text="首媒新媒人优势"
+                    android:text="小红娘新媒人优势"
                     android:textColor="@color/bg_btn"
                     android:textSize="@dimen/w40" />
 

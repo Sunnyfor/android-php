@@ -106,7 +106,7 @@ class InviteCodeActivity : BaseActivity(), InviteCodeContrat.IView {
             invite_code_btn.id -> {
                 if (infoData != null) {
                     val dialog = ShareDialog(this)
-                    dialog.showShareBase("首媒约你一起互联网+", "抢不完的现金红包等着你", infoData?.url ?: "")
+                    dialog.showShareBase("小红娘约你一起互联网+", "抢不完的现金红包等着你", infoData?.url ?: "")
                     dialog.show()
                 }
             }

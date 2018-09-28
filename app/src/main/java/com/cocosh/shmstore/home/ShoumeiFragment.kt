@@ -22,7 +22,7 @@ class ShoumeiFragment : BaseFragment() {
     override fun setLayout(): Int = R.layout.fragment_shoumei
 
     override fun initView() {
-        showTitle(getTitleManager().rightText("首媒之家", resources.getString(R.string.iconSearch), View.OnClickListener {
+        showTitle(getTitleManager().rightText("企业之家", resources.getString(R.string.iconSearch), View.OnClickListener {
             //跳转品牌搜索页面
             ShouMeiSearchActivity.start(activity)
         }, true, resources.getDimension(R.dimen.w56)))

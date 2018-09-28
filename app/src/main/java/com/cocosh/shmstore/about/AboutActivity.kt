@@ -25,9 +25,9 @@ class AboutActivity : BaseActivity() {
     override fun setLayout(): Int = R.layout.activity_about
 
     override fun initView() {
-        titleManager.defaultTitle("关于首媒")
+        titleManager.defaultTitle("关于小红娘")
 
-        tvDesc.text = ("版本号：首媒${SmApplication.getApp().getVersionName()}")
+        tvDesc.text = ("版本号：小红娘${SmApplication.getApp().getVersionName()}")
         tvDesc.setOnClickListener(this)
     }
 

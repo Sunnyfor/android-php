@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/h20"
     android:background="@color/white"
     android:orientation="vertical">
@@ -43,7 +44,7 @@
                     android:ellipsize="end"
                     android:maxEms="13"
                     android:maxLines="2"
-                    android:text="首媒科技"
+                    tools:text="小红娘"
                     android:textColor="@color/blackText"
                     android:textSize="@dimen/w46" />
 

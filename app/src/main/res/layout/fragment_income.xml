@@ -183,7 +183,7 @@
                 style="@style/text_nomal_small"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/w50"
-                android:text="速速成为首媒平台新媒人，获取更多收益吧！"
+                android:text="速速成为新媒人，获取更多收益吧！"
                 android:textSize="@dimen/h34" />
 
             <RelativeLayout
@@ -295,7 +295,7 @@
                 style="@style/text_nomal_small"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/w50"
-                android:text="速速成为首媒平台服务商，获取更多收益吧！"
+                android:text="速速成为服务商，获取更多收益吧！"
                 android:textSize="@dimen/h34" />
 
             <RelativeLayout

@@ -43,6 +43,6 @@
         android:layout_marginRight="@dimen/w177"
         android:layout_marginTop="@dimen/h117"
         android:background="@color/red"
-        android:text="开启首媒生活"
+        android:text="快去开启收益之旅吧！"
         android:textSize="@dimen/w45" />
 </RelativeLayout>

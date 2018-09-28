@@ -79,7 +79,7 @@ class OldModifyPasswordActivity : BaseActivity() {
             }
             btnCall.id -> {
                 val dialog = SmediaDialog(this)
-                dialog.setTitle("首媒客服：01078334322")
+                dialog.setTitle("小红娘客服：01078334322")
                 dialog.setPositiveText("拨打")
                 dialog.OnClickListener = View.OnClickListener {
                     if (permissionUtil.callPermission()) {
