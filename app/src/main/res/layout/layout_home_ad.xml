@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="/SHOUMEI"
             android:textColor="@color/grayText"
+            android:visibility="gone"
             android:textSize="@dimen/w35" />
 
     </LinearLayout>

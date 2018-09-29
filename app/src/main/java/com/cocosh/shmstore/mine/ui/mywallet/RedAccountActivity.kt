@@ -51,12 +51,14 @@ class RedAccountActivity : BaseActivity(), MineContrat.IRedWalletView {
     override fun redWalletWaterData(result: BaseBean<ArrayList<RedWaterModel>>) {
             if (result.message != null) {
                 if (result.message!!.size == 0) {
-                    recyclerView.loadMoreFinish(true, false);
+                    recyclerView.loadMoreFinish(true, false)
                     return
                 }
                 list.addAll(result.message!!)
                 recyclerView.adapter.notifyDataSetChanged()
                 recyclerView.loadMoreFinish(false, true)
+            }else{
+                recyclerView.loadMoreFinish(true, false)
             }
     }
 

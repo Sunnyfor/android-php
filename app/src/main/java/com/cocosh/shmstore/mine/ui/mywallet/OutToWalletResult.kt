@@ -49,9 +49,9 @@ class OutToWalletResult : BaseActivity() {
         timeValue = intent.getStringExtra("time")
         runningWaterValue = intent.getStringExtra("runningWater")
 
-        money.setValue(StringUtils.insertComma(moneyValue,2) + "元")
-        time.setValue(timeValue)
-        number.setValue(runningWaterValue)
+        money.setNoIconValue(StringUtils.insertComma(moneyValue,2) + "元")
+        time.setNoIconValue(timeValue)
+        number.setNoIconValue(runningWaterValue)
 
         if (moneyValue != null) {
             icon.setImageResource(R.drawable.success_s)

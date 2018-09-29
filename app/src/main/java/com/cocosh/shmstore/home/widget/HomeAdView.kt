@@ -1,7 +1,9 @@
 package com.cocosh.shmstore.home.widget
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.Scroller
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.BonusWebActivity
@@ -18,7 +21,9 @@ import com.cocosh.shmstore.home.adapter.HomeBannerAdapter
 import com.cocosh.shmstore.home.model.Banner
 import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
@@ -155,24 +160,25 @@ class HomeAdView : LinearLayout {
                     SmediaDialog(context).showLogin()
                     return
                 }
-
                 list[index].let {
-                    val intent = Intent(context, BonusWebActivity::class.java)
-                    intent.putExtra("title",it.name)
-                    intent.putExtra("no", it.no)
-                    context.startActivity(intent)
-
-                    //已抢
-//                    when {
-//                        it.draw == "1" -> {
-////                            intentWeb(it,"RECEIVE")
-//                        }
-//                        it.draw == "" -> {
-////                            intentWeb(it,"NONE")
-//                        }
-////                        else -> //开始抢红包
-////                            hitBonus(it)
-//                    }
+                    if (it.type == "special" || it.type == "fans") {
+                        UserManager2.getMemberEntrance()?.let {
+                            if (it.degree < 22) {
+                                SmediaDialog(context).showArchive()
+                                return
+                            } else {
+                                val intentWeb = Intent(context, BonusWebActivity::class.java)
+                                intentWeb.putExtra("no", list[index].no)
+                                intentWeb.putExtra("title", list[index].name)
+                                context.startActivity(intentWeb)
+                            }
+                        }
+                    }else{
+                        val intentWeb = Intent(context, BonusWebActivity::class.java)
+                        intentWeb.putExtra("no", list[index].no)
+                        intentWeb.putExtra("title", list[index].name)
+                        context.startActivity(intentWeb)
+                    }
                 }
             }
 

@@ -173,6 +173,9 @@ class PartnerSplashActivity : BaseActivity() {
             override fun onSuccess(data: BaseBean<ApplyPartner>) {
                 val intent = Intent(this@PartnerSplashActivity, PartherPendingPayActivity::class.java)
                 startActivity(intent)
+                if (inviteCode.isNotEmpty()){
+                    finish()
+                }
             }
         })
     }

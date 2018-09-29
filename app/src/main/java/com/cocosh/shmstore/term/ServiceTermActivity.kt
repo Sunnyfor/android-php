@@ -28,10 +28,10 @@ import kotlinx.android.synthetic.main.activity_term.*
  */
 class ServiceTermActivity : BaseActivity() {
 
-    private val fac = "f_cert"
+    private val fac = "cert_svc"
     private val recharge = "recharge"
     private val register = "register"
-    private val newcer = "x_cert"
+    private val newcer = "new_protocol"
     private val businessman = "b_cert"
     private val help = "help" //帮助中心
     private val bonusCommon = "public"//大众红包规则

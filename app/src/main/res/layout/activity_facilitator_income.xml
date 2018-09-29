@@ -97,7 +97,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="姓名"></com.cocosh.shmstore.widget.view.ItemShowView>
+            app:nameText="名称"></com.cocosh.shmstore.widget.view.ItemShowView>
 
 
         <com.cocosh.shmstore.widget.view.ItemShowView

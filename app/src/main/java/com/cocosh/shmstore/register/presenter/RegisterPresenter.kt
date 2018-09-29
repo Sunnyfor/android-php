@@ -4,6 +4,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.login.model.Login2
+import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.register.RegisterContract
 import com.cocosh.shmstore.register.data.RegisterLoader
 import com.cocosh.shmstore.sms.data.SMSLoader
@@ -15,10 +16,11 @@ import com.cocosh.shmstore.utils.UserManager2
  *
  * Created by zhangye on 2018/1/25.
  */
-class RegisterPresenter(baseActivity: BaseActivity, private var iView: RegisterContract.IView) : RegisterContract.IPresenter {
+class RegisterPresenter(var baseActivity: BaseActivity, private var iView: RegisterContract.IView) : RegisterContract.IPresenter {
 
     private val registerLoaderr = RegisterLoader(baseActivity, iView)
     private val smsLoader = SMSLoader(baseActivity)
+
     private var smskey = ""
     override fun start() {
     }
@@ -50,10 +52,9 @@ class RegisterPresenter(baseActivity: BaseActivity, private var iView: RegisterC
             override fun onSuccess(data: BaseBean<Login2>) {
                 data.message?.let {
                     UserManager2.setLogin(it)
+                    updateProfile(data)
                 }
-                iView.onRegister(data)
             }
-
             override fun onFailed(code: String, message: String) {
             }
 
@@ -61,5 +62,24 @@ class RegisterPresenter(baseActivity: BaseActivity, private var iView: RegisterC
             }
         })
 
+    }
+
+    /**
+     * 更新用户资料
+     */
+    private fun updateProfile(login:BaseBean<Login2>) {
+        UserManager2.loadMemberEntrance(baseActivity, object : ApiManager2.OnResult<BaseBean<MemberEntrance2>>() {
+            override fun onSuccess(data: BaseBean<MemberEntrance2>) {
+                UserManager2.setMemberEntrance(data.message)
+                iView.onRegister(login)
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<MemberEntrance2>) {
+            }
+
+        })
     }
 }

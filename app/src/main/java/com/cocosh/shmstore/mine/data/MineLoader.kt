@@ -642,6 +642,8 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
         map["num"] = "20"
         ApiManager2.post(flag, activity, map, Constant.RP_TRANS, object : ApiManager2.OnResult<BaseBean<ArrayList<RedWaterModel>>>() {
             override fun onFailed(code: String, message: String) {
+                val data = BaseBean<ArrayList<RedWaterModel>>()
+                (view as MineContrat.IRedWalletView).redWalletWaterData(data)
             }
 
             override fun onSuccess(data: BaseBean<ArrayList<RedWaterModel>>) {

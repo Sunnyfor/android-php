@@ -11,4 +11,5 @@ data class Bonus2(
         var status: String,
         var draw: String,
         var ad: String,
-        var time: String)
+        var time: String,
+        var type:String)

@@ -8,21 +8,19 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.adapter.BonusListAdapter
 import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.home.model.BonusAction
-import com.cocosh.shmstore.home.model.BonusModel
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AuthActivity
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.RecycleViewDivider
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.layout_bonus_list.*
-import org.json.JSONObject
 
 
 /**
@@ -87,16 +85,35 @@ class BonusListActivity : BaseActivity() {
         }
         adapter = BonusListAdapter(mList)
         refreshLayout.recyclerView.adapter = adapter
-        adapter?.setOnItemClickListener(object:OnItemClickListener{
+        adapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
-                intentWeb.putExtra("no",mList[index].no)
-                intentWeb.putExtra("title",mList[index].name)
-                startActivity(intentWeb)
+
+                if (!UserManager2.isLogin()) {
+                    SmediaDialog(this@BonusListActivity).showLogin()
+                    return
+                }
+
+                //精准红包和粉丝红包需要完善资料
+                if (type == "special" || type == "fans") {
+                    UserManager2.getMemberEntrance()?.let {
+                        if (it.degree < 22) {
+                            SmediaDialog(this@BonusListActivity).showArchive()
+                            return
+                        } else {
+                            val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
+                            intentWeb.putExtra("no", mList[index].no)
+                            intentWeb.putExtra("title", mList[index].name)
+                            startActivity(intentWeb)
+                        }
+                    }
+                }else{
+                    val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
+                    intentWeb.putExtra("no", mList[index].no)
+                    intentWeb.putExtra("title", mList[index].name)
+                    startActivity(intentWeb)
+                }
             }
         })
-
-
 
         loadData()
 
@@ -275,51 +292,51 @@ class BonusListActivity : BaseActivity() {
     /**
      * 抢红包（占位）
      */
-    fun hitBonus(bonus: BonusModel.Data) {
-        if (!UserManager2.isLogin()) {
-            SmediaDialog(this).showLogin()
-            return
-        }
+//    fun hitBonus(bonus: BonusModel.Data) {
+//        if (!UserManager2.isLogin()) {
+//            SmediaDialog(this).showLogin()
+//            return
+//        }
+//
+//        isShowLoading = true
+//        val params = hashMapOf<String, String>()
+//        params["redPacketOrderId"] = bonus.redPacketOrderId.toString()
+//        ApiManager.post(this, params, Constant.BONUS_HIT, object : ApiManager.OnResult<BaseModel<String>>() {
+//            override fun onSuccess(data: BaseModel<String>) {
+//                if (data.success) {
+////                    抢红包 RECEIVE("已领取"),SEIZE("已占位"),NONE("已抢光")
+//                    data.entity?.let {
+//                        intentWeb(bonus, it)
+//                    }
+//
+//                } else {
+//                    ToastUtil.show(data.message)
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//
+//            }
+//
+//            override fun onCatch(data: BaseModel<String>) {
+//
+//            }
+//        })
+//    }
 
-        isShowLoading = true
-        val params = hashMapOf<String, String>()
-        params["redPacketOrderId"] = bonus.redPacketOrderId.toString()
-        ApiManager.post(this, params, Constant.BONUS_HIT, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) {
-                if (data.success) {
-//                    抢红包 RECEIVE("已领取"),SEIZE("已占位"),NONE("已抢光")
-                    data.entity?.let {
-                        intentWeb(bonus, it)
-                    }
-
-                } else {
-                    ToastUtil.show(data.message)
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-
-            }
-        })
-    }
-
-    fun intentWeb(it: BonusModel.Data, state: String) {
-        val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
-        intentWeb.putExtra("comment_id", it.redPacketOrderId.toString())
-        intentWeb.putExtra("title", it.redPacketName)
-        intentWeb.putExtra("htmUrl", it.htmlUrl)
-        intentWeb.putExtra("downUrl", it.androidUrl)
-        intentWeb.putExtra("state", state)
-        intentWeb.putExtra("typeInfo", type.toString())
-        intentWeb.putExtra("companyLogo", it.companyLogo)
-        intentWeb.putExtra("companyName", it.companyName)
-        intentWeb.putExtra("advertisementBaseType", it.advertisementBaseType)
-        startActivity(intentWeb)
-    }
+//    fun intentWeb(it: BonusModel.Data, state: String) {
+//        val intentWeb = Intent(this@BonusListActivity, BonusWebActivity::class.java)
+//        intentWeb.putExtra("comment_id", it.redPacketOrderId.toString())
+//        intentWeb.putExtra("title", it.redPacketName)
+//        intentWeb.putExtra("htmUrl", it.htmlUrl)
+//        intentWeb.putExtra("downUrl", it.androidUrl)
+//        intentWeb.putExtra("state", state)
+//        intentWeb.putExtra("typeInfo", type.toString())
+//        intentWeb.putExtra("companyLogo", it.companyLogo)
+//        intentWeb.putExtra("companyName", it.companyName)
+//        intentWeb.putExtra("advertisementBaseType", it.advertisementBaseType)
+//        startActivity(intentWeb)
+//    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -327,23 +344,23 @@ class BonusListActivity : BaseActivity() {
     }
 
     //检查是否绑定过微信
-    fun checkWx(it: BonusModel.Data, state: String) {
-        ApiManager.get(this, null, Constant.CHECK_WX, object : ApiManager.OnResult<BaseModel<Boolean>>() {
-            override fun onSuccess(data: BaseModel<Boolean>) {
-                if (data.entity == true) {
-                    intentWeb(it, state)
-                } else {
-                    ToastUtil.show("请在登录页面进行微信绑定")
-                }
-            }
-
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<Boolean>) {
-
-            }
-        })
-
-    }
+//    fun checkWx(it: BonusModel.Data, state: String) {
+//        ApiManager.get(this, null, Constant.CHECK_WX, object : ApiManager.OnResult<BaseModel<Boolean>>() {
+//            override fun onSuccess(data: BaseModel<Boolean>) {
+//                if (data.entity == true) {
+//                    intentWeb(it, state)
+//                } else {
+//                    ToastUtil.show("请在登录页面进行微信绑定")
+//                }
+//            }
+//
+//            override fun onFailed(e: Throwable) {
+//            }
+//
+//            override fun onCatch(data: BaseModel<Boolean>) {
+//
+//            }
+//        })
+//
+//    }
 }

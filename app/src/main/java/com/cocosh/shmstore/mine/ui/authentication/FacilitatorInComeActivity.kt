@@ -100,7 +100,7 @@ class FacilitatorInComeActivity : BaseActivity() {
         sGivePerson.setValue(data.platform_personal_num)
         inCome.setValue(data.profit ?: "0.0"+"元")
         sInvite.setIcon(resources.getString(R.string.iconQrcode))
-        name.setNoIconValue(data.name)
+        name.setNoIconValue(data.provider_name)
         area.setNoIconValue(data.place)
         time.setNoIconValue(data.time)
     }

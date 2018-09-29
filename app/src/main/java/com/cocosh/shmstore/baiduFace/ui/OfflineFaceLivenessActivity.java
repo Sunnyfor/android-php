@@ -30,6 +30,7 @@ import com.cocosh.shmstore.http.ApiManager2;
 import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.mine.model.AuthenStatus;
 import com.cocosh.shmstore.mine.model.MemberEntrance2;
+import com.cocosh.shmstore.mine.model.ResetPass;
 import com.cocosh.shmstore.mine.ui.SetPayPwdActivity;
 import com.cocosh.shmstore.model.CommonData;
 import com.cocosh.shmstore.person.PersonSuccessActivity;
@@ -230,7 +231,7 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
 //        String face = app.getData(DataCode.FACE_KEY, false);
 //        map.put("liveRecognitionPicture", Constant.QINIU_KEY_HEAD + face);
 
-        ApiManager2.INSTANCE.post(this, map, Constant.CERT_DO, new ApiManager2.OnResult<BaseBean<String>>() {
+        ApiManager2.INSTANCE.post(this, map, Constant.CERT_DO, new ApiManager2.OnResult<BaseBean<ResetPass>>() {
 
             @Override
             public void onFailed(@NotNull String code, @NotNull String message) {
@@ -247,12 +248,12 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
             }
 
             @Override
-            public void onCatch(BaseBean<String> data) {
+            public void onCatch(BaseBean<ResetPass> data) {
 
             }
 
             @Override
-            public void onSuccess(BaseBean<String> data) {
+            public void onSuccess(BaseBean<ResetPass> data) {
                 //  AuthActivity.Companion.start(OfflineFaceLivenessActivity.this);
                CommonData commonData =  UserManager2.INSTANCE.getCommonData();
                 assert commonData != null;
@@ -264,6 +265,7 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
                     assert memberEntrance != null;
                     memberEntrance.setRealname(front.getName().toString());
                     UserManager2.INSTANCE.setMemberEntrance(memberEntrance);
+                    SmApplication.Companion.getApp().setData(DataCode.RESET_PAY_PASS, data.getMessage());
                     SetPayPwdActivity.Companion.start(OfflineFaceLivenessActivity.this);
                     return;
                 }

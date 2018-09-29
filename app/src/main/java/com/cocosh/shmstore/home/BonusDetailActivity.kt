@@ -70,7 +70,7 @@ class BonusDetailActivity : BaseActivity() {
         titleManager.rightText("红包", "红包规则", View.OnClickListener {
             val intent = Intent(this, ServiceTermActivity::class.java).apply {
                 putExtra("title", "红包规则")
-                putExtra("OPEN_TYPE", when (type) {
+                putExtra("OPEN_TYPE", when (this@BonusDetailActivity.type) {
                     "common" -> OpenType.BonusPublic.name
                     "special" -> OpenType.BonusAccurate.name
                     "fans" -> OpenType.BonusFans.name

@@ -133,6 +133,7 @@ object UserManager2 {
         if (json != "") {
             return Gson().fromJson(json, CommonData::class.java)
         }
+
         return null
     }
 
@@ -155,6 +156,7 @@ object UserManager2 {
     fun setEmptyUser() {
         SharedUtil.remove(LOGIN)
         SharedUtil.remove(MEMBERENTRANCE)
+        SharedUtil.remove(COMMENDATA)
     }
 
     /**
