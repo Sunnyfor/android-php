@@ -17,7 +17,14 @@ import kotlinx.android.synthetic.main.item_address_list.view.*
  * 地址管理
  */
 class AddressListAdapter(var mContext: Context, list: ArrayList<Address>) : BaseRecycleAdapter<Address>(list) {
+    var defaultIndex = -1
+
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
+
+        if (getData(position).default == "1") {
+            defaultIndex = position
+        }
+
         if (getData(position).default == "1") {
             holder.itemView.rbCheck.setChecked(true)
             holder.itemView.tvCheck.text = "默认地址"
@@ -25,6 +32,7 @@ class AddressListAdapter(var mContext: Context, list: ArrayList<Address>) : Base
             holder.itemView.rbCheck.setChecked(false)
             holder.itemView.tvCheck.text = "设为默认地址"
         }
+
         holder.itemView.name.text = getData(position).receiver
         holder.itemView.phone.text = getData(position).phone
         holder.itemView.address.text = getData(position).addr
@@ -65,4 +73,10 @@ class AddressListAdapter(var mContext: Context, list: ArrayList<Address>) : Base
     fun setOnSelectItemListener(mOnSelectItemListener: OnSelectItemListener) {
         this.mOnSelectItemListener = mOnSelectItemListener
     }
+
+    fun defaultAddress(index: Int) {
+        list[defaultIndex].default = "0"
+        list[index].default = "1"
+    }
+
 }

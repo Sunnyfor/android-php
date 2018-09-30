@@ -31,10 +31,8 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
     var isShow = false //判断是否需要直接弹窗
     override fun setLayout(): Int = R.layout.activity_address_manger
 
-    override fun deleteAddress(result: BaseBean<String>){
+    override fun deleteAddress(result:String){
 //        val data = list.find { it.comment_id  == comment_id}
-//        list.remove(data)
-//        recyclerView.adapter.notifyDataSetChanged()
         mPresenter.requestGetAddress(1)
 
     }
@@ -73,10 +71,11 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
     }
 
-    override fun defaultAddress(result: BaseBean<String>) {
+    override fun defaultAddress(result: String) {
 //        list.find{it.default == "1"}?.default = "0"
 //        list.find { it.comment_id == defaultId }?.default ="1"
-            mPresenter.requestGetAddress(1)
+        adapter?.defaultAddress(list.indexOf( list.find { it.id == result }))
+//            mPresenter.requestGetAddress(1)
 //            list.forEach {
 //                if (it.idUserAddressInfo == defaultId) {
 //                    it.isDefault = "1"

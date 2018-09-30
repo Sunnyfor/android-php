@@ -117,7 +117,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
             "服务商钱包" -> EnterPriseWalletActivity.start(activity)
             "地址管理" -> AddressMangerActivity.start(activity)
             "关注" -> FollowActivity.start(activity)
-//            "订单" -> OrderListActivity.start(activity)
+            "订单" -> OrderListActivity.start(activity)
             "收藏" -> CollectionActivity.start(activity)
             "帮助中心" -> {
                 val intent = Intent(context, ServiceTermActivity::class.java).apply {
@@ -184,7 +184,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
                     val newBottomTitles = arrayListOf(
                             MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
+//                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
                             MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
                             MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
                             MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),

@@ -104,6 +104,9 @@ class ReChargeActivity : BaseActivity(), ConfirmlnforContrat.IView {
                     if (tvMoney.text.toString().toDouble() > 0) {
                         isClick = true
                         btnCharge.setBackgroundResource(R.color.red)
+                    }else{
+                        isClick = false
+                        btnCharge.setBackgroundResource(R.color.grayBtn)
                     }
                 }
             }

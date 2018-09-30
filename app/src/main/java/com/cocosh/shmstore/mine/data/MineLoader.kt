@@ -553,7 +553,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
             }
 
             override fun onSuccess(data: BaseBean<String>) {
-                (view as MineContrat.IAddressView).deleteAddress(data)
+                (view as MineContrat.IAddressView).deleteAddress(idUserAddressInfo)
             }
 
 
@@ -622,7 +622,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
             }
 
             override fun onSuccess(data: BaseBean<String>) {
-                (view as MineContrat.IAddressView).defaultAddress(data)
+                (view as MineContrat.IAddressView).defaultAddress(idUserAddressInfo)
             }
 
 

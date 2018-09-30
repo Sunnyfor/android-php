@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.home
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
@@ -69,24 +70,29 @@ class BonusRankingActivity : BaseActivity() {
             }
 
             override fun onSuccess(data: BaseBean<BonusRanking>) {
-                    data.message?.let {
-//                        if (boolean) {
-                            refreshLayout.recyclerView.adapter = BonusRankingAdapter(it)
-                            it.mine?.let {
-                                tvNo.text = it.rank
-                                tvName.text = it.nickname
-                                tvMoney.text = (it.amount + " 元")
-                                it.avatar?.let {
-                                    if (it.isNotEmpty())
-                                        GlideUtils.loadHead(this@BonusRankingActivity, it, ivPhoto)
-                                }
-                            }
-                                refreshLayout.update(it.list)
+                data.message?.let {
+                    //                        if (boolean) {
+                    refreshLayout.recyclerView.adapter = BonusRankingAdapter(it)
+                    it.mine?.let {
+                        when (it.rank?.toInt()) {
+                            1, 2, 3 -> tvNo.setTextColor(ContextCompat.getColor(this@BonusRankingActivity, R.color.red))
+                            else -> tvNo.setTextColor(ContextCompat.getColor(this@BonusRankingActivity, R.color.textGray))
+                        }
+
+                        tvNo.text = it.rank
+                        tvName.text = it.nickname
+                        tvMoney.text = (it.amount + " 元")
+                        it.avatar?.let {
+                            if (it.isNotEmpty())
+                                GlideUtils.loadHead(this@BonusRankingActivity, it, ivPhoto)
+                        }
+                    }
+                    refreshLayout.update(it.list)
 //                        } else {
 //
 //                                refreshLayout.loadMore(it.rankingListVOS)
 //                        }
-                    }
+                }
             }
 
 

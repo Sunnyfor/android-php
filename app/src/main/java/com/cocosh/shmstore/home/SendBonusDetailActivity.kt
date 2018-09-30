@@ -174,6 +174,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
             parmas["ado_slider_master"] = topPhotoUrl ?: ado_slider_master //(非必填)广告图
             parmas["ado_desc"] = ado_desc //(非必填)简述
             parmas["ado_images"] = bottomPhotoUrl ?: ado_images //(非必填)广告内容
+
         }
 
         ApiManager2.post(this, parmas, Constant.MYSELF_SENDRP_RPINFO_UPDATE, object : ApiManager2.OnResult<BaseBean<String>>() {

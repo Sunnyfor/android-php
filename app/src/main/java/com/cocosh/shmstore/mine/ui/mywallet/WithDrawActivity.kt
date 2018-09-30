@@ -57,6 +57,8 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
         } else {
             ivPic.visibility = View.GONE
             tvName.text = "请绑定银行卡"
+            maxMoney = result.message?.amt?.amt_max.toString()
+            minMoney = result.message?.amt?.amt_min.toString()
         }
     }
 
@@ -165,13 +167,13 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                         btnCharge.setBackgroundResource(R.color.grayBtn)
                         return
                     }
-                    if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
-
-                    } else {
-                        if (listDatas.size == 0) {
-                            return
-                        }
-                    }
+//                    if (TYPE_WITHDRAW == Constant.TYPE_ENTERPRISE) {
+//
+//                    } else {
+//                        if (listDatas.size == 0) {
+//                            return
+//                        }
+//                    }
 
 
                     isClick = true
@@ -211,10 +213,16 @@ class WithDrawActivity : BaseActivity(), MineContrat.IMyWalletDrawView {
                         return
                     }
                 } else {
-                    if (checkBankId.isNullOrEmpty()) {
-                        ToastUtil.show("请选择银行卡")
+                    if (listDatas.isEmpty()){
+                        ToastUtil.show("请绑定银行卡")
                         return
+                    }else{
+                        if (checkBankId.isEmpty()) {
+                            ToastUtil.show("请选择银行卡")
+                            return
+                        }
                     }
+
                 }
 
                 SmApplication.getApp().isDelete = true

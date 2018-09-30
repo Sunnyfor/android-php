@@ -186,9 +186,9 @@ class MineContrat {
      * 地址管理
      */
     interface IAddressView : IBaseView {
-        fun deleteAddress(result: BaseBean<String>)
+        fun deleteAddress(result: String)
         fun getAddress(result: BaseBean<ArrayList<Address>>)
-        fun defaultAddress(result: BaseBean<String>)
+        fun defaultAddress(result: String)
     }
 
     interface IAddAddressView : IBaseView {
