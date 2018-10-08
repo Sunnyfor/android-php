@@ -115,7 +115,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.llShoumei ->
-                if (amount?.toDouble()!! <= accountMoney?.toDouble()!!) {
+                if ((amount ?: "0").toDouble() <= (accountMoney ?: "0").toDouble()) {
                     choose("LOCAL_ACC")
                 }
             R.id.llWechat -> choose("wx")
@@ -264,7 +264,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         * "invalid" - 支付插件未安装（一般是微信客户端未安装的情况）
         * "unknown" - app进程异常被杀死(一般是低内存状态下,app进程被杀死)
         */
-            if (result == "cancel"){
+            if (result == "cancel") {
                 isConfirm = false
                 ToastUtil.show("取消支付")
             }
@@ -286,7 +286,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                 hideReTryLayout()
                 accountMoney = data.message?.p?.balance?.total
                 tvCount.text = ("账户余额: ￥" + accountMoney)
-                if (amount?.toDouble()!! > accountMoney?.toDouble()!!) {
+                if ((amount ?: "0").toDouble() > (accountMoney ?: "0").toDouble()) {
                     ivCheck.visibility = View.GONE
                     tvCount.setTextColor(resources.getColor(R.color.red))
                     tvCharge.visibility = View.VISIBLE

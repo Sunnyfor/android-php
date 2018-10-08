@@ -57,8 +57,8 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
             holder.itemView.pay.setOnClickListener {
                 val intent = Intent(activity, PayActivity::class.java)
                 intent.putExtra("amount", getData(position).amount)
-                intent.putExtra("runningNumber", getData(position).pay_sn)
-//                intent.putExtra("payOperatStatus", AuthenStatus.SEND_RED_PACKET.type)
+                intent.putExtra("runningNumber", getData(position).no)
+                intent.putExtra("payOperatStatus", "2")
                 activity.startActivityForResult(intent, IntentCode.IS_INPUT)
             }
 

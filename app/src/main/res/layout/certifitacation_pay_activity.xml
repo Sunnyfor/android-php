@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w380"
-            android:text="账户余额:  ￥100.00"
+            android:text="账户余额:  ￥0.00"
             android:textColor="@color/gray_text"
             android:textSize="@dimen/w32" />
 
@@ -94,11 +94,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/w30"
             android:background="@drawable/shape_rectangle_red"
-            android:padding="@dimen/h5"
+            android:padding="@dimen/h20"
             android:text="去充值"
             android:textColor="@color/white"
-            android:textSize="@dimen/w43"
-            android:visibility="invisible" />
+            android:textSize="@dimen/w40"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <ImageView
