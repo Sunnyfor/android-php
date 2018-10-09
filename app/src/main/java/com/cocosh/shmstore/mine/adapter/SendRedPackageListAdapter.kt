@@ -171,6 +171,7 @@ class SendRedPackageListAdapter(var activity: BaseActivity, list: ArrayList<Send
             intent.putExtra("no", getData(position).no)
             intent.putExtra("htmUrl", getData(position).url)
             intent.putExtra("state", "PREVIEW")
+            intent.putExtra("ad", getData(position).ad)
             context.startActivity(intent)
         }
 }

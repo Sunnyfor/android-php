@@ -8,6 +8,7 @@ data class SendBonus(
         var status: String?, //状态值
         var rp_id: String?,
         var no:String?,
+        var ad:String?,
         var pay_sn: String?, //订单编号
         var name: String, // 红包名称
         var pubtime: String?, //投放时间

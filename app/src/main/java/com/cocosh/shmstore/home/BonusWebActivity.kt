@@ -109,6 +109,23 @@ class BonusWebActivity : BaseActivity() {
             if (it == "PREVIEW") {
                 btnSure.isClickable = false
                 btnOpen.isClickable = false
+                intent.getStringExtra("ad")?.let {
+                    when (it) {
+                        "2" -> {
+                            //App下载
+                            btnSure.text = "立即下载"
+                        }
+                        "3" -> {
+                            //购买
+                            btnSure.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            //不可购买
+                            btnSure.visibility = View.GONE
+                        }
+                    }
+
+                }
                 webView.loadUrl(intent.getStringExtra("htmUrl"))
                 return
             }
