@@ -65,7 +65,7 @@
             android:text="红包排行榜"
             android:textColor="#c7423b"
             android:textSize="@dimen/w40"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
 
     </LinearLayout>
 

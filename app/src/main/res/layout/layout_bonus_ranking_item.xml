@@ -23,7 +23,7 @@
         android:layout_height="@dimen/w140"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/w213"
-        android:src="@drawable/default_content"
+        android:src="@drawable/default_head"
         android:layout_marginTop="@dimen/w25"
         android:layout_marginBottom="@dimen/w25"
         android:scaleType="fitXY"

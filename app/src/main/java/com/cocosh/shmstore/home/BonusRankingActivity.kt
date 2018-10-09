@@ -74,11 +74,6 @@ class BonusRankingActivity : BaseActivity() {
                     //                        if (boolean) {
                     refreshLayout.recyclerView.adapter = BonusRankingAdapter(it)
                     it.mine?.let {
-                        when (it.rank?.toInt()) {
-                            1, 2, 3 -> tvNo.setTextColor(ContextCompat.getColor(this@BonusRankingActivity, R.color.red))
-                            else -> tvNo.setTextColor(ContextCompat.getColor(this@BonusRankingActivity, R.color.textGray))
-                        }
-
                         tvNo.text = it.rank
                         tvName.text = it.nickname
                         tvMoney.text = (it.amount + " 元")

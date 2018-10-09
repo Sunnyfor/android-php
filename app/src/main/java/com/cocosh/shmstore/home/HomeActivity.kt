@@ -7,11 +7,10 @@ import android.view.View
 import android.widget.LinearLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.model.MsgUnReadCount
-import com.cocosh.shmstore.http.ApiManager
-import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.PermissionCode
+import com.cocosh.shmstore.utils.PermissionUtil
+import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.zxing.QrCodeActivity

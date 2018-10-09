@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/w385"
+            android:layout_marginLeft="@dimen/w239"
             android:text="昵称"
             android:textSize="@dimen/w40" />
 
@@ -53,7 +53,7 @@
         android:layout_marginLeft="@dimen/w15"
         android:layout_marginRight="@dimen/w15"
         android:layout_marginTop="@dimen/h25"
-        android:background="@drawable/bg_rank_me">
+        android:background="@drawable/red_corner_btn_bg">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -69,13 +69,14 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@color/textGray"
-                android:textSize="@dimen/w57" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/w58" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的排名"
+                android:textColor="@color/white"
                 android:textSize="@dimen/w40" />
 
         </LinearLayout>
@@ -88,7 +89,7 @@
             android:layout_marginBottom="@dimen/w25"
             android:layout_marginLeft="@dimen/w192"
             android:layout_marginTop="@dimen/w25"
-            android:src="@drawable/default_content"
+            android:src="@drawable/default_head"
             app:riv_oval="true" />
 
         <TextView
@@ -99,6 +100,7 @@
             android:layout_marginLeft="@dimen/w33"
             android:layout_toLeftOf="@id/tvMoney"
             android:layout_toRightOf="@id/ivPhoto"
+            android:textColor="@color/white"
             android:text="" />
 
         <TextView
@@ -109,8 +111,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w50"
             android:layout_marginRight="@dimen/w85"
-            android:textColor="@color/textGray"
-            android:textSize="@dimen/w43"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w52"
             android:text="0.00 元" />
     </RelativeLayout>
 

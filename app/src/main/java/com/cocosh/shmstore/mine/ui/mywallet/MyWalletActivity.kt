@@ -27,7 +27,7 @@ class MyWalletActivity : BaseActivity(), MineContrat.IMyWalletView {
     }
 
     private fun initData(data: WalletModel?) {
-        tvMoney.text = data?.p?.balance?.total
+        tvMoney.text = data?.p?.balance?.total?:"0.00"
         tvRedMoney.text = (data?.p?.rp?.sum+"元")
 //        rule.text = "注：红包金额必须>" + data?.rp_cash_limit + "元时才可以提现!"
     }

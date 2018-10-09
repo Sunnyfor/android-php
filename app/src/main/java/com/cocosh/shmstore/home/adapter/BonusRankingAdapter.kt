@@ -5,6 +5,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
@@ -33,7 +34,7 @@ class BonusRankingAdapter(bonusRanking: BonusRanking) : BaseRecycleAdapter<Bonus
 
         getData(position).avatar?.let {
             if (it.isNotEmpty())
-                GlideUtils.loadHead(context, it, holder.itemView.ivPhoto)
+                Glide.with(context).load(it).placeholder(R.drawable.default_head).dontAnimate().into(holder.itemView.ivPhoto)
         }
     }
 
