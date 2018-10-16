@@ -30,7 +30,7 @@ class ShouMeiSearchAdapter(var mContext: Context, list: ArrayList<SMCompanyData>
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_red)
         } else {
             holder.itemView.tvFollow.text = "已关注"
-            holder.itemView.tvFollow.setTextColor(ContextCompat.getColor(mContext,R.color.blackText))
+            holder.itemView.tvFollow.setTextColor(ContextCompat.getColor(mContext,R.color.grayText))
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
         }
         holder.itemView.tvFollow.setOnClickListener {

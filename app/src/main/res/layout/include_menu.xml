@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="@string/iconShoumei"
+                android:text="@string/iconCorporateHome"
                 android:textColor="@drawable/selector_text_orange_black"
                 android:textSize="@dimen/w102" />
         </RelativeLayout>

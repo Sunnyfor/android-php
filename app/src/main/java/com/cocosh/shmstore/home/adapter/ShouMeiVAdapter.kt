@@ -64,7 +64,7 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_red)
                     } else {
                         holder.itemView.tvStatus.text = "已关注"
-                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.blackText))
+                        holder.itemView.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.grayText))
                         holder.itemView.tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
                     }
 

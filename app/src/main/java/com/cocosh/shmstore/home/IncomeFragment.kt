@@ -184,7 +184,7 @@ class IncomeFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         progress = UserManager2.getMemberEntrance()?.degree?:0
-        if (progress < 1) {
+        if (progress < 100) {
             getLayoutView().toSetInfo.visibility = View.VISIBLE
         } else {
             getLayoutView().toSetInfo.visibility = View.GONE

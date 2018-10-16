@@ -170,7 +170,7 @@ class ShouMeiBrandActivity : BaseActivity() {
         } else {
             tvStatus.text = "已关注"
             status = "1"
-            tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blackText))
+            tvStatus.setTextColor(ContextCompat.getColor(this, R.color.grayText))
             tvStatus.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
         }
     }

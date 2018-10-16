@@ -83,7 +83,7 @@
             android:background="@drawable/shape_rectangle_round_gray"
             android:gravity="center"
             android:text="取消关注"
-            android:textColor="@color/blackText"
+            android:textColor="@color/grayText"
             android:textSize="@dimen/w40" />
     </RelativeLayout>
 </LinearLayout>

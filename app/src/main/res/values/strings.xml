@@ -1,8 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <string name="app_name">小红娘</string>
 
     <!--首页Title-->
-    <string name="default_city">定位中</string>
+    <string name="default_city" >定位中</string>
     <!--<string name="formal_title">首媒中国</string>-->
     <string name="dev_title">开发版本</string>
 
@@ -213,6 +214,8 @@
     <string name="iconComment">&#xe670;</string>
     <!--问好-->
     <string name="iconWhat">&#xe671;</string>
+
+    <string name="iconCorporateHome">&#xe672;</string>
 
     <!--人脸识别-->
     <string name="main_item_face_live">活体检测</string>

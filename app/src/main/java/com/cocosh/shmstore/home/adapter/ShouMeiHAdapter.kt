@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.home.adapter
 
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +29,11 @@ class ShouMeiHAdapter(var type: Int, list: ArrayList<SMCompanyData>) : BaseRecyc
 
         if (list[position].follow == "0") {
             holder.itemView.tvFollow.text = "+关注"
+            holder.itemView.tvFollow.setTextColor(ContextCompat.getColor(context,R.color.white))
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_red)
         } else {
             holder.itemView.tvFollow.text = "已关注"
+            holder.itemView.tvFollow.setTextColor(ContextCompat.getColor(context,R.color.grayText))
             holder.itemView.tvFollow.setBackgroundResource(R.drawable.shape_rectangle_round_gray)
         }
 
