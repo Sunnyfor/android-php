@@ -26,8 +26,8 @@ import kotlinx.android.synthetic.main.item_shoumei_v.view.*
  * Created by zhangye on 2018/3/13.
  */
 class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>, var mContext: Context, list: ArrayList<SMCompanyThemeData>) : BaseRecycleAdapter<SMCompanyThemeData>(list) {
-    lateinit var adapter: ShouMeiHAdapter
-    override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) =
+    var adapter: ShouMeiHAdapter? = null
+    override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int){
             if (getItemViewType(position) == 1) {
                 holder.itemView.hRecyclerView.layoutManager = LinearLayoutManager(mContext, OrientationHelper.HORIZONTAL, false) as RecyclerView.LayoutManager?
                 if (holder.itemView.tag != position) {
@@ -42,7 +42,7 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
                 adapter = ShouMeiHAdapter(type, mList)
                 holder.itemView.hRecyclerView.adapter = adapter
                 holder.itemView.tag = position
-                adapter.setOnFollowClick(object : ShouMeiHAdapter.OnFollowClick {
+                adapter?.setOnFollowClick(object : ShouMeiHAdapter.OnFollowClick {
                     override fun follow(data: Int) {
                         mOnFollowClick?.follow(1, data)
                     }
@@ -88,7 +88,7 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
                     //                        holder.itemView.tvType.text = "用户"
                     //                    }
                     //                }
-                    posts.images?.split(",")?.let {
+                    posts.images?.let {
                         if (it.isNotEmpty()) {
                             when {
                                 it.size == 1 -> {
@@ -151,6 +151,7 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
                     }
                 }
             }
+    }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View {
         if (viewType == 1) {
@@ -187,7 +188,7 @@ class ShouMeiVAdapter(var type: Int, private var mList: ArrayList<SMCompanyData>
     }
 
     fun hNotify() {
-        adapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
     }
 
 }

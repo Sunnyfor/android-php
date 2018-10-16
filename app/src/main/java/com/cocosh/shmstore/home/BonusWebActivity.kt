@@ -328,7 +328,7 @@ class BonusWebActivity : BaseActivity() {
         }
         ApiManager2.get(1, this, params, Constant.RP_DETAIL, object : ApiManager2.OnResult<BaseBean<RedPackage>>() {
             override fun onSuccess(data: BaseBean<RedPackage>) {
-                data.message?.let {
+                data.message?.let { it ->
                     type = it.base?.type ?: "comm_person"
 
                     it.h5url?.let { webView.loadUrl(it) }
@@ -343,6 +343,7 @@ class BonusWebActivity : BaseActivity() {
                         "3" -> {
                             //已占位已领取(注意:领取但未拆的有效期为10分钟),跳转至<拆红包UI>
                         }
+
 
                         "4" -> {
                             //占位已满,不可领取状态
@@ -379,12 +380,13 @@ class BonusWebActivity : BaseActivity() {
 
                     it.attrs?.forEach {
                         if (it["item"] as String == "ad") {
-                            when (it["val"].toString()) {
-                                "2" -> {
+                            val value = it["val"] as Double
+                            when (value.toInt()) {
+                                2 -> {
                                     //App下载
                                     btnSure.text = "立即下载"
                                 }
-                                "3" -> {
+                                3 -> {
                                     //购买
                                     btnSure.visibility = View.VISIBLE
                                 }
@@ -398,7 +400,6 @@ class BonusWebActivity : BaseActivity() {
                         if (it["item"] as String == "ado_url_apk") {
                             downURL = it["val"] as String  //获取下载地址
                         }
-
 
                     }
                 }

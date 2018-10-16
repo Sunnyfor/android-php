@@ -58,7 +58,7 @@ class ShouMeiBrandAdapter(list: ArrayList<SMThemeData>) : BaseRecycleAdapter<SMT
                     GlideUtils.loadPhoto(context, it[0], holder.itemView.imageOne,0)
                     GlideUtils.loadPhoto(context, it[1], holder.itemView.imageTwo,0)
                 }
-                if (it.size == 3) {
+                if (it.size >= 3) {
                     holder.itemView.imageOne.visibility = View.VISIBLE
                     holder.itemView.imageTwo.visibility = View.VISIBLE
                     holder.itemView.imageThree.visibility = View.VISIBLE

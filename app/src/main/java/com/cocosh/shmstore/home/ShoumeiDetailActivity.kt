@@ -496,7 +496,7 @@ class ShoumeiDetailActivity : BaseActivity(), ObserverListener {
             override fun onSuccess(data: BaseBean<CommentData>) {
                 isShowLoading = false
                 data.message?.let {
-                    it.replies += 1
+//                    it.replies += 1
                     ObserverManager.getInstance().notifyObserver(1, post_id
                             ?: "", 1 as Any, "")
 

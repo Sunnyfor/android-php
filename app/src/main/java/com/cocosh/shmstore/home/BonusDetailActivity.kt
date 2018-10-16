@@ -115,13 +115,13 @@ class BonusDetailActivity : BaseActivity() {
                 open()
             }
             btnShare.id -> { //分享红包
-                ToastUtil.show("敬请期待！")
-//                id?.let {
-//                    val shareDialog = ShareDialog(this)
-//                    shareDialog.isFinish = true
-//                    shareDialog.showGiveBouns(
-//                            it, token?:"",redpacketId)
-//                }
+//                ToastUtil.show("敬请期待！")
+                id?.let {
+                    val shareDialog = ShareDialog(this)
+                    shareDialog.isFinish = true
+                    shareDialog.showGiveBouns(
+                            it, token?:"",redpacketId)
+                }
             }
             btnCollect.id -> { //收藏红包
                 collect()

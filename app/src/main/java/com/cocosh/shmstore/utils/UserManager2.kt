@@ -174,7 +174,7 @@ object UserManager2 {
      */
     fun loadBg(url: String?, imageView: ImageView) {
         if (url.isNullOrEmpty()) {
-            imageView.setImageResource(R.mipmap.bg_top_head)
+            imageView.setImageResource(R.drawable.bg_top_head)
         } else {
             Glide.with(imageView.context).load(url).bitmapTransform(BlurTransformation(imageView.context, 10)).into(imageView)
         }

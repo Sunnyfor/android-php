@@ -1,5 +1,7 @@
 package com.cocosh.shmstore.home.model
 
+import java.util.*
+
 /**
  * Created by lmg on 2018/6/25.
  *
@@ -39,7 +41,7 @@ data class SMCompanyThemeData(var bbs: BBS,
 
     data class Posts(var id: String?, //帖子ID
                      var title: String?, // 帖子主题
-                     var images:String?,//帖子图片
+                     var images:ArrayList<String>?,//帖子图片
                      var url:String?, //链接地址URL
                      var views: String?, // 该帖浏览量计数
                      var sum: Int,  // 该帖回复计数 = 回复数 + 评论数
