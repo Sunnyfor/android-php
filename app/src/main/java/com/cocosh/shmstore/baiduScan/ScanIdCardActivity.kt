@@ -65,7 +65,6 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
         if (frontUpOk && backUpOk) {
             frontUpOk = false
             backUpOk = false
-            hideLoading()
             val mIntent = Intent(this, CheckIdentityInfoActivity::class.java)
             mIntent.putExtra("isAgent", intent.getBooleanExtra("isAgent", false))
             mIntent.putExtra("type", type)
@@ -141,7 +140,7 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
 
     //身份证扫描结果回调
     override fun idCardResult(idCardSide: String, result: IDCardResult?) {
-        LogUtil.i("身份证识别结果：" + result)
+        LogUtil.i("身份证识别结果：$result")
         if (idCardSide == IDCardParams.ID_CARD_SIDE_FRONT) {
 
             if (result != null) {
@@ -207,36 +206,36 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
                     frontUpOk = true
                 }
                 handler.sendEmptyMessage(1)
+
+                //上传背面身份证
+                ApiManager2.postImage(this@ScanIdCardActivity, backPath, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
+                    override fun onSuccess(data: BaseBean<ArrayList<String>>) {
+                        //存储图片路径（用于接口提交数据）
+                        data.message?.let {
+                            if ("代办人" == type) {
+                                SmApplication.getApp().setData(DataCode.AGENT_BACK_URL, it[0])
+                            } else {
+                                SmApplication.getApp().setData(DataCode.BACK_URL, it[0])
+                            }
+                            backUpOk = true
+                        }
+                        handler.sendEmptyMessage(1)
+                    }
+
+                    override fun onFailed(code: String, message: String) {
+                        backUpOk = false
+                        ToastUtil.show(message)
+                    }
+
+                    override fun onCatch(data: BaseBean<ArrayList<String>>) {
+                    }
+
+                })
+
             }
 
             override fun onFailed(code: String, message: String) {
                 frontUpOk = false
-                ToastUtil.show(message)
-            }
-
-            override fun onCatch(data: BaseBean<ArrayList<String>>) {
-            }
-
-        })
-
-
-        //上传背面身份证
-        ApiManager2.postImage(this, backPath, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
-            override fun onSuccess(data: BaseBean<ArrayList<String>>) {
-                //存储图片路径（用于接口提交数据）
-                data.message?.let {
-                    if ("代办人" == type) {
-                        SmApplication.getApp().setData(DataCode.AGENT_BACK_URL, it[0])
-                    } else {
-                        SmApplication.getApp().setData(DataCode.BACK_URL, it[0])
-                    }
-                    backUpOk = true
-                }
-                handler.sendEmptyMessage(1)
-            }
-
-            override fun onFailed(code: String, message: String) {
-                backUpOk = false
                 ToastUtil.show(message)
             }
 

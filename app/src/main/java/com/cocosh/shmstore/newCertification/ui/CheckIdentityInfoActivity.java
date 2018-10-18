@@ -103,6 +103,7 @@ public class CheckIdentityInfoActivity extends BaseActivity {
             Word idNumber = front.getIdNumber();
 
             dataBinding.etName.setText(name == null ? "" : name.toString());
+            dataBinding.etName.setSelection((name == null ? "" : name.toString()).length());
             dataBinding.etSex.setText(gender == null ? "" : gender.toString());
             dataBinding.etAddress.setText(address == null ? "" : address.toString());
             dataBinding.etBirth.setText(birthday == null ? "" :

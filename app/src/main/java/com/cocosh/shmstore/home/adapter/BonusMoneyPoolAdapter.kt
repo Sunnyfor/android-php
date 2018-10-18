@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.layout_bonus_money_pool_item.view.*
  */
 class BonusMoneyPoolAdapter(list: ArrayList<BonusPool.Data>) : BaseRecycleAdapter<BonusPool.Data>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        Glide.with(context).load(getData(position).logo).placeholder(R.drawable.default_content).into(holder.itemView.ivPhoto)
+        Glide.with(context).load(getData(position).logo).placeholder(R.mipmap.ic_launcher).into(holder.itemView.ivPhoto)
         holder.itemView.tvName.text =getData(position).name
         holder.itemView.tvMoney.text = getData(position).amount
         holder.itemView.tvDesc.text = getData(position).desc
