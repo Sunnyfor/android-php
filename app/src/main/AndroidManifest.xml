@@ -70,14 +70,15 @@
         <!--欢迎页面-->
         <activity
             android:name=".home.SplashActivity"
-            android:windowFullscreen="true"
-            android:windowIsTranslucent="true">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <!--切换HOST页面-->
         <activity android:name=".mine.ui.DeveloperActivity" />
 

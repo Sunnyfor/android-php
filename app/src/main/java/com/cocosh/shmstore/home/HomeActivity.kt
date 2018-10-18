@@ -214,4 +214,13 @@ class HomeActivity : BaseActivity() {
             viewMsgPoint.visibility = View.GONE
         }
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.getStringExtra("type")?.let {
+            if (it == "Login"){
+                homeFragment.autEnt()
+            }
+        }
+    }
 }

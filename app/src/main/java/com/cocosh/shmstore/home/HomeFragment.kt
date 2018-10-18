@@ -7,13 +7,9 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
-import com.cocosh.shmstore.enterpriseCertification.ui.EnterpriseCertificationActivity
 import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.model.AuthenStatus
-import com.cocosh.shmstore.mine.ui.AuthActivity
-import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.title.HomeTitleFragment
 import com.cocosh.shmstore.utils.DataCode
@@ -77,39 +73,10 @@ class HomeFragment : BaseFragment() {
     /**
      * 认证引导弹窗
      */
-    private fun autEnt() {
+     fun autEnt() {
         UserManager2.getLogin()?.invitee?.let {
-
-            if (it.code != null) {
-                val mDialog = CertificationDialog(activity)
-                val type = it.type
-
-                if (type == "x") {
-                    if (UserManager2.getCommonData()?.cert?.x == AuthenStatus.NEW_MATCHMAKER_OK.type){
-                        return
-                    }
-                    //新媒人
-                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>新媒人认证</font>邀请")
-                } else {
-                    if (UserManager2.getCommonData()?.cert?.b == AuthenStatus.BUSINESS_OK.type){
-                        return
-                    }
-                    //服务商
-                    mDialog.setDesc("您接受了<br>${it.inviter}<br>发来的<font color='#D8253B'>企业主认证</font>邀请")
-                }
-
-                mDialog.OnClickListener = View.OnClickListener {
-                    if (type == "x") {
-                        //新媒人
-                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type","NEW_MATCHMAKER"))
-                    } else {
-                        //服务商
-                        startActivity(Intent(context, AuthActivity::class.java).putExtra("type", "BUSINESS"))
-                    }
-                }
-                mDialog.show()
-            }
-
+            val mDialog = CertificationDialog(activity)
+            mDialog.show(it)
         }
     }
 

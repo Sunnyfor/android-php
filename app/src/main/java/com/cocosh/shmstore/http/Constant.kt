@@ -1,15 +1,12 @@
 package com.cocosh.shmstore.http
 
-import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.SharedUtil
-
 /**
  * 接口配置清单
  * Created by zhangye on 2017/10/12.
  */
 object Constant {
 
-    fun isDebug(): Boolean = SharedUtil.getBoolean(DataCode.ISDEBUG)
+    fun isDebug(): Boolean = false
 
     var SHOWLOG = true //是否打印LOG
 

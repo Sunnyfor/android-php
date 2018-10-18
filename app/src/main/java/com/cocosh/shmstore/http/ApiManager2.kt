@@ -50,11 +50,12 @@ object ApiManager2 {
     }
 
     fun getHost(): String {
-        host = if (Constant.isDebug()) "http://test.api.shoumeiapp.com" else "http://api.shoumeiapp.com"
-        return "http://dev.api.shoumeiapp.com"
+        host = if (Constant.isDebug()) "http://dev.api.shoumeiapp.com" else "http://api.shoumeiapp.com"
+        return host
     }
 
-    fun getBonusHost():String = "http://116.196.74.169:9001"
+    fun getBonusHost(): String =
+            if (Constant.isDebug()) "http://116.196.74.169:9001" else "http://47.95.210.64:9001"
 
 
     fun init() {
@@ -64,8 +65,8 @@ object ApiManager2 {
         okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(LoggerInterceptor("网络请求"))
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(60000L, TimeUnit.MILLISECONDS)
+                .readTimeout(60000L, TimeUnit.MILLISECONDS)
                 //其他配置
                 .build()
 
@@ -88,7 +89,7 @@ object ApiManager2 {
     private fun <T> request(flag: Int, baseActivity: BaseActivity, observable: Observable<ResponseBody>, onResult: OnResult<T>) {
         if (!NetworkUtils.isNetworkAvaliable(baseActivity)) {
             ToastUtil.show("网络连接错误")
-            onResult.onFailed("0","网络连接错误")
+            onResult.onFailed("0", "网络连接错误")
 //            baseActivity.showError(0)
             baseActivity.hideLoading()
             if (flag == 1) {
@@ -179,7 +180,7 @@ object ApiManager2 {
      *  Post请求
      */
     fun <T> post(flag: Int, baseActivity: BaseActivity, params: Map<String, String>, url: String, onResult: OnResult<T>) {
-        val jsonObject  = JSONObject(params)
+        val jsonObject = JSONObject(params)
         val requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         request(flag, baseActivity, apiService.post(requestBody, url), onResult)
     }
@@ -196,7 +197,7 @@ object ApiManager2 {
     /**
      * Post一个JSON
      */
-    fun <T> postJson(flag: Int,baseActivity: BaseActivity, params: String, url: String, onResult: OnResult<T>) {
+    fun <T> postJson(flag: Int, baseActivity: BaseActivity, params: String, url: String, onResult: OnResult<T>) {
         val requestBody = RequestBody.create(MediaType.parse("application/json"), params)
         request(flag, baseActivity, apiService.post(requestBody, url), onResult)
     }
@@ -215,7 +216,7 @@ object ApiManager2 {
     }
 
 
-    fun<T> downLoadFile(baseActivity: BaseActivity,url:String,onResult: OnResult<T>){
+    fun <T> downLoadFile(baseActivity: BaseActivity, url: String, onResult: OnResult<T>) {
 
     }
 
@@ -247,10 +248,8 @@ object ApiManager2 {
     fun getHttpClient(): OkHttpClient = okHttpClient
 
 
-
-
     @Suppress("UNCHECKED_CAST")
-    private fun <T> parserJson(flag: Int, baseActivity: BaseActivity,json: String, onResult: OnResult<T>) {
+    private fun <T> parserJson(flag: Int, baseActivity: BaseActivity, json: String, onResult: OnResult<T>) {
         if (onResult.tag == STRING) {
             onResult.onSuccess(json as T)
         } else {
@@ -259,14 +258,14 @@ object ApiManager2 {
 
             if (onResult.typeToken.toString().contains("com.cocosh.shmstore.base.BaseBean")) {
                 try {
-                    if (body.contains("<div")){
+                    if (body.contains("<div")) {
                         body = body.split("</div>")[1]
                     }
                     val jsonObj = JSONObject(body)
                     val status = jsonObj.opt("status").toString()
-                    val message =  jsonObj.opt("message").toString()
+                    val message = jsonObj.opt("message").toString()
                     if (status == "200") {
-                        if (message.contains("暂无数据")){
+                        if (message.contains("暂无数据")) {
                             onResult.onFailed(status, message)
                             return
                         }
@@ -275,9 +274,9 @@ object ApiManager2 {
                         onResult.onSuccess(baseModel)
                     } else {
 
-                        if (status == "40101"){
+                        if (status == "40101") {
                             ToastUtil.show(message)
-                            baseActivity.startActivity(Intent(baseActivity,LoginActivity::class.java))
+                            baseActivity.startActivity(Intent(baseActivity, LoginActivity::class.java))
                             return
                         }
                         onResult.onFailed(status, message)

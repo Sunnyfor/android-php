@@ -178,7 +178,9 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
 
     //登录信息回调
     override fun loginResult(isOtherLogin: Boolean) {
-        startActivity(Intent(this, HomeActivity::class.java))
+        val intent  =Intent(this, HomeActivity::class.java)
+        intent.putExtra("type","Login")
+        startActivity(intent)
         finish()
 //        if (result.success) {
 //            SmApplication.getApp().setData(DataCode.CHANGE_USER, true)

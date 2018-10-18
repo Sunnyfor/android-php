@@ -175,6 +175,8 @@
     <string name="iconMineAuthen">&#xe656;</string>
     <!--订单-->
     <string name="iconMineOrder">&#xe655;</string>
+    <!--发出的红包-->
+    <string name="iconSendBonus">&#xe673;</string>
     <!--钱包-->
     <string name="iconMinePurse">&#xe658;</string>
     <!--帮助中心-->
@@ -214,8 +216,8 @@
     <string name="iconComment">&#xe670;</string>
     <!--问好-->
     <string name="iconWhat">&#xe671;</string>
-
-    <string name="iconCorporateHome">&#xe672;</string>
+    <!--小红娘笑脸-->
+    <string name="iconCorporateHome">&#xe674;</string>
 
     <!--人脸识别-->
     <string name="main_item_face_live">活体检测</string>

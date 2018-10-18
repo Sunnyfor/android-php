@@ -48,13 +48,16 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-        <ImageView
-            android:layout_width="@dimen/w87"
-            android:layout_height="@dimen/h85"
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="@dimen/w87"
             android:layout_marginLeft="@dimen/w39"
-            android:src="@drawable/shoumei" />
+            android:textColor="@color/red"
+            android:text="@string/iconCorporateHome" />
 
         <TextView
             android:layout_width="wrap_content"

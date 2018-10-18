@@ -20,10 +20,7 @@ import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
-import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.IntentCode
-import com.cocosh.shmstore.utils.ToastUtil
-import com.cocosh.shmstore.utils.UserManager
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_bonus_web.*
@@ -44,6 +41,10 @@ class BonusWebActivity : BaseActivity() {
     private var companyLogo: String? = null
     private var companyName: String? = null
     private var isCollection = false
+    private val shoppingUtils: ShoppingUtils by lazy {
+        ShoppingUtils()
+    }
+
     override fun setLayout(): Int = R.layout.activity_bonus_web
 
     @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
@@ -165,7 +166,7 @@ class BonusWebActivity : BaseActivity() {
                         ToastUtil.show("下载地址错误")
                     }
                 } else {
-                    ToastUtil.show("敬请期待！")
+//                    shoppingUtils.openShopping(this,shoppingUtils.TianMao,"")
                     //确认订单页
 //                    CreateOrderActivity.start(this)
                 }

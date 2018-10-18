@@ -25,7 +25,7 @@ import java.util.*
  * 首媒默认样式的对话框
  * Created by zhangye on 2018/1/27.
  */
-class SmediaDialog : Dialog, View.OnClickListener {
+open class SmediaDialog : Dialog, View.OnClickListener {
     private var baseActivity: BaseActivity
     var OnClickListener: View.OnClickListener? = null
     var cancelOnClickListener: View.OnClickListener? = null
@@ -34,9 +34,10 @@ class SmediaDialog : Dialog, View.OnClickListener {
     constructor(context: Context?) : this(context, 0)
     constructor(context: Context?, themeResId: Int) : super(context, themeResId) {
         baseActivity = context as BaseActivity
+        initView()
     }
 
-    init {
+    fun initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_default)
         tvCancel.setOnClickListener(this)
@@ -65,7 +66,7 @@ class SmediaDialog : Dialog, View.OnClickListener {
         tvTitle.text = title
     }
 
-    fun setDesc(desc: String) {
+    open fun setDesc(desc: String) {
         tvDesc.visibility = View.VISIBLE
         tvDesc.text = desc
     }

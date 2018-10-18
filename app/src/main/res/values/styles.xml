@@ -11,6 +11,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="SplashTheme" parent="SMTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+
     <style name="Title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/titleHeigit</item>

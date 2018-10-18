@@ -4,12 +4,13 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
-import com.cocosh.shmstore.login.model.LoginHistory
 import com.cocosh.shmstore.login.data.LoginLoader
 import com.cocosh.shmstore.login.model.Login2
+import com.cocosh.shmstore.login.model.LoginHistory
 import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.UserManager2
+import com.cocosh.shmstore.widget.dialog.CertificationDialog
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -29,7 +30,7 @@ class LoginPresenter(private var activity: BaseActivity, private var loginView: 
     override fun login(phone: String, password: String) {
         loginLoader.login(phone, password, object : ApiManager2.OnResult<BaseBean<Login2>>() {
             override fun onSuccess(data: BaseBean<Login2>) {
-                data.message?.let {
+                data.message?.let { it ->
                     it.phone = phone
                     UserManager2.setLogin(it)
                     val history = LoginHistory(phone)
