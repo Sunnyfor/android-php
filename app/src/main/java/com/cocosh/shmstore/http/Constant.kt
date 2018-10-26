@@ -131,6 +131,9 @@ object Constant {
     const val EHOME_DISCOVERY_LIST = "$VERSION/ehome/discovery/list" //首媒之家发现企业主列表
     const val EHOME_DISCOVERY_POSTS = "$VERSION/ehome/discovery/posts" //首媒之家发现帖子列表
     const val EHOME_FOLLOW_OPERATE = "$VERSION/ehome/follow/operate" //关注/取消关注
+
+    val RP_FOLLOW = "${ApiManager2.getBonusHost()}/$VERSION/rp/follow" //粉丝红包:关注企业
+
     const val EHOME_REPORT = "$VERSION/ehome/report" //举报接口
     const val EHOME_COMMENTS = "$VERSION/ehome/comments" //帖子的评论列表
     const val EHOME_COMMENT_CREATE = "$VERSION/ehome/comment/create" //发送评论

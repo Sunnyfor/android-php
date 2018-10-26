@@ -106,7 +106,7 @@ class BonusWebActivity : BaseActivity() {
             }
         }
 
-        state?.let {
+        state?.let { it ->
             if (it == "PREVIEW") {
                 btnSure.isClickable = false
                 btnOpen.isClickable = false
@@ -172,9 +172,6 @@ class BonusWebActivity : BaseActivity() {
                 }
             }
             btnOpen.id -> {
-                if (type == "fans") {
-                    checkFollow()
-                } else {
                     if (isCollection) {
                         val intent = Intent(this@BonusWebActivity, BonusDetailActivity::class.java)
                         intent.putExtra("comment_id", no)
@@ -186,7 +183,6 @@ class BonusWebActivity : BaseActivity() {
                     } else {
                         getBonus()
                     }
-                }
             }
         }
     }
@@ -295,29 +291,15 @@ class BonusWebActivity : BaseActivity() {
 //    }
 
     private fun checkFollow() {
-        val params = HashMap<String, String>()
-        params["redPacketOrderId"] = no ?: ""
-        ApiManager.get(0, this, params, Constant.BONUS_CHECKFOLLOW, object : ApiManager.OnResult<BaseModel<String>>() {
-            override fun onSuccess(data: BaseModel<String>) = if (data.entity == "1") {
-//                openBonus()
-            } else {
                 val dialog = SmediaDialog(this@BonusWebActivity)
                 dialog.setTitle("该企业将获取你的头像和昵称等信息")
                 dialog.setDesc("点击同意同时关注该企业")
                 dialog.setDescColor(ContextCompat.getColor(this@BonusWebActivity, R.color.grayText))
                 dialog.OnClickListener = View.OnClickListener {
-                    //                    openBonus()
+                    follow()
                 }
                 dialog.show()
-            }
 
-            override fun onFailed(e: Throwable) {
-            }
-
-            override fun onCatch(data: BaseModel<String>) {
-            }
-
-        })
     }
 
     fun loadData() {
@@ -423,7 +405,7 @@ class BonusWebActivity : BaseActivity() {
         params["no"] = no ?: ""
         ApiManager2.post(this, params, Constant.RP_DO_RECIVE, object : ApiManager2.OnResult<BaseBean<GetRedPackage>>() {
             override fun onSuccess(data: BaseBean<GetRedPackage>) {
-                data.message?.let {
+                data.message?.let { it ->
                     companyName = it.name
                     companyLogo = it.avatar
                     when (it.hold) {
@@ -456,9 +438,29 @@ class BonusWebActivity : BaseActivity() {
             }
 
             override fun onFailed(code: String, message: String) {
+                if (code == "5001109"){
+                    checkFollow()
+                }
             }
 
             override fun onCatch(data: BaseBean<GetRedPackage>) {
+            }
+
+        })
+    }
+
+    fun follow(){
+        val params = HashMap<String, String>()
+        params["no"] = no?:""
+        ApiManager2.post(this, params, Constant.RP_FOLLOW, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onSuccess(data: BaseBean<String>) {
+                getBonus()
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })
