@@ -75,7 +75,9 @@ class MessageSystemAdapter(var mContext: Context, list: ArrayList<MsgModel>) : B
         holder.itemView.setOnClickListener {
             if (getItemViewType(position) == 0) {
                 //跳转详情页
-                WebActivity.start(mContext, OpenType.SysMessage.name, getData(position).ext?.url, getData(position).body?.title)
+                if ((getData(position).ext?.url?:"").isNotEmpty()){
+                    WebActivity.start(mContext, OpenType.SysMessage.name, getData(position).ext?.url, getData(position).body?.title)
+                }
             }
             if (getItemViewType(position) == 1 || getItemViewType(position) == 2) {
                 //跳转财富明细

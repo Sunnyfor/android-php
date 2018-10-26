@@ -8,6 +8,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
+import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
@@ -26,13 +27,13 @@ import kotlinx.android.synthetic.main.activity_concern.*
  * 关注
  */
 class FollowActivity : BaseActivity(), MineContrat.IFollowView {
-    private var listDatas = arrayListOf<FollowListModel>()
+    private var listDatas = arrayListOf<SMCompanyThemeData.BBS>()
     private val pageCount = 20
     private var pageNumber = "1"
     private var mPresenter = FollowPresenter(this, this)
     private lateinit var adapter: ConcernAdapter
 
-    override fun follow(result: BaseBean<ArrayList<FollowListModel>>) {
+    override fun follow(result: BaseBean<ArrayList<SMCompanyThemeData.BBS>>) {
             sfSwiperefresh.isRefreshing = false
 
             if (result.message != null) {
@@ -40,10 +41,14 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
                     recyclerView.loadMoreFinish(true, false);
                     return
                 }
+
+                if (pageNumber == "1"){
+                    listDatas.clear()
+                }
                 listDatas.addAll(result.message?: arrayListOf())
                 recyclerView.adapter.notifyDataSetChanged()
                 recyclerView.loadMoreFinish(false, true)
-                pageNumber = listDatas.last().eid
+                pageNumber = listDatas.last().eid?:""
             }else{
                 showReTryLayout("暂无数据")
             }
@@ -83,16 +88,13 @@ class FollowActivity : BaseActivity(), MineContrat.IFollowView {
         //下拉刷新
         sfSwiperefresh.setOnRefreshListener {
             //拉取默认数据
-            listDatas.clear()
             pageNumber = "1"
-            recyclerView.adapter.notifyDataSetChanged()
-            sfSwiperefresh.isRefreshing = true
             mPresenter.requestFollowData(1, pageNumber, pageCount.toString())
         }
 
         adapter.setOnItemClickListener(object : ConcernAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-                cancelOrConfirm(listDatas[position].eid, position)
+                cancelOrConfirm(listDatas[position].eid?:"", position)
             }
         })
     }

@@ -4,6 +4,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBasePresenter
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.mine.data.MineLoader
 import com.cocosh.shmstore.mine.model.*
 import com.cocosh.shmstore.sms.model.SMS
@@ -162,7 +163,7 @@ class MineContrat {
      * 关注列表
      */
     interface IFollowView : IBaseView {
-        fun follow(result: BaseBean<ArrayList<FollowListModel>>)
+        fun follow(result: BaseBean<ArrayList<SMCompanyThemeData.BBS>>)
         fun cancelFollow(result: BaseBean<Boolean>)//取消关注
     }
 

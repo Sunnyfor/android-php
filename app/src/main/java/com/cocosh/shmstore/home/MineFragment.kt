@@ -179,13 +179,14 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                 data.message?.let {
                     UserManager2.setCommonData(it)
                     if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_NO.type && it.cert.f == AuthenStatus.SERVER_DEALER_NO.type) {
+                        defaultMenu()
                         return
                     }
 
                     val newBottomTitles = arrayListOf(
                             MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
 //                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
-                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "发出的红包"),
+                            MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"),
                             MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
                             MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
                             MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))

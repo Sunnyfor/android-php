@@ -159,12 +159,8 @@ class PickerViewUtils(val activity: BaseActivity) {
     }
 
 
-    fun showAddress(addressresultlistener: OnAddressResultListener) {
-        showAddress(addressresultlistener, false)
-    }
-
     //地址选择器
-    fun showAddress(addressresultlistener: OnAddressResultListener, isDouble: Boolean) {
+    fun showAddress(addressresultlistener: OnAddressResultListener) {
 
         if (addressOptionsPickerView != null) {
             addressOptionsPickerView?.show()
@@ -179,7 +175,7 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
         disposable = Observable.create<String> {
-            parseAddressData(options1Items, options2Items, options3Items, isDouble)
+            parseAddressData(options1Items, options2Items, options3Items)
             it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
@@ -201,27 +197,22 @@ class PickerViewUtils(val activity: BaseActivity) {
                         codeText.append("-")
                         codeText.append(cityId)
 
-                        if (!isDouble) {
-                            val areaText = options3Items[options1][option2][options3].name
-                            val areaId = options3Items[options1][option2][options3].id
-                            if (areaText != "") {
-                                addressText.append("-")
-                                addressText.append(areaText)
-                            }
-                            codeText.append("-")
-                            codeText.append(areaId)
+                        val areaText = options3Items[options1][option2][options3].name
+                        val areaId = options3Items[options1][option2][options3].id
+                        if (areaText != "") {
+                            addressText.append("-")
+                            addressText.append(areaText)
                         }
+                        codeText.append("-")
+                        codeText.append(areaId)
 
                         addressresultlistener.onPickerViewResult(addressText.toString(), codeText.toString())
 
                     }).setSubmitColor(ContextCompat.getColor(activity, R.color.blackText))//确定按钮文字颜色
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
                             .build()
-                    if (isDouble) {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, null)
-                    } else {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
-                    }
+
+                    addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
                     addressOptionsPickerView?.show()
                     activity.hideLoading()
                     disposable?.dispose() //销毁
@@ -230,7 +221,7 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
     //地址选择器
-    fun showSendBonusAddress(addressresultlistener: OnAddressResultListener, isDouble: Boolean) {
+    fun showSendBonusAddress(addressresultlistener: OnAddressResultListener) {
 
         if (addressOptionsPickerView != null) {
             addressOptionsPickerView?.show()
@@ -250,70 +241,47 @@ class PickerViewUtils(val activity: BaseActivity) {
 
 
             val provinces = Gson().fromJson<ArrayList<Province>>(provinceJson, object : TypeToken<java.util.ArrayList<Province>>() {}.type)
-            provinces.add(0, Province(0, "0", "全国"))
+            provinces.add(0, Province("0", "0", "全国"))
             val citys = Gson().fromJson<ArrayList<City>>(cityJson, object : TypeToken<java.util.ArrayList<City>>() {}.type)
-            citys.add(0, City(0, 0, "0", ""))
+            citys.add(0, City("0", "0", "0", ""))
             val districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
-            districts.add(0, District(0, 0, "0", ""))
+            districts.add(0, District("0", "0", "0", ""))
 
-            provinces.forEach {
-                val provinceId = it.provinceID
-                val provinceName = it.provinceName
-                val provinceCode = it.divisionCode
-                options1Items.add(ProvinceModel(it.provinceName, it.divisionCode))
+            provinces.forEach { provice ->
+                options1Items.add(ProvinceModel(provice.provinceName, provice.divisionCode))
 
                 val cityList = ArrayList<ProvinceModel>()
 
                 val districtList = ArrayList<ArrayList<ProvinceModel>>()
 
-                if (!isDouble) {
-                    if (it.provinceName != "全国" && !provinceName.contains("北京") && !provinceName.contains("天津") && !provinceName.contains("上海") && !provinceName.contains("重庆")) {
-                        cityList.add(0, ProvinceModel("全部", it.divisionCode))
-                        val district = ArrayList<ProvinceModel>()
-                        district.add(ProvinceModel("",it.divisionCode))
-                        districtList.add(district)
-                    }
-                } else {
-                    if (it.provinceName != "全国") {
-                        cityList.add(0, ProvinceModel("全部", it.divisionCode))
-                    }
+//                val district = ArrayList<ProvinceModel>()
+
+                if (provice.provinceName != "全国" && !provice.provinceName.contains("北京") && !provice.provinceName.contains("天津") &&
+                        !provice.provinceName.contains("上海") && !provice.provinceName.contains("重庆")) {
+                    cityList.add(0, ProvinceModel("全部", provice.divisionCode))
+                    val mDistrict = ArrayList<ProvinceModel>()
+                    mDistrict.add(ProvinceModel("", provice.divisionCode))
+                    districtList.add(mDistrict)
                 }
 
+                citys.filter { city -> city.provinceID == provice.provinceID }.forEach { city ->
+                    cityList.add(ProvinceModel(city.cityName, city.divisionCode))
 
-                citys.filter { it.provinceID == provinceId }.forEach {
-                    val cityID = it.cityID
-                    val cityCode = it.divisionCode
-
-                    if (!isDouble) {
-                        cityList.add(ProvinceModel(it.cityName, it.divisionCode))
-                    } else {
-                        if (!provinceName.contains("北京") && !provinceName.contains("天津") && !provinceName.contains("上海") && !provinceName.contains("重庆")) {
-                            cityList.add(ProvinceModel(it.cityName, it.divisionCode))
-                        }
+                    val mDistrict = ArrayList<ProvinceModel>()
+                    if (provice.provinceName != "全国") {
+                        mDistrict.add(ProvinceModel("全部", city.divisionCode))
                     }
 
-                    val district = ArrayList<ProvinceModel>()
-                     if (provinceName !="全国"){
-                         district.add(ProvinceModel("全部", cityCode))
-                     }
 
-                    districts?.filter { it.cityID == cityID }?.forEach {
-                        if (!isDouble) {
-                            district.add(ProvinceModel(it.districtName, it.divisionCode))
-                        } else {
-                            if (provinceName.contains("北京") || provinceName.contains("天津") || provinceName.contains("上海") || provinceName.contains("重庆")) {
-                                cityList.add(ProvinceModel(it.districtName, it.divisionCode))
-                            }
-                        }
-                        districtList.add(district)
+                    districts?.filter { districts -> districts.cityID == city.cityID }?.forEach { districts ->
+                        mDistrict.add(ProvinceModel(districts.districtName, districts.divisionCode))
                     }
+                    districtList.add(mDistrict)
                 }
 
                 options2Items.add(cityList)
+                options3Items.add(districtList)
 
-                if (!isDouble) {
-                    options3Items.add(districtList)
-                }
             }
 
             it.onNext("ok")
@@ -337,16 +305,16 @@ class PickerViewUtils(val activity: BaseActivity) {
                         codeText.append("-")
                         codeText.append(cityId)
 
-                        if (!isDouble) {
-                            val areaText = options3Items[options1][option2][options3].name
-                            val areaId = options3Items[options1][option2][options3].id
-                            if (areaText != "") {
-                                addressText.append("-")
-                                addressText.append(areaText)
-                            }
-                            codeText.append("-")
-                            codeText.append(areaId)
+
+                        val areaText = options3Items[options1][option2][options3].name
+                        val areaId = options3Items[options1][option2][options3].id
+                        if (areaText != "") {
+                            addressText.append("-")
+                            addressText.append(areaText)
                         }
+                        codeText.append("-")
+                        codeText.append(areaId)
+
                         addressresultlistener.onPickerViewResult(addressText.toString(), codeText.toString())
 
 
@@ -354,11 +322,9 @@ class PickerViewUtils(val activity: BaseActivity) {
                             .setCancelColor(ContextCompat.getColor(activity, R.color.blackText))//取消按钮文字颜色
                             .build()
 
-                    if (isDouble) {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?)
-                    } else {
-                        addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
-                    }
+
+                    addressOptionsPickerView?.setPicker(options1Items, options2Items as List<ArrayList<ProvinceModel>>?, options3Items as List<ArrayList<ArrayList<ProvinceModel>>>?)
+
 
 
                     addressOptionsPickerView?.show()
@@ -411,51 +377,35 @@ class PickerViewUtils(val activity: BaseActivity) {
 
     //解析地区数据
     private fun parseAddressData(options1Items: ArrayList<ProvinceModel>, options2Items: ArrayList<ArrayList<ProvinceModel>>,
-                                 options3Items: ArrayList<ArrayList<ArrayList<ProvinceModel>>>, isDouble: Boolean) {
+                                 options3Items: ArrayList<ArrayList<ArrayList<ProvinceModel>>>) {
 
         val provinceJson = GetJsonDataUtil.getJson("province.json")
         val cityJson = GetJsonDataUtil.getJson("city.json")
-        var districtJson: String? = null
-
-        if (!isDouble) {
-            districtJson = GetJsonDataUtil.getJson("district.json")
-        }
+        val districtJson = GetJsonDataUtil.getJson("district.json")
 
         val provinces = Gson().fromJson<ArrayList<Province>>(provinceJson, object : TypeToken<java.util.ArrayList<Province>>() {}.type)
-
         val citys = Gson().fromJson<ArrayList<City>>(cityJson, object : TypeToken<java.util.ArrayList<City>>() {}.type)
+        val districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
 
 
-        var districts: ArrayList<District>? = null
-        if (!isDouble) {
-            districts = Gson().fromJson<ArrayList<District>>(districtJson, object : TypeToken<java.util.ArrayList<District>>() {}.type)
-        }
-
-
-        provinces.forEach {
-            val provinceId = it.provinceID
-
-            options1Items.add(ProvinceModel(it.provinceName, it.divisionCode))
+        provinces.forEach { provice ->
+            options1Items.add(ProvinceModel(provice.provinceName, provice.divisionCode))
 
             val cityList = ArrayList<ProvinceModel>()
+
             val districtList = ArrayList<ArrayList<ProvinceModel>>()
 
-            citys.filter { it.provinceID == provinceId }.forEach {
-                val cityID = it.cityID
-                cityList.add(ProvinceModel(it.cityName, it.divisionCode))
-
-                val district = ArrayList<ProvinceModel>()
-                if (!isDouble) {
-                    districts?.filter { it.cityID == cityID }?.forEach {
-                        district.add(ProvinceModel(it.districtName, it.divisionCode))
-                    }
-                    districtList.add(district)
+            citys.filter { city -> city.provinceID == provice.provinceID }.forEach { city ->
+                cityList.add(ProvinceModel(city.cityName, city.divisionCode))
+                val mDistrict = ArrayList<ProvinceModel>()
+                districts?.filter { districts -> districts.cityID == city.cityID }?.forEach { districts ->
+                    mDistrict.add(ProvinceModel(districts.districtName, districts.divisionCode))
                 }
+                districtList.add(mDistrict)
             }
+
             options2Items.add(cityList)
-            if (!isDouble) {
-                options3Items.add(districtList)
-            }
+            options3Items.add(districtList)
         }
     }
 

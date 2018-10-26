@@ -5,6 +5,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.base.IBaseView
+import com.cocosh.shmstore.home.model.SMCompanyThemeData
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
@@ -502,19 +503,19 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
             map["eid"] = currentPage
         }
         map["num"] = showCount
-        ApiManager2.post(flag, activity, map, Constant.EHOME_FOLLOW_MINE, object : ApiManager2.OnResult<BaseBean<ArrayList<FollowListModel>>>() {
+        ApiManager2.post(flag, activity, map, Constant.EHOME_FOLLOW_MINE, object : ApiManager2.OnResult<BaseBean<ArrayList<SMCompanyThemeData.BBS>>>() {
 
             override fun onFailed(code: String, message: String) {
-                val baseBean = BaseBean<ArrayList<FollowListModel>>()
+                val baseBean = BaseBean<ArrayList<SMCompanyThemeData.BBS>>()
                 baseBean.status = code
                 (view as MineContrat.IFollowView).follow(baseBean)
             }
 
-            override fun onSuccess(data: BaseBean<ArrayList<FollowListModel>>) {
+            override fun onSuccess(data: BaseBean<ArrayList<SMCompanyThemeData.BBS>>) {
                 (view as MineContrat.IFollowView).follow(data)
             }
 
-            override fun onCatch(data: BaseBean<ArrayList<FollowListModel>>) {
+            override fun onCatch(data: BaseBean<ArrayList<SMCompanyThemeData.BBS>>) {
                 LogUtil.d(data.toString())
             }
         })

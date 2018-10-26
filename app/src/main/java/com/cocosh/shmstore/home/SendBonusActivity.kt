@@ -112,7 +112,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                         isvLocation.setValue(address)
                         LogUtil.i("选择的城市Code:$targetAreaCode")
                     }
-                }, true)
+                })
             }
             isvTime.id -> {
                 pickerViewUtils.showReleaseTime(object : PickerViewUtils.OnPickerViewResultListener {
