@@ -12,15 +12,16 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.model.BonusAction
 import com.cocosh.shmstore.home.model.GetRedPackage
 import com.cocosh.shmstore.home.model.RedPackage
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_bonus_web.*
@@ -41,9 +42,6 @@ class BonusWebActivity : BaseActivity() {
     private var companyLogo: String? = null
     private var companyName: String? = null
     private var isCollection = false
-    private val shoppingUtils: ShoppingUtils by lazy {
-        ShoppingUtils()
-    }
 
     override fun setLayout(): Int = R.layout.activity_bonus_web
 

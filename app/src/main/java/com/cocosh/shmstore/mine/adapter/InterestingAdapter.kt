@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.mine.model.Ethnic
+import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.item_archive_interesting_list_sub.view.*
 
 /**
@@ -30,15 +31,19 @@ class InterestingAdapter(list:ArrayList<Ethnic>, private var selectMap:HashMap<S
             holder.itemView.tvName.setBackgroundResource(R.drawable.shape_rectangle_gray_to_white)
         }
 
-        holder.itemView.setOnClickListener({
+        holder.itemView.setOnClickListener {
             if (selectMap.containsKey(getData(position).id)){
                 selectMap.remove(getData(position).id)
             }else{
+                if (selectMap.size >=4 ){
+                    ToastUtil.show("已达到上限")
+                    return@setOnClickListener
+                }
                 selectMap[getData(position).id] = getData(position).name
             }
             notifyDataSetChanged()
             onitemClickListener?.onItemClick(it,position)
-        })
+        }
 
     }
 
