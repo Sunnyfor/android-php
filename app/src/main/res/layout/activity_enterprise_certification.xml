@@ -24,7 +24,7 @@
                 android:textColor="@color/blackText"
                 android:textSize="@dimen/h43" />
 
-            <com.cocosh.shmstore.widget.eidttext.SmEditText
+            <EditText
                 android:id="@id/edtName"
                 style="@style/EidttextStyle"
                 android:layout_centerVertical="true"

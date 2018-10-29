@@ -25,7 +25,7 @@
             android:maxLength="10"
             android:paddingRight="@dimen/w30" />
 
-        <com.cocosh.shmstore.widget.eidttext.SmEditText
+        <EditText
             android:id="@+id/edtCompany"
             style="@style/EidttextStyle"
             android:paddingLeft="@dimen/w30"
