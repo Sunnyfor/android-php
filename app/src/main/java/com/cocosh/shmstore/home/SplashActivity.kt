@@ -20,11 +20,11 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        launch(UI) {
-            delay(time)
+//        launch(UI) {
+//            delay(time)
             startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
             finish()
-        }
+//        }
     }
 
 

@@ -6,7 +6,7 @@ package com.cocosh.shmstore.http
  */
 object Constant {
 
-    fun isDebug(): Boolean = true
+    fun isDebug(): Boolean = false
 
     var SHOWLOG = true //是否打印LOG
 

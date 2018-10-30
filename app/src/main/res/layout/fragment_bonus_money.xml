@@ -10,7 +10,7 @@
         android:layout_marginBottom="@dimen/w30"
         android:layout_marginLeft="@dimen/w40"
         android:layout_marginTop="@dimen/w30"
-        android:text="现金红包投放累计总金额"
+        android:text="红包投放累计金额"
         android:textColor="@color/blackText"
         android:textSize="@dimen/w42" />
 
