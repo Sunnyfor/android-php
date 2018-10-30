@@ -10,23 +10,20 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.home.*
 import com.cocosh.shmstore.home.model.HomeBottom
-import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.model.Location
-import kotlinx.android.synthetic.main.activity_contact_service.view.*
+import com.cocosh.shmstore.utils.SharedUtil
 import kotlinx.android.synthetic.main.layout_home_bottom.view.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
 
 
 /**
@@ -75,8 +72,12 @@ class HomeBottomView : RelativeLayout {
             }
         })
 
-
         initPoint()
+        SharedUtil.getString("poolMoney").let {
+            if (it.isNotEmpty()){
+                bonusmoneyFragment.setDefault(it)
+            }
+        }
     }
 
 
@@ -110,15 +111,14 @@ class HomeBottomView : RelativeLayout {
 
             override fun onSuccess(data: BaseBean<HomeBottom>) {
                 data.message?.let {
-                    launch(UI) {
                         //                            initPhotoFragment()
                         try {
+                            SharedUtil.setString("poolMoney",it.total)
                             bonusmoneyFragment.loadData(it.total.toFloat())
                         }catch (e:Exception){
                             e.printStackTrace()
                         }
                         weatherFragment.loadData(it.weather)
-                    }
 
 //                        if (it.resLightChinaVO != null){
 //                            if(it.resLightChinaVO?.lightChinaStatus != "3"){

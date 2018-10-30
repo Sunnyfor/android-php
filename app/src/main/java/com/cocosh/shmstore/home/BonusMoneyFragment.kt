@@ -23,6 +23,8 @@ import java.math.BigDecimal
  */
 class BonusMoneyFragment : BaseFragment() {
     private val tvList = arrayListOf<TextView>()
+    private var defaultValue = "0"
+
     override fun setLayout(): Int = R.layout.fragment_bonus_money
 
     override fun reTryGetData() {
@@ -31,14 +33,15 @@ class BonusMoneyFragment : BaseFragment() {
 
     override fun initView() {
         getLayoutView().setOnClickListener(this)
-        tvList.add(getLayoutView().tv_1)
-        tvList.add(getLayoutView().tv_2)
-        tvList.add(getLayoutView().tv_3)
-        tvList.add(getLayoutView().tv_4)
-        tvList.add(getLayoutView().tv_5)
-        tvList.add(getLayoutView().tv_6)
-        tvList.add(getLayoutView().tv_7)
-        tvList.add(getLayoutView().tv_8)
+//        tvList.add(getLayoutView().tv_1)
+//        tvList.add(getLayoutView().tv_2)
+//        tvList.add(getLayoutView().tv_3)
+//        tvList.add(getLayoutView().tv_4)
+//        tvList.add(getLayoutView().tv_5)
+//        tvList.add(getLayoutView().tv_6)
+//        tvList.add(getLayoutView().tv_7)
+//        tvList.add(getLayoutView().tv_8)
+        getLayoutView().tv_money.text = StringUtils.insertComma(defaultValue.toFloat())
     }
 
     override fun onListener(view: View) {
@@ -53,6 +56,10 @@ class BonusMoneyFragment : BaseFragment() {
 
     }
 
+
+    fun setDefault(defaultValue:String){
+        this.defaultValue = defaultValue
+    }
 
     private val positionCount = 8
     fun loadData(money: Float) {
