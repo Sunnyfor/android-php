@@ -54,11 +54,8 @@ class ReChargeResult : BaseActivity() {
                     ?: "0", 2) + "元")
             time.setNoIconValue(intent.getStringExtra("time") ?: "")
             val typeWay = intent.getStringExtra("typeWay") ?: ""
-            if ("PINGPP_WX" == typeWay) {
-                type.setNoIconValue("微信支付")
-            } else {
-                type.setNoIconValue("支付宝支付")
-            }
+
+            type.setNoIconValue(typeWay)
             number.setNoIconValue(intent.getStringExtra("number") ?: "")
         } else {
             //失败
