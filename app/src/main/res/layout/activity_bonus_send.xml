@@ -143,6 +143,47 @@
                     android:background="@color/gray_line" />
             </RelativeLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h156"
+                android:orientation="horizontal"
+                android:background="@color/white">
+            <TextView
+                android:layout_width="@dimen/w58"
+                android:layout_height="@dimen/w58"
+                android:background="@drawable/shape_banner_point_bg_enable"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="送"
+                android:textSize="@dimen/w29"
+                android:layout_marginLeft="@dimen/w52"
+                android:layout_marginStart="@dimen/w52" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/w22"
+                    android:layout_marginStart="@dimen/w22">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/w35"
+                        android:text="500元红包礼券 >>"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/w29"
+                        android:text="投放金额满500元可用"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,7 +210,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/w50"
                         android:text="￥0.00元/个"
-                        android:textColor="@color/blackText"
+                        android:textColor="@color/red"
                         android:textSize="@dimen/w43" />
 
                     <View

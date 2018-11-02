@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w294"
+        android:layout_marginLeft="@dimen/w66"
+        android:layout_marginRight="@dimen/w35"
+        android:background="@mipmap/bg_item_vouchers"
+        android:layout_marginStart="@dimen/w66"
+        android:layout_marginEnd="@dimen/w35">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w50"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginTop="@dimen/w32"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w58" />
+
+            <TextView
+                android:id="@+id/tvSelectMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w74"
+                tools:text="500" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/w65"
+            android:layout_marginRight="@dimen/w65"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/w56"
+                android:text="去使用"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w37" />
+
+            <TextView
+                android:id="@+id/tvGive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/w78"
+                android:text="去赠送"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w37" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/w50"
+            android:layout_marginLeft="@dimen/w50"
+            android:layout_marginBottom="@dimen/w36"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSelectTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w37"
+                tools:text="2018.10.30 00:00-2018.12.30 00:00" />
+
+            <TextView
+                android:id="@+id/tvSelectDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投放金额为500元时可使用，可累计"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w37" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:id="@+id/vSelect"
+        android:layout_width="@dimen/w63"
+        android:layout_height="@dimen/w63"
+        android:background="@mipmap/ic_vouchers_select_no"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginStart="@dimen/w35" />
+</RelativeLayout>

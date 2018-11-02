@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h342"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/bg_item_vouchers"
+    android:layout_marginLeft="@dimen/w22"
+    android:layout_marginRight="@dimen/w22">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/w65"
+        android:layout_marginTop="@dimen/w40"
+        android:layout_marginStart="@dimen/w65">
+
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w58" />
+
+        <TextView
+            android:id="@id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="500"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w74" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/llOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+       android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/w81"
+        android:layout_marginEnd="@dimen/w81">
+
+        <TextView
+            android:id="@+id/tvUse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去使用"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w37"
+            android:paddingTop="@dimen/w65"
+            android:paddingBottom="@dimen/w40"/>
+
+        <TextView
+            android:id="@+id/tvGive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去赠送"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w37"
+            android:paddingTop="@dimen/w40"
+            android:paddingBottom="@dimen/w81"/>
+    </LinearLayout>
+    
+    
+    <View
+        android:id="@+id/vState"
+        android:layout_width="@dimen/w189"
+        android:layout_height="@dimen/w163"
+        android:background="@mipmap/ic_vouchers_state_use"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/w71"
+        android:layout_marginRight="@dimen/w35"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/w35" />
+    
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w65"
+        android:layout_marginStart="@dimen/w65"
+        android:layout_marginBottom="@dimen/w58">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2018.10.30 00:00-2018.12.30 00:00"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w37"/>
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="投放金额为500元时可使用，可累计"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w37" />
+    </LinearLayout>
+
+</RelativeLayout>

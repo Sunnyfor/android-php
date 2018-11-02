@@ -459,6 +459,17 @@
 
         <activity android:name=".mine.ui.IndustryActivity" />
 
+        <!--红包礼券-->
+        <activity android:name=".vouchers.VouchersActivity"
+            android:launchMode="singleTop"/>
+
+        <!--紅包礼券列表-->
+        <activity android:name=".vouchers.VouchersListActivity"
+            android:launchMode="singleTop"/>
+
+        <!--红包礼券选择列表-->
+        <activity android:name=".vouchers.VouchersListSelectActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

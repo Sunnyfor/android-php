@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/w35"
+        android:layout_above="@id/btnUse"/>
+
+    <Button
+        android:id="@+id/btnUse"
+        android:layout_width="@dimen/w936"
+        android:layout_height="@dimen/w117"
+        android:background="@drawable/shape_btn_red"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/w37"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w46"
+        android:layout_alignParentBottom="true"
+        android:text="去使用"/>
+</RelativeLayout>

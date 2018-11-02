@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlBg"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    
+    <View
+        android:layout_width="@dimen/w467"
+        android:layout_height="@dimen/w373"
+        android:background="@mipmap/ic_vouchers_top"/>
+    
+    <View
+        android:layout_width="@dimen/w580"
+        android:layout_height="@dimen/w834"
+        android:background="@mipmap/bg_dialog_vouchers"
+        android:layout_marginTop="@dimen/w140"
+        android:layout_marginLeft="@dimen/w96"
+        android:layout_marginStart="@dimen/w96" />
+
+    <View
+        android:layout_width="@dimen/w356"
+        android:layout_height="@dimen/w295"
+        android:background="@mipmap/ic_vouchers_bottom"
+        android:layout_marginLeft="@dimen/w394"
+        android:layout_marginStart="@dimen/w394"
+        android:layout_marginTop="@dimen/w743"/>
+</RelativeLayout>

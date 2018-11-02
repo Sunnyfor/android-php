@@ -51,4 +51,6 @@ public class DataCode {
     public static final String BBS = "bbs"; //论坛数据
 
     public static final String SEND_BONUS = "sendBonus"; //发送红包数据
+
+    public static final String VOUCHERS = "vouchers"; //代金卷
 }

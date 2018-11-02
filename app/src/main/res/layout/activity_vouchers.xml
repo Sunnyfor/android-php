@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w622"
+        android:background="@mipmap/bg_vouchers_top"/>
+
+    <LinearLayout
+        android:layout_width="@dimen/w979"
+        android:layout_height="@dimen/w864"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_rectangle_white"
+        android:layout_marginTop="@dimen/w324"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w151"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恭喜您！抢到红包礼券"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w70"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w50">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w70"
+                android:layout_alignBottom="@id/tvMoney"/>
+            <TextView
+                android:id="@id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10000"
+                android:gravity="bottom"
+                android:textColor="@color/red"
+                android:layout_marginLeft="@dimen/w70"
+                android:textSize="@dimen/w92"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即使用"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w80"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w46"/>
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已存入红包礼券，请前往查看 >>"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w80"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w40"/>
+    </LinearLayout>
+    
+    <View
+        android:layout_width="@dimen/w284"
+        android:layout_height="@dimen/w284"
+        android:background="@mipmap/ic_vouchers_head"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/w180"/>
+    
+
+    <Button
+        android:id="@id/btnShare"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w127"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w72"
+        android:layout_marginRight="@dimen/w72"
+        android:layout_marginBottom="@dimen/w37"
+        android:background="@drawable/shape_btn_red"
+        android:textSize="@dimen/w46"
+        android:textColor="@color/white"
+        android:text="分享一下"/>
+
+</RelativeLayout>

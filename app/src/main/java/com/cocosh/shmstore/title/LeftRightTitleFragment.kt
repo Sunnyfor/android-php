@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.layout_left_right_title.view.*
 
 /**
  * 默认标题
- * Created by zhangye on 2018/1/24.
  */
 class LeftRightTitleFragment : BaseFragment() {
     override fun reTryGetData() {
@@ -153,5 +152,7 @@ class LeftRightTitleFragment : BaseFragment() {
         rightListener = onClickListener
     }
 
+    fun getLeftText() = getLayoutView().tvLeft
 
+    fun getRightText() = getLayoutView().tvRight
 }

@@ -144,6 +144,7 @@ dependencies {
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 
     compile 'cn.xiaoluo:update-manager:1.2.0' //版本更新lib
+
 }
 
 kotlin {
