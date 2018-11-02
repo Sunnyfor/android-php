@@ -43,7 +43,7 @@ class VouchersListAdapter(arrayList: ArrayList<Vouchers>, var type: Int) : BaseR
         holder.itemView.tvUse.setOnClickListener {
             val intent = Intent(context, VouchersListSelectActivity::class.java)
             intent.putExtra("index", position)
-            SmApplication.getApp().setData(DataCode.VOUCHERS,list)
+            SmApplication.getApp().setData(DataCode.VOUCHERS_LIST,list)
             context.startActivity(intent)
         }
 

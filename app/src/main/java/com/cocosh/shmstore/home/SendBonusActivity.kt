@@ -12,10 +12,11 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.home.model.BonusAttr
 import com.cocosh.shmstore.home.model.BonusConfig
 import com.cocosh.shmstore.home.model.BonusParam
-import com.cocosh.shmstore.home.model.MotifyBonus
+import com.cocosh.shmstore.home.model.ModifyBonus
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.vouchers.model.Vouchers
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_bonus_send.*
@@ -42,7 +43,8 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var price = "1"
     var rules = "小于"
     var rulesCount = "1"
-    var motifyBonus: MotifyBonus? = null
+    var modifyBonus: ModifyBonus? = null
+    var selectMap:HashMap<String,Vouchers>? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
 
@@ -80,17 +82,34 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     bonusCount = "0"
                 }
 
-                val bcount = BigDecimal(bonusCount)
+                val bCount = BigDecimal(bonusCount)
                 val bigPrice = BigDecimal(price)
-                money = bcount.multiply(bigPrice).toFloat()
+                money = bCount.multiply(bigPrice).toFloat()
                 tvAmountValue.text = StringUtils.insertComma(money)
                 tvGetBonusCountValue.text = bonusCount
                 tvAdCountValue.text = bonusCount
-                if (type != null){
-                    tvMoney.text = ("需支付 ${StringUtils.insertComma(money)}元")
+                if (type != null) {
+                    tvMoney.text = StringUtils.insertComma(money)
+                    tvDMoney.text = StringUtils.insertComma(money)
                 }
             }
         })
+
+        vNumber.setOnClickListener{}
+
+        cbUse.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                vNumber.visibility = View.VISIBLE
+                edtNumber.isCursorVisible = false
+                loadDiscount()
+            }else{
+                llDefault.visibility = View.VISIBLE
+                llDiscount.visibility = View.GONE
+                vNumber.visibility = View.GONE
+                edtNumber.isCursorVisible = true
+            }
+        }
+
         if (type != null) {
             loadData()
         } else {
@@ -143,7 +162,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     return
                 }
 
-                if (type != null){
+                if (type != null) {
                     if (rules == "小于") {
                         if (edtNumber.text.isEmpty() || edtNumber.text.toString().toInt() < rulesCount.toInt()) {
                             ToastUtil.show("红名数量不能小于$rulesCount")
@@ -156,7 +175,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                         }
                     }
                     nextBonus()
-                }else{
+                } else {
                     nextMotify()
                 }
             }
@@ -255,7 +274,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         params["type_word"] = type ?: ""
         ApiManager2.get(1, this, params, Constant.RP_TYPE_ATTRS, object : ApiManager2.OnResult<BaseBean<ArrayList<BonusAttr>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<BonusAttr>>) {
-                data.message?.let {
+                data.message?.let { it ->
                     it.forEach {
 
                         if (it.keyword == "price") {
@@ -273,12 +292,12 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
                             if (map["<="] != null) {
                                 rules = "大于"
-                                rulesCount = (map["<="]as Double).toInt().toString()
+                                rulesCount = (map["<="] as Double).toInt().toString()
                             }
                             edtNumber.hint = ("红包投放数量不得$rules$rulesCount")
                         }
                     }
-
+                    loadDiscount()
                 }
             }
 
@@ -296,10 +315,10 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     private fun loadMotifyData() {
         val params = HashMap<String, String>()
         params["no"] = intent.getStringExtra("id")
-        ApiManager2.get(1, this, params, Constant.MYSELF_SENDRP_RPINFO, object : ApiManager2.OnResult<BaseBean<MotifyBonus>>() {
-            override fun onSuccess(data: BaseBean<MotifyBonus>) {
+        ApiManager2.get(1, this, params, Constant.MYSELF_SENDRP_RPINFO, object : ApiManager2.OnResult<BaseBean<ModifyBonus>>() {
+            override fun onSuccess(data: BaseBean<ModifyBonus>) {
                 data.message?.let {
-                    motifyBonus = it
+                    modifyBonus = it
                     edtName.setText(it.name)
                     edtName.setSelection(it.name.length)
 
@@ -322,7 +341,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             override fun onFailed(code: String, message: String) {
             }
 
-            override fun onCatch(data: BaseBean<MotifyBonus>) {
+            override fun onCatch(data: BaseBean<ModifyBonus>) {
             }
 
         })
@@ -342,32 +361,31 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             paramsList.add(BonusParam("base", "pos_prov", it[0]))
             paramsList.add(BonusParam("base", "pos_city", it[1]))
         }
-        paramsList.add(BonusParam("base", "pubtime",  StringUtils.dateFormatTimeStampYYMMdd(isvTime.getValue()) ))
+        paramsList.add(BonusParam("base", "pubtime", StringUtils.dateFormatTimeStampYYMMdd(isvTime.getValue())))
 
         paramsList.add(BonusParam("base", "total", edtNumber.text.toString()))
 
         paramsList.add(BonusParam("base", "amount", money.toString()))
 
-        paramsList.add(BonusParam("base","price",price))
+        paramsList.add(BonusParam("base", "price", price))
 
 
         SmApplication.getApp().setData(DataCode.SEND_BONUS, paramsList) //传递红包数据
 
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
         intent.putExtra("profit", tvAmountValue.text.toString())
-        intent.putExtra("money",money.toString())
+        intent.putExtra("money", money.toString())
         intent.putExtra("type", type)
         startActivityForResult(intent, 0)
 
     }
 
-    private fun nextMotify(){
-        motifyBonus?.name = edtName.text.toString()
-        SmApplication.getApp().setData(DataCode.MOTIFY_BONUS,motifyBonus)
+    private fun nextMotify() {
+        modifyBonus?.name = edtName.text.toString()
+        SmApplication.getApp().setData(DataCode.MOTIFY_BONUS, modifyBonus)
         val intent = Intent(this@SendBonusActivity, SendBonusDetailActivity::class.java)
-        startActivityForResult(intent,0)
+        startActivityForResult(intent, 0)
     }
-
 
 
     //上传图片
@@ -381,7 +399,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                         if (type != null) {
                             url = it[0]
                         } else {
-                            motifyBonus?.image = it[0]
+                            modifyBonus?.image = it[0]
                         }
 
                     }
@@ -412,4 +430,29 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         }
     }
 
+    fun loadDiscount() {
+        SmApplication.getApp().getData<HashMap<String, Vouchers>>(DataCode.VOUCHERS_SELECT, true)?.let {
+            selectMap = it
+        }
+
+        selectMap?.let { it ->
+            llDefault.visibility = View.GONE
+            llDiscount.visibility = View.VISIBLE
+
+            var discountPrice = 0f  //优惠总金额
+
+
+            it.forEach {
+                discountPrice += it.value.money.toInt()
+            }
+            val mCount = (discountPrice * 2 / price.toFloat()).toInt().toString()
+            edtNumber.setText(mCount)
+            money /= 2
+            tvDMoney.text = money.toString()
+            cbUse.isSelected = true
+            tvDiscount.text = discountPrice.toString() //优惠金额
+            tvDiscountPrice.text = ("${discountPrice}元红包礼券 >>")
+            tvDiscountDesc.text = ("投放金额满${discountPrice}元可用")
+        }
+    }
 }

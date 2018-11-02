@@ -1,27 +1,20 @@
 package com.cocosh.shmstore.home
 
 import android.content.Intent
-import android.text.TextUtils
 import android.view.View
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.home.model.BonusConfig
 import com.cocosh.shmstore.home.model.BonusParam
-import com.cocosh.shmstore.home.model.MotifyBonus
-import com.cocosh.shmstore.http.ApiManager
+import com.cocosh.shmstore.home.model.ModifyBonus
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.ui.PayActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
-import com.qiniu.android.http.ResponseInfo
-import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_bonus_send_detail.*
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.File
 
 
@@ -37,7 +30,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     private var boolean = true
     private var type: String? = null
     private var paramsList = ArrayList<BonusParam>()
-    private var motifyBonus: MotifyBonus? = null
+    private var modifyBonus: ModifyBonus? = null
 
     override fun onTopClick() {
         cameraPhotoUtils.startCamera()
@@ -88,11 +81,11 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
         type = intent.getStringExtra("type")
 
         if (type == null) {
-            motifyBonus = SmApplication.getApp().getData(DataCode.MOTIFY_BONUS, true)
-            edtDesc.setText(motifyBonus?.ado_desc)
-            edtDesc.setSelection(motifyBonus?.ado_desc?.length ?: 0)
-            topPhotoUrl = motifyBonus?.ado_slider_master
-            bottomPhotoUrl = motifyBonus?.ado_images
+            modifyBonus = SmApplication.getApp().getData(DataCode.MOTIFY_BONUS, true)
+            edtDesc.setText(modifyBonus?.ado_desc)
+            edtDesc.setSelection(modifyBonus?.ado_desc?.length ?: 0)
+            topPhotoUrl = modifyBonus?.ado_slider_master
+            bottomPhotoUrl = modifyBonus?.ado_images
             Glide.with(this@SendBonusDetailActivity).load(topPhotoUrl).into(ivBonusPhoto)
             Glide.with(this@SendBonusDetailActivity).load(bottomPhotoUrl).into(ivAdPhoto)
 
@@ -165,9 +158,9 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
 
 
     private fun motiyfyAd() {
-        motifyBonus?.ado_desc = edtDesc.text.toString()
+        modifyBonus?.ado_desc = edtDesc.text.toString()
         val parmas = HashMap<String, String>()
-        motifyBonus?.apply {
+        modifyBonus?.apply {
             parmas["rp_id"] = rp_id //(必填)红包ID
             parmas["name"] = name //(非必填)红包名称
             parmas["image"] = image //(非必填)红包图片

@@ -4,7 +4,7 @@ package com.cocosh.shmstore.home.model
  * 修改红包数据模型
  * Created by zhangye on 2018/8/31.
  */
-data class MotifyBonus(
+data class ModifyBonus(
         var rp_id: String,//红包ID
         var no: String,
         var name: String,
