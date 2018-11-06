@@ -6,13 +6,20 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.baiduFace.OnResultListener
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
+import com.cocosh.shmstore.vouchers.VouchersActivity
+import com.cocosh.shmstore.vouchers.model.CouponIndex
 import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
+import com.cocosh.shmstore.widget.dialog.VouchersDialog
 import com.cocosh.shmstore.zxing.QrCodeActivity
 import com.umeng.socialize.UMShareAPI
 import kotlinx.android.synthetic.main.activity_home.*
@@ -67,7 +74,7 @@ class HomeActivity : BaseActivity() {
         mineFragment = MineFragment()
         fragments.add(mineFragment!!)
         selectTab(0)
-        getMsgCount()
+        couponIndex()
     }
 
 
@@ -179,48 +186,49 @@ class HomeActivity : BaseActivity() {
         return false
     }
 
-    private fun getMsgCount() {
-//        val map = HashMap<String, String>()
-//        ApiManager.get(0, this, map, Constant.MSG_UNREAD, object : ApiManager.OnResult<BaseModel<MsgUnReadCount>>() {
-//            override fun onSuccess(data: BaseModel<MsgUnReadCount>) {
-//                if (data.success && data.code == 200) {
-//                    //更改消息按钮
-//                    if (data.entity?.unreadRedPacketMessageCount == 0 && data.entity?.unreadReplyMessageCount == 0 && data.entity?.unreadSystemMessageCount == 0) {
-//                        //隐藏
-//                        isShowMsgPoint(false)
-//                    } else {
-//                        //显示
-//                        isShowMsgPoint(true)
-//                    }
-//                } else {
-//
-//                }
-//            }
-//
-//            override fun onFailed(e: Throwable) {
-//
-//            }
-//
-//            override fun onCatch(data: BaseModel<MsgUnReadCount>) {
-//
-//            }
-//        })
-    }
-
-    fun isShowMsgPoint(isShow: Boolean) {
-        if (isShow) {
-            viewMsgPoint.visibility = View.VISIBLE
-        } else {
-            viewMsgPoint.visibility = View.GONE
-        }
-    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         intent?.getStringExtra("type")?.let {
-            if (it == "Login"){
+            if (it == "Login") {
                 homeFragment.autEnt()
             }
         }
+    }
+
+    //检查红包代金券状态
+    var dialog: VouchersDialog? = null
+    private fun couponIndex() {
+        ApiManager2.get(this, null, Constant.COUPON_INDEX, object : ApiManager2.OnResult<BaseBean<CouponIndex>>() {
+            override fun onSuccess(data: BaseBean<CouponIndex>) {
+                data.message?.let {
+                    if (it.activity == 1 && it.receive == 0) {
+                        dialog = VouchersDialog(this@HomeActivity) {
+                            ApiManager2.post(this@HomeActivity, hashMapOf(), Constant.COUPON_OPEN, object : ApiManager2.OnResult<BaseBean<String>>() {
+                                override fun onSuccess(data: BaseBean<String>) {
+                                    dialog?.dismiss()
+                                    startActivity(Intent(this@HomeActivity, VouchersActivity::class.java)
+                                            .putExtra("money", data.message))
+                                }
+                                override fun onFailed(code: String, message: String) {
+
+                                }
+                                override fun onCatch(data: BaseBean<String>) {
+
+                                }
+                            })
+                        }
+                        dialog?.show()
+                    }
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<CouponIndex>) {
+            }
+
+        })
     }
 }

@@ -130,6 +130,13 @@ object ApiManager2 {
                             onResult.onFailed("0", "无法连接到服务器！")
                             return
                         }
+
+                        if (e is HttpException){
+                            ToastUtil.show(e.code().toString()+":"+ e.message())
+                            onResult.onFailed(e.code().toString(), e.message())
+                            return
+                        }
+
                     }
 
                     override fun onComplete() {

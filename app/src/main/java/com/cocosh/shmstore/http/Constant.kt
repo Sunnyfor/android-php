@@ -6,7 +6,7 @@ package com.cocosh.shmstore.http
  */
 object Constant {
 
-    fun isDebug(): Boolean = false
+    fun isDebug(): Boolean = true
 
     var SHOWLOG = true //是否打印LOG
 
@@ -196,6 +196,13 @@ object Constant {
      */
     const val LETTER_LIST = "$VERSION/letter/list" //消息列表
 
+
+    /**
+     * 红包代金券
+     * */
+    const val COUPON_INDEX = "$VERSION/coupon/index" //优惠券活动状态
+    const val COUPON_OPEN = "$VERSION/coupon/open" //抢优惠券
+    const val COUPON_KIND = "$VERSION/coupon/kind" //优惠券列表
     /**
      * 首页
      * */
