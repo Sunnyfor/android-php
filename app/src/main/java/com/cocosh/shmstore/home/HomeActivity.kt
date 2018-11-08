@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.baiduFace.OnResultListener
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
@@ -17,8 +16,6 @@ import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.vouchers.VouchersActivity
 import com.cocosh.shmstore.vouchers.model.CouponIndex
-import com.cocosh.shmstore.vouchers.model.Vouchers
-import com.cocosh.shmstore.widget.VouchersListDialog
 import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.dialog.VouchersDialog
