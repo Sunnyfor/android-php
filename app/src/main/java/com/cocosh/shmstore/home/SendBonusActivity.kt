@@ -21,10 +21,8 @@ import com.cocosh.shmstore.widget.VouchersListDialog
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_bonus_send.*
-import kotlinx.android.synthetic.main.activity_order_detail.*
 import java.io.File
 import java.math.BigDecimal
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -47,7 +45,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var rulesCount = "1"
     var modifyBonus: ModifyBonus? = null
     var selectMap:HashMap<String,Vouchers>? = null
-    var kind_id:String? = null //优惠券ID
+    var vouchersCode:String? = null //优惠券Code
     var arrayList:ArrayList<Vouchers>? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
@@ -105,7 +103,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             if (isChecked){
                 vNumber.visibility = View.VISIBLE
                 edtNumber.isCursorVisible = false
-                loadDiscount()
+                loadDiscount(true)
             }else{
                 llDefault.visibility = View.VISIBLE
                 llDiscount.visibility = View.GONE
@@ -121,7 +119,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         }
 
         //点击弹窗优惠券
-        rlVouchers.setOnClickListener { it ->
+        rlVouchers.setOnClickListener { _ ->
             arrayList?.let {
                 VouchersListDialog(it,this@SendBonusActivity).show()
             }
@@ -309,7 +307,6 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                             edtNumber.hint = ("红包投放数量不得$rules$rulesCount")
                         }
                     }
-                    loadDiscount()
                 }
             }
 
@@ -405,7 +402,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     //上传图片
     private fun updateImage() {
         showLoading()
-        file?.let {
+        file?.let { it ->
             ApiManager2.postImage(this, it.path, Constant.COMMON_UPLOADS, object : ApiManager2.OnResult<BaseBean<ArrayList<String>>>() {
                 override fun onSuccess(data: BaseBean<ArrayList<String>>) {
                     data.message?.let {
@@ -444,15 +441,12 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         }
     }
 
-    fun loadDiscount() {
+    fun loadDiscount(flag:Boolean) {
         SmApplication.getApp().getData<HashMap<String, Vouchers>>(DataCode.VOUCHERS_SELECT, true)?.let {
             selectMap = it
         }
 
         selectMap?.let { it ->
-            llDefault.visibility = View.GONE
-            llDiscount.visibility = View.VISIBLE
-
             var discountPrice = 0f  //优惠总金额
 
             val selectIdSb = StringBuilder()
@@ -461,12 +455,15 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                 selectIdSb.append(it.key).append(",")
                 discountPrice += it.value.face_value.toInt()
             }
-            kind_id = selectIdSb.toString().dropLast(1)
-            val mCount = (discountPrice * 2 / price.toFloat()).toInt().toString()
-            edtNumber.setText(mCount)
+            vouchersCode = selectIdSb.toString().dropLast(1)
+            //选中优惠券强制设置数量
+            if (flag){
+                val mCount = (discountPrice * 2 / price.toFloat()).toInt().toString()
+                edtNumber.setText(mCount)
+            }
             money /= 2
             tvDMoney.text = money.toString()
-            cbUse.isSelected = true
+            cbUse.isSelected = flag
             tvDiscount.text = discountPrice.toString() //优惠金额
             tvDiscountPrice.text = ("${discountPrice}元红包礼券 >>")
             tvDiscountDesc.text = ("投放金额满${discountPrice}元可用")
@@ -487,9 +484,10 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     rlVouchers.visibility = View.VISIBLE
                     val hashMap = HashMap<String,Vouchers>()
                     it.forEach {
-                        hashMap[it.id] = it
+                        hashMap[it.code] = it
                     }
                     SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
+                    loadDiscount(true)
                 }
             }
 

@@ -56,12 +56,17 @@ object StringUtils {
 
 
     //时间戳格式化时间
-    fun timeStampFormatDateYYMMdd(date: String): String {
+    fun timeStampFormatDateYYMMdd(date: String,format:String): String {
         if (date.isEmpty()) {
             return ""
         }
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy${format}MM${format}dd", Locale.getDefault())
         return dateFormat.format(Date(date.toLong() * 1000))
+    }
+
+    //时间戳格式化时间
+    fun timeStampFormatDateYYMMdd(date: String): String {
+       return timeStampFormatDateYYMMdd(date,"yyyy-MM-dd")
     }
 
     fun timeStampFormatDateYYMMddHHssmm(date: String): String {

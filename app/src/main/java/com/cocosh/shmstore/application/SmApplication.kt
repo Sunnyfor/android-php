@@ -71,7 +71,7 @@ class SmApplication : MultiDexApplication() {
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
         UMConfigure.setLogEnabled(true)
         UMShareAPI.get(this)
-        PlatformConfig.setWeixin("wx8ae0d35163a7aac4", "b56616b7f9e8d99f21e7c09186f29dbd")
+        PlatformConfig.setWeixin("wx19de5d8fad765de7", "364ef16e42da4e362be79321fdc8134e")
         PlatformConfig.setSinaWeibo("2761266399", "dfca02d093e11a2d9e1bf315053a393d", "http://1.202.14.86:8088/ucenter/wb/callback")
         PlatformConfig.setQQZone("1105781269", "7RCRVAzbRq8mOnEA")
 
@@ -143,7 +143,7 @@ class SmApplication : MultiDexApplication() {
     }
 
     fun clearActivity(key: String){
-        getData<ArrayList<Activity>>(key, true)?.let {
+        getData<ArrayList<Activity>>(key, true)?.let { it ->
             it.forEach {
                 it.finish()
             }

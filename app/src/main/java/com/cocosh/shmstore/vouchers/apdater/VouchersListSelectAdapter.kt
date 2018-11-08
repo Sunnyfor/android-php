@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
+import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.vouchers.model.Vouchers
 import kotlinx.android.synthetic.main.item_vouchers_select.view.*
 
@@ -16,7 +17,7 @@ class VouchersListSelectAdapter(arrayList: ArrayList<Vouchers>, var index: Int, 
     init {
         if (index != -1) {
             list[index].let {
-                selectMap[it.id] = it //默认选中
+                selectMap[it.code] = it //默认选中
             }
         }
     }
@@ -25,10 +26,10 @@ class VouchersListSelectAdapter(arrayList: ArrayList<Vouchers>, var index: Int, 
 
         holder.itemView.tvSelectMoney.text = getData(position).face_value
         holder.itemView.tvSelectDesc.text = ("投放金额为${getData(position).limit}元时可使用，可累计")
-        holder.itemView.tvSelectTime.text = ("${getData(position).stime }-${getData(position).etime}")
+        holder.itemView.tvSelectTime.text = ("${StringUtils.timeStampFormatDateYYMMdd(getData(position).stime,".")}-${StringUtils.timeStampFormatDateYYMMdd(getData(position).etime,".")}")
 
         holder.itemView.setOnClickListener { _ ->
-            getData(position).id.let {
+            getData(position).code.let {
                 if (selectMap[it] == null) {
                     selectMap[it] = list[position]
                 } else {
@@ -44,7 +45,7 @@ class VouchersListSelectAdapter(arrayList: ArrayList<Vouchers>, var index: Int, 
             }
         }
 
-        if (selectMap[getData(position).id] != null) {
+        if (selectMap[getData(position).code] != null) {
             holder.itemView.vSelect.setBackgroundResource(R.mipmap.ic_vouchers_select_yes)
         } else {
             holder.itemView.vSelect.setBackgroundResource(R.mipmap.ic_vouchers_select_no)
@@ -59,7 +60,7 @@ class VouchersListSelectAdapter(arrayList: ArrayList<Vouchers>, var index: Int, 
     fun allSelect() {
         if (selectMap.size < list.size) {
             list.forEach {
-                selectMap[it.id] = it
+                selectMap[it.code] = it
             }
             onChangeText("取消")
         } else {
