@@ -27,7 +27,7 @@
             android:id="@id/tvMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="500"
+            tools:text="0"
             android:textColor="@color/red"
             android:textSize="@dimen/w74" />
     </LinearLayout>
@@ -100,7 +100,7 @@
             android:id="@id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="投放金额为500元时可使用，可累计"
+            android:text="投放金额为0元时可使用，可累计"
             android:textColor="@color/textGray"
             android:textSize="@dimen/w37" />
     </LinearLayout>

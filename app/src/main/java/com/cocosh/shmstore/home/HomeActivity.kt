@@ -17,6 +17,8 @@ import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.vouchers.VouchersActivity
 import com.cocosh.shmstore.vouchers.model.CouponIndex
+import com.cocosh.shmstore.vouchers.model.Vouchers
+import com.cocosh.shmstore.widget.VouchersListDialog
 import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.dialog.VouchersDialog
@@ -192,6 +194,7 @@ class HomeActivity : BaseActivity() {
         intent?.getStringExtra("type")?.let {
             if (it == "Login") {
                 homeFragment.autEnt()
+                couponIndex()
             }
         }
     }
@@ -201,11 +204,16 @@ class HomeActivity : BaseActivity() {
     private fun couponIndex() {
         ApiManager2.get(this, null, Constant.COUPON_INDEX, object : ApiManager2.OnResult<BaseBean<CouponIndex>>() {
             override fun onSuccess(data: BaseBean<CouponIndex>) {
-                data.message?.let {
+                data.message?.let { it ->
+                    UserManager2.setCouponIndex(it)
                     if (it.activity == 1 && it.receive == 0) {
                         dialog = VouchersDialog(this@HomeActivity) {
                             ApiManager2.post(this@HomeActivity, hashMapOf(), Constant.COUPON_OPEN, object : ApiManager2.OnResult<BaseBean<String>>() {
                                 override fun onSuccess(data: BaseBean<String>) {
+                                    UserManager2.getCouponIndex()?.let {
+                                        it.receive = 1
+                                        UserManager2.setCouponIndex(it)
+                                    }
                                     dialog?.dismiss()
                                     startActivity(Intent(this@HomeActivity, VouchersActivity::class.java)
                                             .putExtra("money", data.message))

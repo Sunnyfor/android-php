@@ -16,11 +16,27 @@ import kotlinx.android.synthetic.main.item_mine_top_nav.view.*
 class MineBottomNavAdapter(list: ArrayList<MineTopNavEntity>) : BaseRecycleAdapter<MineTopNavEntity>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvIcon.text = getData(position).icon
-        holder.itemView.tvDesc.text = getData(position).title
+        if (getItemViewType(position) == 0){
+            holder.itemView.tvIcon.text = getData(position).icon
+            holder.itemView.tvDesc.text = getData(position).title
+        }
         holder.itemView.tag = getData(position).title
     }
 
-    override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(parent.context).inflate(R.layout.item_mine_bottom_nav,parent,false)
+    override fun setLayout(parent: ViewGroup, viewType: Int): View{
+        if (viewType == 0 ){
+            return LayoutInflater.from(parent.context).inflate(R.layout.item_mine_bottom_nav,parent,false)
+        }
+        return LayoutInflater.from(parent.context).inflate(R.layout.layout_vouchers_open,parent,false)
+    }
 
+
+    override fun getItemViewType(position: Int): Int {
+        return getData(position).type
+    }
+
+    fun removeVouchers(){
+        list.removeAll(list.filter { it.type == 1 })
+        notifyDataSetChanged()
+    }
 }

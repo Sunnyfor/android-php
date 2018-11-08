@@ -35,9 +35,9 @@ class VouchersListAdapter(arrayList: ArrayList<Vouchers>, var type: Int) : BaseR
         }
 
 
-        holder.itemView.tvMoney.text = getData(position).money
-        holder.itemView.tvDesc.text = ("投放金额为${getData(position).money}元时可使用，可累计")
-        holder.itemView.tvTime.text = getData(position).date
+        holder.itemView.tvMoney.text = getData(position).face_value
+        holder.itemView.tvDesc.text = ("投放金额为${getData(position).limit}元时可使用，可累计")
+        holder.itemView.tvTime.text = ("${getData(position).stime }-${getData(position).etime}")
 
 
         holder.itemView.tvUse.setOnClickListener {

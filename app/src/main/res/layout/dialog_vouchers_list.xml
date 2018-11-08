@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w893"
+    android:layout_height="@dimen/h893"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h122">
+        
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/tvBack"
+            android:layout_width="@dimen/w69"
+            android:layout_height="@dimen/w69"
+            android:textSize="@dimen/w40"
+            android:layout_centerVertical="true"
+            android:text="@string/iconBack"
+            android:layout_marginLeft="@dimen/w26"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/w26" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/w40"
+            android:text="请选择你要使用的红包礼券"
+            android:textColor="@color/textGray"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h3"
+            android:background="@color/gray_line"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/w36"
+            android:layout_marginRight="@dimen/w36"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h556"/>
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h111"
+        android:background="@drawable/shape_btn_red"
+        android:textSize="@dimen/w40"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_marginTop="@dimen/h52"
+        android:text="去使用"/>
+</LinearLayout>

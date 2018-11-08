@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.vouchers.apdater.VouchersViewPagerAdapter
 import com.cocosh.shmstore.vouchers.fragment.VouchersListFragment
 import kotlinx.android.synthetic.main.activity_vouchers_list.*

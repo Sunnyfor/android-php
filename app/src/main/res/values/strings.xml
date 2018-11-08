@@ -218,6 +218,8 @@
     <string name="iconWhat">&#xe671;</string>
     <!--小红娘笑脸-->
     <string name="iconCorporateHome">&#xe674;</string>
+    <!--优惠券ICON-->
+    <string name="iconVouchers">&#xe675;</string>
 
     <!--人脸识别-->
     <string name="main_item_face_live">活体检测</string>

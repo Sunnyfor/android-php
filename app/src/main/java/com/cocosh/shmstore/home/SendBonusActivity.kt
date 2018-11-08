@@ -17,12 +17,15 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.vouchers.model.Vouchers
+import com.cocosh.shmstore.widget.VouchersListDialog
 import com.cocosh.shmstore.widget.dialog.BottomPhotoDialog
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_bonus_send.*
+import kotlinx.android.synthetic.main.activity_order_detail.*
 import java.io.File
 import java.math.BigDecimal
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -38,13 +41,14 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var url: String? = null
     var file: File? = null
     var targetAreaCode: String? = null
-    //    var isfill = false //是否填充历史数据
     var type: String? = null
     var price = "1"
     var rules = "小于"
     var rulesCount = "1"
     var modifyBonus: ModifyBonus? = null
     var selectMap:HashMap<String,Vouchers>? = null
+    var kind_id:String? = null //优惠券ID
+    var arrayList:ArrayList<Vouchers>? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
 
@@ -113,7 +117,15 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         if (type != null) {
             loadData()
         } else {
-            loadMotifyData()
+            loadModifyData()
+        }
+
+        //点击弹窗优惠券
+        rlVouchers.setOnClickListener { it ->
+            arrayList?.let {
+                VouchersListDialog(it,this@SendBonusActivity).show()
+            }
+
         }
     }
 
@@ -187,7 +199,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         if (type != null) {
             loadData()
         } else {
-            loadMotifyData()
+            loadModifyData()
         }
     }
 
@@ -309,10 +321,12 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
             }
         })
+
+        loadVouchers()
     }
 
 
-    private fun loadMotifyData() {
+    private fun loadModifyData() {
         val params = HashMap<String, String>()
         params["no"] = intent.getStringExtra("id")
         ApiManager2.get(1, this, params, Constant.MYSELF_SENDRP_RPINFO, object : ApiManager2.OnResult<BaseBean<ModifyBonus>>() {
@@ -441,10 +455,13 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
             var discountPrice = 0f  //优惠总金额
 
+            val selectIdSb = StringBuilder()
 
             it.forEach {
-                discountPrice += it.value.money.toInt()
+                selectIdSb.append(it.key).append(",")
+                discountPrice += it.value.face_value.toInt()
             }
+            kind_id = selectIdSb.toString().dropLast(1)
             val mCount = (discountPrice * 2 / price.toFloat()).toInt().toString()
             edtNumber.setText(mCount)
             money /= 2
@@ -454,5 +471,35 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             tvDiscountPrice.text = ("${discountPrice}元红包礼券 >>")
             tvDiscountDesc.text = ("投放金额满${discountPrice}元可用")
         }
+    }
+
+    //加载全部优惠券
+    private fun loadVouchers() {
+        val params = hashMapOf<String, String>()
+        params["type"] = "1"
+
+        ApiManager2.post(this, params, Constant.COUPON_KIND, object : ApiManager2.OnResult<BaseBean<ArrayList<Vouchers>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<Vouchers>>) {
+                data.message?.let { it ->
+
+                    arrayList = it
+
+                    rlVouchers.visibility = View.VISIBLE
+                    val hashMap = HashMap<String,Vouchers>()
+                    it.forEach {
+                        hashMap[it.id] = it
+                    }
+                    SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<Vouchers>>) {
+            }
+        })
+
     }
 }

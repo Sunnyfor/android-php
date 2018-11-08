@@ -156,10 +156,12 @@
 
 
             <RelativeLayout
+                android:id="@+id/rlVouchers"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h156"
                 android:background="@color/white"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="@dimen/w58"
@@ -200,13 +202,14 @@
 
                 <CheckBox
                     android:id="@+id/cbUse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/w69"
+                    android:layout_height="@dimen/w69"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/w40"
-                    android:layout_marginRight="@dimen/w40" />
+                    android:layout_marginRight="@dimen/w40"
+                    android:button="@drawable/bg_vouchers_select"/>
             </RelativeLayout>
 
 

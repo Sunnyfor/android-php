@@ -11,6 +11,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.login.model.Login2
 import com.cocosh.shmstore.mine.model.MemberEntrance2
 import com.cocosh.shmstore.model.CommonData
+import com.cocosh.shmstore.vouchers.model.CouponIndex
 import com.google.gson.Gson
 import jp.wasabeef.glide.transformations.BlurTransformation
 
@@ -27,6 +28,8 @@ object UserManager2 {
     private const val MEMBERENTRANCE = "memberentrance" //个人档案
 
     private const val COMMENDATA = "commendata" //认证状态
+
+    private val COUPON = "Coupon" //代金券状态
 
     private var bitmap_topbg: Bitmap? = null
     private var default_bg: Bitmap? = null
@@ -61,6 +64,23 @@ object UserManager2 {
             sb.append("****")
             sb.append(it.substring(7, 11))
             return sb.toString()
+        }
+        return null
+    }
+
+    //保存代金券活动
+    fun setCouponIndex(couponIndex: CouponIndex?) {
+        couponIndex?.let {
+            SharedUtil.setString(COUPON, Gson().toJson(couponIndex))
+        }
+
+    }
+
+    //获取代金券活动
+    fun getCouponIndex(): CouponIndex? {
+        val json = SharedUtil.getString(COUPON)
+        if (json != "") {
+            return Gson().fromJson(json, CouponIndex::class.java)
         }
         return null
     }
@@ -117,7 +137,7 @@ object UserManager2 {
 //    }
 
 
-    fun setCommonData(commonData: CommonData?){
+    fun setCommonData(commonData: CommonData?) {
         commonData?.let {
             getLogin()?.let {
                 it.phone = commonData.phone
@@ -128,7 +148,7 @@ object UserManager2 {
     }
 
 
-    fun getCommonData():CommonData?{
+    fun getCommonData(): CommonData? {
         val json = SharedUtil.getString(COMMENDATA)
         if (json != "") {
             return Gson().fromJson(json, CommonData::class.java)
@@ -157,6 +177,7 @@ object UserManager2 {
         SharedUtil.remove(LOGIN)
         SharedUtil.remove(MEMBERENTRANCE)
         SharedUtil.remove(COMMENDATA)
+        SharedUtil.remove(COUPON)
     }
 
     /**
@@ -194,7 +215,7 @@ object UserManager2 {
     }
 
     //加载APP通用数据（认证状态）
-    fun loadCommonData(flag:Int,baseActivity: BaseActivity, onResult: ApiManager2.OnResult<BaseBean<CommonData>>) {
+    fun loadCommonData(flag: Int, baseActivity: BaseActivity, onResult: ApiManager2.OnResult<BaseBean<CommonData>>) {
         ApiManager2.get(flag, baseActivity, hashMapOf(), Constant.COMMON_DATA, onResult)
     }
 }

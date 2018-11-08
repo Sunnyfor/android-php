@@ -131,7 +131,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
                 if (type != null) {
                     saveAd()
                 } else {
-                    motiyfyAd()
+                    modiyfyAd()
                 }
             }
             ivBonusPhoto.id -> {
@@ -157,7 +157,7 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
     }
 
 
-    private fun motiyfyAd() {
+    private fun modiyfyAd() {
         modifyBonus?.ado_desc = edtDesc.text.toString()
         val parmas = HashMap<String, String>()
         modifyBonus?.apply {
@@ -201,11 +201,11 @@ class SendBonusDetailActivity : BaseActivity(), BottomPhotoDialog.OnItemClickLis
             it.add(BonusParam("ado", "ado_images", bottomPhotoUrl ?: ""))
         }
 
-        val parmas = HashMap<String, String>()
-        parmas["type_id"] = type ?: "1"
-        parmas["data"] = ApiManager2.gson.toJson(paramsList)
+        val params = HashMap<String, String>()
+        params["type_id"] = type ?: "1"
+        params["data"] = ApiManager2.gson.toJson(paramsList)
 
-        ApiManager2.post(this, parmas, Constant.RP_CREATE, object : ApiManager2.OnResult<BaseBean<String>>() {
+        ApiManager2.post(this, params, Constant.RP_CREATE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
 
                 val it = Intent(this@SendBonusDetailActivity, PayActivity::class.java)

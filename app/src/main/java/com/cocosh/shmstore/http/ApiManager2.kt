@@ -271,8 +271,8 @@ object ApiManager2 {
                     val jsonObj = JSONObject(body)
                     val status = jsonObj.opt("status").toString()
                     val message = jsonObj.opt("message").toString()
-                    if (status == "200") {
-                        if (message.contains("暂无数据")) {
+                    if (status == "200" || status == "400") {
+                        if (status == "400") {
                             onResult.onFailed(status, message)
                             return
                         }

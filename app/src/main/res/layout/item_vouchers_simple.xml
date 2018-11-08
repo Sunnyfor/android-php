@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h184"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/vSelect"
+        android:layout_width="@dimen/w45"
+        android:layout_height="@dimen/h45"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginStart="@dimen/w35"
+        android:background="@mipmap/ic_vouchers_select_no2"/>
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="投放金额为0元时可使用，可累计"
+        android:layout_marginTop="@dimen/h37"
+        android:layout_marginLeft="@dimen/w108"
+        android:layout_marginStart="@dimen/w108"
+        android:textSize="@dimen/w35"
+        android:textColor="@color/textGray"/>
+
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="有效时间: 2018.10.31-2018.12.30"
+        android:layout_marginLeft="@dimen/w108"
+        android:layout_marginStart="@dimen/w108"
+        android:textSize="@dimen/w29"
+        android:textColor="@color/textGray"
+        android:layout_marginTop="@dimen/w10"
+        android:layout_below="@id/tvName"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/w36"
+        android:layout_marginEnd="@dimen/w36">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textSize="@dimen/w40"
+            android:textColor="@color/red"
+            android:layout_marginTop="@dimen/w5"/>
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="@dimen/w58"
+            android:textColor="@color/red"
+            android:layout_marginTop="@dimen/w10" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h3"
+        android:background="@color/gray_line"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w36"
+        android:layout_marginRight="@dimen/w36"/>
+</RelativeLayout>

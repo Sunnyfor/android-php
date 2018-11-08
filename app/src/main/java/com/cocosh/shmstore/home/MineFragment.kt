@@ -11,6 +11,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.adapter.MineBottomNavAdapter
 import com.cocosh.shmstore.mine.adapter.MineTopNavAdapter
 import com.cocosh.shmstore.mine.model.AuthenStatus
@@ -25,11 +26,14 @@ import com.cocosh.shmstore.mine.ui.mywallet.MyWalletActivity
 import com.cocosh.shmstore.model.CommonData
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.vouchers.VouchersActivity
+import com.cocosh.shmstore.vouchers.VouchersListActivity
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 import kotlinx.android.synthetic.main.layout_top_head.view.*
 
 
+@Suppress("UNCHECKED_CAST")
 class MineFragment : BaseFragment(), OnItemClickListener {
     var bitmap_topbg: Bitmap? = null
     private lateinit var topTitles: ArrayList<MineTopNavEntity>
@@ -51,14 +55,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 //                MineTopNavEntity(resources.getString(R.string.iconMineFan), "粉丝")),
                 MineTopNavEntity(resources.getString(R.string.iconMineHome), "档案"))
 
-        bottomTitles = arrayListOf(
-                MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
-                MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-//                MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
-                MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"),
-                MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"),
-                MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理")
-        )
+        bottomTitles = getArrayList(false)
 
         getLayoutView().recycleTopNav.layoutManager = GridLayoutManager(context, topTitles.size)
         getLayoutView().recycleTopNav.setHasFixedSize(true)
@@ -96,6 +93,8 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         }
 
         when (v.tag.toString()) {
+            "代金券" -> openVouchers()
+            "我的红包礼券" -> startActivity(Intent(activity, VouchersListActivity::class.java))
             "档案" -> startActivity(Intent(activity, ArchiveActivity::class.java))
             "认证" -> AuthActivity.start(activity)
             "钱包" -> MyWalletActivity.start(activity)
@@ -103,13 +102,13 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                 UserManager2.getCommonData()?.let {
                     var type = "2"
                     if (it.cert.x == 2) {
-                        type  ="2"
+                        type = "2"
                     }
 
-                    if (it.cert.f == 3){
+                    if (it.cert.f == 3) {
                         type = "1"
                     }
-                    InviteCodeActivity.start(activity,type)
+                    InviteCodeActivity.start(activity, type)
                 }
             }
             "新媒人" -> CertificationInComeActivity.start(activity)
@@ -164,7 +163,8 @@ class MineFragment : BaseFragment(), OnItemClickListener {
     }
 
     private fun defaultMenu() {
-        val bottomNavAdapter = MineBottomNavAdapter(bottomTitles)
+        val bottomList = getArrayList(false)
+        val bottomNavAdapter = MineBottomNavAdapter(bottomList)
         getLayoutView().recycleBottomNav.adapter = bottomNavAdapter
         bottomNavAdapter.setOnItemClickListener(this)
     }
@@ -172,24 +172,18 @@ class MineFragment : BaseFragment(), OnItemClickListener {
     /**
      * 根据认证状态修改菜单顺序
      */
-    private fun motifyMenu() {
+    private fun modifyMenu() {
 
         UserManager2.loadCommonData(0, getBaseActivity(), object : ApiManager2.OnResult<BaseBean<CommonData>>() {
             override fun onSuccess(data: BaseBean<CommonData>) {
-                data.message?.let {
+                data.message?.let { it ->
                     UserManager2.setCommonData(it)
                     if (it.cert.x == AuthenStatus.NEW_MATCHMAKER_NO.type && it.cert.f == AuthenStatus.SERVER_DEALER_NO.type) {
                         defaultMenu()
                         return
                     }
 
-                    val newBottomTitles = arrayListOf(
-                            MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"),
-//                            MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"),
-                            MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"),
-                            MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"),
-                            MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"),
-                            MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
+                    val newBottomTitles = getArrayList(true)
 
                     if (it.cert.f == AuthenStatus.SERVER_DEALER_OK.type) {
                         newBottomTitles.add(0, MineTopNavEntity(resources.getString(R.string.iconServices), "服务商"))
@@ -223,8 +217,43 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         })
     }
 
+    //在此处添加数据
+    fun getArrayList(flag: Boolean): ArrayList<MineTopNavEntity> {
+        val bottomList = ArrayList<MineTopNavEntity>()
+        if (!flag) {
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"))
+//            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"))
+        } else {
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"))
+//                    newBottomTitles.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
+        }
+
+        UserManager2.getCouponIndex()?.let {
+            if (it.activity == 1){
+                val mineTopNavEntity = MineTopNavEntity(resources.getString(R.string.iconVouchers), "我的红包礼券")
+                bottomList.add(2, mineTopNavEntity)
+            }
+
+            if (it.receive == 0){
+                val mineTopNavEntity = MineTopNavEntity("", "代金券")
+                mineTopNavEntity.type = 1
+                bottomList.add(0, mineTopNavEntity)
+            }
+        }
+        return bottomList
+    }
+
 
     override fun close() {
+
     }
 
     /**
@@ -248,7 +277,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
 
 
     private fun updateInfo() {
-        UserManager2.getMemberEntrance()?.let {
+        UserManager2.getMemberEntrance()?.let { it ->
             setNo(UserManager2.getLogin()?.code)
             getLayoutView().tvName.text = it.nickname
             UserManager.loadBg(it.avatar, getLayoutView().ivBg) //加载背景图
@@ -261,8 +290,31 @@ class MineFragment : BaseFragment(), OnItemClickListener {
                 }
             }
 
-            motifyMenu()
+            modifyMenu()
             getLayoutView().tvNo.visibility = View.VISIBLE
         }
+    }
+
+
+    private fun openVouchers() {
+        ApiManager2.post(getBaseActivity(), hashMapOf(), Constant.COUPON_OPEN, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                UserManager2.getCouponIndex()?.let {
+                    it.receive = 1
+                    UserManager2.setCouponIndex(it)
+                }
+                (getLayoutView().recycleBottomNav.adapter as MineBottomNavAdapter).removeVouchers()
+                startActivity(Intent(context, VouchersActivity::class.java)
+                        .putExtra("money", data.message))
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+        })
     }
 }

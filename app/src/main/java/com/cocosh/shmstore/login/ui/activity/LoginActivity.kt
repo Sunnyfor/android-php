@@ -9,6 +9,7 @@ import android.transition.TransitionInflater
 import android.view.View
 import android.view.Window
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity
 import com.cocosh.shmstore.home.HomeActivity
@@ -255,6 +256,9 @@ class LoginActivity : BaseActivity(), ILoginContract.IView {
         super.onActivityResult(requestCode, resultCode, data)
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
         if (requestCode == IntentCode.IS_REGIST && resultCode == IntentCode.FINISH) {
+            val intent  =Intent(this, HomeActivity::class.java)
+            intent.putExtra("type","Login")
+            startActivity(intent)
             finish()
         }
     }

@@ -23,9 +23,9 @@ class VouchersListSelectAdapter(arrayList: ArrayList<Vouchers>, var index: Int, 
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
 
-        holder.itemView.tvSelectMoney.text = getData(position).money
-        holder.itemView.tvSelectDesc.text = ("投放金额为${getData(position).money}元时可使用，可累计")
-        holder.itemView.tvSelectTime.text = getData(position).date
+        holder.itemView.tvSelectMoney.text = getData(position).face_value
+        holder.itemView.tvSelectDesc.text = ("投放金额为${getData(position).limit}元时可使用，可累计")
+        holder.itemView.tvSelectTime.text = ("${getData(position).stime }-${getData(position).etime}")
 
         holder.itemView.setOnClickListener { _ ->
             getData(position).id.let {
