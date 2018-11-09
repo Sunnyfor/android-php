@@ -44,8 +44,8 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     var rules = "小于"
     var rulesCount = "1"
     var modifyBonus: ModifyBonus? = null
-    var selectMap:HashMap<String,Vouchers>? = null
-    var vouchersCode:String? = null //优惠券Code
+    private var selectMap = HashMap<String,Vouchers>()
+    private var vouchersCode:String? = null //优惠券Code
     var arrayList:ArrayList<Vouchers>? = null
 
     override fun setLayout(): Int = R.layout.activity_bonus_send
@@ -101,6 +101,8 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
         cbUse.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
+                llDefault.visibility = View.GONE
+                llDiscount.visibility = View.VISIBLE
                 vNumber.visibility = View.VISIBLE
                 edtNumber.isCursorVisible = false
                 loadDiscount(true)
@@ -121,9 +123,15 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         //点击弹窗优惠券
         rlVouchers.setOnClickListener { _ ->
             arrayList?.let {
-                VouchersListDialog(it,this@SendBonusActivity).show()
+                VouchersListDialog(it,if(cbUse.isChecked)selectMap else hashMapOf(),this@SendBonusActivity){
+                    loadDiscount(true)
+                }.show()
             }
 
+        }
+
+        rlUse.setOnClickListener {
+            cbUse.isChecked = !cbUse.isChecked
         }
     }
 
@@ -229,55 +237,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
         }
     }
 
-//    fun loadData() {
-//        ApiManager.post(1, this, hashMapOf(), Constant.BONUS_PARAMS, object : ApiManager.OnResult<BaseModel<BonusConfig>>() {
-//            override fun onSuccess(data: BaseModel<BonusConfig>) {
-//                if (data.success) {
-//                    bonusConfig = data.entity
-//                    initEditConfig()
-//
-//                    if (bonusConfig?.prevAction != 0) {
-//                        val dialog = SmediaDialog(this@SendBonusActivity)
-//                        dialog.setTitle("您还有未发完的红包，\n" + "是否继续发送？")
-//                        dialog.OnClickListener = View.OnClickListener {
-//                            isfill = true
-//                            bonusConfig?.businessRedPacketInfo?.let {
-//
-//                                targetAreaCode = it.targetAreaCode
-//                                edtName.setText(it.redPacketName)
-//                                edtName.setSelection(edtName.text.length)
-//                                url = it.redPacketImg
-//                                Glide.with(this@SendBonusActivity).load(url).into(ivPhoto)
-//                                isvLocation.setValue(it.targetAreaName)
-//                                it.startTime?.split(" ")?.get(0)?.let {
-//                                        isvTime.setValue(StringUtils.isTimeOut(it))
-//                                }
-//
-//                                edtNumber.setText(it.redPacketCount.toString())
-//                            }
-//                        }
-//
-//                        dialog.cancelOnClickListener = View.OnClickListener {
-//                            bonusConfig?.let {
-//                                it.orderNumber = it.newOrderNumber
-//                            }
-//                        }
-//
-//                        dialog.show()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailed(e: Throwable) {
-//
-//            }
-//
-//            override fun onCatch(data: BaseModel<BonusConfig>) {
-//
-//            }
-//        })
-//
-//    }
+
 
     fun loadData() {
         val params = HashMap<String, String>()
@@ -318,8 +278,11 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
             }
         })
-
-        loadVouchers()
+        if ( intent.getBooleanExtra("isUse",false)){
+            loadDiscount(true)
+        }else{
+            loadVouchers()
+        }
     }
 
 
@@ -446,7 +409,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             selectMap = it
         }
 
-        selectMap?.let { it ->
+        selectMap.let { it ->
             var discountPrice = 0f  //优惠总金额
 
             val selectIdSb = StringBuilder()
@@ -463,7 +426,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
             }
             money /= 2
             tvDMoney.text = money.toString()
-            cbUse.isSelected = flag
+            cbUse.isChecked = flag
             tvDiscount.text = discountPrice.toString() //优惠金额
             tvDiscountPrice.text = ("${discountPrice}元红包礼券 >>")
             tvDiscountDesc.text = ("投放金额满${discountPrice}元可用")
@@ -474,7 +437,6 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
     private fun loadVouchers() {
         val params = hashMapOf<String, String>()
         params["type"] = "1"
-
         ApiManager2.post(this, params, Constant.COUPON_KIND, object : ApiManager2.OnResult<BaseBean<ArrayList<Vouchers>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Vouchers>>) {
                 data.message?.let { it ->
@@ -487,7 +449,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                         hashMap[it.code] = it
                     }
                     SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
-                    loadDiscount(true)
+                    loadDiscount(false)
                 }
             }
 

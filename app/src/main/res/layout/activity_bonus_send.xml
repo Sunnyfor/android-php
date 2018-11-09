@@ -200,16 +200,24 @@
                         android:textSize="@dimen/w29" />
                 </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/cbUse"
-                    android:layout_width="@dimen/w69"
-                    android:layout_height="@dimen/w69"
+                <RelativeLayout
+                    android:id="@+id/rlUse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/w40"
-                    android:layout_marginRight="@dimen/w40"
-                    android:button="@drawable/bg_vouchers_select"/>
+                    android:padding="@dimen/w40">
+                    <CheckBox
+                        android:id="@+id/cbUse"
+                        android:layout_width="@dimen/w69"
+                        android:layout_height="@dimen/w69"
+                        android:layout_centerInParent="true"
+                        android:button="@drawable/bg_vouchers_select"
+                        android:focusable="false"
+                        android:clickable="false"/>
+                </RelativeLayout>
+
             </RelativeLayout>
 
 

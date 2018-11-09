@@ -10,11 +10,12 @@ import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.vouchers.VouchersListSelectActivity
 import com.cocosh.shmstore.vouchers.model.Vouchers
 import kotlinx.android.synthetic.main.item_vouchers_default.view.*
 
-class VouchersListAdapter(arrayList: ArrayList<Vouchers>, var type: Int) : BaseRecycleAdapter<Vouchers>(arrayList) {
+class VouchersListAdapter(arrayList: ArrayList<Vouchers>, var type: Int,var giveListener:(url:String)->Unit) : BaseRecycleAdapter<Vouchers>(arrayList) {
 
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
@@ -36,15 +37,19 @@ class VouchersListAdapter(arrayList: ArrayList<Vouchers>, var type: Int) : BaseR
 
 
         holder.itemView.tvMoney.text = getData(position).face_value
-        holder.itemView.tvDesc.text = ("投放金额为${getData(position).limit}元时可使用，可累计")
-        holder.itemView.tvTime.text = ("${getData(position).stime }-${getData(position).etime}")
+        holder.itemView.tvDesc.text = ("投放金额为${getData(position).face_value}元时可使用，可累计")
+        holder.itemView.tvTime.text = ("${StringUtils.timeStampFormatDateYYMMdd(getData(position).stime, "yyyy.MM.dd HH:ss")}-${StringUtils.timeStampFormatDateYYMMdd(getData(position).etime, "yyyy.MM.dd HH:ss")}")
 
 
         holder.itemView.tvUse.setOnClickListener {
             val intent = Intent(context, VouchersListSelectActivity::class.java)
             intent.putExtra("index", position)
-            SmApplication.getApp().setData(DataCode.VOUCHERS_LIST,list)
+            SmApplication.getApp().setData(DataCode.VOUCHERS_LIST, list)
             context.startActivity(intent)
+        }
+
+        holder.itemView.tvGive.setOnClickListener {
+            giveListener(getData(position).code)
         }
 
     }

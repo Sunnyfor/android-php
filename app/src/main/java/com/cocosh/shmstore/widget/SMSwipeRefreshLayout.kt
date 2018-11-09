@@ -32,16 +32,16 @@ class SMSwipeRefreshLayout : SwipeRefreshLayout {
 
         recyclerView.useDefaultLoadMore()
 
-        recyclerView.setLoadMoreListener({
+        recyclerView.setLoadMoreListener {
             // 加载更多的监听。
             page += 1
             onRefreshResult?.onLoadMore(page)
-        })
+        }
 
-        setOnRefreshListener({
+        setOnRefreshListener {
             page = 1
             onRefreshResult?.onUpdate(page)
-        })
+        }
 
         addView(recyclerView)
     }

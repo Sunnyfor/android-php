@@ -60,7 +60,7 @@ object StringUtils {
         if (date.isEmpty()) {
             return ""
         }
-        val dateFormat = SimpleDateFormat("yyyy${format}MM${format}dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat(format, Locale.getDefault())
         return dateFormat.format(Date(date.toLong() * 1000))
     }
 

@@ -43,6 +43,7 @@
         android:layout_height="@dimen/h556"/>
     
     <Button
+        android:id="@id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="@dimen/h111"
         android:background="@drawable/shape_btn_red"

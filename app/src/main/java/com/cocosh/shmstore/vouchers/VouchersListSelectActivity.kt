@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.home.SendBonusActivity
 import com.cocosh.shmstore.title.LeftRightTitleFragment
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.vouchers.apdater.VouchersListSelectAdapter
 import com.cocosh.shmstore.vouchers.model.Vouchers
 import kotlinx.android.synthetic.main.activity_vouchers_list_select.*
@@ -37,9 +38,17 @@ class VouchersListSelectActivity : BaseActivity() {
     override fun onListener(view: View) {
         when (view.id) {
             btnUse.id -> {
-                SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, adapter?.selectMap)
-                startActivity(Intent(this, SendBonusActivity::class.java)
-                        .putExtra("type", "comm_person"))
+
+                adapter?.selectMap?.let {
+                    if (it.isNotEmpty()) {
+                        SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, adapter?.selectMap)
+                        startActivity(Intent(this, SendBonusActivity::class.java)
+                                .putExtra("type", "comm_person")
+                                .putExtra("isUse", true))
+                    }else{
+                        ToastUtil.show("请选择红包礼券！")
+                    }
+                }
             }
         }
     }

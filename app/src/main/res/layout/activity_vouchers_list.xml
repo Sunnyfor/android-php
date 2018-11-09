@@ -3,22 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.cocosh.shmstore.widget.FlymeTabStrip
-        android:id="@+id/tabStrip"
+
+    <RelativeLayout
+        android:id="@+id/rlTab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/h140"
-        app:indicatorColor="@color/red"
-        app:indicatorTextColor="@color/blackText"
-        app:indicatorHeight="@dimen/w6"
-        app:selectedIndicatorTextSize="@dimen/w40"
-        app:indicatorMargin="@dimen/w50"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+        <com.cocosh.shmstore.widget.FlymeTabStrip
+            android:id="@+id/tabStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h140"
+            app:indicatorColor="@color/red"
+            app:indicatorTextColor="@color/blackText"
+            app:indicatorHeight="@dimen/w6"
+            app:selectedIndicatorTextSize="@dimen/w40"
+            app:indicatorMargin="@dimen/w50"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/w3"
-        android:layout_below="@id/tabStrip"/>
+        android:layout_below="@id/rlTab"/>
 </RelativeLayout>

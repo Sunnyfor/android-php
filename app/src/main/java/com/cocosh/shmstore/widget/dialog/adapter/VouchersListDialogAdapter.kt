@@ -15,8 +15,8 @@ class VouchersListDialogAdapter(list: ArrayList<Vouchers>) : BaseRecycleAdapter<
     var selectMap = hashMapOf<String, Vouchers>()
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvName.text = ("投放金额为${getData(position).limit}元时可使用，可累计")
-        holder.itemView.tvTime.text = ("有效时间: ${StringUtils.timeStampFormatDateYYMMdd(getData(position).stime,".")}-${StringUtils.timeStampFormatDateYYMMdd(getData(position).etime,".")}")
+        holder.itemView.tvName.text = ("投放金额为${getData(position).face_value}元时可使用，可累计")
+        holder.itemView.tvTime.text = ("有效时间: ${StringUtils.timeStampFormatDateYYMMdd(getData(position).stime,"yyyy.MM.dd")}-${StringUtils.timeStampFormatDateYYMMdd(getData(position).etime,"yyyy.MM.dd")}")
         holder.itemView.tvMoney.text = getData(position).face_value
 
         if (selectMap[getData(position).code] != null) {

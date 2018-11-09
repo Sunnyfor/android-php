@@ -38,5 +38,6 @@ class VouchersActivity : BaseActivity() {
     }
 
     override fun reTryGetData() {
+
     }
 }

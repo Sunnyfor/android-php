@@ -12,6 +12,8 @@ import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.vouchers.apdater.VouchersListAdapter
 import com.cocosh.shmstore.vouchers.model.Vouchers
+import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
+import com.cocosh.shmstore.widget.dialog.ShareDialog
 import kotlinx.android.synthetic.main.fragment_vouchers_list.*
 import kotlinx.android.synthetic.main.fragment_vouchers_list.view.*
 
@@ -22,7 +24,7 @@ class VouchersListFragment : BaseFragment() {
     private var position = 0 //筛选位置
     private var vouchersListAdapter: VouchersListAdapter? = null
     private val arrayList = ArrayList<Vouchers>()
-
+    private var args:Int = 0
     override fun setLayout(): Int = R.layout.fragment_vouchers_list
 
     override fun initView() {
@@ -35,11 +37,26 @@ class VouchersListFragment : BaseFragment() {
         }
 
 
+        vouchersListAdapter = VouchersListAdapter(arrayList, type){
+            val shareDialog = ShareDialog(getBaseActivity())
+            shareDialog.showShareBase("小红娘送你红包礼券啦，快来领取吧！","抢不完的现金红包等你拿！",it)
+        }
+        refreshLayout.recyclerView.layoutManager = LinearLayoutManager(context)
+        refreshLayout.recyclerView.adapter = vouchersListAdapter
 
-        vouchersListAdapter = VouchersListAdapter(arrayList, type)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = vouchersListAdapter
-        loadData(0)
+        refreshLayout.onRefreshResult = object:SMSwipeRefreshLayout.OnRefreshResult {
+            override fun onUpdate(page: Int) {
+                loadData()
+            }
+
+            override fun onLoadMore(page: Int) {
+
+            }
+        }
+
+
+
+        loadData()
     }
 
     fun setType(type: Int): VouchersListFragment {
@@ -58,7 +75,8 @@ class VouchersListFragment : BaseFragment() {
             R.id.tvDefault -> {
                 position = 0
                 getLayoutView().tvDefault.setTextColor(ContextCompat.getColor(context, R.color.red))
-                loadData(0)
+                args = 0
+                loadData()
             }
             R.id.tvMoney -> {
                 if (position != 1) {
@@ -73,7 +91,8 @@ class VouchersListFragment : BaseFragment() {
                     flag = false
                     getLayoutView().vMoney.setBackgroundResource(R.mipmap.ic_vt_bottom)
                 }
-                loadData(1,flag)
+                args = 1
+                loadData(flag)
             }
             R.id.tvDate -> {
                 if (position != 2) {
@@ -88,7 +107,8 @@ class VouchersListFragment : BaseFragment() {
                     flag = false
                     getLayoutView().vDate.setBackgroundResource(R.mipmap.ic_vt_bottom)
                 }
-                loadData(1,flag)
+                args = 1
+                loadData(flag)
             }
         }
 
@@ -113,7 +133,7 @@ class VouchersListFragment : BaseFragment() {
     }
 
 
-    fun loadData(args: Int, flag: Boolean = true) {
+    fun loadData(flag: Boolean = true) {
         val params = hashMapOf<String, String>()
         params["type"] = (type+1).toString()
         when (args) {
@@ -122,16 +142,16 @@ class VouchersListFragment : BaseFragment() {
         }
         ApiManager2.post(getBaseActivity(), params, Constant.COUPON_KIND, object : ApiManager2.OnResult<BaseBean<ArrayList<Vouchers>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Vouchers>>) {
+                refreshLayout.isRefreshing = false
                 data.message?.let {
                     arrayList.clear()
                     arrayList.addAll(it)
                     vouchersListAdapter?.notifyDataSetChanged()
                 }
-
             }
 
             override fun onFailed(code: String, message: String) {
-
+                refreshLayout.update(null)
             }
 
             override fun onCatch(data: BaseBean<ArrayList<Vouchers>>) {
