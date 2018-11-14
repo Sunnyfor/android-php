@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/w266"
+            android:layout_height="@dimen/h266"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h104"
+            android:background="@mipmap/ic_recharge_money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h29"
+            android:text="我的充值券余额"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w40" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h68"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w69" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w17"
+                android:layout_marginLeft="@dimen/w17"
+                android:text="0.00"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w104" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/w46">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充值说明"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w9"
+                android:layout_marginLeft="@dimen/w9"
+                android:text="@string/iconDown"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w26" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w161"
+            android:layout_marginLeft="@dimen/w161"
+            android:layout_marginTop="@dimen/h46"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. 充值券余额只能作为红包广告投放使用。"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+
+            <TextView
+                android:id="@+id/tvAd_recharge_desc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h29"
+                android:text="@string/ad_recharge_desc2"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h29"
+                android:text="@string/ad_recharge_desc3"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="@dimen/w936"
+            android:layout_height="@dimen/h127"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h132"
+            android:background="@drawable/shape_btn_red"
+            android:text="立即使用"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46" />
+
+        <Button
+            android:id="@+id/btnRecharge"
+            android:layout_width="@dimen/w936"
+            android:layout_height="@dimen/h127"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h52"
+            android:background="@drawable/shape_btn_gray"
+            android:text="充值"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w46" />
+
+        <Button
+            android:layout_width="@dimen/w936"
+            android:layout_height="@dimen/h127"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h52"
+            android:background="@drawable/shape_btn_gray"
+            android:text="赠送"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w46" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h115"
+            android:text="充值券管理"
+            android:textColor="#1E7AE0"
+            android:textSize="@dimen/w40"
+            android:layout_marginBottom="@dimen/h245"/>
+    </LinearLayout>
+</ScrollView>

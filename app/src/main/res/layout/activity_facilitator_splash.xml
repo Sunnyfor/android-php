@@ -58,7 +58,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="成为小红娘新媒人"
-                android:textColor="@color/top_color_orange"
                 android:textSize="@dimen/w60" />
 
             <LinearLayout

@@ -224,7 +224,6 @@
     <!--人脸识别-->
     <string name="main_item_face_live">活体检测</string>
     <string name="main_item_face_detect">人脸图像采集</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="invisit_code">邀请</string>
@@ -324,4 +323,9 @@
     <string name="whate_is_fac">什么是服务商</string>
 
     <string name="comment_def">说说你的看法......</string>
+    
+    <string name="offline_top_desc">请您通过网络转账，或者自行到银行进行汇款\n汇款账号如下 :</string>
+
+    <string name="ad_recharge_desc2">2. 如果是个人性质的广告传播，可在小红娘app端\n投放，广告类型仅限大众红包。前往使用 >></string>
+    <string name="ad_recharge_desc3">3. 如果是企业性质的广告传播，你需要用小红娘\napp端的注册账号去登录小红娘服务商后台才能\n进行广告投放。</string>
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w719"
+    android:layout_height="@dimen/h102">
+
+    <TextView
+        android:id="@id/tvMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w33"
+        android:text="¥100000.00"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/w40"
+        android:layout_marginStart="@dimen/w33" />
+
+    <TextView
+        android:id="@id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/w33"
+        android:layout_toRightOf="@id/tvMoney"
+        android:text="送 ¥5000充值券"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/w35"
+        android:layout_marginStart="@dimen/w33"
+        android:layout_toEndOf="@id/tvMoney" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h2"
+        android:background="@color/lineGray"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w7"
+        android:layout_marginRight="@dimen/w7"/>
+</RelativeLayout>

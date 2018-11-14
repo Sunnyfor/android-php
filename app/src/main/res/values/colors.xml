@@ -27,7 +27,7 @@
 
     <!--actionbar -->
     <color name="bg_btn">#ff6633</color>
-    <color name="top_color_orange">#ff6633</color>
+    <color name="orange">#ed8855</color>
     <color name="text">#757575</color>
     <color name="top_color">#484746</color>
     <color name="red">#ED0362</color>

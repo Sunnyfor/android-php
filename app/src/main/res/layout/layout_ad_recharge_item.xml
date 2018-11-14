@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h328"
+    android:background="@mipmap/bg_ad_recharge"
+    android:layout_marginLeft="@dimen/w22"
+    android:layout_marginRight="@dimen/w22">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/w65"
+        android:layout_marginStart="@dimen/w65"
+        android:layout_marginTop="@dimen/h53">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w58"
+            android:layout_marginTop="@dimen/w25"
+            android:text="¥"/>
+        <TextView
+            android:id="@id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w81"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rlGive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/w65"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/h76"
+        android:layout_marginStart="@dimen/w65">
+        <TextView
+            android:layout_width="@dimen/w58"
+            android:layout_height="@dimen/h58"
+            android:gravity="center"
+            android:text="送"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_rectangle_round_orange"/>
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/w40"
+            android:layout_marginLeft="@dimen/w29"
+            android:text="¥0充值券"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/w107"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/w107">
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/w40"
+            android:layout_marginTop="@dimen/h65"
+            android:text="¥0"
+            android:gravity="center_horizontal" />
+        
+        <Button
+            android:layout_width="@dimen/w173"
+            android:layout_height="@dimen/h81"
+            android:textSize="@dimen/w40"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_rectangle_red"
+            android:layout_marginTop="@dimen/h36"
+            android:text="充值"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/w35"
+        android:textColor="@color/textGray"
+        android:layout_marginTop="@dimen/h96"
+        android:layout_marginLeft="@dimen/w425"
+        android:text="广告券"/>
+</RelativeLayout>

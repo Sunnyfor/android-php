@@ -460,16 +460,47 @@
         <activity android:name=".mine.ui.IndustryActivity" />
 
         <!--红包礼券-->
-        <activity android:name=".vouchers.VouchersActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".vouchers.VouchersActivity"
+            android:launchMode="singleTop" />
 
         <!--紅包礼券列表-->
-        <activity android:name=".vouchers.VouchersListActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".vouchers.VouchersListActivity"
+            android:launchMode="singleTop" />
 
         <!--红包礼券选择列表-->
-        <activity android:name=".vouchers.VouchersListSelectActivity"
+        <activity
+            android:name=".vouchers.VouchersListSelectActivity"
+            android:launchMode="singleTop" />
+
+        <!--线下充值-->
+        <activity
+            android:name=".mine.ui.OfflineRechargeActivity"
+            android:launchMode="singleTop" />
+
+        <!--线下充值提交结果-->
+        <activity android:name=".mine.ui.OfflineCommitActivity"
             android:launchMode="singleTop"/>
+
+        <!--广告充值-->
+        <activity
+            android:name=".mine.ui.ADRechargeActivity"
+            android:launchMode="singleTop" />
+
+        <!--广告充值成功页面-->
+        <activity
+            android:name=".mine.ui.AdRechargeSuccessActivity"
+            android:launchMode="singleTop" />
+
+        <!--如何登陆企业主后台-->
+        <activity
+            android:name=".mine.ui.LoginBusinessHelpActivity"
+            android:launchMode="singleTop" />
+        <!--充值券余额页面-->
+        <activity
+            android:name=".mine.ui.ADRBalanceActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

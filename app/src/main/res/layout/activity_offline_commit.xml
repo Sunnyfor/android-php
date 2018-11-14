@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="@dimen/w173"
+        android:layout_height="@dimen/h173"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h104"
+        android:background="@mipmap/ic_new_success" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/w52"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h40"
+        android:textColor="@color/blackText"
+        android:text="提交成功！审核中"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/w37"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h56"
+        android:textColor="@color/textGray"
+        android:text="线下汇款凭证已提交，我们会在1～2个\n工作日内进行处理，请耐心等待"/>
+</LinearLayout>

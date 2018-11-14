@@ -119,4 +119,8 @@ class ShoumeiFragment : BaseFragment() {
             }
         }
     }
+
+    fun selectPage(index: Int) {
+        getLayoutView().viewPager.currentItem = index
+    }
 }

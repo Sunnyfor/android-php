@@ -278,11 +278,7 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
 
             }
         })
-        if ( intent.getBooleanExtra("isUse",false)){
-            loadDiscount(true)
-        }else{
             loadVouchers()
-        }
     }
 
 
@@ -448,8 +444,14 @@ class SendBonusActivity : BaseActivity(), BottomPhotoDialog.OnItemClickListener,
                     it.forEach {
                         hashMap[it.code] = it
                     }
-                    SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
-                    loadDiscount(false)
+
+                    if ( intent.getBooleanExtra("isUse",false)){
+                        loadDiscount(true)
+                        SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
+                    }else{
+                        SmApplication.getApp().setData(DataCode.VOUCHERS_SELECT, hashMap)
+                        loadDiscount(false)
+                    }
                 }
             }
 

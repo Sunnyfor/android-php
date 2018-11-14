@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h504"
+            android:contentDescription="@null"
+            app:layout_scrollFlags="scroll" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h171"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/w35"
+                android:layout_marginLeft="@dimen/w35"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="限时充即送"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w46" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1元广告券=1元现金"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w29" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/w85"
+                android:layout_marginLeft="@dimen/w85"
+                android:text="距离活动结束还剩"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+
+            <TextView
+                android:id="@+id/tvH"
+                android:layout_width="@dimen/w101"
+                android:layout_height="@dimen/h95"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/w23"
+                android:layout_marginLeft="@dimen/w23"
+                android:background="@drawable/shape_rectangle_round_gray"
+                android:gravity="center"
+                android:text="23"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w52" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/textGray"
+                android:text="："
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:id="@+id/tvM"
+                android:layout_width="@dimen/w101"
+                android:layout_height="@dimen/h95"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_rectangle_round_gray"
+                android:gravity="center"
+                android:text="59"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w52" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/textGray"
+                android:text="："
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:id="@+id/tvS"
+                android:layout_width="@dimen/w101"
+                android:layout_height="@dimen/h95"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_rectangle_round_gray"
+                android:gravity="center"
+                android:text="59"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w52" />
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/h22"
+        app:layout_scrollFlags="scroll"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--</android.support.v4.widget.NestedScrollView>-->
+</android.support.design.widget.CoordinatorLayout>

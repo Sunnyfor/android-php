@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w35"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/w40"
+            android:text="@string/offline_top_desc"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h69"
+            android:text="开户名称 : 北京首媒网络科技有限公司"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h40"
+            android:text="开户银行 : 中国工商银行"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h40"
+            android:text="专属汇款账号 : 32445555660984848333434"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h40"
+            android:text="联系手机 : 13455678890"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h35"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/w35"
+            android:paddingLeft="@dimen/w35">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充值金额 :"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
+
+            <RelativeLayout
+                android:id="@+id/rlSelectMoney"
+                android:layout_width="@dimen/w721"
+                android:layout_height="@dimen/h95"
+                android:layout_marginStart="@dimen/w29"
+                android:layout_marginLeft="@dimen/w29"
+                android:background="@drawable/shape_bg_gray_stroke">
+
+                <TextView
+                    android:id="@id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w29"
+                    android:layout_marginLeft="@dimen/w29"
+                    android:text="¥100000.00"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w29"
+                    android:layout_marginLeft="@dimen/w29"
+                    android:layout_toRightOf="@id/tvName"
+                    android:text="送 ¥5000充值券"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w40" />
+
+                <com.cocosh.shmstore.widget.textview.ICONTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/w29"
+                    android:text="@string/iconDown"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w30" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/w248"
+            android:layout_marginLeft="@dimen/w248"
+            android:layout_marginTop="@dimen/h9"
+            android:layout_toRightOf="@id/tvName"
+            android:text="请填写充值金额以便审核"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w40" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/w35"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h81"
+            android:layout_toRightOf="@id/tvName"
+            android:text="打款成功后请上传交易成功截图。平台在收到你的充值\n金额后，会在1-2个工作日内完成支付确认工作。"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w40" />
+
+        <Button
+            android:layout_width="@dimen/w455"
+            android:layout_height="@dimen/h101"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h86"
+            android:background="@drawable/shape_rectangle_round_red"
+            android:text="+ 上传交易成功截图"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w40" />
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="@dimen/w1011"
+            android:layout_height="@dimen/h494"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h35"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_bg_round_gray"/>
+
+        <Button
+            android:id="@id/btnNext"
+            android:layout_width="@dimen/w936"
+            android:layout_height="@dimen/h127"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h96"
+            android:layout_marginBottom="@dimen/h35"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46"
+            android:text="提交"
+            android:background="@drawable/shape_btn_red" />
+    </LinearLayout>
+</ScrollView>
