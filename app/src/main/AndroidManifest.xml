@@ -501,6 +501,13 @@
         <activity
             android:name=".mine.ui.ADRBalanceActivity"
             android:launchMode="singleTop" />
+
+        <!--充值券赠送也没-->
+        <activity android:name=".mine.ui.ADRechargeGiveActivity"
+            android:launchMode="singleTop"/>
+        <!--充值券列表-->
+        <activity android:name=".mine.ui.ADRechargeSelectListActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

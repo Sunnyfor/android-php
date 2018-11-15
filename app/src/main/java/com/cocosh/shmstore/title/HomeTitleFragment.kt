@@ -2,8 +2,6 @@ package com.cocosh.shmstore.title
 
 import android.content.Intent
 import android.view.View
-import com.amap.api.location.AMapLocation
-import com.amap.api.location.AMapLocationListener
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
@@ -163,7 +161,7 @@ class HomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
             }
 
             override fun onSuccess(data: BaseBean<ValueByKey>) {
-                    (activity as HomeActivity).showShareDialg(data.message?.url ?: "")
+                    (activity as HomeActivity).showShareDialog(data.message?.url ?: "")
             }
 
             override fun onCatch(data: BaseBean<ValueByKey>) {

@@ -10,15 +10,13 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.mine.ui.ADRBalanceActivity
-import com.cocosh.shmstore.mine.ui.AdRechargeSuccessActivity
-import com.cocosh.shmstore.mine.ui.OfflineRechargeActivity
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.vouchers.VouchersActivity
 import com.cocosh.shmstore.vouchers.model.CouponIndex
+import com.cocosh.shmstore.widget.dialog.ShareDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import com.cocosh.shmstore.widget.dialog.VouchersDialog
 import com.cocosh.shmstore.zxing.QrCodeActivity
@@ -167,10 +165,9 @@ class HomeActivity : BaseActivity() {
     /**
      * 显示分享APP对话框
      */
-    fun showShareDialg(url: String) {
-//        val shareDialog = ShareDialog(this)
-//        shareDialog.showShareApp(url)
-        startActivity(Intent(this, OfflineRechargeActivity::class.java))
+    fun showShareDialog(url: String) {
+        val shareDialog = ShareDialog(this)
+        shareDialog.showShareApp(url)
     }
 
 

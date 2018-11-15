@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h280">
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/w979"
+        android:layout_height="@dimen/h245"
+        android:layout_marginStart="@dimen/w66"
+        android:layout_marginLeft="@dimen/w66"
+        android:layout_marginTop="@dimen/h35"
+        android:background="@drawable/shape_rectangle_white">
+
+        <LinearLayout
+            android:id="@id/rlMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/h89"
+            android:layout_marginLeft="@dimen/h89"
+            android:layout_marginTop="@dimen/h29"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w58" />
+
+            <TextView
+                android:id="@id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5000"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w81" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w40"
+            android:layout_marginLeft="@dimen/w40"
+            android:layout_marginTop="@dimen/h65"
+            android:layout_toEndOf="@id/rlMoney"
+            android:layout_toRightOf="@id/rlMoney"
+            android:text="充值券"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w40" />
+
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w89"
+            android:text="有效期：2018.11.30-2018.12.31"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w40"
+            android:layout_marginStart="@dimen/w89"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h40"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vSelect"
+        android:layout_width="@dimen/w80"
+        android:layout_height="@dimen/h80"
+        android:layout_marginTop="@dimen/h115"
+        android:layout_marginStart="@dimen/w24"
+        android:layout_marginLeft="@dimen/w24"
+        android:background="@mipmap/ic_vouchers_select_no" />
+</RelativeLayout>

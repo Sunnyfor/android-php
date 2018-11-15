@@ -1,7 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w35"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/h58"
+            android:text="请选择你要赠送的类型"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w46" />
+
+        <LinearLayout
+            android:id="@+id/llGiveCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h81"
+            android:paddingBottom="@dimen/w22">
+
+            <CheckBox
+                android:id="@+id/cbCoupon"
+                android:layout_width="@dimen/w55"
+                android:layout_height="@dimen/w55"
+                android:layout_marginStart="@dimen/w40"
+                android:layout_marginLeft="@dimen/w40"
+                android:button="@drawable/bg_vouchers_select"
+                android:checked="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:text="赠送充值券"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="（推荐）"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w46" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llGiveMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/w22"
+            android:layout_marginBottom="@dimen/w63">
+
+            <CheckBox
+                android:id="@+id/cbMoney"
+                android:layout_width="@dimen/w55"
+                android:layout_height="@dimen/w55"
+                android:layout_marginStart="@dimen/w40"
+                android:layout_marginLeft="@dimen/w40"
+                android:button="@drawable/bg_vouchers_select" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:text="赠送充值金额"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w35"
+                android:layout_marginLeft="@dimen/w35"
+                android:text="可赠送金额 ¥100000.00"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w35" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h164"
+            android:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:background="@color/lineGray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/w35"
+                android:text="请选择你要赠送的充值券"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w46" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/w35"
+                android:layout_marginRight="@dimen/w35"
+                android:text="@string/iconMore"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w37" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h164">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:background="@color/lineGray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/w35"
+                android:layout_marginLeft="@dimen/w35"
+                android:text="请选择你要赠送的企业主"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w46" />
+
+            <com.cocosh.shmstore.widget.textview.ICONTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/w35"
+                android:layout_marginRight="@dimen/w35"
+                android:text="@string/iconMore"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w37" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_alignParentBottom="true"
+                android:background="@color/lineGray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlMoney"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h300"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w35"
+                android:layout_marginLeft="@dimen/w35"
+                android:layout_marginTop="@dimen/h52"
+                android:text="请输入转账金额"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w46" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvName"
+                android:layout_marginStart="@dimen/w58"
+                android:layout_marginLeft="@dimen/w58"
+                android:layout_marginTop="@dimen/h58"
+                android:paddingRight="@dimen/w58"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/w58">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w52" />
+
+                <EditText
+                    android:id="@+id/editMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/w14"
+                    android:layout_marginLeft="@dimen/w14"
+                    android:background="@color/transparent"
+                    android:inputType="number"
+                    android:gravity="left"
+                    android:hint="免手续费"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w52" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h2"
+                android:layout_alignParentBottom="true"
+                android:background="@color/lineGray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h168">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/w35"
+                android:layout_marginLeft="@dimen/w35"
+                android:text="总计"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w46" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w35">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥ "
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w46" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w63" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h2"
+            android:background="@color/lineGray" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGive"
+        android:layout_width="@dimen/w936"
+        android:layout_height="@dimen/h127"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/h35"
+        android:background="@drawable/shape_btn_red"
+        android:text="赠送"
+        android:textColor="@color/white"
+        android:textSize="@dimen/w46" />
+</RelativeLayout>
