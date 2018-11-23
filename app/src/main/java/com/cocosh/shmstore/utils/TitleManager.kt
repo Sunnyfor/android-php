@@ -163,7 +163,7 @@ class TitleManager(private val activity: BaseActivity) {
     }
 
 
-    private fun addTitleFragment(fragment: BaseFragment) {
+    fun addTitleFragment(fragment: BaseFragment) {
         if (!isFragment) {
             activity.supportFragmentManager.beginTransaction().add(activity.frameTitle.id, fragment).commit()
         }

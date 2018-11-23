@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h550"
+        android:src="@color/activity_bg" />
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/w45"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginTop="@dimen/w22"
+        android:text=""
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/w46" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/w45"
+        android:layout_marginLeft="@dimen/w45"
+        android:layout_marginTop="@dimen/h40"
+        android:layout_marginBottom="@dimen/h75">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w37" />
+
+        <TextView
+            android:id="@id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w55" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w331"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/w35"
+    android:layout_marginRight="@dimen/w35"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/w331"
+        android:layout_height="@dimen/h318"
+        android:src="@color/activity_bg"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h39"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/w37"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/w20"
+        android:layout_marginRight="@dimen/w20"
+        android:text="非常美味的摩卡非常美味"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h12"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="#FFDC713A"
+        android:textSize="@dimen/w37"
+        android:layout_marginLeft="@dimen/w20"
+        android:layout_marginRight="@dimen/w20"
+        android:text="¥1200.00"/>
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h130"
+        android:background="@color/white">
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="@dimen/w959"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            app:tabSelectedTextColor="@color/red"
+            app:tabTextAppearance="@style/MyCustomTabTextAppearance" />
+
+        <TextView
+            android:id="@+id/tvCover"
+            android:layout_width="@dimen/w959"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w63"
+            android:text="全部频道"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46"
+            android:visibility="gone" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:id="@+id/tvMore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/tabLayout"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w23"
+            android:text="@string/iconMoreDown"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w49" />
+    </RelativeLayout>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h147"
+        android:visibility="gone"
+        app:tabIndicatorHeight="0dp"
+        app:tabTextAppearance="@style/GoodsTabStyle2" />
+
+    <FrameLayout
+        android:id="@+id/flContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -139,8 +139,12 @@
     <string name="iconSms">&#xe617;</string>
     <!--下三角-->
     <string name="iconDown">&#xe618;</string>
+
+    <!--更多向上-->
+    <string name="iconMoreTop">&#xe646;</string>
+
     <!--更多向下-->
-    <string name="iconMoreDown"> &#xe647;</string>
+    <string name="iconMoreDown">&#xe647;</string>
     <!--显示密码-->
     <string name="iconShow">&#xe61a;</string>
     <!--隐藏密码-->

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/h73"
+    android:textColor="@color/red"
+    android:textSize="@dimen/w37"
+    android:gravity="center"
+    android:paddingLeft="@dimen/w32"
+    android:paddingRight="@dimen/w32"
+    android:paddingTop="@dimen/h10"
+    android:paddingBottom="@dimen/h10"
+    android:background="@drawable/shape_btn_border_red2"
+    android:text="咖啡">
+</TextView>

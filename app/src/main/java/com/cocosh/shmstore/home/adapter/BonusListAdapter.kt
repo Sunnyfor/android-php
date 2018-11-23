@@ -4,6 +4,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
@@ -41,9 +42,7 @@ class BonusListAdapter(bonusList: ArrayList<Bonus2>) : BaseRecycleAdapter<Bonus2
 //            holder.itemView.tvSure.text = "爱心刮刮乐"
 //            holder.itemView.tvSure.text = "爱心大转盘"
 //        }
-
-
-        GlideUtils.load(context, getData(position).image, holder.itemView.ivPhoto)
+        Glide.with(context).load(list[position].image).placeholder(R.drawable.default_home_bonus).into(holder.itemView.ivPhoto)
 
 
     }

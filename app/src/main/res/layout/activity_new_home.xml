@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/flBottomTabFragmentContainer"
+        style="@style/match_match"
+        android:layout_above="@+id/llParent" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h3"
+        android:layout_above="@id/llParent"
+        android:background="@color/lineGray" />
+
+    <include
+        android:id="@+id/llParent"
+        layout="@layout/include_new_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w141"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

@@ -249,6 +249,12 @@
     </style>
 
 
+    <style name="GoodsTabStyle2" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/w37</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+
     <style name="NoAnimationTheme" parent="SMTheme">
         <item name="android:windowAnimationStyle">@style/NoAnimation</item>
     </style>

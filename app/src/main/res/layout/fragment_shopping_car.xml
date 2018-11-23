@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rlSelect"/>
+
+    <RelativeLayout
+        android:id="@+id/rlSelect"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h141"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/w46"
+            android:paddingRight="@dimen/w46">
+
+            <View
+                android:layout_width="@dimen/w52"
+                android:layout_height="@dimen/h52"
+                android:background="@mipmap/ic_vouchers_select_no" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w29"
+                android:text="全选" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合计："
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w46" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥199"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w46" />
+
+            <Button
+                android:layout_width="@dimen/w202"
+                android:layout_height="@dimen/h89"
+                android:layout_marginLeft="@dimen/w33"
+                android:layout_marginRight="@dimen/w46"
+                android:background="@drawable/red_corner_btn_bg"
+                android:text="结算"
+                android:textColor="@color/white"
+                android:textSize="@dimen/w46" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -8,9 +8,9 @@
     <ImageView
         android:id="@id/ivPhoto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/h620"
+        android:layout_height="@dimen/h576"
         android:scaleType="fitXY"
-        android:src="@drawable/default_long"/>
+        android:src="@drawable/default_home_bonus"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

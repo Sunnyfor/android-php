@@ -203,6 +203,21 @@ object Constant {
     const val COUPON_INDEX = "$VERSION/coupon/index" //优惠券活动状态
     const val COUPON_OPEN = "$VERSION/coupon/open" //抢优惠券
     const val COUPON_KIND = "$VERSION/coupon/kind" //优惠券列表
+
+    /**
+     * 电商
+     */
+    const val ESHOP_CLASS_RECOMMEND = "$VERSION/eshop/class/recommend"
+
+    //电商首页-商品类目
+    const val ESHOP_CLASSES = "$VERSION/eshop/classes"
+
+    //商品列表
+    const val ESHOP_GOODS_LIST = "$VERSION/eshop/goods/list"
+
+    //搜索商品
+    const val ESHOP_GOODS_SEARCH = "$VERSION/eshop/goods/search"
+
     /**
      * 首页
      * */

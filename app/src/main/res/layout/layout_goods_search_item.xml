@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h461"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h460"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/w374"
+            android:layout_height="@dimen/h374"
+            android:layout_marginLeft="@dimen/w35"
+            android:layout_marginTop="@dimen/w43"
+            android:layout_marginRight="@dimen/w35"
+            android:layout_marginBottom="@dimen/w43"
+            android:src="@color/activity_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w43"
+            android:layout_marginRight="@dimen/w35"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                tools:text="小分子玻尿酸高保湿面膜"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h12"
+                android:ellipsize="end"
+                android:lines="2"
+                tools:text="小分子玻尿酸高技术，深层渗透肌 肤，补水保湿，水润亮泽，抗皱平滑"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h76"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/w12"
+                    android:layout_marginLeft="@dimen/w12"
+                    tools:text="79"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w58" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h3"
+                android:ellipsize="end"
+                tools:text="5157条好评"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w35" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h1"
+        android:background="@color/lineGray"/>
+</LinearLayout>

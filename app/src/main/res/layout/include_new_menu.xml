@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:id="@+id/rlHome"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="@dimen/w69"
+            android:layout_height="@dimen/h113"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/w17"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_nav_home" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlInCome"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="@dimen/w71"
+            android:layout_height="@dimen/h105"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/w17"
+            android:background="@drawable/bg_nav_type" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlShoumei"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="@dimen/w104"
+            android:layout_height="@dimen/h113"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/w17"
+            android:background="@drawable/bg_nav_shoumei" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlMessage"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/w105"
+            android:layout_height="@dimen/h111"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/w17"
+            android:background="@drawable/bg_nav_shopping" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlMine"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="@dimen/w69"
+            android:layout_height="@dimen/h111"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/w17"
+            android:background="@drawable/bg_nav_mine" />
+    </RelativeLayout>
+</LinearLayout>

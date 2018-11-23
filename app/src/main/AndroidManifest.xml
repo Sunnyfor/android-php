@@ -480,8 +480,9 @@
             android:launchMode="singleTop" />
 
         <!--线下充值提交结果-->
-        <activity android:name=".mine.ui.OfflineCommitActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".mine.ui.OfflineCommitActivity"
+            android:launchMode="singleTop" />
 
         <!--广告充值-->
         <activity
@@ -503,10 +504,28 @@
             android:launchMode="singleTop" />
 
         <!--充值券赠送也没-->
-        <activity android:name=".mine.ui.ADRechargeGiveActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".mine.ui.ADRechargeGiveActivity"
+            android:launchMode="singleTop" />
         <!--充值券列表-->
-        <activity android:name=".mine.ui.ADRechargeSelectListActivity"
+        <activity
+            android:name=".mine.ui.ADRechargeSelectListActivity"
+            android:launchMode="singleTop" />
+
+        <!--新版首页-->
+        <activity android:name=".newhome.HomeActivity" />
+
+        <!--商品详情页-->
+        <activity
+            android:name=".newhome.GoodsDetailActivity"
+            android:launchMode="singleTop" />
+
+        <!--商品列表页-->
+        <activity android:name=".newhome.GoodsListActivity"
+            android:launchMode="singleTop"/>
+
+        <!--商品搜索页-->
+        <activity android:name=".newhome.GoodsSearchActivity"
             android:launchMode="singleTop"/>
     </application>
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/Title"
+    android:background="@color/white">
+
+    <com.cocosh.shmstore.widget.textview.ICONTextView
+        android:id="@id/tvLeft"
+        style="@style/Title.Icon"
+        android:text="@string/iconBack"
+        android:paddingLeft="@dimen/w25"
+        android:paddingRight="@dimen/w25" />
+
+
+
+    <LinearLayout
+        android:id="@+id/llSearch"
+        android:layout_width="@dimen/w812"
+        android:layout_height="@dimen/h95"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_btn_gray"
+        android:contentDescription="@null"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/w50"
+            android:layout_height="@dimen/h52"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/w32"
+            android:layout_marginLeft="@dimen/w32"
+            android:layout_marginEnd="@dimen/w22"
+            android:layout_marginRight="@dimen/w22"
+            android:background="@mipmap/ic_goods_search" />
+
+        <EditText
+            android:id="@+id/editView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:textColor="@color/blackText"
+            android:layout_gravity="center_vertical"
+            android:hint="双11狂欢"
+            android:textSize="@dimen/w40" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textSize="@dimen/w43"
+        android:text="搜索"
+        android:paddingRight="@dimen/w35"
+        android:textColor="@color/textGray"
+        android:paddingLeft="@dimen/w35"/>
+
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/w540"
+    android:layout_height="@dimen/h804">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@id/ivPhoto"
+            android:layout_width="@dimen/w539"
+            android:layout_height="@dimen/h518"
+            android:layout_marginTop="@dimen/h22" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w52"
+            android:layout_marginLeft="@dimen/w52"
+            android:layout_marginTop="@dimen/h23">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="#FFED824A"
+                android:textSize="@dimen/w40" />
+
+            <TextView
+                android:id="@id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w12"
+                android:layout_marginLeft="@dimen/w12"
+                android:text="0.00"
+                android:textColor="#FFED824A"
+                android:textSize="@dimen/w58" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w52"
+            android:layout_marginTop="@dimen/h12"
+            android:layout_marginRight="@dimen/w52"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="非常美味的摩卡咖啡"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40" />
+
+        <TextView
+            android:id="@id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w52"
+            android:layout_marginLeft="@dimen/w52"
+            android:layout_marginTop="@dimen/h12"
+            android:text="401条好评"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w32" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/h42"
+        android:background="@color/lineGray" />
+
+    <View
+        android:layout_width="@dimen/w2"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/lineGray" />
+</RelativeLayout>

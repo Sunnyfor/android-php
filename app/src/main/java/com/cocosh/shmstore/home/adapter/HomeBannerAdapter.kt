@@ -39,18 +39,7 @@ class HomeBannerAdapter(var context: Context, var list: ArrayList<Bonus2>) : Pag
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = View.inflate(context, R.layout.item_card_view, null)
 
-        Glide.with(context).load(list[position].image).asBitmap().centerCrop().into(object : BitmapImageViewTarget(view.imageView){
-            override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                val roundedBit = RoundedBitmapDrawableFactory.create(context.resources,resource)
-                roundedBit.cornerRadius = context.resources.getDimension(R.dimen.w12)
-                view.imageView.setImageDrawable(roundedBit)
-            }
-            override fun onLoadFailed(e: Exception?, errorDrawable: Drawable?) {
-                super.onLoadFailed(e, errorDrawable)
-                Glide.with(context).load(R.drawable.home_ad_default).into(view.imageView)
-            }
-        })
-
+        Glide.with(context).load(list[position].image).placeholder(R.drawable.default_home_bonus).into(view.imageView)
 
         container.addView(view)
         view.setOnClickListener {

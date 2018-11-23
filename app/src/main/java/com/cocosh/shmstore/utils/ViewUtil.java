@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cocosh.shmstore.R;
+
 import java.lang.reflect.Field;
 
 /**
@@ -482,7 +484,7 @@ public class ViewUtil {
                     //拿到tabLayout的mTabStrip属性
                     LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
 
-                    int dp10 = DimensUtil.INSTANCE.dip2px( 10);
+//                    int dp10 = DimensUtil.INSTANCE.dip2px( 10);
 
                     for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                         View tabView = mTabStrip.getChildAt(i);
@@ -506,8 +508,8 @@ public class ViewUtil {
                         //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                         params.width = width ;
-                        params.leftMargin = dp10;
-                        params.rightMargin = dp10;
+                        params.leftMargin = (int) tabView.getResources().getDimension(R.dimen.w63);
+//                        params.rightMargin = dp10;
                         tabView.setLayoutParams(params);
 
                         tabView.invalidate();

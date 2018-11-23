@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Title"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="@dimen/w63"
+        android:layout_height="@dimen/h98"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/w35"
+        android:layout_marginLeft="@dimen/w35"
+        android:background="@mipmap/ic_location_top" />
+
+    <LinearLayout
+        android:id="@+id/vLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/iv_local"
+            android:layout_width="@dimen/w63"
+            android:layout_height="@dimen/h63"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_new_location" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/w5"
+            android:layout_marginLeft="@dimen/w5"
+            android:gravity="center"
+            android:paddingBottom="@dimen/w5"
+            android:text="@string/default_city"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w34" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSearch"
+        android:layout_width="@dimen/w812"
+        android:layout_height="@dimen/h95"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_btn_gray"
+        android:contentDescription="@null"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/w50"
+            android:layout_height="@dimen/h52"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/w32"
+            android:layout_marginLeft="@dimen/w32"
+            android:layout_marginEnd="@dimen/w22"
+            android:layout_marginRight="@dimen/w22"
+            android:background="@mipmap/ic_goods_search" />
+
+        <TextView
+            android:id="@+id/tvKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:textColor="@color/grayText"
+            android:layout_gravity="center_vertical"
+            android:hint="双11狂欢"
+            android:textSize="@dimen/w40" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/vMessage"
+        android:layout_width="@dimen/w65"
+        android:layout_height="@dimen/h101"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/w25"
+        android:layout_marginRight="@dimen/w25"
+        android:background="@mipmap/ic_message_top" />
+
+</RelativeLayout>
