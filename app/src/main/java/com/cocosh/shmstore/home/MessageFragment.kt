@@ -25,7 +25,7 @@ class MessageFragment : BaseFragment() {
     override fun setLayout(): Int = R.layout.fragment_message
 
     override fun initView() {
-        showTitle(getTitleManager().textTitle("消息"))
+//        showTitle(getTitleManager().textTitle("消息"))
         val titleList = arrayListOf<String>()
         titleList.add("系统消息")
         titleList.add("红包消息")
@@ -113,9 +113,7 @@ class MessageFragment : BaseFragment() {
         if (!hidden) {
             getMsgCount()
             fragmentList.let {
-                if (it[getLayoutView().viewPager.currentItem] != null) {
                     (it[getLayoutView().viewPager.currentItem] as BaseFragment).reTryGetData()
-                }
             }
         }
     }

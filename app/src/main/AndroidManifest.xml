@@ -527,6 +527,10 @@
         <!--商品搜索页-->
         <activity android:name=".newhome.GoodsSearchActivity"
             android:launchMode="singleTop"/>
+
+        <!--消息页-->
+        <activity android:name=".mine.ui.MessageActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

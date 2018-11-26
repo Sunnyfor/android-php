@@ -3,7 +3,7 @@
     <string name="app_name">小红娘</string>
 
     <!--首页Title-->
-    <string name="default_city" >定位中</string>
+    <string name="default_city" >定位</string>
     <!--<string name="formal_title">首媒中国</string>-->
     <string name="dev_title">开发版本</string>
 

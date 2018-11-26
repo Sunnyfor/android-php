@@ -3,41 +3,33 @@
     style="@style/Title"
     android:background="@color/white">
 
-    <View
-        android:layout_width="@dimen/w63"
-        android:layout_height="@dimen/h98"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/w35"
-        android:layout_marginLeft="@dimen/w35"
-        android:background="@mipmap/ic_location_top" />
 
     <LinearLayout
         android:id="@+id/vLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <View
             android:id="@+id/iv_local"
-            android:layout_width="@dimen/w63"
-            android:layout_height="@dimen/h63"
+            android:layout_width="@dimen/w52"
+            android:layout_height="@dimen/h58"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/ic_new_location" />
+            android:background="@mipmap/ic_location_top"/>
 
         <TextView
             android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/w96"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/w5"
-            android:layout_marginLeft="@dimen/w5"
+            android:layout_marginTop="@dimen/w9"
+            android:ellipsize="end"
             android:gravity="center"
-            android:paddingBottom="@dimen/w5"
+            android:lines="1"
             android:text="@string/default_city"
             android:textColor="@color/textGray"
-            android:textSize="@dimen/w34" />
+            android:textSize="@dimen/w32" />
 
     </LinearLayout>
 
@@ -64,23 +56,39 @@
             android:id="@+id/tvKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:textColor="@color/grayText"
             android:layout_gravity="center_vertical"
+            android:background="@color/transparent"
             android:hint="双11狂欢"
+            android:textColor="@color/grayText"
             android:textSize="@dimen/w40" />
     </LinearLayout>
 
 
-    <View
-        android:id="@+id/vMessage"
-        android:layout_width="@dimen/w65"
-        android:layout_height="@dimen/h101"
+
+    <LinearLayout
+        android:id="@+id/llMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/w25"
-        android:layout_marginRight="@dimen/w25"
-        android:background="@mipmap/ic_message_top" />
+        android:orientation="vertical">
 
+        <View
+            android:layout_width="@dimen/w55"
+            android:layout_height="@dimen/h55"
+            android:layout_marginEnd="@dimen/w36"
+            android:layout_marginRight="@dimen/w36"
+            android:background="@mipmap/ic_message_top"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w9"
+            android:text="@string/message"
+            android:textColor="@color/textGray"
+            android:layout_marginEnd="@dimen/w29"
+            android:layout_marginRight="@dimen/w29"
+            android:textSize="@dimen/w32" />
+    </LinearLayout>
 </RelativeLayout>

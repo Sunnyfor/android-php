@@ -14,6 +14,7 @@ import com.cocosh.shmstore.home.HomeFragment
 import com.cocosh.shmstore.http.ApiManager
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.ui.MessageActivity
 import com.cocosh.shmstore.model.Location
 import com.cocosh.shmstore.model.ValueByKey
 import com.cocosh.shmstore.newhome.GoodsSearchActivity
@@ -52,7 +53,7 @@ class NewHomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
 
     override fun initView() {
         locationUtil.getLoaction(activity, this) //开启定位
-        getLayoutView().vMessage.setOnClickListener(this)
+        getLayoutView().llMessage.setOnClickListener(this)
 //        getLayoutView().vLocal.setOnClickListener(this)
         getLayoutView().llSearch.setOnClickListener(this)
 
@@ -60,8 +61,8 @@ class NewHomeTitleFragment : BaseFragment(), LocationUtil.LocationListener {
 
     override fun onListener(view: View) {
         when (view.id) {
-            R.id.vMessage -> {
-                share()
+            R.id.llMessage -> {
+                startActivity(Intent(activity, MessageActivity::class.java))
             }
             R.id.vLocal -> {
                 startActivityForResult(Intent(activity, CityListActivity::class.java), IntentCode.LOCATION)

@@ -2,6 +2,7 @@ package com.cocosh.shmstore.newhome.fragment
 
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
