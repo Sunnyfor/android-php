@@ -9,7 +9,6 @@ import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.adapter.GoodsListAdapter
 import com.cocosh.shmstore.newhome.model.Goods
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
 import kotlinx.android.synthetic.main.layout_pull_refresh.view.*
 
@@ -54,21 +53,33 @@ class GoodsListFragment : BaseFragment() {
         params["cate_id"] = cate_id
         params["goods_id"] = pager
         params["num"] = "20"
+
+
         ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_GOODS_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Goods>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Goods>>) {
                 getLayoutView().swipeRefreshLayout.isRefreshing = false
                 data.message?.let {
                     if (pager == "0") {
                         goodsList.clear()
+                        goodsList.addAll(it)
+                        getLayoutView().swipeRefreshLayout.update(it)
+                        getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
+                    }else{
+                        getLayoutView().swipeRefreshLayout.loadMore(it)
                     }
-                    goodsList.addAll(it)
-                    getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
                 }
 
             }
 
             override fun onFailed(code: String, message: String) {
-                getLayoutView().swipeRefreshLayout.isRefreshing = false
+                if (pager == "0") {
+                    goodsList.clear()
+                    getLayoutView().swipeRefreshLayout.isRefreshing = false
+                    getLayoutView().swipeRefreshLayout.update(arrayListOf<Goods>())
+                    getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
+                }else{
+                    getLayoutView().swipeRefreshLayout.loadMore(arrayListOf<Goods>())
+                }
             }
 
             override fun onCatch(data: BaseBean<ArrayList<Goods>>) {

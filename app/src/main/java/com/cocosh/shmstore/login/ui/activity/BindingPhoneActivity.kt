@@ -5,15 +5,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.HomeActivity
+import com.cocosh.shmstore.newhome.HomeActivity
 import com.cocosh.shmstore.login.BindingPhoneContract
 import com.cocosh.shmstore.login.BindingPhonePresenter
 import com.cocosh.shmstore.login.model.Login
-import com.cocosh.shmstore.login.model.OtherLogin
-import com.cocosh.shmstore.utils.*
+import com.cocosh.shmstore.utils.IntentCode
+import com.cocosh.shmstore.utils.LogUtil
+import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager
 import kotlinx.android.synthetic.main.activity_binding_phone.*
 
 /**

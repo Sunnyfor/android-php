@@ -513,7 +513,9 @@
             android:launchMode="singleTop" />
 
         <!--新版首页-->
-        <activity android:name=".newhome.HomeActivity" />
+        <activity
+            android:name=".newhome.HomeActivity"
+            android:launchMode="singleTask" />
 
         <!--商品详情页-->
         <activity
@@ -521,16 +523,19 @@
             android:launchMode="singleTop" />
 
         <!--商品列表页-->
-        <activity android:name=".newhome.GoodsListActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".newhome.GoodsListActivity"
+            android:launchMode="singleTop" />
 
         <!--商品搜索页-->
-        <activity android:name=".newhome.GoodsSearchActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".newhome.GoodsSearchActivity"
+            android:launchMode="singleTop" />
 
         <!--消息页-->
-        <activity android:name=".mine.ui.MessageActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".mine.ui.MessageActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.layout_goods_search_title.view.*
 
 class SearchTitleFragment: BaseFragment() {
 
-    var onKeyWord:((String)->Unit)? = null
+    var onKeyWord:((String,Boolean)->Unit)? = null
 
     override fun setLayout(): Int = R.layout.layout_goods_search_title
 
@@ -17,7 +17,7 @@ class SearchTitleFragment: BaseFragment() {
         }
 
         getLayoutView().tvSearch.setOnClickListener {
-            onKeyWord?.invoke(getLayoutView().editView.text.toString())
+            onKeyWord?.invoke(getLayoutView().editView.text.toString(),false)
         }
 
         getLayoutView().editView.requestFocus()

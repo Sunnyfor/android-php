@@ -39,6 +39,9 @@
             android:background="@color/transparent"
             android:textColor="@color/blackText"
             android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:hint="双11狂欢"
             android:textSize="@dimen/w40" />
     </LinearLayout>

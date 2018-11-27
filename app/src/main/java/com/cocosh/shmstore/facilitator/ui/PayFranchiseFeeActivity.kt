@@ -9,17 +9,13 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
-import com.cocosh.shmstore.base.BaseModel
 import com.cocosh.shmstore.enterpriseCertification.ui.model.EntActiveInfoModel
 import com.cocosh.shmstore.facilitator.ui.contrat.FacilitatorContrat
-import com.cocosh.shmstore.facilitator.ui.model.FacilitatorInfoModel
 import com.cocosh.shmstore.facilitator.ui.presenter.FacilitatorCommitPresenter
-import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.PermissionCode
 import com.cocosh.shmstore.utils.PermissionUtil
-import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_pay_franchise_fee.*
 

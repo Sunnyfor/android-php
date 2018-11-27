@@ -74,20 +74,14 @@ class ShoumeiFragment : BaseFragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val position = tab?.position
-
                 /**在这里记录TabLayout选中后内容更新已读标记 */
-
                 val customView = tab?.customView
-                customView!!.findViewById(R.id.iv_tab_red).visibility = View.GONE
-                val textView = customView.findViewById(R.id.tv_tab_title) as TextView
+                customView?.findViewById(R.id.iv_tab_red)?.visibility = View.GONE
+                val textView = customView?.findViewById(R.id.tv_tab_title) as TextView
                 textView.setTextColor(resources.getColor(R.color.red))
             }
 
         })
-//        if (!UserManager.isLogin()) {
-//            getLayoutView().viewPager.setCurrentItem(1, false)
-//        }
     }
 
     override fun reTryGetData() {
@@ -112,9 +106,7 @@ class ShoumeiFragment : BaseFragment() {
         if (!hidden) {
             if (!hidden) {
                 fragmentList.let {
-                    if (it[getLayoutView().viewPager.currentItem] != null) {
                         (it[getLayoutView().viewPager.currentItem] as BaseFragment).reTryGetData()
-                    }
                 }
             }
         }

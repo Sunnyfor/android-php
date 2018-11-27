@@ -204,10 +204,11 @@ object Constant {
     const val COUPON_OPEN = "$VERSION/coupon/open" //抢优惠券
     const val COUPON_KIND = "$VERSION/coupon/kind" //优惠券列表
 
-    /**
-     * 电商
-     */
+    // 推荐分类
     const val ESHOP_CLASS_RECOMMEND = "$VERSION/eshop/class/recommend"
+
+    //推荐数据
+    const val ESHOP_RECOMMEND = "$VERSION/eshop/recommend"
 
     //电商首页-商品类目
     const val ESHOP_CLASSES = "$VERSION/eshop/classes"

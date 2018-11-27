@@ -15,11 +15,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h1038"
                 android:layout_marginTop="@dimen/w20"
-                android:background="@color/white" />
+                android:background="@color/white">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/llPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,6 +111,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/llAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/h13"

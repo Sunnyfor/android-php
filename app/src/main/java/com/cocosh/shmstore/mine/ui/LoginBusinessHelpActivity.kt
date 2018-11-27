@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.home.HomeActivity
+import com.cocosh.shmstore.newhome.HomeActivity
 import kotlinx.android.synthetic.main.activity_login_business_help.*
 
 class LoginBusinessHelpActivity: BaseActivity() {
@@ -19,7 +19,6 @@ class LoginBusinessHelpActivity: BaseActivity() {
             tvDesc.id ->{
                 startActivity(Intent(this,HomeActivity::class.java).putExtra("type","Forum"))
             }
-
         }
 
     }

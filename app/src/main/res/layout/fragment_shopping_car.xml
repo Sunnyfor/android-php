@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rlSelect"/>
@@ -26,7 +27,7 @@
             <View
                 android:layout_width="@dimen/w52"
                 android:layout_height="@dimen/h52"
-                android:background="@mipmap/ic_vouchers_select_no" />
+                android:background="@drawable/bg_select_round_gray_no" />
 
             <TextView
                 android:layout_width="wrap_content"

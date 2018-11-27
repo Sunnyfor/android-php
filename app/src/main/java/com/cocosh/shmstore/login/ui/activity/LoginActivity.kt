@@ -9,10 +9,9 @@ import android.transition.TransitionInflater
 import android.view.View
 import android.view.Window
 import com.cocosh.shmstore.R
-import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.forgetPsd.ui.activity.IdentifyMobileActivity
-import com.cocosh.shmstore.home.HomeActivity
+import com.cocosh.shmstore.newhome.HomeActivity
 import com.cocosh.shmstore.login.ILoginContract
 import com.cocosh.shmstore.login.LoginPresenter
 import com.cocosh.shmstore.login.model.Login

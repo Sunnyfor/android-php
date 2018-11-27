@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.newhome
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
@@ -9,8 +10,12 @@ import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.home.MineFragment
 import com.cocosh.shmstore.home.NewHomeFragment
 import com.cocosh.shmstore.home.ShoumeiFragment
+import com.cocosh.shmstore.login.ui.activity.LoginActivity
+import com.cocosh.shmstore.mine.ui.LoginBusinessHelpActivity
 import com.cocosh.shmstore.newhome.fragment.GoodsClazzFragment
 import com.cocosh.shmstore.newhome.fragment.ShoppingFragment
+import com.cocosh.shmstore.utils.UserManager2
+import com.cocosh.shmstore.widget.dialog.CertificationDialog
 import kotlinx.android.synthetic.main.activity_new_home.*
 import kotlinx.android.synthetic.main.include_new_menu.*
 
@@ -68,6 +73,9 @@ class HomeActivity : BaseActivity() {
                 showFragment(goodsClazzFragment)
             }
             rlShoumei.id -> {
+                if (!isLogin()){
+                    return
+                }
                 showFragment(shoumeiFragment)
             }
             rlMessage.id -> {
@@ -112,5 +120,38 @@ class HomeActivity : BaseActivity() {
             supportFragmentManager.beginTransaction().add(R.id.flBottomTabFragmentContainer, fragment).commit()
         }
         updateMenu(position)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.getStringExtra("type")?.let {
+            if (it == "Login") {
+                autEnt()
+//                couponIndex()
+            }
+
+            if (it == "Forum") {
+                rlShoumei.performClick()
+                shoumeiFragment.selectPage(1)
+            }
+        }
+    }
+
+    fun isLogin():Boolean{
+        if (!UserManager2.isLogin()){
+            startActivity(Intent(this,LoginActivity::class.java))
+            return false
+        }
+        return true
+    }
+
+    /**
+     * 认证引导弹窗
+     */
+    private fun autEnt() {
+        UserManager2.getLogin()?.invitee?.let {
+            val mDialog = CertificationDialog(this)
+            mDialog.show(it)
+        }
     }
 }

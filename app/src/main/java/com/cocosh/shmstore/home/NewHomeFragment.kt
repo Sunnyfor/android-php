@@ -64,6 +64,10 @@ class NewHomeFragment : BaseFragment() {
                         newTab.customView = customView
                         tabLayout2.addTab(newTab)
                     }
+                    if (menuList[index].data.isEmpty()){
+                        tabLayout2.visibility = View.GONE
+                        goodsListFragment.loadData(menuList[index].id)
+                    }
                     childFragmentManager.beginTransaction().show(goodsListFragment).commit()
                     childFragmentManager.beginTransaction().hide(recommendFragment).commit()
 

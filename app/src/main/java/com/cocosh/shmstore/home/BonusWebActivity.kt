@@ -25,6 +25,7 @@ import com.cocosh.shmstore.utils.UserManager
 import com.cocosh.shmstore.widget.dialog.BonusErrorDialog
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_bonus_web.*
+import com.cocosh.shmstore.newhome.HomeActivity
 import org.json.JSONObject
 
 /**

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/h29"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h128"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llSelect"
+            android:layout_width="@dimen/w143"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/vSelect"
+                android:layout_width="@dimen/w52"
+                android:layout_height="@dimen/w52"
+                android:layout_marginStart="@dimen/w46"
+                android:layout_marginLeft="@dimen/w46"
+                android:layout_marginTop="@dimen/w37"
+                android:background="@drawable/bg_select_round_gray_no" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/w58"
+            android:layout_height="@dimen/w55"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/ic_shopping_red" />
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/w33"
+            android:layout_marginLeft="@dimen/w33"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46"
+            tools:text="Super星巴克" />
+
+        <com.cocosh.shmstore.widget.textview.ICONTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/w45"
+            android:layout_marginLeft="@dimen/w45"
+            android:text="@string/iconMore"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/w46" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h1"
+        android:background="#FFE3E3E3" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

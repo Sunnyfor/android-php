@@ -10,15 +10,13 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
 import com.cocosh.shmstore.R;
-import com.cocosh.shmstore.application.SmApplication;
 import com.cocosh.shmstore.base.BaseActivity;
 import com.cocosh.shmstore.base.BaseModel;
 import com.cocosh.shmstore.databinding.ActivitySettingLoginPsdBinding;
-import com.cocosh.shmstore.home.HomeActivity;
+import com.cocosh.shmstore.newhome.HomeActivity;
 import com.cocosh.shmstore.http.ApiManager;
 import com.cocosh.shmstore.http.Constant;
 import com.cocosh.shmstore.login.model.Login;
-import com.cocosh.shmstore.login.model.OtherLogin;
 import com.cocosh.shmstore.utils.IntentCode;
 import com.cocosh.shmstore.utils.ToastUtil;
 import com.cocosh.shmstore.utils.UserManager;

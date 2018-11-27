@@ -6,12 +6,11 @@ import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseModel
-import com.cocosh.shmstore.home.HomeActivity
 import com.cocosh.shmstore.http.ApiManager
-import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.login.model.Login
 import com.cocosh.shmstore.mine.model.MemberEntrance
+import com.cocosh.shmstore.newhome.HomeActivity
 import com.google.gson.Gson
 import jp.wasabeef.glide.transformations.BlurTransformation
 
@@ -165,37 +164,5 @@ object UserManager {
         }else{
             Glide.with(imageView.context).load(url).bitmapTransform(BlurTransformation(imageView.context,10)).into(imageView)
         }
-    }
-
-
-    /**
-     * 加载我的页面数据
-     */
-    fun loadMemberEntrance(baseActivity: BaseActivity) {
-        if (!isLogin()) {
-            return
-        }
-        ApiManager.get(0, baseActivity, hashMapOf(), Constant.PROFILE, object : ApiManager.OnResult<BaseModel<MemberEntrance>>() {
-            override fun onFailed(e: Throwable) {
-
-            }
-
-            override fun onCatch(data: BaseModel<MemberEntrance>) {
-
-            }
-
-            override fun onSuccess(data: BaseModel<MemberEntrance>) {
-                if (data.success) {
-                    data.entity?.let {
-                        UserManager.setMemberEntrance(it)  //存储信息
-                        if (baseActivity is HomeActivity) {
-                            if (baseActivity.mineFragment?.isAdded == true){
-                                baseActivity.mineFragment?.loadDate()
-                            }
-                        }
-                    }
-                }
-            }
-        })
     }
 }
