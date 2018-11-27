@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@id/ivPhoto"
+            android:layout_width="@dimen/w148"
+            android:layout_height="@dimen/h148"
+            android:layout_marginStart="@dimen/w45"
+            android:layout_marginLeft="@dimen/w45"
+            android:layout_marginTop="@dimen/h22"
+            android:layout_marginBottom="@dimen/h56"
+            android:src="@drawable/default_head"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w27"
+            android:layout_marginLeft="@dimen/w27"
+            android:layout_marginTop="@dimen/h35"
+            android:layout_toEndOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/ivPhoto"
+            android:text="Super星巴克专卖店"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginStart="@dimen/w27"
+            android:layout_marginLeft="@dimen/w27"
+            android:layout_marginTop="@dimen/h10"
+            android:layout_toEndOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/ivPhoto"
+            android:text="115件在售商品"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w35" />
+
+        <Button
+            android:layout_width="@dimen/w210"
+            android:layout_height="@dimen/h101"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/h50"
+            android:layout_marginEnd="@dimen/w29"
+            android:layout_marginRight="@dimen/w29"
+            android:background="@mipmap/ic_shop_follow"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w43" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

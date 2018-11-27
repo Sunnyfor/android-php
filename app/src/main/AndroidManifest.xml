@@ -520,7 +520,7 @@
         <!--商品详情页-->
         <activity
             android:name=".newhome.GoodsDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
 
         <!--商品列表页-->
         <activity
@@ -536,6 +536,11 @@
         <activity
             android:name=".mine.ui.MessageActivity"
             android:launchMode="singleTop" />
+
+        <!--店铺-->
+        <activity
+            android:name=".newhome.GoodsShoppingActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

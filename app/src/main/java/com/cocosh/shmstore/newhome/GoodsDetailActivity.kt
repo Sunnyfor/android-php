@@ -35,13 +35,16 @@ class GoodsDetailActivity : BaseActivity() {
         recyclerView2.adapter = GoodsDetailPhotoAdapter(dataList)
 
         llAddress.setOnClickListener(this)
-
+        llShop.setOnClickListener(this)
     }
 
     override fun onListener(view: View) {
         when (view.id){
             R.id.llAddress -> {
                 startActivity(Intent(this,AddressMangerActivity::class.java))
+            }
+            R.id.llShop -> {
+                startActivity(Intent(this,GoodsShoppingActivity::class.java))
             }
         }
     }

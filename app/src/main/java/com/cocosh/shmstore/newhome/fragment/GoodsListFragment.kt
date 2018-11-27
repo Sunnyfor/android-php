@@ -1,12 +1,15 @@
 package com.cocosh.shmstore.newhome.fragment
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
+import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsListAdapter
 import com.cocosh.shmstore.newhome.model.Goods
 import com.cocosh.shmstore.widget.SMSwipeRefreshLayout
@@ -22,6 +25,13 @@ class GoodsListFragment : BaseFragment() {
     override fun initView() {
         getLayoutView().swipeRefreshLayout.recyclerView.layoutManager = GridLayoutManager(context, 2)
         val goodsAdapter = GoodsListAdapter(goodsList)
+
+        goodsAdapter.setOnItemClickListener(object :OnItemClickListener{
+            override fun onItemClick(v: View, index: Int) {
+                startActivity(Intent(context,GoodsDetailActivity::class.java))
+            }
+        })
+
         getLayoutView().swipeRefreshLayout.recyclerView.adapter = goodsAdapter
         getLayoutView().swipeRefreshLayout.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
