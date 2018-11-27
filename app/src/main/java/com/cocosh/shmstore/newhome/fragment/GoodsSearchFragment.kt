@@ -31,7 +31,7 @@ class GoodsSearchFragment : BaseFragment() {
             }
 
             override fun onLoadMore(page: Int) {
-                pager = goodsList.last().goods_id
+                pager = goodsList.last().id
                 searchGoods(keyword,type)
             }
         }

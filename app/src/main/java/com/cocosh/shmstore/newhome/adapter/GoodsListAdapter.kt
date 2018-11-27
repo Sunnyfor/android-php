@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_goods_item.view.*
 class GoodsListAdapter(mList:ArrayList<Goods>):BaseRecycleAdapter<Goods>(mList) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        holder.itemView.tvName.text = getData(position).goods_name
+        holder.itemView.tvName.text = getData(position).name
         holder.itemView.tvMoney.text = getData(position).price
         holder.itemView.tvDesc.text = (getData(position).comments + "条评价")
 

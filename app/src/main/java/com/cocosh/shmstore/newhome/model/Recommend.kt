@@ -1,9 +1,9 @@
 package com.cocosh.shmstore.newhome.model
 
 data class Recommend(
-        var rank: ArrayList<String>, // 排行榜: 前2笔热销榜数据,1笔热搜榜数据,1笔好评榜数据,1笔必买榜数据,1笔回购榜数据
-        var market: ArrayList<Market>,
-        var recommend: ArrayList<Goods>
+        var rank: ArrayList<String>?, // 排行榜: 前2笔热销榜数据,1笔热搜榜数据,1笔好评榜数据,1笔必买榜数据,1笔回购榜数据
+        var market: ArrayList<Market>?,
+        var recommend: ArrayList<Goods>?
 ) {
 
     data class Market(

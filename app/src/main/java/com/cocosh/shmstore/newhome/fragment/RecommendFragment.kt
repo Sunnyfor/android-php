@@ -1,8 +1,12 @@
 package com.cocosh.shmstore.newhome.fragment
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
@@ -41,8 +45,8 @@ class RecommendFragment : BaseFragment() {
         recommendAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
                 startActivity(Intent(context, GoodsDetailActivity::class.java)
-                        .putExtra("goods_id", goodsList[index].goods_id)
-                        .putExtra("title",goodsList[index].goods_name))
+                        .putExtra("id", goodsList[index].id)
+                        .putExtra("title", goodsList[index].name))
             }
         })
 
@@ -52,6 +56,16 @@ class RecommendFragment : BaseFragment() {
         bonusThree.setOnClickListener(this)
         loadBanner()
         loadData()
+
+        val ranks = arrayListOf(
+                "http://img.sccnn.com/bimg/339/12122.jpg",
+                "http://img.sccnn.com/bimg/339/11732.jpg",
+                "http://img.sccnn.com/bimg/339/16606.jpg",
+                "http://img.sccnn.com/bimg/339/11254.jpg",
+                "http://img.sccnn.com/bimg/339/16088.jpg",
+                "http://pic35.photophoto.cn/20150630/0018031349781196_b.jpg"
+        )
+        initRank(ranks)
     }
 
     override fun reTryGetData() {
@@ -66,13 +80,10 @@ class RecommendFragment : BaseFragment() {
 
             R.id.bonusTwo -> {
                 startBonus("精准红包")
-//                startBonus("媒体扶贫")
             }
 
             R.id.bonusThree -> {
-//                startBonus("媒体扶贫")
                 startBonus("粉丝红包")
-//                startBonus("消费扶贫")
             }
         }
     }
@@ -101,7 +112,7 @@ class RecommendFragment : BaseFragment() {
         })
     }
 
-    fun loadData(){
+    fun loadData() {
         val params = hashMapOf<String, String>()
         ApiManager2.get(0, getBaseActivity(), params, Constant.ESHOP_RECOMMEND, object : ApiManager2.OnResult<BaseBean<Recommend>>() {
             override fun onFailed(code: String, message: String) {
@@ -109,7 +120,9 @@ class RecommendFragment : BaseFragment() {
             }
 
             override fun onSuccess(data: BaseBean<Recommend>) {
-
+                data.message?.let { it ->
+                    initRank(it.rank ?: arrayListOf())
+                }
             }
 
             override fun onCatch(data: BaseBean<Recommend>) {
@@ -123,5 +136,27 @@ class RecommendFragment : BaseFragment() {
         val it = Intent(context, BonusListActivity::class.java)
         it.putExtra("title", title)
         startActivity(it)
+    }
+
+
+    //初始化排行榜数据
+    fun initRank(ranks: ArrayList<String>) {
+        ranks.forEachIndexed { index, s ->
+            when (index) {
+                0 -> ivRank1
+                1 -> ivRank2
+                2 -> ivRank3
+                3 -> ivRank4
+                4 -> ivRank5
+                5 -> ivRank6
+                else -> null
+            }?.let {
+                Glide.with(context)
+                        .load(s)
+                        .dontAnimate()
+                        .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.activity_bg)))
+                        .into(it)
+            }
+        }
     }
 }
