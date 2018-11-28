@@ -217,7 +217,9 @@ object Constant {
     const val ESHOP_GOODS_LIST = "$VERSION/eshop/goods/list"
 
     //搜索商品
-    const val ESHOP_GOODS_SEARCH = "$VERSION/eshop/goods/search"
+    const val ESHOP_GOODS_SEARCH = "$VERSION/eshop/search/goods"
+    //搜索店铺
+    const val ESHOP_SEARCH_STORE = "$VERSION/eshop/search/store"
 
     /**
      * 首页

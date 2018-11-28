@@ -14,11 +14,11 @@ import kotlinx.android.synthetic.main.activity_goods_search.*
 
 class GoodsSearchActivity : BaseActivity() {
     private var type = false
-
+    private var keyWord = ""
     private val searchTitleFragment: SearchTitleFragment by lazy {
         SearchTitleFragment()
     }
-    private val goodsSearchFragment:GoodsSearchFragment by lazy {
+    private val goodsSearchFragment: GoodsSearchFragment by lazy {
         GoodsSearchFragment()
     }
 
@@ -27,25 +27,29 @@ class GoodsSearchActivity : BaseActivity() {
             "店铺")
 
 
-
     override fun setLayout(): Int = R.layout.activity_goods_search
 
     override fun initView() {
 
-        searchTitleFragment.onKeyWord = { keyword: String, isState: Boolean ->
-            if (keyword.isEmpty()) {
-                if (isState){
-
-                }else{
-                    ToastUtil.show("请输入关键字")
-                }
+        searchTitleFragment.onKeyWord = {
+            if (keyWord.isEmpty()) {
+                ToastUtil.show("请输入关键字")
             } else {
-                goodsSearchFragment.searchGoods(keyword,type)
+                if (type) {
+                    goodsSearchFragment.searchShop(keyWord)
+                } else {
+                    goodsSearchFragment.searchGoods(keyWord)
+                }
             }
         }
+
+        searchTitleFragment.onKeyWordChanger = {
+            keyWord = it
+        }
+
         titleManager.addTitleFragment(searchTitleFragment)
 
-        supportFragmentManager.beginTransaction().add(R.id.content,goodsSearchFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.content, goodsSearchFragment).commit()
 
         tab.tabMode = TabLayout.MODE_FIXED
 
@@ -54,6 +58,25 @@ class GoodsSearchActivity : BaseActivity() {
             tab.addTab(tab.newTab().setText(it))
         }
 
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                type = tab.position != 0
+                if (keyWord.isNotEmpty()){
+                    if (type) {
+                        goodsSearchFragment.searchShop(keyWord)
+                    } else {
+                        goodsSearchFragment.searchGoods(keyWord)
+                    }
+                }
+            }
+
+        })
     }
 
     override fun onStart() {
@@ -68,4 +91,6 @@ class GoodsSearchActivity : BaseActivity() {
 
     override fun reTryGetData() {
     }
+
+
 }

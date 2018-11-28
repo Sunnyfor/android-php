@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/h461"
+    android:layout_height="@dimen/h231"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/h460"
+        android:layout_height="@dimen/h230"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/w374"
-            android:layout_height="@dimen/h374"
+            android:id="@id/ivPhoto"
+            android:layout_width="@dimen/w187"
+            android:layout_height="@dimen/h187"
             android:layout_marginLeft="@dimen/w35"
-            android:layout_marginTop="@dimen/w43"
+            android:layout_marginTop="@dimen/w21"
             android:layout_marginRight="@dimen/w35"
-            android:layout_marginBottom="@dimen/w43"
+            android:layout_marginBottom="@dimen/w21"
             android:src="@color/activity_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/w43"
+            android:layout_marginTop="@dimen/w22"
             android:layout_marginRight="@dimen/w35"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginEnd="@dimen/w35">
 
             <TextView
+                android:id="@id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -36,20 +39,9 @@
                 android:textColor="@color/blackText"
                 android:textSize="@dimen/w43" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/h12"
-                android:ellipsize="end"
-                android:lines="2"
-                tools:text="小分子玻尿酸高技术，深层渗透肌 肤，补水保湿，水润亮泽，抗皱平滑"
-                android:textColor="@color/textGray"
-                android:textSize="@dimen/w35" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/h76"
                 android:orientation="horizontal">
 
                 <TextView
@@ -60,6 +52,7 @@
                     android:textSize="@dimen/w40" />
 
                 <TextView
+                    android:id="@id/tvMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/w12"
@@ -70,6 +63,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/h3"

@@ -3,9 +3,11 @@ package com.cocosh.shmstore.widget
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.AttributeSet
+import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.yanzhenjie.recyclerview.swipe.SwipeAdapterWrapper
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+import kotlinx.android.synthetic.main.dialog_ok.view.*
 
 /**
  * 可刷新组件
@@ -28,6 +30,7 @@ class SMSwipeRefreshLayout : SwipeRefreshLayout {
 
     fun initView(context: Context) {
 
+        setColorSchemeResources(R.color.red)
         recyclerView = SwipeMenuRecyclerView(context)
 
         recyclerView.useDefaultLoadMore()

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/vLocal"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/w134"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical">
@@ -16,7 +16,7 @@
             android:layout_width="@dimen/w52"
             android:layout_height="@dimen/h58"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ic_location_top"/>
+            android:background="@mipmap/ic_location_top" />
 
         <TextView
             android:id="@+id/tvCity"
@@ -64,31 +64,28 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/llMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/w134"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <View
             android:layout_width="@dimen/w55"
             android:layout_height="@dimen/h55"
-            android:layout_marginEnd="@dimen/w36"
-            android:layout_marginRight="@dimen/w36"
-            android:background="@mipmap/ic_message_top"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/ic_message_top" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/w9"
             android:text="@string/message"
             android:textColor="@color/textGray"
-            android:layout_marginEnd="@dimen/w29"
-            android:layout_marginRight="@dimen/w29"
             android:textSize="@dimen/w32" />
     </LinearLayout>
 </RelativeLayout>

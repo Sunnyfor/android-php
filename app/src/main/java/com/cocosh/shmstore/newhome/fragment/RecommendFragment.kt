@@ -19,6 +19,7 @@ import com.cocosh.shmstore.newhome.adapter.RecommendAdapter
 import com.cocosh.shmstore.newhome.model.Goods
 import com.cocosh.shmstore.newhome.model.NewHomeBanner
 import com.cocosh.shmstore.newhome.model.Recommend
+import com.cocosh.shmstore.widget.view.MarketView
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import kotlinx.android.synthetic.main.fragment_recommend.view.*
 
@@ -26,17 +27,16 @@ import kotlinx.android.synthetic.main.fragment_recommend.view.*
 class RecommendFragment : BaseFragment() {
     private val goodsList = arrayListOf<Goods>()
 
+    private val recommendAdapter: RecommendAdapter by lazy {
+        RecommendAdapter(goodsList)
+    }
+
+    var onRefresh:(()->Unit)? = null
+
     override fun setLayout(): Int = R.layout.fragment_recommend
 
     override fun initView() {
 
-//        goodsList.add(Goods("", "深度清洁毛孔 清爽不紧绷洗面奶", "1200", "", ""))
-//        goodsList.add(Goods("", "深度清洁毛孔 清爽不紧绷洗面奶", "1000", "", ""))
-//        goodsList.add(Goods("", "深度清洁毛孔 清爽不紧绷洗面奶", "1500", "", ""))
-//        goodsList.add(Goods("", "深度清洁毛孔 清爽不紧绷洗面奶", "2000", "", ""))
-//        goodsList.add(Goods("", "深度清洁毛孔 清爽不紧绷洗面奶", "900", "", ""))
-
-        val recommendAdapter = RecommendAdapter(goodsList)
         getLayoutView().recyclerView.layoutManager = LinearLayoutManager(context)
         getLayoutView().recyclerView.adapter = recommendAdapter
         getLayoutView().recyclerView.setHasFixedSize(true)
@@ -50,22 +50,19 @@ class RecommendFragment : BaseFragment() {
             }
         })
 
+        refreshLayout.setColorSchemeResources(R.color.red)
+
+        refreshLayout.setOnRefreshListener {
+            onRefresh?.invoke()
+            loadBanner()
+            loadData()
+        }
 
         bonusOne.setOnClickListener(this)
         bonusTwo.setOnClickListener(this)
         bonusThree.setOnClickListener(this)
         loadBanner()
         loadData()
-
-        val ranks = arrayListOf(
-                "http://img.sccnn.com/bimg/339/12122.jpg",
-                "http://img.sccnn.com/bimg/339/11732.jpg",
-                "http://img.sccnn.com/bimg/339/16606.jpg",
-                "http://img.sccnn.com/bimg/339/11254.jpg",
-                "http://img.sccnn.com/bimg/339/16088.jpg",
-                "http://pic35.photophoto.cn/20150630/0018031349781196_b.jpg"
-        )
-        initRank(ranks)
     }
 
     override fun reTryGetData() {
@@ -96,10 +93,11 @@ class RecommendFragment : BaseFragment() {
         val params = hashMapOf<String, String>()
         ApiManager2.get(0, getBaseActivity(), params, Constant.RP_HOME, object : ApiManager2.OnResult<BaseBean<NewHomeBanner>>() {
             override fun onFailed(code: String, message: String) {
-
+                refreshLayout.isRefreshing = false
             }
 
             override fun onSuccess(data: BaseBean<NewHomeBanner>) {
+                refreshLayout.isRefreshing = false
                 data.message?.let {
                     getLayoutView().tvMoney.text = it.total
                     getLayoutView().homeAdView.loadData(it.data)
@@ -116,12 +114,18 @@ class RecommendFragment : BaseFragment() {
         val params = hashMapOf<String, String>()
         ApiManager2.get(0, getBaseActivity(), params, Constant.ESHOP_RECOMMEND, object : ApiManager2.OnResult<BaseBean<Recommend>>() {
             override fun onFailed(code: String, message: String) {
-
+                refreshLayout.isRefreshing = false
             }
 
             override fun onSuccess(data: BaseBean<Recommend>) {
+                refreshLayout.isRefreshing = false
                 data.message?.let { it ->
                     initRank(it.rank ?: arrayListOf())
+                    initActivity(it.market ?: ArrayList())
+                    //初始化商品
+                    goodsList.clear()
+                    goodsList.addAll(it.recommend ?: arrayListOf())
+                    recommendAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -154,9 +158,20 @@ class RecommendFragment : BaseFragment() {
                 Glide.with(context)
                         .load(s)
                         .dontAnimate()
+                        .centerCrop()
                         .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.activity_bg)))
                         .into(it)
             }
+        }
+    }
+
+    //初始化活动
+    fun initActivity(market: ArrayList<Recommend.Market>) {
+        llMarket.removeAllViews()
+        market.forEach {
+            val marketView = MarketView(context)
+            marketView.initData(it)
+            llMarket.addView(marketView)
         }
     }
 }

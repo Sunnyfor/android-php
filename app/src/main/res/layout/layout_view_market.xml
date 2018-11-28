@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/h35"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h40"
+        tools:text="品质生活"
+        android:textColor="@color/textGray"
+        android:textSize="@dimen/w52" />
+
+    <View
+        android:layout_width="@dimen/w202"
+        android:layout_height="@dimen/h3"
+        android:layout_gravity="center_horizontal"
+        android:background="#FF666666" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/w14"
+        tools:text="MUJI、HENKEL等制造商直供"
+        android:textSize="@dimen/w35"
+        android:textColor="@color/red" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h435"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/w35"
+        android:paddingLeft="@dimen/w35"
+        tools:ignore="RtlSymmetry">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h46"
+                tools:text="舒爽好眠"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w42" />
+
+            <TextView
+                android:id="@+id/tvDesc1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="舒服睡眠那些事儿"
+                android:textColor="#FFB3B3B3"
+                android:textSize="@dimen/w29" />
+
+            <ImageView
+                android:id="@+id/ivPhoto1"
+                android:layout_width="@dimen/w487"
+                android:layout_height="@dimen/h230"
+                android:layout_marginTop="@dimen/w23"
+                android:scaleType="centerCrop"
+                android:src="@color/activity_bg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/w37"
+            android:layout_marginLeft="@dimen/w37"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/h46"
+                tools:text="休闲饮食"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w42" />
+
+            <TextView
+                android:id="@+id/tvDesc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="唯有美食不可辜负"
+                android:textColor="#FFB3B3B3"
+                android:textSize="@dimen/w29" />
+
+            <ImageView
+                android:id="@+id/ivPhoto2"
+                android:layout_width="@dimen/w487"
+                android:layout_height="@dimen/h230"
+                android:layout_marginTop="@dimen/w23"
+                android:scaleType="centerCrop"
+                android:src="@color/activity_bg" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="@dimen/w1022"
+        android:layout_height="@dimen/h3"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h23"
+        android:background="#FFF0F0F0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/w14"
+        android:layout_marginBottom="@dimen/h43"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/w35"
+        android:paddingRight="@dimen/w35">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="茶具水具"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w42" />
+
+            <TextView
+                android:id="@+id/tvDesc3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="喜欢你喝水的样子"
+                android:textColor="#FFB3B3B3"
+                android:textSize="@dimen/w29" />
+
+            <ImageView
+                android:id="@+id/ivPhoto3"
+                android:layout_width="@dimen/w297"
+                android:layout_height="@dimen/h310"
+                android:layout_marginTop="@dimen/w23"
+                android:scaleType="centerCrop"
+                android:src="@color/activity_bg" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/w3"
+            android:layout_height="@dimen/h418"
+            android:layout_marginLeft="@dimen/w29"
+            android:layout_marginRight="@dimen/w29"
+            android:background="#FFF0F0F0" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="居家美物"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w42" />
+
+            <TextView
+                android:id="@+id/tvDesc4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="提升居家幸福感"
+                android:textColor="#FFB3B3B3"
+                android:textSize="@dimen/w29" />
+
+            <ImageView
+                android:id="@+id/ivPhoto4"
+                android:layout_width="@dimen/w297"
+                android:layout_height="@dimen/h310"
+                android:layout_marginTop="@dimen/w23"
+                android:scaleType="centerCrop"
+                android:src="@color/activity_bg" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/w3"
+            android:layout_height="@dimen/h418"
+            android:layout_marginLeft="@dimen/w29"
+            android:layout_marginRight="@dimen/w29"
+            android:background="#FFF0F0F0" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="收纳有序"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/w42" />
+
+            <TextView
+                android:id="@+id/tvDesc5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="让生活井井有条"
+                android:textColor="#FFB3B3B3"
+                android:textSize="@dimen/w29" />
+
+            <ImageView
+                android:id="@+id/ivPhoto5"
+                android:layout_width="@dimen/w297"
+                android:layout_height="@dimen/h310"
+                android:layout_marginTop="@dimen/w23"
+                android:scaleType="centerCrop"
+                android:src="@color/activity_bg" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

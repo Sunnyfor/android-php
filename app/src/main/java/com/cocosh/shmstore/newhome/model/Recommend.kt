@@ -10,7 +10,7 @@ data class Recommend(
             var id: String, // 活动id
             var name: String, // 活动名称
             var desc: String, // 活动描述
-            var program: ArrayList<Program>) {
+            var program: ArrayList<Program>?) {
         data class Program(
                 var id: String, // 节目id
                 var name: String, // 节目名称

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@id/ivPhoto"
+            android:layout_width="@dimen/w148"
+            android:layout_height="@dimen/h148"
+            android:layout_marginStart="@dimen/w45"
+            android:layout_marginLeft="@dimen/w45"
+            android:layout_marginTop="@dimen/h22"
+            android:layout_marginBottom="@dimen/h56"
+            android:src="@drawable/default_head"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w27"
+            android:layout_marginLeft="@dimen/w27"
+            android:layout_marginTop="@dimen/h35"
+            android:layout_toEndOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/ivPhoto"
+            android:text="Super星巴克专卖店"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w43" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginStart="@dimen/w27"
+            android:layout_marginLeft="@dimen/w27"
+            android:layout_marginTop="@dimen/h10"
+            android:layout_toEndOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/ivPhoto"
+            android:text="115件在售商品"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w35" />
+
+        <Button
+            android:id="@+id/btnFollow"
+            android:layout_width="@dimen/w210"
+            android:layout_height="@dimen/h101"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/h50"
+            android:layout_marginEnd="@dimen/w29"
+            android:layout_marginRight="@dimen/w29"
+            android:background="@mipmap/ic_shop_follow"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w43" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llGoods1"
+            android:layout_width="@dimen/w360"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivPhoto1"
+                android:layout_width="@dimen/w331"
+                android:layout_height="@dimen/h318"
+                android:layout_gravity="center_horizontal"
+                android:src="@color/activity_bg" />
+
+            <TextView
+                android:id="@+id/tvMoney1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_marginTop="@dimen/h12"
+                android:layout_marginRight="@dimen/w20"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#FFDC713A"
+                android:textSize="@dimen/w37"
+                tools:text="¥1200.00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llGoods2"
+            android:layout_width="@dimen/w360"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivPhoto2"
+                android:layout_width="@dimen/w331"
+                android:layout_height="@dimen/h318"
+                android:layout_gravity="center_horizontal"
+                android:src="@color/activity_bg" />
+
+            <TextView
+                android:id="@+id/tvMoney2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_marginTop="@dimen/h12"
+                android:layout_marginRight="@dimen/w20"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#FFDC713A"
+                android:textSize="@dimen/w37"
+                tools:text="¥1200.00" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llGoods3"
+            android:layout_width="@dimen/w360"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/h20"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivPhoto3"
+                android:layout_width="@dimen/w331"
+                android:layout_height="@dimen/h318"
+                android:layout_gravity="center_horizontal"
+                android:src="@color/activity_bg" />
+
+            <TextView
+                android:id="@+id/tvMoney3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w20"
+                android:layout_marginTop="@dimen/h12"
+                android:layout_marginRight="@dimen/w20"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#FFDC713A"
+                android:textSize="@dimen/w37"
+                tools:text="¥1200.00" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
