@@ -19,6 +19,7 @@ import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.adapter.RecommendAdapter
 import com.cocosh.shmstore.newhome.model.Goods
 import com.cocosh.shmstore.newhome.model.NewHomeBanner
+import com.cocosh.shmstore.newhome.model.RankListActivity
 import com.cocosh.shmstore.newhome.model.Recommend
 import com.cocosh.shmstore.widget.view.MarketView
 import kotlinx.android.synthetic.main.fragment_recommend.*
@@ -32,7 +33,7 @@ class RecommendFragment : BaseFragment() {
         RecommendAdapter(goodsList)
     }
 
-    var onRefresh:(()->Unit)? = null
+    var onRefresh: (() -> Unit)? = null
 
     override fun setLayout(): Int = R.layout.fragment_recommend
 
@@ -64,6 +65,11 @@ class RecommendFragment : BaseFragment() {
         bonusTwo.setOnClickListener(this)
         bonusThree.setOnClickListener(this)
 
+        llRank1.setOnClickListener(this)
+        ivRank3.setOnClickListener(this)
+        ivRank4.setOnClickListener(this)
+        ivRank5.setOnClickListener(this)
+        ivRank6.setOnClickListener(this)
         loadBanner()
         loadData()
     }
@@ -75,7 +81,7 @@ class RecommendFragment : BaseFragment() {
     override fun onListener(view: View) {
         when (view.id) {
             R.id.rlPool -> {
-                startActivity(Intent(context,BonusPoolActivity::class.java))
+                startActivity(Intent(context, BonusPoolActivity::class.java))
             }
 
             R.id.bonusOne -> {
@@ -88,6 +94,22 @@ class RecommendFragment : BaseFragment() {
 
             R.id.bonusThree -> {
                 startBonus("粉丝红包")
+            }
+
+            R.id.llRank1 -> {
+                startActivity(Intent(context, RankListActivity::class.java).putExtra("kind", "1"))
+            }
+            R.id.ivRank3 -> {
+                startActivity(Intent(context, RankListActivity::class.java).putExtra("kind", "2"))
+            }
+            R.id.ivRank4 -> {
+                startActivity(Intent(context, RankListActivity::class.java).putExtra("kind", "3"))
+            }
+            R.id.ivRank5 -> {
+                startActivity(Intent(context, RankListActivity::class.java).putExtra("kind", "4"))
+            }
+            R.id.ivRank6 -> {
+                startActivity(Intent(context, RankListActivity::class.java).putExtra("kind", "5"))
             }
         }
     }

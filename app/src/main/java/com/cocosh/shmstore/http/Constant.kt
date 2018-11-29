@@ -221,6 +221,9 @@ object Constant {
     //搜索店铺
     const val ESHOP_SEARCH_STORE = "$VERSION/eshop/search/store"
 
+    //排行榜商品列表
+    const val ESHOP_RANK_LIST = "$VERSION/eshop/rank/list"
+
     /**
      * 首页
      * */

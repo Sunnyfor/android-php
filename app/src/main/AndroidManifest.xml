@@ -541,6 +541,11 @@
         <activity
             android:name=".newhome.GoodsShoppingActivity"
             android:launchMode="singleTask" />
+
+        <!--排行榜列表入口-->
+        <activity
+            android:name=".newhome.model.RankListActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
