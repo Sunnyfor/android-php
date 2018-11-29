@@ -12,6 +12,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.BonusListActivity
+import com.cocosh.shmstore.home.BonusPoolActivity
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.GoodsDetailActivity
@@ -58,9 +59,11 @@ class RecommendFragment : BaseFragment() {
             loadData()
         }
 
+        rlPool.setOnClickListener(this)
         bonusOne.setOnClickListener(this)
         bonusTwo.setOnClickListener(this)
         bonusThree.setOnClickListener(this)
+
         loadBanner()
         loadData()
     }
@@ -71,6 +74,10 @@ class RecommendFragment : BaseFragment() {
 
     override fun onListener(view: View) {
         when (view.id) {
+            R.id.rlPool -> {
+                startActivity(Intent(context,BonusPoolActivity::class.java))
+            }
+
             R.id.bonusOne -> {
                 startBonus("大众红包")
             }

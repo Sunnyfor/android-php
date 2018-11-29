@@ -41,8 +41,13 @@ class NewHomeFragment : BaseFragment() {
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         tabLayout2.tabMode = TabLayout.MODE_SCROLLABLE
 
+        recommendFragment.onRefresh = {
+            loadNav()
+        }
+
         childFragmentManager.beginTransaction().add(R.id.flContent, goodsListFragment).hide(goodsListFragment).commit()
         childFragmentManager.beginTransaction().add(R.id.flContent, recommendFragment).commit()
+
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {
@@ -139,6 +144,7 @@ class NewHomeFragment : BaseFragment() {
     private fun loadNav() {
         ApiManager2.get(getBaseActivity(), null, Constant.ESHOP_CLASS_RECOMMEND, object : ApiManager2.OnResult<BaseBean<GoodsNav>>() {
             override fun onSuccess(data: BaseBean<GoodsNav>) {
+                tabLayout.removeAllTabs()
                 data.message?.data?.let { arrayList ->
                     menuList.clear()
                     menuList.add(GoodsNav.Data("0", "0", "推荐", "1", arrayListOf()))

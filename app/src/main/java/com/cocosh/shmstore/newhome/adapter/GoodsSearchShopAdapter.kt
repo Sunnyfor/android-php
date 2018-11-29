@@ -52,7 +52,7 @@ class GoodsSearchShopAdapter(mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(
 
         getData(position).goods?.forEachIndexed { index, goods ->
             llGoods[index].visibility = View.VISIBLE
-            moneyList[index].text = goods.price
+            moneyList[index].text = ("¥"+goods.price)
             Glide.with(context)
                     .load(goods.image)
                     .dontAnimate()

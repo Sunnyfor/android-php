@@ -20,6 +20,7 @@
                 android:background="@color/white" />
 
             <RelativeLayout
+                android:id="@+id/rlPool"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h140">
 
@@ -60,48 +61,98 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/h475"
-                android:background="@color/white">
+                android:layout_height="@dimen/h156"
+                android:background="@color/white"
+                android:gravity="center_vertical">
 
-                <TextView
+
+                <LinearLayout
                     android:id="@+id/bonusOne"
-                    android:layout_width="@dimen/w314"
-                    android:layout_height="@dimen/h406"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/w35"
-                    android:layout_marginLeft="@dimen/w35"
-                    android:background="@color/activity_bg"
-                    android:gravity="center"
-                    android:text="大众红包"
-                    android:textColor="@color/textGray"
-                    android:textSize="@dimen/w40" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="@dimen/w115"
+                        android:layout_height="@dimen/h115"
+                        android:layout_marginStart="@dimen/w43"
+                        android:layout_marginLeft="@dimen/w43"
+                        android:background="@mipmap/ic_bonus_one" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/w6"
+                        android:layout_marginLeft="@dimen/w6"
+                        android:gravity="center"
+                        android:text="大众红包"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/w1"
+                    android:layout_height="@dimen/h104"
+                    android:background="@color/lineGray" />
 
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/bonusTwo"
-                    android:layout_width="@dimen/w314"
-                    android:layout_height="@dimen/h406"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/w35"
-                    android:layout_marginLeft="@dimen/w35"
-                    android:background="@color/activity_bg"
-                    android:gravity="center"
-                    android:text="精准红包"
-                    android:textColor="@color/textGray"
-                    android:textSize="@dimen/w40" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
 
-                <TextView
+                    <View
+                        android:layout_width="@dimen/w115"
+                        android:layout_height="@dimen/h115"
+                        android:layout_marginStart="@dimen/w43"
+                        android:layout_marginLeft="@dimen/w43"
+                        android:background="@mipmap/ic_bonus_two" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/w6"
+                        android:layout_marginLeft="@dimen/w6"
+                        android:gravity="center"
+                        android:text="精准红包"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="@dimen/w1"
+                    android:layout_height="@dimen/h104"
+                    android:background="@color/lineGray" />
+
+
+                <LinearLayout
                     android:id="@+id/bonusThree"
-                    android:layout_width="@dimen/w314"
-                    android:layout_height="@dimen/h406"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/w35"
-                    android:layout_marginLeft="@dimen/w35"
-                    android:background="@color/activity_bg"
-                    android:gravity="center"
-                    android:text="粉丝红包"
-                    android:textColor="@color/textGray"
-                    android:textSize="@dimen/w40" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="@dimen/w115"
+                        android:layout_height="@dimen/h115"
+                        android:layout_marginStart="@dimen/w43"
+                        android:layout_marginLeft="@dimen/w43"
+                        android:background="@mipmap/ic_bonus_three" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/w6"
+                        android:layout_marginLeft="@dimen/w6"
+                        android:gravity="center"
+                        android:text="粉丝红包"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w40" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
