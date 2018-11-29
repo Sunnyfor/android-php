@@ -71,7 +71,7 @@ class NewHomeFragment : BaseFragment() {
                     }
                     if (menuList[index].data.isEmpty()){
                         tabLayout2.visibility = View.GONE
-                        goodsListFragment.loadData(menuList[index].id)
+                        goodsListFragment.loadData(menuList[index].id,"0")
                     }
                     childFragmentManager.beginTransaction().show(goodsListFragment).commit()
                     childFragmentManager.beginTransaction().hide(recommendFragment).commit()
@@ -103,7 +103,7 @@ class NewHomeFragment : BaseFragment() {
                     it.setBackgroundResource(R.drawable.shape_btn_red)
                     it.setTextColor(ContextCompat.getColor(context, R.color.white))
                 }
-                goodsListFragment.loadData(menuList[index].data[tab.position].id)
+                goodsListFragment.loadData(menuList[index].data[tab.position].id,"0")
             }
         })
 

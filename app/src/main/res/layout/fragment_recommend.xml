@@ -180,14 +180,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/h435"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/w35"
-                    android:paddingLeft="@dimen/w35">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/w35"
+                        android:layout_marginStart="@dimen/w35">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -221,8 +221,8 @@
                                 android:id="@+id/ivRank2"
                                 android:layout_width="@dimen/w295"
                                 android:layout_height="@dimen/h302"
-                                android:layout_marginStart="@dimen/w35"
-                                android:layout_marginLeft="@dimen/w35"
+                                android:layout_marginStart="@dimen/w60"
+                                android:layout_marginLeft="@dimen/w60"
                                 android:src="@color/activity_bg" />
                         </LinearLayout>
                     </LinearLayout>

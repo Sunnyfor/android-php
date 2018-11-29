@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -20,16 +21,52 @@
                 android:layout_height="@dimen/h1038"
                 android:layout_marginTop="@dimen/w20"
                 android:background="@color/white">
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
-                    android:id="@+id/llPoint"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
+                    android:layout_height="@dimen/h50"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/w40"
+                    android:layout_marginRight="@dimen/w40"
+                    android:layout_marginBottom="@dimen/h17"
+                    android:background="@drawable/bg_fillet_gray"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/w19"
+                    android:paddingRight="@dimen/w19">
+
+                    <TextView
+                        android:id="@+id/txt_current"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/w32" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="/"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/w32" />
+
+                    <TextView
+                        android:id="@+id/txt_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/w32" />
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -40,12 +77,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/text_goods_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/w40"
                     android:layout_marginLeft="@dimen/w40"
                     android:layout_marginTop="@dimen/w42"
-                    android:text="非常美味的摩卡咖啡（2*30g）"
+                    tools:text="非常美味的摩卡咖啡（2*30g）"
                     android:textColor="@color/blackText"
                     android:textSize="@dimen/w46" />
 
@@ -54,12 +92,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/text_goods_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/w40"
                         android:layout_marginLeft="@dimen/w40"
                         android:layout_marginTop="@dimen/w29"
-                        android:text="¥ 1200"
+                        android:text="¥ 0.00"
                         android:textColor="#FFE0763F"
                         android:textSize="@dimen/w63" />
 
@@ -209,7 +248,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -292,17 +331,17 @@
         <TextView
             android:layout_width="@dimen/w344"
             android:layout_height="match_parent"
-            android:text="加入购物车"
             android:gravity="center"
+            android:text="加入购物车"
             android:textColor="@color/red"
             android:textSize="@dimen/w49" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textSize="@dimen/w49"
             android:background="@color/red"
-            android:text="立即购买"/>
+            android:text="立即购买"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w49" />
     </LinearLayout>
 </RelativeLayout>

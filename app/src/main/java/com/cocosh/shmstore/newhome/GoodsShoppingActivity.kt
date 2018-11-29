@@ -20,7 +20,7 @@ class GoodsShoppingActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().add(R.id.content,goodsListFragment).commit()
         launch(UI) {
             delay(100)
-            goodsListFragment.loadData("")
+            goodsListFragment.loadData("","")
         }
     }
 

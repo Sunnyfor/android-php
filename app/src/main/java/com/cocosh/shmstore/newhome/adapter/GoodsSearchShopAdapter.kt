@@ -51,6 +51,11 @@ class GoodsSearchShopAdapter(mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(
 
 
         getData(position).goods?.forEachIndexed { index, goods ->
+
+            if (index>= llGoods.size){
+                return@forEachIndexed
+            }
+
             llGoods[index].visibility = View.VISIBLE
             moneyList[index].text = ("¥"+goods.price)
             Glide.with(context)

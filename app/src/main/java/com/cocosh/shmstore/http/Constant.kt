@@ -224,6 +224,8 @@ object Constant {
     //排行榜商品列表
     const val ESHOP_RANK_LIST = "$VERSION/eshop/rank/list"
 
+    //商品详情页
+    const val ESHOP_GOODS_DETAIL = "$VERSION/eshop/goods/detail"
     /**
      * 首页
      * */

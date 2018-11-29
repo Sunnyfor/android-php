@@ -23,7 +23,7 @@ class GoodsListActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().add(R.id.content,goodsListFragment).commit()
         launch(UI) {
             delay(100)
-            goodsListFragment.loadData(intent.getStringExtra("cate_id"))
+            goodsListFragment.loadData("0",intent.getStringExtra("cate_id"))
         }
 
     }

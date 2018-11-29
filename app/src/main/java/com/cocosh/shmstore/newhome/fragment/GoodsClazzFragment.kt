@@ -1,6 +1,5 @@
 package com.cocosh.shmstore.newhome.fragment
 
-import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
@@ -9,7 +8,6 @@ import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
-import com.cocosh.shmstore.newhome.GoodsListActivity
 import com.cocosh.shmstore.newhome.adapter.OneGoodsClazzAdapter
 import com.cocosh.shmstore.newhome.adapter.TwoGoodsClazzAdapter
 import com.cocosh.shmstore.newhome.model.GoodsClazz

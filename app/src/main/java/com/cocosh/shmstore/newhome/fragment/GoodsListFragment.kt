@@ -19,6 +19,7 @@ class GoodsListFragment : BaseFragment() {
 
     var goodsList = arrayListOf<Goods>()
     var pager = "0"
+    var nodeId = "0"
     var cateId = "0"
     override fun setLayout(): Int = R.layout.layout_pull_refresh
 
@@ -26,7 +27,7 @@ class GoodsListFragment : BaseFragment() {
         getLayoutView().swipeRefreshLayout.recyclerView.layoutManager = GridLayoutManager(context, 2)
         val goodsAdapter = GoodsListAdapter(goodsList)
 
-        goodsAdapter.setOnItemClickListener(object :OnItemClickListener{
+        goodsAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
                 startActivity(Intent(context, GoodsDetailActivity::class.java).putExtra("goods_id", goodsList[index].id))
             }
@@ -36,7 +37,7 @@ class GoodsListFragment : BaseFragment() {
         getLayoutView().swipeRefreshLayout.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
                 pager = "0"
-                loadData(cateId)
+                loadData(nodeId,cateId)
             }
 
             override fun onLoadMore(page: Int) {
@@ -57,9 +58,11 @@ class GoodsListFragment : BaseFragment() {
     override fun close() {
     }
 
-    fun loadData(cate_id: String) {
+    fun loadData(node_id: String, cate_id: String) {
+        nodeId = node_id
         cateId = cate_id
         val params = hashMapOf<String, String>()
+        params["node_id"] = node_id
         params["cate_id"] = cate_id
         params["goods_id"] = pager
         params["num"] = "20"
@@ -74,7 +77,7 @@ class GoodsListFragment : BaseFragment() {
                         goodsList.addAll(it)
                         getLayoutView().swipeRefreshLayout.update(it)
                         getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
-                    }else{
+                    } else {
                         getLayoutView().swipeRefreshLayout.loadMore(it)
                     }
                 }
@@ -87,7 +90,7 @@ class GoodsListFragment : BaseFragment() {
                     getLayoutView().swipeRefreshLayout.isRefreshing = false
                     getLayoutView().swipeRefreshLayout.update(arrayListOf<Goods>())
                     getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
-                }else{
+                } else {
                     getLayoutView().swipeRefreshLayout.loadMore(arrayListOf<Goods>())
                 }
             }
