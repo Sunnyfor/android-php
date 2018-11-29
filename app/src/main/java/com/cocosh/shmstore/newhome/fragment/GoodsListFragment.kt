@@ -28,7 +28,7 @@ class GoodsListFragment : BaseFragment() {
 
         goodsAdapter.setOnItemClickListener(object :OnItemClickListener{
             override fun onItemClick(v: View, index: Int) {
-                startActivity(Intent(context,GoodsDetailActivity::class.java))
+                startActivity(Intent(context, GoodsDetailActivity::class.java).putExtra("goods_id", goodsList[index].id))
             }
         })
 

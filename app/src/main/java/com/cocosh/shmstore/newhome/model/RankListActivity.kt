@@ -27,7 +27,7 @@ class RankListActivity : BaseActivity() {
         kind = intent.getStringExtra("kind") ?: "1"
 
         titleManager.defaultTitle(
-                when(kind){
+                when (kind) {
                     "1" -> "热销·榜"
                     "2" -> "热搜·榜"
                     "3" -> "好评·榜"
@@ -43,7 +43,7 @@ class RankListActivity : BaseActivity() {
 
         goodsAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                startActivity(Intent(this@RankListActivity, GoodsDetailActivity::class.java))
+                startActivity(Intent(this@RankListActivity, GoodsDetailActivity::class.java).putExtra("goods_id", goodsList[index].id))
             }
         })
 
