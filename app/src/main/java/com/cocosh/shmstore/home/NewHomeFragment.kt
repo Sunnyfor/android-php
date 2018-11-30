@@ -108,7 +108,7 @@ class NewHomeFragment : BaseFragment() {
         })
 
         tvMore.setOnClickListener(this)
-
+        flPlaceholder.setOnClickListener(this)
         loadNav()
     }
 
@@ -124,11 +124,13 @@ class NewHomeFragment : BaseFragment() {
         when (view.id) {
             tvMore.id -> {
                 tvCover.visibility = View.VISIBLE
+                flPlaceholder.visibility = View.VISIBLE
                 tvMore.text = resources.getString(R.string.iconMoreTop)
                 val goodsNavPopup = GoodsNavPopup(context, menuList, index) {
                     tabLayout.getTabAt(it)?.select()
                 }
                 goodsNavPopup.setOnDismissListener {
+                    flPlaceholder.visibility = View.GONE
                     tvCover.visibility = View.GONE
                     tvMore.text = resources.getString(R.string.iconMoreDown)
                 }

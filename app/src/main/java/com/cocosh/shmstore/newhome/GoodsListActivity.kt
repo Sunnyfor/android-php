@@ -1,5 +1,7 @@
 package com.cocosh.shmstore.newhome
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
@@ -10,7 +12,9 @@ import kotlinx.coroutines.experimental.launch
 
 class GoodsListActivity : BaseActivity() {
 
-    private val goodsListFragment:GoodsListFragment by lazy {
+    private var isActive = false
+
+    private val goodsListFragment: GoodsListFragment by lazy {
         GoodsListFragment()
     }
 
@@ -20,10 +24,18 @@ class GoodsListActivity : BaseActivity() {
 
         titleManager.defaultTitle(intent.getStringExtra("title"))
 
-        supportFragmentManager.beginTransaction().add(R.id.content,goodsListFragment).commit()
+        isActive = intent.getBooleanExtra("isActive",false)
+
+        val id = intent.getStringExtra("cate_id")
+
+        supportFragmentManager.beginTransaction().add(R.id.content, goodsListFragment).commit()
         launch(UI) {
             delay(100)
-            goodsListFragment.loadData("0",intent.getStringExtra("cate_id"))
+            if (!isActive){
+                goodsListFragment.loadData("0",id)
+            }else{
+                goodsListFragment.loadData(id)
+            }
         }
 
     }
@@ -32,5 +44,15 @@ class GoodsListActivity : BaseActivity() {
     }
 
     override fun reTryGetData() {
+    }
+
+    companion object {
+
+        fun start(context: Context,cate_id:String,title:String,isActive:Boolean) {
+            context.startActivity(Intent(context, GoodsListActivity::class.java)
+                    .putExtra("title",title)
+                    .putExtra("cate_id", cate_id)
+                    .putExtra("isActive",isActive))
+        }
     }
 }

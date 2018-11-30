@@ -43,7 +43,7 @@ class RankListActivity : BaseActivity() {
 
         goodsAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                startActivity(Intent(this@RankListActivity, GoodsDetailActivity::class.java).putExtra("goods_id", goodsList[index].id))
+                GoodsDetailActivity.start(this@RankListActivity, goodsList[index].name, goodsList[index].id)
             }
         })
 

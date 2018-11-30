@@ -46,9 +46,7 @@ class RecommendFragment : BaseFragment() {
 
         recommendAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                startActivity(Intent(context, GoodsDetailActivity::class.java)
-                        .putExtra("id", goodsList[index].id)
-                        .putExtra("title", goodsList[index].name))
+                GoodsDetailActivity.start(context, goodsList[index].name, goodsList[index].id)
             }
         })
 

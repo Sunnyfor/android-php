@@ -21,6 +21,8 @@ class GoodsListFragment : BaseFragment() {
     var pager = "0"
     var nodeId = "0"
     var cateId = "0"
+    var pid = "0"
+    var isActive = false
     override fun setLayout(): Int = R.layout.layout_pull_refresh
 
     override fun initView() {
@@ -29,7 +31,7 @@ class GoodsListFragment : BaseFragment() {
 
         goodsAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                startActivity(Intent(context, GoodsDetailActivity::class.java).putExtra("goods_id", goodsList[index].id))
+                GoodsDetailActivity.start(context, goodsList[index].name, goodsList[index].id)
             }
         })
 
@@ -37,11 +39,18 @@ class GoodsListFragment : BaseFragment() {
         getLayoutView().swipeRefreshLayout.onRefreshResult = object : SMSwipeRefreshLayout.OnRefreshResult {
             override fun onUpdate(page: Int) {
                 pager = "0"
-                loadData(nodeId,cateId)
+                if (!isActive) {
+                    loadData(nodeId, cateId)
+                }else{
+                    loadData(pid)
+                }
             }
 
             override fun onLoadMore(page: Int) {
                 pager = goodsList.last().id
+                if (!isActive) {
+                    loadData(nodeId, cateId)
+                }
             }
         }
 
@@ -59,6 +68,7 @@ class GoodsListFragment : BaseFragment() {
     }
 
     fun loadData(node_id: String, cate_id: String) {
+        isActive = false
         nodeId = node_id
         cateId = cate_id
         val params = hashMapOf<String, String>()
@@ -93,6 +103,36 @@ class GoodsListFragment : BaseFragment() {
                 } else {
                     getLayoutView().swipeRefreshLayout.loadMore(arrayListOf<Goods>())
                 }
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<Goods>>) {
+            }
+
+        })
+    }
+
+    fun loadData(pid: String) {
+        isActive = true
+        this.pid = pid
+        val params = hashMapOf<String, String>()
+        params["pid"] = pid
+
+        ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_MARKET_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Goods>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<Goods>>) {
+                getLayoutView().swipeRefreshLayout.isRefreshing = false
+                data.message?.let {
+                    goodsList.clear()
+                    goodsList.addAll(it)
+                    getLayoutView().swipeRefreshLayout.update(it)
+                    getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+                goodsList.clear()
+                getLayoutView().swipeRefreshLayout.isRefreshing = false
+                getLayoutView().swipeRefreshLayout.update(arrayListOf<Goods>())
+                getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
             }
 
             override fun onCatch(data: BaseBean<ArrayList<Goods>>) {

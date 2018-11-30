@@ -17,7 +17,7 @@ class GoodsNavPopup(context: Context, mList: ArrayList<GoodsNav.Data>, index:Int
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.layout_goods_nav_popup,null)
         width = WindowManager.LayoutParams.MATCH_PARENT
-        height = WindowManager.LayoutParams.MATCH_PARENT
+        height = WindowManager.LayoutParams.WRAP_CONTENT
 
         isFocusable = true
         setBackgroundDrawable(ColorDrawable(0x7f000000))

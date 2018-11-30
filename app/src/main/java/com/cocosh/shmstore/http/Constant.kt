@@ -216,6 +216,8 @@ object Constant {
     //商品列表
     const val ESHOP_GOODS_LIST = "$VERSION/eshop/goods/list"
 
+    const val ESHOP_MARKET_LIST = "$VERSION/eshop/market/list"
+
     //搜索商品
     const val ESHOP_GOODS_SEARCH = "$VERSION/eshop/search/goods"
     //搜索店铺

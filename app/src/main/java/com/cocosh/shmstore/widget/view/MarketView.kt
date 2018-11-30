@@ -5,18 +5,22 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.newhome.GoodsListActivity
 import com.cocosh.shmstore.newhome.model.Recommend
 import kotlinx.android.synthetic.main.layout_view_market.view.*
 
 /**
  * 活动View
  */
-class MarketView : LinearLayout {
+class MarketView : LinearLayout, View.OnClickListener {
+
+    private val programList = arrayListOf<Recommend.Market.Program>()
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -37,6 +41,27 @@ class MarketView : LinearLayout {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_view_market, this, true)
+        llOne.setOnClickListener(this)
+        llTwo.setOnClickListener(this)
+        llThree.setOnClickListener(this)
+        llFour.setOnClickListener(this)
+        llFive.setOnClickListener(this)
+    }
+
+
+    override fun onClick(v: View) {
+
+        val index = when (v.id) {
+            R.id.llOne -> { 0 }
+            R.id.llTwo -> { 1 }
+            R.id.llThree -> { 2 }
+            R.id.llFour -> { 3 }
+            R.id.llFive -> { 4 }
+            else -> {
+                0
+            }
+        }
+        GoodsListActivity.start(context, programList[index].id, programList[index].name, true)
     }
 
 
@@ -45,7 +70,9 @@ class MarketView : LinearLayout {
         tvDesc.text = market.desc
 
         market.program?.let {
-            it.forEachIndexed { index, program ->
+            programList.clear()
+            programList.addAll(it)
+            programList.forEachIndexed { index, program ->
                 title[index].text = program.name
                 desc[index].text = program.desc
                 Glide.with(context)

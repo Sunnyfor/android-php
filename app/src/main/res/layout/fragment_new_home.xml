@@ -53,8 +53,19 @@
         app:tabTextAppearance="@style/GoodsTabStyle2" />
 
     <FrameLayout
-        android:id="@+id/flContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/flContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <FrameLayout
+            android:id="@+id/flPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7f000000"
+            android:visibility="gone"/>
+    </FrameLayout>
+
 
 </LinearLayout>

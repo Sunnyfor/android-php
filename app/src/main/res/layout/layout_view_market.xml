@@ -42,6 +42,7 @@
         tools:ignore="RtlSymmetry">
 
         <LinearLayout
+            android:id="@+id/llOne"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -73,6 +74,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llTwo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/w37"
@@ -124,6 +126,7 @@
         android:paddingRight="@dimen/w35">
 
         <LinearLayout
+            android:id="@+id/llThree"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -161,6 +164,7 @@
             android:background="#FFF0F0F0" />
 
         <LinearLayout
+            android:id="@+id/llFour"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -198,6 +202,7 @@
             android:background="#FFF0F0F0" />
 
         <LinearLayout
+            android:id="@+id/llFive"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">

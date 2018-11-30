@@ -23,10 +23,7 @@ class TwoGoodsGridAdapter(mList: ArrayList<GoodsClazz.Bean>) : BaseRecycleAdapte
                 .into(holder.itemView.ivPhoto)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, GoodsListActivity::class.java)
-            intent.putExtra("title",getData(position).name)
-            intent.putExtra("cate_id",getData(position).id)
-            context.startActivity(intent)
+            GoodsListActivity.start(context,getData(position).id,getData(position).name,false)
         }
 
     }
