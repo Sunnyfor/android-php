@@ -519,8 +519,7 @@
 
         <!--商品详情页-->
         <activity
-            android:name=".newhome.GoodsDetailActivity"
-            android:launchMode="singleTask" />
+            android:name=".newhome.GoodsDetailActivity"/>
 
         <!--商品列表页-->
         <activity

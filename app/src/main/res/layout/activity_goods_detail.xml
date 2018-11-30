@@ -2,9 +2,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -83,9 +83,9 @@
                     android:layout_marginStart="@dimen/w40"
                     android:layout_marginLeft="@dimen/w40"
                     android:layout_marginTop="@dimen/w42"
-                    tools:text="非常美味的摩卡咖啡（2*30g）"
                     android:textColor="@color/blackText"
-                    android:textSize="@dimen/w46" />
+                    android:textSize="@dimen/w46"
+                    tools:text="非常美味的摩卡咖啡（2*30g）" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -197,7 +197,7 @@
                         android:layout_marginLeft="@dimen/w45"
                         android:layout_marginTop="@dimen/h22"
                         android:layout_marginBottom="@dimen/h56"
-                        android:src="@drawable/default_head"
+                        android:src="@color/activity_bg"
                         app:riv_oval="true" />
 
                     <TextView
@@ -209,11 +209,12 @@
                         android:layout_marginTop="@dimen/h35"
                         android:layout_toEndOf="@id/ivPhoto"
                         android:layout_toRightOf="@id/ivPhoto"
-                        android:text="Super星巴克专卖店"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/w43" />
+                        android:textSize="@dimen/w43"
+                        tools:text="Super星巴克专卖店" />
 
                     <TextView
+                        android:id="@+id/tvCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tvName"
@@ -222,11 +223,12 @@
                         android:layout_marginTop="@dimen/h10"
                         android:layout_toEndOf="@id/ivPhoto"
                         android:layout_toRightOf="@id/ivPhoto"
-                        android:text="115件在售商品"
                         android:textColor="@color/grayText"
-                        android:textSize="@dimen/w35" />
+                        android:textSize="@dimen/w35"
+                        tools:text="115件在售商品" />
 
                     <Button
+                        android:id="@+id/btnFollow"
                         android:layout_width="@dimen/w210"
                         android:layout_height="@dimen/h101"
                         android:layout_alignParentEnd="true"
@@ -248,7 +250,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/h29" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
