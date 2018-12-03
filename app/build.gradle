@@ -145,6 +145,7 @@ dependencies {
 
     compile 'cn.xiaoluo:update-manager:1.2.0' //版本更新lib
 
+    compile 'com.github.donkingliang:LabelsView:1.4.6'
 }
 
 kotlin {

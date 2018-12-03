@@ -273,6 +273,7 @@ object ApiManager2 {
                     val message = jsonObj.opt("message").toString()
                     if (status == "200" || status == "400") {
                         if (status == "400") {
+                            ToastUtil.show(message)
                             onResult.onFailed(status, message)
                             return
                         }

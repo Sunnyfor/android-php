@@ -5,8 +5,10 @@ import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
+import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsSearchGoodsAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsSearchShopAdapter
 import com.cocosh.shmstore.newhome.model.Goods
@@ -54,6 +56,13 @@ class GoodsSearchFragment : BaseFragment() {
 
             }
         }
+
+        goodsSearchAdapter.setOnItemClickListener(object :OnItemClickListener{
+            override fun onItemClick(v: View, index: Int) {
+                GoodsDetailActivity.start(context,goodsList[index].name,goodsList[index].id)
+            }
+        })
+
     }
 
     override fun reTryGetData() {

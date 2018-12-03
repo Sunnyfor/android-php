@@ -7,7 +7,7 @@ data class GoodsDetail(
         var sku: Sku,  // 仅限总库存量 > 0时,显示此域
         var comment: ArrayList<Comment>,//评论
         var store: Shop,
-        var detail:ArrayList<String> //商品详情
+        var detail:String //商品详情
 ) {
     data class Goods(
             var id: String, // 商品id

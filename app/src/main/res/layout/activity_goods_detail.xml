@@ -126,6 +126,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/llFormat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/h36"
@@ -251,7 +252,14 @@
                 android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/h29" />
+                android:layout_marginTop="@dimen/h29"
+                android:visibility="gone"/>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/h29"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

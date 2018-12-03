@@ -757,6 +757,7 @@ class MineLoader(val activity: BaseActivity, val view: IBaseView) {
 
         ApiManager2.post(flag, activity, map, Constant.BANKCARD_CARD_VIERIFY, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
+
             }
 
             override fun onSuccess(data: BaseBean<String>) {
