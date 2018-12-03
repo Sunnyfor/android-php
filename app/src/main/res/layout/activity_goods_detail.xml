@@ -89,7 +89,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/w29">
 
                     <TextView
                         android:id="@+id/text_goods_price"
@@ -97,7 +98,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/w40"
                         android:layout_marginLeft="@dimen/w40"
-                        android:layout_marginTop="@dimen/w29"
                         android:text="¥ 0.00"
                         android:textColor="#FFE0763F"
                         android:textSize="@dimen/w63" />
