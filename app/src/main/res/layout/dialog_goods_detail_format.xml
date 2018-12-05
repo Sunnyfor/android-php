@@ -41,7 +41,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/h14"
                 android:orientation="horizontal">
@@ -56,8 +56,13 @@
                     android:textSize="@dimen/w37" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvDesc"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/h29"
+                    android:layout_marginRight="@dimen/h29"
+                    android:ellipsize="end"
+                    android:lines="1"
                     android:textColor="@color/blackText"
                     android:textSize="@dimen/w37"
                     tools:text="30g，2件" />
@@ -92,98 +97,109 @@
         android:layout_height="@dimen/h3"
         android:background="@color/lineGray" />
 
-    <LinearLayout
-        android:id="@+id/llLabel"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/h86"
-        android:background="@color/white" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/w46"
-            android:layout_marginLeft="@dimen/w46"
-            android:text="数量"
-            android:textColor="@color/blackText"
-            android:textSize="@dimen/w46" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="@dimen/w389"
-            android:layout_height="@dimen/h98"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="@dimen/w52"
-            android:layout_marginRight="@dimen/w52">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h86"
+                android:background="@color/white" />
 
             <RelativeLayout
-                android:id="@+id/rl_jian"
-                android:layout_width="@dimen/w118"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_goods_jian">
-
-                <View
-                    android:layout_width="@dimen/w37"
-                    android:layout_height="@dimen/h6"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/ic_label_jian" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/w2"
-                    android:background="#ffc3c3c3" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:gravity="center"
-                    android:text="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w46"
+                    android:layout_marginLeft="@dimen/w46"
+                    android:text="数量"
                     android:textColor="@color/blackText"
                     android:textSize="@dimen/w46" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/w2"
-                    android:layout_alignParentBottom="true"
-                    android:background="#ffc3c3c3" />
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="@dimen/w389"
+                    android:layout_height="@dimen/h98"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/w52"
+                    android:layout_marginRight="@dimen/w52">
 
-            <RelativeLayout
-                android:id="@+id/rl_add"
-                android:layout_width="@dimen/w118"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_goods_add">
+                    <RelativeLayout
+                        android:id="@+id/rl_jian"
+                        android:layout_width="@dimen/w118"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_goods_jian">
 
-                <View
-                    android:layout_width="@dimen/w37"
-                    android:layout_height="@dimen/h39"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/ic_label_add" />
+                        <View
+                            android:layout_width="@dimen/w37"
+                            android:layout_height="@dimen/h6"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/ic_label_jian" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/w2"
+                            android:background="#ffc3c3c3" />
+
+                        <TextView
+                            android:id="@+id/tvCount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@color/blackText"
+                            android:textSize="@dimen/w46" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/w2"
+                            android:layout_alignParentBottom="true"
+                            android:background="#ffc3c3c3" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_add"
+                        android:layout_width="@dimen/w118"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_goods_add">
+
+                        <View
+                            android:layout_width="@dimen/w37"
+                            android:layout_height="@dimen/h39"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/ic_label_add" />
+                    </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -202,6 +218,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/btnAddCar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -228,6 +228,16 @@ object Constant {
 
     //商品详情页
     const val ESHOP_GOODS_DETAIL = "$VERSION/eshop/goods/detail"
+
+    //加入购物车
+    const val ESHOP_CART_ADD = "$VERSION/eshop/cart/add"
+
+    //购物车列表
+    const val ESHOP_CARTS = "$VERSION/eshop/carts"
+
+    //保存购物车
+    const val ESHOP_CART_SAVE = "$VERSION/eshop/cart/save"
+
     /**
      * 首页
      * */

@@ -93,7 +93,17 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="1"
+            android:textColor="@color/textGray"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvShowCount"
+            android:layout_width="@dimen/w118"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="x1"
             android:textColor="@color/textGray" />
+
 
         <View
             android:id="@+id/vAdd"

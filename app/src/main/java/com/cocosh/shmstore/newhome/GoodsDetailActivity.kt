@@ -27,6 +27,8 @@ import kotlinx.android.synthetic.main.activity_goods_detail.*
 class GoodsDetailActivity : BaseActivity() {
     private var goodsId = "1"
     private var goodsDetail: GoodsDetail? = null
+    private var skuid = "0"
+    private var count = "1"
     override fun setLayout(): Int = R.layout.activity_goods_detail
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -41,14 +43,6 @@ class GoodsDetailActivity : BaseActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-
-//        webView.settings.useWideViewPort = true
-//        webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-//        webView.settings.loadWithOverviewMode = true
-//        webView.settings.javaScriptEnabled = true
-//        recyclerView2.layoutManager = LinearLayoutManager(this)
-//        recyclerView2.isNestedScrollingEnabled = false
-//        recyclerView2.setHasFixedSize(true)
 
         llFormat.setOnClickListener(this)
         llAddress.setOnClickListener(this)
@@ -66,7 +60,11 @@ class GoodsDetailActivity : BaseActivity() {
             }
             R.id.llFormat -> {
                 goodsDetail?.let {
-                    val goodsDetailDialog = GoodsDetailDialog(this, it)
+                    val goodsDetailDialog = GoodsDetailDialog(skuid, this, it) { resultStr: String, skuId: String, count: String ->
+                        tvEle.text = resultStr
+                        this.skuid = skuId
+                        this.count = count
+                    }
                     goodsDetailDialog.show()
                 }
             }
@@ -80,16 +78,22 @@ class GoodsDetailActivity : BaseActivity() {
 
     fun loadData() {
         val params = hashMapOf(
-                Pair("goods_id", goodsId),
                 Pair("goods_id", goodsId))
         ApiManager2.get(this, params, Constant.ESHOP_GOODS_DETAIL, object : ApiManager2.OnResult<BaseBean<GoodsDetail>>() {
             override fun onSuccess(data: BaseBean<GoodsDetail>) {
-                data.message?.let {
+                data.message?.let { it ->
                     goodsDetail = it
                     initBanner(it.goods.image)
                     text_goods_name.text = it.goods.name
                     text_goods_price.text = ("¥ " + it.goods.price)
 
+                    val ele = StringBuilder()
+                    it.goods.sku.desc[0].ele.forEach {
+                        ele.append(it.value).append("，")
+                    }
+                    tvEle.text = (ele.toString() + "1件")
+
+                    skuid = it.goods.sku.desc[0].id
 
                     Glide.with(this@GoodsDetailActivity).load(it.store.logo)
                             .placeholder(ColorDrawable(ContextCompat.getColor(this@GoodsDetailActivity, R.color.activity_bg)))
@@ -103,9 +107,11 @@ class GoodsDetailActivity : BaseActivity() {
                     }
                     recyclerView.adapter = GoodsDetailShopAdapter(it.store.goods ?: arrayListOf())
 
-                    val html = "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no\">"+"<meta http-equiv=Content-Type content=\"text/html; charset=gb2312\">"+"</head>"+"<body style=\"margin:0;padding:0\">"+
-                            it.detail.replace("<img", "<img width=100%")+"</body></html>"
-                    webView.loadDataWithBaseURL(null,html, "text/html", "gb2312",null)
+                    val content = it.detail + it.exts + it.service
+
+                    val html = "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no\">" + "<meta http-equiv=Content-Type content=\"text/html; charset=gb2312\">" + "</head>" + "<body style=\"margin:0;padding:0\">" +
+                            content.replace("<img", "<img width=100%") + "</body></html>"
+                    webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
                 }
             }

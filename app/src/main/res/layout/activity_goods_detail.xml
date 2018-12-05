@@ -71,7 +71,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/h253"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/w29"
                 android:background="@color/white"
                 android:orientation="vertical">
@@ -90,7 +90,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/w29">
+                    android:layout_marginTop="@dimen/w29"
+                    android:layout_marginBottom="@dimen/w39">
 
                     <TextView
                         android:id="@+id/text_goods_price"
@@ -142,9 +143,10 @@
                         android:textSize="@dimen/w43" />
 
                     <TextView
+                        android:id="@+id/tvEle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2*30g，1件"
+                        tools:text="2*30g，1件"
                         android:textColor="@color/blackText"
                         android:textSize="@dimen/w43" />
                 </LinearLayout>

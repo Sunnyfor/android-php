@@ -11,6 +11,7 @@ data class ShoppingCarts(
         var sku_id: String,
         var sku_price: String,
         var sku_image: String,
+        var sku_attrs:LinkedHashMap<String,String>,
         var num: String,
         var isChecked:Boolean = false,
         var goodsList: ArrayList<ShoppingCarts> = ArrayList()

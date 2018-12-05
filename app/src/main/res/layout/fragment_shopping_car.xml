@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@id/recyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/rlSelect"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/rlSelect"
         android:layout_width="match_parent"
         android:layout_height="@dimen/h141"
-        android:layout_alignParentBottom="true"
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/llAll"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -25,6 +32,7 @@
             android:paddingRight="@dimen/w46">
 
             <View
+                android:id="@+id/view_select"
                 android:layout_width="@dimen/w52"
                 android:layout_height="@dimen/h52"
                 android:background="@drawable/bg_select_round_gray_no" />
@@ -32,11 +40,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w29"
                 android:layout_marginLeft="@dimen/w29"
                 android:text="全选" />
         </LinearLayout>
 
+
         <LinearLayout
+            android:id="@+id/llResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -51,9 +62,10 @@
                 android:textSize="@dimen/w46" />
 
             <TextView
+                android:id="@+id/tvCardMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥199"
+                android:text="¥0.00"
                 android:textColor="@color/red"
                 android:textSize="@dimen/w46" />
 
@@ -68,6 +80,28 @@
                 android:textSize="@dimen/w46" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/rlDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="@dimen/w202"
+                android:layout_height="@dimen/h89"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/w33"
+                android:layout_marginLeft="@dimen/w33"
+                android:layout_marginEnd="@dimen/w46"
+                android:layout_marginRight="@dimen/w46"
+                android:background="@drawable/red_corner_btn_bg"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="@dimen/w46" />
+        </LinearLayout>
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
