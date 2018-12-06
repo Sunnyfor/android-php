@@ -87,21 +87,14 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 //                startActivity(Intent(this, GoodsShoppingActivity::class.java))
             }
             R.id.llFormat -> {
-                goodsDetail?.let {
-                    val goodsDetailDialog = GoodsDetailDialog(skuid, count, this, it) { resultStr: String, skuId: String, count: String ->
-                        tvEle.text = resultStr
-                        this.skuid = skuId
-                        this.count = count
-                    }
-                    goodsDetailDialog.show()
-                }
+                showAddCar()
             }
             R.id.llCollect -> {
 
             }
 
             R.id.text_add_car -> {
-                addCar()
+                showAddCar()
             }
             R.id.rl_shop -> {
                 GoodsShoppingActivity.start(this,goodsDetail?.store?.name?:"",goodsDetail?.store?.id?:"")
@@ -197,26 +190,15 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         super.onDestroy()
     }
 
-    private fun addCar() {
-        showLoading()
-        val jsonArray = JSONArray()
-        jsonArray.put(JSONObject().put(skuid, count))
-        val params = hashMapOf<String, String>()
-        params["data"] = jsonArray.toString()
-        ApiManager2.post(this, params, Constant.ESHOP_CART_ADD, object : ApiManager2.OnResult<BaseBean<String>>() {
-            override fun onSuccess(data: BaseBean<String>) {
-                hideLoading()
-                ToastUtil.show("成功添加到购物车！")
+    private fun showAddCar() {
+        goodsDetail?.let {
+            val goodsDetailDialog = GoodsDetailDialog(skuid, count, this, it) { resultStr: String, skuId: String, count: String ->
+                tvEle.text = resultStr
+                this.skuid = skuId
+                this.count = count
             }
-
-            override fun onFailed(code: String, message: String) {
-                hideLoading()
-            }
-
-            override fun onCatch(data: BaseBean<String>) {
-
-            }
-        })
+            goodsDetailDialog.show()
+        }
     }
 
     override fun onResume() {

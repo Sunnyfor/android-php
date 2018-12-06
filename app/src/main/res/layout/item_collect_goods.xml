@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/h461"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="@dimen/w482"
+        android:layout_height="@dimen/w2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineGray" />
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="@dimen/w403"
+        android:layout_height="@dimen/h403"
+        android:layout_marginStart="@dimen/w35"
+        android:layout_marginLeft="@dimen/w35"
+        android:layout_marginTop="@dimen/h29"
+        android:src="@color/activity_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/w43"
+        android:layout_marginLeft="@dimen/w43"
+        android:layout_marginTop="@dimen/h29"
+        android:layout_marginEnd="@dimen/w35"
+        android:layout_marginRight="@dimen/w35"
+        android:layout_toEndOf="@id/imgPhoto"
+        android:layout_toRightOf="@id/imgPhoto"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w40"
+            tools:text="妈妈款冬装外套洋气羊剪绒大衣 女中老年女装秋冬皮毛一体" />
+
+
+        <TextView
+            android:id="@+id/txt_collect_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w14"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w40"
+            tools:text="3002人收藏" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w148"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w40" />
+
+            <TextView
+                android:id="@+id/txt_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w52" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="@dimen/w144"
+            android:layout_height="@dimen/h58"
+            android:layout_marginTop="@dimen/w163"
+            android:background="@drawable/shape_bg_gray_stroke"
+            android:gravity="center"
+            android:text="已失效"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/w32" />
+    </LinearLayout>
+</RelativeLayout>
