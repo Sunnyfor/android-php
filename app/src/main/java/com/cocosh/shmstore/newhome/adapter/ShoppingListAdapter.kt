@@ -8,6 +8,7 @@ import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
+import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import kotlinx.android.synthetic.main.layout_shopping_shop_item.view.*
 
@@ -47,6 +48,7 @@ class ShoppingListAdapter(mList: ArrayList<ShoppingCarts>, var action: () -> Uni
         }
 
         holder.itemView.setOnClickListener {
+            GoodsShoppingActivity.start(context,getData(position).store_name,getData(position).store_id)
         }
     }
 

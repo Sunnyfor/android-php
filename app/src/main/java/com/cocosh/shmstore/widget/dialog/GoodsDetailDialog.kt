@@ -13,11 +13,12 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.model.GoodsDetail
+import com.cocosh.shmstore.utils.ToastUtil
 import com.donkingliang.labels.LabelsView
 import kotlinx.android.synthetic.main.dialog_goods_detail_format.*
 import kotlinx.android.synthetic.main.item_goods_detail_label.view.*
 
-class GoodsDetailDialog(private var skuid:String, var context: BaseActivity, private var goodsDetail: GoodsDetail, var result: (resultStr: String, skuId: String, count: String) -> Unit) : Dialog(context), View.OnClickListener {
+class GoodsDetailDialog(private var skuid:String, var count:String,var context: BaseActivity, private var goodsDetail: GoodsDetail, var result: (resultStr: String, skuId: String, count: String) -> Unit) : Dialog(context), View.OnClickListener {
 
     private val selectFlag = hashMapOf<String, String>()
 
@@ -27,6 +28,8 @@ class GoodsDetailDialog(private var skuid:String, var context: BaseActivity, pri
         window.setBackgroundDrawableResource(R.color.transparent)
         window.attributes.width = WindowManager.LayoutParams.MATCH_PARENT
         window.setGravity(Gravity.BOTTOM)
+
+        tvCount.text = count
 
         itv_close.setOnClickListener(this)
         rl_add.setOnClickListener(this)
@@ -70,6 +73,13 @@ class GoodsDetailDialog(private var skuid:String, var context: BaseActivity, pri
             val select = goodsDetail.goods.sku.attrs[i].vals.split(",").indexOf( selectFlag[(llLabel.getChildAt(i)).tvName.text.toString()])
             (llLabel.getChildAt(i)).labView.setSelects(select)
         }
+
+        val ele = StringBuilder()
+        goodsDetail.goods.sku.desc[0].ele.forEach {
+            ele.append(it.value).append("，")
+        }
+        tvDesc.text = (ele.toString() + count +"件")
+
     }
 
     override fun onClick(v: View) {
@@ -133,10 +143,11 @@ class GoodsDetailDialog(private var skuid:String, var context: BaseActivity, pri
 
     private fun addCar() {
         val params = HashMap<String, String>()
-        params["sku_id"] = resultList?.last()?.id ?: "0"
+        params["sku_id"] = resultList?.last()?.id ?: skuid
         params["shop_num"] = tvCount.text.toString()
         ApiManager2.post(context, params, Constant.ESHOP_CART_ADD, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
+                ToastUtil.show("成功添加到购物车！")
             }
 
             override fun onFailed(code: String, message: String) {

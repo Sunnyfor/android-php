@@ -11,6 +11,7 @@ import com.cocosh.shmstore.newhome.adapter.ShoppingListAdapter
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import com.cocosh.shmstore.title.LeftRightTitleFragment
 import com.cocosh.shmstore.utils.StringUtils
+import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_shopping_car.*
 import kotlinx.android.synthetic.main.layout_left_right_title.*
 import org.json.JSONArray
@@ -144,7 +145,7 @@ class ShoppingFragment : BaseFragment() {
         params["data"] = jsonArray.toString()
         ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
-
+                    ToastUtil.show("保存成功！")
             }
 
             override fun onFailed(code: String, message: String) {

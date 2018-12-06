@@ -16,6 +16,7 @@ data class ShoppingCarts(
         var isChecked:Boolean = false,
         var goodsList: ArrayList<ShoppingCarts> = ArrayList()
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (other is ShoppingCarts && other.store_name == this.store_name) {
             return true

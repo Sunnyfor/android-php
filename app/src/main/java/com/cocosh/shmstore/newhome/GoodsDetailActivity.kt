@@ -8,27 +8,53 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.webkit.WebSettings
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.contrat.MineContrat
+import com.cocosh.shmstore.mine.model.Address
+import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsBannerAdapter
-import com.cocosh.shmstore.newhome.adapter.GoodsDetailPhotoAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsDetailShopAdapter
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.utils.GoodsDetailActivityManager
+import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.GoodsDetailDialog
 import kotlinx.android.synthetic.main.activity_goods_detail.*
+import org.json.JSONArray
+import org.json.JSONObject
 
-class GoodsDetailActivity : BaseActivity() {
+class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
+
     private var goodsId = "1"
     private var goodsDetail: GoodsDetail? = null
     private var skuid = "0"
     private var count = "1"
+
+    val mPresenter: AddRessPresenter  by lazy {
+        AddRessPresenter(this, this)
+    }
+
+    override fun deleteAddress(result: String) {
+    }
+
+    override fun getAddress(result: BaseBean<ArrayList<Address>>) {
+        result.message?.let { it ->
+            if (it.isNotEmpty()){
+                txt_address.text = it.last { it.default == "1" }.district
+            }
+        }
+    }
+
+    override fun defaultAddress(result: String) {
+
+    }
+
+
     override fun setLayout(): Int = R.layout.activity_goods_detail
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -43,10 +69,11 @@ class GoodsDetailActivity : BaseActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-
+        text_add_car.setOnClickListener(this)
         llFormat.setOnClickListener(this)
         llAddress.setOnClickListener(this)
         llShop.setOnClickListener(this)
+        rl_shop.setOnClickListener(this)
         loadData()
     }
 
@@ -56,11 +83,12 @@ class GoodsDetailActivity : BaseActivity() {
                 startActivity(Intent(this, AddressMangerActivity::class.java))
             }
             R.id.llShop -> {
+                GoodsShoppingActivity.start(this,goodsDetail?.store?.name?:"",goodsDetail?.store?.id?:"")
 //                startActivity(Intent(this, GoodsShoppingActivity::class.java))
             }
             R.id.llFormat -> {
                 goodsDetail?.let {
-                    val goodsDetailDialog = GoodsDetailDialog(skuid, this, it) { resultStr: String, skuId: String, count: String ->
+                    val goodsDetailDialog = GoodsDetailDialog(skuid, count, this, it) { resultStr: String, skuId: String, count: String ->
                         tvEle.text = resultStr
                         this.skuid = skuId
                         this.count = count
@@ -68,7 +96,16 @@ class GoodsDetailActivity : BaseActivity() {
                     goodsDetailDialog.show()
                 }
             }
-//
+            R.id.llCollect -> {
+
+            }
+
+            R.id.text_add_car -> {
+                addCar()
+            }
+            R.id.rl_shop -> {
+                GoodsShoppingActivity.start(this,goodsDetail?.store?.name?:"",goodsDetail?.store?.id?:"")
+            }
         }
     }
 
@@ -96,6 +133,7 @@ class GoodsDetailActivity : BaseActivity() {
                     skuid = it.goods.sku.desc[0].id
 
                     Glide.with(this@GoodsDetailActivity).load(it.store.logo)
+                            .dontAnimate()
                             .placeholder(ColorDrawable(ContextCompat.getColor(this@GoodsDetailActivity, R.color.activity_bg)))
                             .into(ivPhoto)
                     tvName.text = it.store.name
@@ -158,4 +196,32 @@ class GoodsDetailActivity : BaseActivity() {
         GoodsDetailActivityManager.removeActivity(this)
         super.onDestroy()
     }
+
+    private fun addCar() {
+        showLoading()
+        val jsonArray = JSONArray()
+        jsonArray.put(JSONObject().put(skuid, count))
+        val params = hashMapOf<String, String>()
+        params["data"] = jsonArray.toString()
+        ApiManager2.post(this, params, Constant.ESHOP_CART_ADD, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                hideLoading()
+                ToastUtil.show("成功添加到购物车！")
+            }
+
+            override fun onFailed(code: String, message: String) {
+                hideLoading()
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter.requestGetAddress(0)
+    }
+
 }

@@ -2,6 +2,7 @@ package com.cocosh.shmstore.newhome
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.view.View
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
@@ -13,6 +14,8 @@ import kotlinx.coroutines.experimental.launch
 class GoodsListActivity : BaseActivity() {
 
     private var isActive = false
+
+    private var handler = Handler()
 
     private val goodsListFragment: GoodsListFragment by lazy {
         GoodsListFragment()
@@ -29,15 +32,14 @@ class GoodsListActivity : BaseActivity() {
         val id = intent.getStringExtra("cate_id")
 
         supportFragmentManager.beginTransaction().add(R.id.content, goodsListFragment).commit()
-        launch(UI) {
-            delay(100)
+
+        handler.post {
             if (!isActive){
                 goodsListFragment.loadData("0",id)
             }else{
                 goodsListFragment.loadData(id)
             }
         }
-
     }
 
     override fun onListener(view: View) {

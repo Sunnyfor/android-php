@@ -28,6 +28,7 @@ class AddRessPresenter(var mActivity: BaseActivity, var mView: IBaseView) : Mine
 
 
     val loader = MineLoader(mActivity, mView)
+
     override fun start() {
 
     }

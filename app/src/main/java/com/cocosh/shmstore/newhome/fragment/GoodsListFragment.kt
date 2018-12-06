@@ -1,6 +1,5 @@
 package com.cocosh.shmstore.newhome.fragment
 
-import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
@@ -50,6 +49,8 @@ class GoodsListFragment : BaseFragment() {
                 pager = goodsList.last().id
                 if (!isActive) {
                     loadData(nodeId, cateId)
+                }else{
+                    loadData(pid)
                 }
             }
         }

@@ -216,12 +216,19 @@ object Constant {
     //商品列表
     const val ESHOP_GOODS_LIST = "$VERSION/eshop/goods/list"
 
+    //店铺商品列表
+    const val ESHOP_STORE_GOODS = "$VERSION/eshop/store/goods"
+
+    //活动商品列表
     const val ESHOP_MARKET_LIST = "$VERSION/eshop/market/list"
 
     //搜索商品
     const val ESHOP_GOODS_SEARCH = "$VERSION/eshop/search/goods"
     //搜索店铺
     const val ESHOP_SEARCH_STORE = "$VERSION/eshop/search/store"
+
+    //店铺首页
+    const val ESHOP_STORE = "$VERSION/eshop/store"
 
     //排行榜商品列表
     const val ESHOP_RANK_LIST = "$VERSION/eshop/rank/list"
