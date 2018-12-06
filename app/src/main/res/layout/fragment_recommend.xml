@@ -390,7 +390,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/h35"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
