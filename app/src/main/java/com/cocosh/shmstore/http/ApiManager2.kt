@@ -262,15 +262,16 @@ object ApiManager2 {
         } else {
 
             var body = json
-
+            var status = "0"
+            var message = ""
             if (onResult.typeToken.toString().contains("com.cocosh.shmstore.base.BaseBean")) {
                 try {
                     if (body.contains("<div")) {
                         body = body.split("</div>")[1]
                     }
                     val jsonObj = JSONObject(body)
-                    val status = jsonObj.opt("status").toString()
-                    val message = jsonObj.opt("message").toString()
+                    status = jsonObj.opt("status").toString()
+                    message = jsonObj.opt("message").toString()
                     if (status == "200" || status == "400") {
                         if (status == "400") {
                             ToastUtil.show(message)
@@ -292,7 +293,7 @@ object ApiManager2 {
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    onResult.onFailed("000000", "数据解析错误")
+                    onResult.onFailed(status, message)
                 }
             } else {
                 onResult.onSuccess(gson.fromJson(body, onResult.typeToken))

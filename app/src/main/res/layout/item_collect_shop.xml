@@ -13,8 +13,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/w137"
         android:layout_marginLeft="@dimen/w137"
+        android:layout_marginRight="@dimen/w137"
         android:background="@color/lineGray" />
 
     <com.makeramen.roundedimageview.RoundedImageView

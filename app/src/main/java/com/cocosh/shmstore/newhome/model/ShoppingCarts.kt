@@ -23,4 +23,19 @@ data class ShoppingCarts(
         }
         return false
     }
+
+    override fun hashCode(): Int {
+        var result = store_id.hashCode()
+        result = 31 * result + store_name.hashCode()
+        result = 31 * result + goods_id.hashCode()
+        result = 31 * result + goods_name.hashCode()
+        result = 31 * result + sku_id.hashCode()
+        result = 31 * result + sku_price.hashCode()
+        result = 31 * result + sku_image.hashCode()
+        result = 31 * result + sku_attrs.hashCode()
+        result = 31 * result + num.hashCode()
+        result = 31 * result + isChecked.hashCode()
+        result = 31 * result + goodsList.hashCode()
+        return result
+    }
 }

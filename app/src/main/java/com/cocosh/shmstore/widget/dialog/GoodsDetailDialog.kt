@@ -12,11 +12,13 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.utils.ToastUtil
 import com.donkingliang.labels.LabelsView
 import kotlinx.android.synthetic.main.dialog_goods_detail_format.*
 import kotlinx.android.synthetic.main.item_goods_detail_label.view.*
+import org.greenrobot.eventbus.EventBus
 
 class GoodsDetailDialog(private var skuid:String, var count:String,var context: BaseActivity, private var goodsDetail: GoodsDetail, var result: (resultStr: String, skuId: String, count: String) -> Unit) : Dialog(context), View.OnClickListener {
 
@@ -149,6 +151,7 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
         ApiManager2.post(context, params, Constant.ESHOP_CART_ADD, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
                 ToastUtil.show("成功添加到购物车！")
+                EventBus.getDefault().post(AddCar())
             }
 
             override fun onFailed(code: String, message: String) {

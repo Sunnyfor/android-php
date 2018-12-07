@@ -93,6 +93,12 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         getLayoutView().frameFragmentError.visibility = View.VISIBLE
     }
 
+    fun showReTryLayout(desc: String) {
+        getLayoutView().frameFragmentError.visibility = View.VISIBLE
+        getLayoutView().tvMessage.text = desc
+    }
+
+
     fun hideReTryLayout() {
         getLayoutView().frameFragmentError.visibility = View.GONE
     }

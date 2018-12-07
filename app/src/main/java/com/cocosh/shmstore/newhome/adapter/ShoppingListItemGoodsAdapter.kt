@@ -73,7 +73,7 @@ class ShoppingListItemGoodsAdapter(mList: ArrayList<ShoppingCarts>, var notifyDa
 
         holder.itemView.vJian.setOnClickListener {
             val num = getData(position).num.toInt() - 1
-            if (num >= 0) {
+            if (num >= 1) {
                 getData(position).num = num.toString()
                 notifyData()
                 notifyDataSetChanged()

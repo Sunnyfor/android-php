@@ -8,12 +8,17 @@ import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.adapter.ShoppingListAdapter
+import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import com.cocosh.shmstore.title.LeftRightTitleFragment
 import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.utils.ToastUtil
+import kotlinx.android.synthetic.main.fragment_base.view.*
 import kotlinx.android.synthetic.main.fragment_shopping_car.*
 import kotlinx.android.synthetic.main.layout_left_right_title.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -22,7 +27,7 @@ class ShoppingFragment : BaseFragment() {
     private var money = 0f
     private var mData = ArrayList<ShoppingCarts>()
     private var isEdit = false
-
+    private val titleFragment = LeftRightTitleFragment()
     private val shoppingListAdapter: ShoppingListAdapter by lazy {
         ShoppingListAdapter(mData) {
             money = 0f
@@ -43,27 +48,28 @@ class ShoppingFragment : BaseFragment() {
                 view_select.setBackgroundResource(R.drawable.bg_select_round_gray_no)
             }
 
-            tvCardMoney.text = ("¥"+StringUtils.insertComma(money.toString(),2))
+            tvCardMoney.text = ("¥" + StringUtils.insertComma(money.toString(), 2))
         }
     }
 
     override fun setLayout(): Int = R.layout.fragment_shopping_car
 
     override fun initView() {
-        val titleFragment = LeftRightTitleFragment()
+        EventBus.getDefault().register(this)
+
         titleFragment.goneLeft()
         titleFragment.title("购物车")
         titleFragment.rightIcon("编辑")
         titleFragment.setRightOnClickListener(
                 View.OnClickListener {
-                    if (isEdit){
+                    if (isEdit) {
                         isEdit = false
-                        titleFragment.tvRight.text =("编辑")
+                        titleFragment.tvRight.text = ("编辑")
                         rlDelete.visibility = View.GONE
                         llResult.visibility = View.VISIBLE
                         refreshLayout.isEnabled = true
                         modifyCount()
-                    }else{
+                    } else {
                         isEdit = true
                         titleFragment.tvRight.text = ("保存")
                         rlDelete.visibility = View.VISIBLE
@@ -89,41 +95,84 @@ class ShoppingFragment : BaseFragment() {
         }
 
         loadData()
+
+        btn_delete.setOnClickListener {
+            delete()
+        }
     }
 
     override fun reTryGetData() {
+        loadData()
     }
 
     override fun onListener(view: View) {
     }
 
     override fun close() {
+        EventBus.getDefault().unregister(this)
     }
 
     //加载购物车数据
     private fun loadData() {
         isAll = false
         money = 0f
-        tvCardMoney.text = ("¥"+StringUtils.insertComma(money.toString(),2))
+
+        tvCardMoney.text = ("¥" + StringUtils.insertComma(money.toString(), 2))
 
         view_select.setBackgroundResource(R.drawable.bg_select_round_gray_no)
         mData.clear()
         ApiManager2.post(getBaseActivity(), hashMapOf(), Constant.ESHOP_CARTS, object : ApiManager2.OnResult<BaseBean<ArrayList<ShoppingCarts>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<ShoppingCarts>>) {
+                isEdit = false
+                shoppingListAdapter.isEdit = isEdit
+                titleFragment.tvRight?.text = ("编辑")
+                rlDelete.visibility = View.GONE
+                llResult.visibility = View.VISIBLE
+                refreshLayout.isEnabled = true
                 refreshLayout.isRefreshing = false
+
+                if (data.message == null || data.message?.size == 0) {
+                    rlSelect.visibility = View.GONE
+                    titleFragment.getRightText().visibility = View.GONE
+                    showReTryLayout("购物车还是空的，赶紧行动吧！")
+
+                } else {
+                    titleFragment.getRightText().visibility = View.VISIBLE
+                    rlSelect.visibility = View.VISIBLE
+                    hideReTryLayout()
+                }
+
                 data.message?.let { it ->
                     it.forEach { carts ->
                         if (!mData.contains(carts)) {
                             val goodsList = it.filter { it.store_name == carts.store_name } as ArrayList
-                            mData.add(ShoppingCarts(carts.store_id, carts.store_name, "", "", "", "", "", linkedMapOf(), "",false, goodsList))
-                            shoppingListAdapter.notifyDataSetChanged()
+                            mData.add(ShoppingCarts(carts.store_id, carts.store_name, "", "", "", "", "", linkedMapOf(), "", false, goodsList))
                         }
                     }
                 }
+
+                shoppingListAdapter.notifyDataSetChanged()
             }
 
             override fun onFailed(code: String, message: String) {
+                isEdit = false
+                shoppingListAdapter.isEdit = isEdit
+                titleFragment.tvRight?.text = ("编辑")
+                rlDelete.visibility = View.GONE
+                llResult.visibility = View.VISIBLE
+                refreshLayout.isEnabled = true
                 refreshLayout.isRefreshing = false
+                shoppingListAdapter.notifyDataSetChanged()
+
+                if (code == "200") {
+                    rlSelect.visibility = View.GONE
+                    titleFragment.getRightText().visibility = View.GONE
+                    showReTryLayout("购物车还是空的，赶紧行动吧！")
+                } else {
+                    titleFragment.getRightText().visibility = View.VISIBLE
+                    rlSelect.visibility = View.VISIBLE
+                    hideReTryLayout()
+                }
             }
 
             override fun onCatch(data: BaseBean<ArrayList<ShoppingCarts>>) {
@@ -133,20 +182,19 @@ class ShoppingFragment : BaseFragment() {
 
     }
 
-
-
+    //修改购物车数量
     private fun modifyCount() {
         val jsonArray = JSONArray()
         mData.forEach { shopList ->
             shopList.goodsList.forEach {
-                jsonArray.put(JSONObject().put(it.sku_id,it.num))
+                jsonArray.put(JSONObject().put(it.sku_id, it.num))
             }
         }
         val params = hashMapOf<String, String>()
         params["data"] = jsonArray.toString()
         ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
-                    ToastUtil.show("保存成功！")
+                ToastUtil.show("保存成功！")
             }
 
             override fun onFailed(code: String, message: String) {
@@ -158,5 +206,36 @@ class ShoppingFragment : BaseFragment() {
             }
 
         })
+    }
+
+
+    //从删除购物车
+    private fun delete(){
+        val jsonArray = JSONArray()
+        mData.forEach { shoppingCarts ->
+            shoppingCarts.goodsList.filter { it.isChecked }.forEach {
+                jsonArray.put(JSONObject().put(it.sku_id, "0"))
+            }
+        }
+
+        val params = hashMapOf<String, String>()
+        params["data"] = jsonArray.toString()
+        ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                ToastUtil.show("删除成功！")
+                loadData()
+            }
+            override fun onFailed(code: String, message: String) {
+
+            }
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+        })
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddGoodsEvent(addCar: AddCar){
+        loadData()
     }
 }
