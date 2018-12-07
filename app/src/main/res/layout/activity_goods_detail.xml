@@ -207,6 +207,7 @@
                             android:layout_height="@dimen/h148"
                             android:layout_marginStart="@dimen/w45"
                             android:layout_marginLeft="@dimen/w45"
+                            android:scaleType="centerCrop"
                             android:src="@color/activity_bg"
                             app:riv_oval="true" />
 

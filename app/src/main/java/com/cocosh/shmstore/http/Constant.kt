@@ -250,6 +250,9 @@ object Constant {
     const val ESHOP_FAVLIST_GOODS = "$VERSION/eshop/favlist/goods"
     //收藏店铺
     const val ESHOP_FAV_STORE = "$VERSION/eshop/fav/store"
+    //收藏店铺列表
+    const val ESHOP_FAVLIST_STORE = "$VERSION/eshop/favlist/store"
+
 
     /**
      * 首页
