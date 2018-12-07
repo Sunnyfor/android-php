@@ -28,6 +28,7 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
         window.setBackgroundDrawableResource(R.color.transparent)
         window.attributes.width = WindowManager.LayoutParams.MATCH_PARENT
         window.setGravity(Gravity.BOTTOM)
+        window.setWindowAnimations(R.style.SercurityAnimation)
 
         tvCount.text = count
 

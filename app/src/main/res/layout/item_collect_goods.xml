@@ -58,6 +58,7 @@
             tools:text="3002人收藏" />
 
         <LinearLayout
+            android:id="@+id/ll_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/w148"
@@ -80,6 +81,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/txt_fail"
             android:layout_width="@dimen/w144"
             android:layout_height="@dimen/h58"
             android:layout_marginTop="@dimen/w163"
@@ -87,6 +89,26 @@
             android:gravity="center"
             android:text="已失效"
             android:textColor="@color/gray"
-            android:textSize="@dimen/w32" />
+            android:textSize="@dimen/w32"
+            android:visibility="gone" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/w35"
+        android:paddingTop="@dimen/w42"
+        android:paddingRight="@dimen/w35"
+        android:paddingBottom="@dimen/w42">
+
+        <View
+            android:layout_width="@dimen/w46"
+            android:layout_height="@dimen/h46"
+            android:background="@mipmap/ic_goods_delete" />
+    </LinearLayout>
+
 </RelativeLayout>

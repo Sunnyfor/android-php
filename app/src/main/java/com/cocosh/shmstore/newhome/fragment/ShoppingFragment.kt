@@ -115,7 +115,7 @@ class ShoppingFragment : BaseFragment() {
                     it.forEach { carts ->
                         if (!mData.contains(carts)) {
                             val goodsList = it.filter { it.store_name == carts.store_name } as ArrayList
-                            mData.add(ShoppingCarts("", carts.store_name, "", "", "", "", "", linkedMapOf(), "",false, goodsList))
+                            mData.add(ShoppingCarts(carts.store_id, carts.store_name, "", "", "", "", "", linkedMapOf(), "",false, goodsList))
                             shoppingListAdapter.notifyDataSetChanged()
                         }
                     }

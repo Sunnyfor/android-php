@@ -325,6 +325,7 @@
             android:orientation="vertical">
 
             <View
+                android:id="@+id/view_collect"
                 android:layout_width="@dimen/w55"
                 android:layout_height="@dimen/w55"
                 android:layout_marginStart="@dimen/w68"

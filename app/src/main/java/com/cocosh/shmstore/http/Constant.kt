@@ -244,6 +244,12 @@ object Constant {
 
     //保存购物车
     const val ESHOP_CART_SAVE = "$VERSION/eshop/cart/save"
+    //收藏商品
+    const val ESHOP_FAV_GOODS = "$VERSION/eshop/fav/goods"
+    //收藏商品列表
+    const val ESHOP_FAVLIST_GOODS = "$VERSION/eshop/favlist/goods"
+    //收藏店铺
+    const val ESHOP_FAV_STORE = "$VERSION/eshop/fav/store"
 
     /**
      * 首页

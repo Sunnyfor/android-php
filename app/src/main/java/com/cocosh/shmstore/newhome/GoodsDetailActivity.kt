@@ -14,6 +14,7 @@ import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.login.ui.activity.LoginActivity
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.Address
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
@@ -21,12 +22,15 @@ import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsBannerAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsDetailShopAdapter
 import com.cocosh.shmstore.newhome.model.GoodsDetail
+import com.cocosh.shmstore.newhome.model.GoodsFavEvent
+import com.cocosh.shmstore.newhome.model.Shop
 import com.cocosh.shmstore.utils.GoodsDetailActivityManager
-import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.GoodsDetailDialog
 import kotlinx.android.synthetic.main.activity_goods_detail.*
-import org.json.JSONArray
-import org.json.JSONObject
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
@@ -44,7 +48,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun getAddress(result: BaseBean<ArrayList<Address>>) {
         result.message?.let { it ->
-            if (it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 txt_address.text = it.last { it.default == "1" }.district
             }
         }
@@ -74,30 +78,46 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         llAddress.setOnClickListener(this)
         llShop.setOnClickListener(this)
         rl_shop.setOnClickListener(this)
+        llCollect.setOnClickListener(this)
+        btnFollow.setOnClickListener(this)
+        EventBus.getDefault().register(this)
         loadData()
     }
 
     override fun onListener(view: View) {
         when (view.id) {
             R.id.llAddress -> {
-                startActivity(Intent(this, AddressMangerActivity::class.java))
+                if (UserManager2.isLogin()) {
+                    startActivity(Intent(this, AddressMangerActivity::class.java))
+                } else {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
             }
             R.id.llShop -> {
-                GoodsShoppingActivity.start(this,goodsDetail?.store?.name?:"",goodsDetail?.store?.id?:"")
+                GoodsShoppingActivity.start(this, goodsDetail?.store?.name
+                        ?: "", goodsDetail?.store?.id ?: "")
 //                startActivity(Intent(this, GoodsShoppingActivity::class.java))
             }
             R.id.llFormat -> {
                 showAddCar()
             }
             R.id.llCollect -> {
-
+                if (UserManager2.isLogin()) {
+                    favGoods()
+                } else {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
             }
 
             R.id.text_add_car -> {
                 showAddCar()
             }
             R.id.rl_shop -> {
-                GoodsShoppingActivity.start(this,goodsDetail?.store?.name?:"",goodsDetail?.store?.id?:"")
+                GoodsShoppingActivity.start(this, goodsDetail?.store?.name
+                        ?: "", goodsDetail?.store?.id ?: "")
+            }
+            R.id.btnFollow -> {
+                favShop()
             }
         }
     }
@@ -117,13 +137,14 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     text_goods_name.text = it.goods.name
                     text_goods_price.text = ("¥ " + it.goods.price)
 
-                    val ele = StringBuilder()
-                    it.goods.sku.desc[0].ele.forEach {
-                        ele.append(it.value).append("，")
+                    it.goods.sku.let { sku ->
+                        val ele = StringBuilder()
+                        sku.desc[0].ele.forEach {
+                            ele.append(it.value).append("，")
+                        }
+                        tvEle.text = (ele.toString() + "1件")
+                        skuid = sku.desc[0].id
                     }
-                    tvEle.text = (ele.toString() + "1件")
-
-                    skuid = it.goods.sku.desc[0].id
 
                     Glide.with(this@GoodsDetailActivity).load(it.store.logo)
                             .dontAnimate()
@@ -136,6 +157,13 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     } else {
                         btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
                     }
+
+                    if (it.goods.fav == "1") {
+                        view_collect.setBackgroundResource(R.mipmap.ic_goods_collect_red)
+                    } else {
+                        view_collect.setBackgroundResource(R.mipmap.ic_goods_collect)
+                    }
+
                     recyclerView.adapter = GoodsDetailShopAdapter(it.store.goods ?: arrayListOf())
 
                     val content = it.detail + it.exts + it.service
@@ -186,8 +214,9 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
     override fun onDestroy() {
-        GoodsDetailActivityManager.removeActivity(this)
         super.onDestroy()
+        GoodsDetailActivityManager.removeActivity(this)
+        EventBus.getDefault().unregister(this)
     }
 
     private fun showAddCar() {
@@ -204,6 +233,86 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     override fun onResume() {
         super.onResume()
         mPresenter.requestGetAddress(0)
+    }
+
+
+    //收藏商品方法
+    private fun favGoods() {
+        val params = hashMapOf<String, String>()
+        params["goods_id"] = goodsId
+        params["op"] = if (goodsDetail?.goods?.fav == "1") "2" else "1"
+        ApiManager2.post(this, params, Constant.ESHOP_FAV_GOODS, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                if (goodsDetail?.goods?.fav == "1") {
+                    goodsDetail?.goods?.fav = "0"
+                } else {
+                    goodsDetail?.goods?.fav = "1"
+                }
+                EventBus.getDefault().post(GoodsFavEvent(goodsId,goodsDetail?.goods?.fav?:"0"))
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
+    }
+
+    private fun favShop() {
+        val params = hashMapOf<String, String>()
+        params["store_id"] = goodsDetail?.store?.id ?: ""
+        params["op"] = if (goodsDetail?.store?.attention == "0") "1" else "2"
+        ApiManager2.post(this, params, Constant.ESHOP_FAV_STORE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                if (goodsDetail?.store?.attention == "0") {
+                    goodsDetail?.store?.attention = "1"
+                    btnFollow.setBackgroundResource(R.mipmap.ic_shop_cancel_follow)
+                } else {
+                    goodsDetail?.store?.attention = "0"
+                    btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onShopEvent(shop: Shop) {
+        if (shop.id != goodsDetail?.store?.id) {
+            return
+        }
+        goodsDetail?.store?.attention = shop.attention
+        if (shop.attention == "1") {
+            btnFollow.setBackgroundResource(R.mipmap.ic_shop_cancel_follow)
+        } else {
+            btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onGoodsEvent(goods: GoodsFavEvent) {
+        if (goods.goods_id != goodsDetail?.goods?.id) {
+            return
+        }
+        goodsDetail?.goods?.fav = goods.isfav
+        if (goods.isfav == "1") {
+            view_collect.setBackgroundResource(R.mipmap.ic_goods_collect_red)
+        } else {
+            view_collect.setBackgroundResource(R.mipmap.ic_goods_collect)
+        }
     }
 
 }

@@ -61,7 +61,7 @@ class CollectionActivity : BaseActivity() {
         fragments.add(collectionShopFragment)
 
         tabLayout.setupWithViewPager(viewPager)
-
+        viewPager.offscreenPageLimit = 3
         viewPager.adapter = object :FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment = fragments[position]
 

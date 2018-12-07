@@ -60,6 +60,9 @@ class ShopGoodsListFragment : BaseFragment() {
 
     fun loadData(storeId: String, cate_id: String) {
         this.storeId = storeId
+        if (cate_id != this.cateId) {
+            pager = "0"
+        }
         cateId = cate_id
         val params = hashMapOf<String, String>()
         params["store_id"] = storeId
@@ -71,15 +74,13 @@ class ShopGoodsListFragment : BaseFragment() {
         ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_STORE_GOODS, object : ApiManager2.OnResult<BaseBean<ArrayList<Goods>>>() {
             override fun onSuccess(data: BaseBean<ArrayList<Goods>>) {
                 getLayoutView().swipeRefreshLayout.isRefreshing = false
-                data.message?.let {
-                    if (pager == "0") {
-                        goodsList.clear()
-                        goodsList.addAll(it)
-                        getLayoutView().swipeRefreshLayout.update(it)
-                        getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
-                    } else {
-                        getLayoutView().swipeRefreshLayout.loadMore(it)
-                    }
+                if (pager == "0") {
+                    goodsList.clear()
+                    goodsList.addAll(data.message ?: arrayListOf())
+                    getLayoutView().swipeRefreshLayout.update(data.message)
+                    getLayoutView().swipeRefreshLayout.recyclerView.adapter.notifyDataSetChanged()
+                } else {
+                    getLayoutView().swipeRefreshLayout.loadMore(data.message ?: arrayListOf())
                 }
 
             }

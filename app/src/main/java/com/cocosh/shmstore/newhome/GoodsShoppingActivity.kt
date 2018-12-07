@@ -20,12 +20,13 @@ import kotlinx.android.synthetic.main.activity_goods_shopping.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
 
 
 class GoodsShoppingActivity : BaseActivity() {
 
-    private var shopId = ""
-
+    private var shopId = "0"
+    private var isfav = "0"
     private val shopGoodsListFragment: ShopGoodsListFragment by lazy {
         ShopGoodsListFragment()
     }
@@ -37,11 +38,16 @@ class GoodsShoppingActivity : BaseActivity() {
         shopId = intent.getStringExtra("shopId") ?: "0"
         supportFragmentManager.beginTransaction().add(R.id.content, shopGoodsListFragment).commit()
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        btnFollow.setOnClickListener(this)
         loadShop()
     }
 
     override fun onListener(view: View) {
-
+        when (view.id) {
+            btnFollow.id -> {
+                collectionShop()
+            }
+        }
     }
 
     override fun reTryGetData() {
@@ -63,6 +69,8 @@ class GoodsShoppingActivity : BaseActivity() {
 
                     tvName.text = it.name
                     tvCount.text = (it.total + "件在售商品")
+
+                    isfav = it.attention
 
                     if (it.attention == "1") {
                         btnFollow.setBackgroundResource(R.mipmap.ic_shop_cancel_follow)
@@ -125,4 +133,31 @@ class GoodsShoppingActivity : BaseActivity() {
         }
     }
 
+
+    private fun collectionShop() {
+        val params = hashMapOf<String, String>()
+        params["store_id"] = shopId
+        params["op"] = if (isfav == "0") "1" else "2"
+        ApiManager2.post(this, params, Constant.ESHOP_FAV_STORE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                if (isfav == "0") {
+                    isfav = "1"
+                    btnFollow.setBackgroundResource(R.mipmap.ic_shop_cancel_follow)
+                } else {
+                    isfav = "0"
+                    btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
+                }
+                EventBus.getDefault().post(Shop(shopId,"","","","",isfav,null,null))
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
+    }
 }

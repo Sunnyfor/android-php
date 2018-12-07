@@ -47,9 +47,10 @@ class ShoppingListAdapter(mList: ArrayList<ShoppingCarts>, var action: () -> Uni
             getData(position).isChecked = false
         }
 
-        holder.itemView.setOnClickListener {
+        holder.itemView.ll_shop.setOnClickListener {
             GoodsShoppingActivity.start(context,getData(position).store_name,getData(position).store_id)
         }
+
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(context).inflate(R.layout.layout_shopping_shop_item, parent, false)
