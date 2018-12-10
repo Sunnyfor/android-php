@@ -56,4 +56,6 @@ public class DataCode {
     public static final String VOUCHERS_SELECT = "vouchers_select"; //代金卷
 
     public static final String GOODS_DETAIL = "goods_detail"; //商品尸体
+
+    public static final String ORDER_GOODS = "order_goods"; //订单商品
 }

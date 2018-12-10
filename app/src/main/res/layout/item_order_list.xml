@@ -1,191 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/h120"
-        android:background="@color/red">
 
-        <TextView
-            android:id="@+id/numDesc"
-            style="@style/text_nomal_min"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/w48"
-            android:text="订单编号:"
-            android:textColor="@color/white"
-            android:textSize="@dimen/h34" />
+    <include layout="@layout/item_create_order_shop" />
 
-        <TextView
-            android:id="@+id/number"
-            style="@style/text_nomal_min"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/w25"
-            android:layout_toRightOf="@+id/numDesc"
-            android:text="9873598263459898"
-            android:textColor="@color/white"
-            android:textSize="@dimen/h34" />
-
-        <TextView
-            android:id="@+id/timeLeave"
-            style="@style/text_nomal_min"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/w15"
-            android:layout_toLeftOf="@+id/orderStatus"
-            android:text="23:59:50"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="@dimen/h34" />
-
-        <TextView
-            android:id="@+id/orderStatus"
-            style="@style/text_nomal_min"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/w48"
-            android:text="待付款"
-            android:textColor="@color/white"
-            android:textSize="@dimen/h34" />
-    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/h300">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h20">
 
-        <ImageView
-            android:id="@+id/goodsPic"
-            android:layout_width="@dimen/w206"
-            android:layout_height="@dimen/h206"
-            android:layout_marginLeft="@dimen/w48"
-            android:layout_marginTop="@dimen/h36"
-            android:src="@drawable/default_content" />
-
-        <RelativeLayout
-            android:id="@+id/rl1"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/h50"
-            android:layout_toRightOf="@+id/goodsPic">
+            android:layout_marginStart="@dimen/w46"
+            android:layout_marginLeft="@dimen/w46">
 
             <TextView
-                android:id="@+id/shopName"
-                style="@style/text_nomal_small"
-                android:layout_marginLeft="@dimen/w42"
-                android:text="朴坊"
-                android:textColor="@color/blackText" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小计"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
 
             <TextView
-                android:id="@+id/goodsName"
-                style="@style/text_nomal_small"
-                android:layout_marginLeft="@dimen/w30"
-                android:layout_toRightOf="@+id/shopName"
-                android:text="不锈钢金碗"
-                android:visibility="gone"
-                android:textColor="@color/blackText" />
+                android:id="@+id/txt_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ 0.00"
+                android:textColor="@color/red"
+                android:layout_marginLeft="@dimen/w25"
+                android:textSize="@dimen/w40" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/goodsPrice"
-                style="@style/text_nomal_small"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/w48"
-                android:text="￥20.00"
-                android:textColor="@color/blackText" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl2"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl1"
-            android:layout_marginTop="@dimen/h35"
-            android:layout_toRightOf="@+id/goodsPic">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
 
             <TextView
-                style="@style/text_nomal_small"
-                android:layout_marginLeft="@dimen/w42"
-                tools:text="差高烧汤灿装"
-                android:textSize="@dimen/h37" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/w46"
+                android:layout_marginRight="@dimen/w46"
+                android:text="运费:免邮"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w40" />
 
-            <TextView
-                android:id="@+id/goodsNum"
-                style="@style/text_nomal_small"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/w48"
-                tools:text="x1"
-                android:textSize="@dimen/h37" />
-        </RelativeLayout>
-
-
-        <TextView
-            android:id="@+id/tvMoney"
-            style="@style/text_nomal_small"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/w48"
-            tools:text="共计32.00元 包邮" />
-
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/h50">
+        android:layout_marginTop="@dimen/w25">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/h90"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true">
 
 
             <TextView
-                android:id="@+id/service"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/txt_let"
+                android:layout_width="@dimen/w220"
+                android:layout_height="@dimen/h90"
+                android:layout_marginEnd="@dimen/w32"
                 android:layout_marginRight="@dimen/w32"
                 android:background="@drawable/shape_rectangle_gray_to_white"
                 android:gravity="center"
-                android:paddingLeft="@dimen/w25"
-                android:paddingRight="@dimen/w25"
-                android:text="联系客服"
-                android:textColor="@color/grayText"
-                android:textSize="@dimen/h40" />
-
-            <TextView
-                android:id="@+id/look"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/w32"
-                android:background="@drawable/shape_rectangle_gray_to_white"
-                android:gravity="center"
-                android:paddingLeft="@dimen/w25"
-                android:paddingRight="@dimen/w25"
-                android:text="查看物流"
                 android:textColor="@color/grayText"
                 android:textSize="@dimen/h40"
-                android:visibility="visible" />
+                android:visibility="gone"
+                tools:text="联系客服" />
 
             <TextView
-                android:id="@+id/pay"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/w48"
+                android:id="@+id/txt_mid"
+                android:layout_width="@dimen/w220"
+                android:layout_height="@dimen/h90"
+                android:layout_marginEnd="@dimen/w32"
+                android:layout_marginRight="@dimen/w32"
+                android:background="@drawable/shape_rectangle_gray_to_white"
+                android:gravity="center"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/h40"
+                android:visibility="gone"
+                tools:text="查看物流" />
+
+            <TextView
+                android:id="@+id/txt_right"
+                android:layout_width="@dimen/w220"
+                android:layout_height="@dimen/h90"
+                android:layout_marginEnd="@dimen/w46"
+                android:layout_marginRight="@dimen/w46"
                 android:background="@drawable/shape_rectangle_round_red"
                 android:gravity="center"
-                android:paddingLeft="@dimen/w25"
-                android:paddingRight="@dimen/w25"
-                android:text="去支付"
                 android:textColor="@color/white"
-                android:textSize="@dimen/h40" />
+                android:textSize="@dimen/h40"
+                android:visibility="gone"
+                tools:text="去支付" />
         </LinearLayout>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/h2"
-        android:layout_marginTop="@dimen/h40"
+        android:layout_marginTop="@dimen/h20"
         android:background="@color/line_gray" />
 </LinearLayout>

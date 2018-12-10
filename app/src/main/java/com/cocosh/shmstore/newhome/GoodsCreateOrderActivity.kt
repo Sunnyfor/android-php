@@ -250,6 +250,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
                     }
                     numberSb.deleteCharAt(numberSb.lastIndex)
                     PayActivity.start(this@GoodsCreateOrderActivity,numberSb.toString(),data.message?.actual?:"0.00","3")
+                    finish()
                 }
             }
 

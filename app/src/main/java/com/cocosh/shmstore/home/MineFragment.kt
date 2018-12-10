@@ -134,7 +134,7 @@ class MineFragment : BaseFragment(), OnItemClickListener {
     /**
      * 加载数据
      */
-    fun loadDate() {
+    private fun loadDate() {
         if (!UserManager2.isLogin()) {
             UserManager2.loadBg(null, getLayoutView().ivBg)
             getLayoutView().tvName.text = "未登录"
@@ -223,13 +223,13 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         if (!flag) {
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"))
-//            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineHelp), "帮助中心"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"))
         } else {
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMinePurse), "钱包"))
-//                    newBottomTitles.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
+            bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineOrder), "订单"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconSendBonus), "发出的红包"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconAddress), "地址管理"))
             bottomList.add(MineTopNavEntity(resources.getString(R.string.iconMineAuthen), "认证"))
@@ -237,12 +237,12 @@ class MineFragment : BaseFragment(), OnItemClickListener {
         }
 
         UserManager2.getCouponIndex()?.let {
-            if (it.activity == 1){
+            if (it.activity == 1) {
                 val mineTopNavEntity = MineTopNavEntity(resources.getString(R.string.iconVouchers), "我的红包礼券")
                 bottomList.add(2, mineTopNavEntity)
             }
 
-            if (it.receive == 0){
+            if (it.receive == 0) {
                 val mineTopNavEntity = MineTopNavEntity("", "代金券")
                 mineTopNavEntity.type = 1
                 bottomList.add(0, mineTopNavEntity)

@@ -52,9 +52,9 @@ object Constant {
 
     const val INCOME = "$VERSION/income" //收益总览
 
-    const val ORDER_LIST = "$VERSION/order/list" //订单列表
+    const val ORDER_LIST = "$VERSION/eshop/orders" //订单列表
 
-    const val ORDER_DETAILS = "$VERSION/order/details" //订单详情
+    const val ORDER_DETAILS = "$VERSION/eshop/order/detail" //订单详情
 
     const val PAYPASS_SET = "$VERSION/paypass/set" //支付密码-设置
 
@@ -258,6 +258,8 @@ object Constant {
 
     //创建订单
     const val ESHOP_ORDER_CREATE = "$VERSION/eshop/order/create"
+
+    const val ESHOP_ORDER_UPDA = "$VERSION/eshop/order/upda"
 
     /**
      * 首页

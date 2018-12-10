@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/activity_bg"
         android:orientation="vertical">
 
@@ -18,75 +18,24 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/status"
+                android:id="@+id/txt_status"
                 style="@style/text_nomal_min"
                 android:layout_marginLeft="@dimen/w66"
                 android:layout_marginTop="@dimen/h63"
-                android:text="当前订单状态：等待买家付款"
+                android:layout_marginBottom="@dimen/w30"
+                tools:text="等待买家付款"
                 android:textSize="@dimen/w52" />
 
             <TextView
                 android:id="@+id/time"
                 style="@style/text_nomal_small"
                 android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h30"
+                android:layout_marginBottom="@dimen/w30"
                 android:text="付款剩余时间23小时59分钟"
                 android:textSize="@dimen/w35" />
-
-            <TextView
-                android:id="@+id/hint"
-                style="@style/text_nomal_small"
-                android:layout_marginBottom="@dimen/h58"
-                android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h30"
-                android:text="如果逾期未发货，订单将自动关闭，款项全部退回" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/orderInfoLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/h30"
-            android:background="@color/white"
-            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h35"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/text_nomal_small"
-                    android:text="订单编号：" />
-
-                <TextView
-                    android:id="@+id/orderNumber"
-                    style="@style/text_nomal_small"
-                    tools:text="2356458687907654323"
-                    android:textColor="@color/blackText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/h35"
-                android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h35"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/text_nomal_small"
-                    android:text="下单时间：" />
-
-                <TextView
-                    android:id="@+id/orderPlaceTime"
-                    style="@style/text_nomal_small"
-                    tools:text="2017-11-11  00:00:00"
-                    android:textColor="@color/blackText" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,7 +62,7 @@
                         android:textColor="@color/grayText" />
 
                     <TextView
-                        android:id="@+id/buyer"
+                        android:id="@+id/text_user_name"
                         style="@style/text_nomal_small"
                         tools:text="张三  13800000000"
                         android:textColor="@color/blackText" />
@@ -135,7 +84,7 @@
                     <TextView
                         android:id="@+id/address"
                         style="@style/text_nomal_small"
-                        android:text="北京市海淀区北清路100号" />
+                        tools:text="北京市海淀区北清路100号" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -245,59 +194,13 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h30"
             android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/goodsPic"
-                android:layout_width="@dimen/h230"
-                android:layout_height="@dimen/h230"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/h69"
-                android:layout_marginTop="@dimen/h59"
-                android:src="@drawable/default_content" />
-
-            <TextView
-                android:id="@+id/shopName"
-                style="@style/text_nomal_min"
-                android:layout_marginLeft="@dimen/w29"
-                android:layout_marginTop="@dimen/h59"
-                android:layout_toRightOf="@+id/goodsPic"
-                tools:text="现货 Nike Air VaporMax 2.0 纯黑武士 cny纯白 2代" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/w29"
-                android:layout_marginTop="@dimen/h200"
-                android:layout_toRightOf="@+id/goodsPic"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/text_nomal_small"
-                    android:text="合计："
-                    android:textColor="@color/grayText"
-                    android:textSize="@dimen/h35" />
-
-
-                <TextView
-                    android:id="@+id/goodsPrice"
-                    style="@style/text_nomal_min"
-                    android:text="￥20.00"
-                    android:textSize="@dimen/h46" />
-
-                <TextView
-                    style="@style/text_nomal_small"
-                    android:layout_marginLeft="@dimen/w32"
-                    android:text="(运费 ¥0.00)"
-                    android:textColor="@color/grayText"
-                    android:textSize="@dimen/h35" />
-            </LinearLayout>
-        </RelativeLayout>
+        </android.support.v7.widget.RecyclerView>
 
         <LinearLayout
             android:id="@+id/orderInfoShowLl"
@@ -353,17 +256,75 @@
 
                 <TextView
                     style="@style/text_nomal_small"
-                    android:text="支付方式："
+                    android:text="订单总金额："
                     android:textColor="@color/grayText" />
 
                 <TextView
                     android:id="@+id/showPayWay"
                     style="@style/text_nomal_small"
-                    tools:text="小红娘支付"
+                    tools:text="0.00元"
                     android:textColor="@color/blackText" />
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="抵扣方式："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/text_deduction"
+                    style="@style/text_nomal_small"
+                    android:text="无抵扣"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="减免金额："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/text_deduction_money"
+                    style="@style/text_nomal_small"
+                    android:text="0.00元"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w66"
+                android:layout_marginTop="@dimen/h30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:text="实际付款金额："
+                    android:textColor="@color/grayText" />
+
+                <TextView
+                    android:id="@+id/text_pay_money"
+                    style="@style/text_nomal_small"
+                    android:text="0.00元"
+                    android:textColor="@color/blackText" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -377,27 +338,7 @@
                     android:textColor="@color/grayText" />
 
                 <TextView
-                    android:id="@+id/showPlaceTime"
-                    style="@style/text_nomal_small"
-                    android:text="2017-11-11  00:00:00"
-                    android:textColor="@color/blackText" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/w66"
-                android:layout_marginTop="@dimen/h30">
-
-                <TextView
-                    style="@style/text_nomal_small"
-                    android:text="付款时间："
-                    android:textColor="@color/grayText" />
-
-                <TextView
-                    android:id="@+id/showPayTime"
+                    android:id="@+id/txt_time"
                     style="@style/text_nomal_small"
                     android:text="2017-11-11  00:00:00"
                     android:textColor="@color/blackText" />
@@ -414,14 +355,14 @@
 
                 <TextView
                     style="@style/text_nomal_small"
-                    android:text="发货时间："
+                    android:text="付款时间："
                     android:textColor="@color/grayText" />
 
                 <TextView
                     android:id="@+id/showStartTime"
                     style="@style/text_nomal_small"
                     android:textColor="@color/blackText"
-                    android:text="2017-11-11  00:00:00" />
+                    tools:text="2017-11-11  00:00:00" />
 
             </LinearLayout>
 
@@ -441,39 +382,8 @@
                 <TextView
                     android:id="@+id/showTime"
                     style="@style/text_nomal_small"
-                    android:text="2017-11-11  00:00:00" />
+                    tools:text="2017-11-11  00:00:00" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/h30"
-            android:background="@color/white"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/cancelOrder"
-                android:layout_width="@dimen/w259"
-                android:layout_height="@dimen/h92"
-                android:layout_marginBottom="@dimen/h40"
-                android:layout_marginRight="@dimen/w35"
-                android:layout_marginTop="@dimen/h40"
-                android:background="@drawable/shape_btn_border_gray"
-                android:text="取消订单"
-                android:textColor="@color/grayText" />
-
-            <Button
-                android:id="@+id/pay"
-                android:layout_width="@dimen/w259"
-                android:layout_height="@dimen/h92"
-                android:layout_marginBottom="@dimen/h40"
-                android:layout_marginRight="@dimen/w35"
-                android:layout_marginTop="@dimen/h40"
-                android:background="@drawable/shape_btn_border_red"
-                android:text="去支付"
-                android:textColor="@color/red" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

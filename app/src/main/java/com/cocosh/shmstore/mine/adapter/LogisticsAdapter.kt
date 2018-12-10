@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_logistics.view.*
  * Created by lmg on 2018/4/12.
  * 收藏
  */
-class LogisticsAdapter(var mContext: Context, list: ArrayList<OrderDetail.Express.Data>) : BaseRecycleAdapter<OrderDetail.Express.Data>(list) {
+class LogisticsAdapter(var mContext: Context, list: ArrayList<OrderDetail>) : BaseRecycleAdapter<OrderDetail>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         when (position) {
             0 -> {
@@ -29,8 +29,8 @@ class LogisticsAdapter(var mContext: Context, list: ArrayList<OrderDetail.Expres
             }
         }
 
-        holder.itemView.desc.text = getData(position).remark
-        holder.itemView.time.text = getData(position).datetime
+//        holder.itemView.desc.text = getData(position).remark
+//        holder.itemView.time.text = getData(position).dateti
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(parent.context).inflate(R.layout.item_logistics, parent, false)
