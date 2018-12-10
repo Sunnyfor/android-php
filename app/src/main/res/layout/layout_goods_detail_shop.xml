@@ -11,6 +11,7 @@
         android:id="@id/ivPhoto"
         android:layout_width="@dimen/w331"
         android:layout_height="@dimen/h318"
+        android:scaleType="centerCrop"
         android:src="@color/activity_bg"/>
 
     <TextView

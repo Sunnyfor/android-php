@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_address_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h302"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="@dimen/w138"
+                        android:layout_height="@dimen/w138"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/h50"
+                        android:background="@mipmap/ic_add_address" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/w22"
+                        android:text="添加收获地址"
+                        android:textColor="@color/grayText"
+                        android:textSize="@dimen/w40" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/h40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/w122"
+                            android:layout_marginLeft="@dimen/w122"
+                            android:text="收  货  人："
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/w40" />
+
+                        <TextView
+                            android:id="@+id/txt_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grayText"
+                            android:textSize="@dimen/w40"
+                            tools:text="乔布斯" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/h13"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/w122"
+                            android:layout_marginLeft="@dimen/w122"
+                            android:text="联系方式："
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/w40" />
+
+                        <TextView
+                            android:id="@+id/txt_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grayText"
+                            android:textSize="@dimen/w40"
+                            tools:text="16977379939" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/h13"
+                        android:layout_marginBottom="@dimen/h32"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/w122"
+                            android:layout_marginLeft="@dimen/w122"
+                            android:text="联系方式："
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/w40" />
+
+                        <TextView
+                            android:id="@+id/txt_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/w56"
+                            android:layout_marginRight="@dimen/w56"
+                            android:textColor="@color/grayText"
+                            android:textSize="@dimen/w40"
+                            tools:text="北京市 朝阳区 青年路 万达大厦T1 13层 B区1306" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w127"
+                android:layout_marginTop="@dimen/h29"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w46"
+                    android:layout_marginLeft="@dimen/w46"
+                    android:text="小计"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w43" />
+
+
+                <TextView
+                    android:id="@+id/txt_allMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/w46"
+                    android:layout_marginRight="@dimen/w46"
+                    android:text="¥ 0.00"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/w43" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/w127"
+                android:layout_marginTop="@dimen/h29"
+                android:layout_marginBottom="@dimen/h29"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w46"
+                    android:layout_marginLeft="@dimen/w46"
+                    android:text="红包抵扣"
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/w43" />
+
+
+                <TextView
+                    android:id="@+id/txt_red_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/ll_select"
+                    android:layout_toLeftOf="@+id/ll_select"
+                    android:text="¥ 0.00"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w43" />
+
+                <RelativeLayout
+                    android:id="@+id/ll_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/w46"
+                    android:paddingRight="@dimen/w46">
+
+                    <View
+                        android:id="@+id/view_select"
+                        android:layout_width="@dimen/w52"
+                        android:layout_height="@dimen/h52"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/ic_vouchers_select_yes" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h170"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/w46"
+            android:layout_marginLeft="@dimen/w46"
+            android:text="实付："
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w46" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w184"
+            android:text="¥"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w46" />
+
+        <TextView
+            android:id="@+id/txt_pay_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w216"
+            android:layout_marginLeft="@dimen/w216"
+            android:layout_marginTop="@dimen/h39"
+            android:text="0.00"
+            android:textColor="@color/red"
+            android:textSize="@dimen/w63" />
+
+        <Button
+            android:id="@+id/btnCommit"
+            android:layout_width="@dimen/w276"
+            android:layout_height="@dimen/h121"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/w37"
+            android:layout_marginRight="@dimen/w37"
+            android:background="@drawable/shape_rectangle_red"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/w46" />
+    </RelativeLayout>
+</RelativeLayout>

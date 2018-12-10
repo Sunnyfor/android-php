@@ -70,6 +70,7 @@
                 android:textSize="@dimen/w46" />
 
             <Button
+                android:id="@+id/btn_buy"
                 android:layout_width="@dimen/w202"
                 android:layout_height="@dimen/h89"
                 android:layout_marginLeft="@dimen/w33"
@@ -77,7 +78,9 @@
                 android:background="@drawable/red_corner_btn_bg"
                 android:text="结算"
                 android:textColor="@color/white"
-                android:textSize="@dimen/w46" />
+                android:textSize="@dimen/w46"
+                android:layout_marginStart="@dimen/w33"
+                android:layout_marginEnd="@dimen/w46" />
         </LinearLayout>
 
         <LinearLayout

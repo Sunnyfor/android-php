@@ -253,6 +253,11 @@ object Constant {
     //收藏店铺列表
     const val ESHOP_FAVLIST_STORE = "$VERSION/eshop/favlist/store"
 
+    //获取当前红包余额
+    const val RP_REMAINS = "$VERSION/rp/remains"
+
+    //创建订单
+    const val ESHOP_ORDER_CREATE = "$VERSION/eshop/order/create"
 
     /**
      * 首页

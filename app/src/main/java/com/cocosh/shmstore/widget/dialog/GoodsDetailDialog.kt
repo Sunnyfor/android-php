@@ -1,26 +1,28 @@
 package com.cocosh.shmstore.widget.dialog
 
 import android.app.Dialog
-import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.newhome.GoodsCreateOrderActivity
 import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.GoodsDetail
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
-import com.donkingliang.labels.LabelsView
 import kotlinx.android.synthetic.main.dialog_goods_detail_format.*
 import kotlinx.android.synthetic.main.item_goods_detail_label.view.*
 import org.greenrobot.eventbus.EventBus
 
-class GoodsDetailDialog(private var skuid:String, var count:String,var context: BaseActivity, private var goodsDetail: GoodsDetail, var result: (resultStr: String, skuId: String, count: String) -> Unit) : Dialog(context), View.OnClickListener {
+class GoodsDetailDialog(private var skuid: String, var count: String, var context: BaseActivity, private var goodsDetail: GoodsDetail, var result: (resultStr: String, skuId: String, count: String) -> Unit) : Dialog(context), View.OnClickListener {
 
     private val selectFlag = hashMapOf<String, String>()
 
@@ -38,6 +40,8 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
         rl_add.setOnClickListener(this)
         rl_jian.setOnClickListener(this)
         btnAddCar.setOnClickListener(this)
+        btnBuy.setOnClickListener(this)
+
         initData()
         setOnDismissListener {
             updateButton()
@@ -67,13 +71,12 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
             llLabel.addView(view)
         }
 
-        goodsDetail.goods.sku.desc.last { it.id == skuid }.ele.forEach{
+        goodsDetail.goods.sku.desc.last { it.id == skuid }.ele.forEach {
             selectFlag[it.key] = it.value
         }
-//        updateButton()
 
-        for (i in 0 until selectFlag.size){
-            val select = goodsDetail.goods.sku.attrs[i].vals.split(",").indexOf( selectFlag[(llLabel.getChildAt(i)).tvName.text.toString()])
+        for (i in 0 until selectFlag.size) {
+            val select = goodsDetail.goods.sku.attrs[i].vals.split(",").indexOf(selectFlag[(llLabel.getChildAt(i)).tvName.text.toString()])
             (llLabel.getChildAt(i)).labView.setSelects(select)
         }
 
@@ -81,7 +84,9 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
         goodsDetail.goods.sku.desc[0].ele.forEach {
             ele.append(it.value).append("，")
         }
-        tvDesc.text = (ele.toString() + count +"件")
+
+        updateButton()
+//        tvDesc.text = (ele.toString() + count + "件")
 
     }
 
@@ -94,6 +99,11 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
                 addCar()
                 dismiss()
             }
+            btnBuy.id -> {
+                SmApplication.getApp().setData(DataCode.GOODS_DETAIL, goodsDetail)
+                GoodsCreateOrderActivity.start(context,skuid,tvDesc.text.toString(),tvMoney.text.toString(),tvCount.text.toString()) //单个商品创建订单
+            }
+
         }
     }
 
@@ -137,7 +147,7 @@ class GoodsDetailDialog(private var skuid:String, var count:String,var context: 
             }
             descSB.append(tvCount.text.toString()).append("件")
 
-            tvMoney.text = it.last().price
+            tvMoney.text = (it.last().price.toFloat() * tvCount.text.toString().toInt()).toString()
             tvDesc.text = descSB.toString()
 
             result(tvDesc.text.toString(), it.last().id, tvCount.text.toString())

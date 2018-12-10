@@ -27,6 +27,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/w143"
         android:layout_marginLeft="@dimen/w143"
+        android:scaleType="centerCrop"
         android:src="@color/activity_bg" />
 
     <LinearLayout

@@ -3,17 +3,20 @@ package com.cocosh.shmstore.newhome.fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.newhome.GoodsCreateOrderActivity
 import com.cocosh.shmstore.newhome.adapter.ShoppingListAdapter
 import com.cocosh.shmstore.newhome.model.AddCar
+import com.cocosh.shmstore.newhome.model.CreateGoodsBean
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import com.cocosh.shmstore.title.LeftRightTitleFragment
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.utils.ToastUtil
-import kotlinx.android.synthetic.main.fragment_base.view.*
 import kotlinx.android.synthetic.main.fragment_shopping_car.*
 import kotlinx.android.synthetic.main.layout_left_right_title.*
 import org.greenrobot.eventbus.EventBus
@@ -99,6 +102,8 @@ class ShoppingFragment : BaseFragment() {
         btn_delete.setOnClickListener {
             delete()
         }
+
+        btn_buy.setOnClickListener(this)
     }
 
     override fun reTryGetData() {
@@ -106,6 +111,11 @@ class ShoppingFragment : BaseFragment() {
     }
 
     override fun onListener(view: View) {
+        when(view.id){
+            R.id.btn_buy -> {
+                createOrder()
+            }
+        }
     }
 
     override fun close() {
@@ -210,7 +220,7 @@ class ShoppingFragment : BaseFragment() {
 
 
     //从删除购物车
-    private fun delete(){
+    private fun delete() {
         val jsonArray = JSONArray()
         mData.forEach { shoppingCarts ->
             shoppingCarts.goodsList.filter { it.isChecked }.forEach {
@@ -225,9 +235,11 @@ class ShoppingFragment : BaseFragment() {
                 ToastUtil.show("删除成功！")
                 loadData()
             }
+
             override fun onFailed(code: String, message: String) {
 
             }
+
             override fun onCatch(data: BaseBean<String>) {
 
             }
@@ -235,7 +247,36 @@ class ShoppingFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onAddGoodsEvent(addCar: AddCar){
+    fun onAddGoodsEvent(addCar: AddCar) {
         loadData()
+    }
+
+
+    private fun createOrder() {
+
+        val shopList = arrayListOf<CreateGoodsBean>()
+
+        mData.forEach { carts ->
+            var shopPrice = 0f
+            val goodsList = arrayListOf<CreateGoodsBean>()
+            val createGoodsBean = CreateGoodsBean(carts.store_id, carts.store_name, "", "", "", "", "", "", "", goodsList)
+            val childList = carts.goodsList.filter { it.isChecked }
+            childList.forEach { it ->
+                shopPrice+= (it.sku_price.toFloat() * it.num.toFloat())
+                val skuSb = StringBuilder()
+                it.sku_attrs.forEach {
+                    skuSb.append(it.value).append(",")
+                }
+                skuSb.deleteCharAt(skuSb.lastIndex)
+                goodsList.add(CreateGoodsBean(carts.store_id, carts.store_name, it.goods_id, it.goods_name, it.sku_image, it.sku_id, skuSb.toString(), it.sku_price, it.num, null))
+            }
+            if (childList.isNotEmpty()){
+                createGoodsBean.price = shopPrice.toString()
+                shopList.add(createGoodsBean)
+            }
+        }
+
+        SmApplication.getApp().setData(DataCode.GOODS_DETAIL,shopList)
+        GoodsCreateOrderActivity.start(context,money.toString())
     }
 }

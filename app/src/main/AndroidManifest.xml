@@ -545,6 +545,10 @@
         <activity
             android:name=".newhome.model.RankListActivity"
             android:launchMode="singleTop" />
+
+        <!--创建订单-->
+        <activity android:name=".newhome.GoodsCreateOrderActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -229,6 +229,12 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                         startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
                         setResult(IntentCode.IS_INPUT)
                     }
+
+                    //购买商品
+                    if (payOperatStatus == "3"){
+
+                    }
+
                 } else {
                     //失败
                     if (payOperatStatus == "2") {

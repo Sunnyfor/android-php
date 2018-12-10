@@ -80,6 +80,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         rl_shop.setOnClickListener(this)
         llCollect.setOnClickListener(this)
         btnFollow.setOnClickListener(this)
+        btn_buy.setOnClickListener(this)
         EventBus.getDefault().register(this)
         loadData()
     }
@@ -118,6 +119,9 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
             }
             R.id.btnFollow -> {
                 favShop()
+            }
+            R.id.btn_buy -> {
+                showAddCar()
             }
         }
     }
