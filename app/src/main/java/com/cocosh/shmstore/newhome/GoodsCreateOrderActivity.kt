@@ -16,12 +16,14 @@ import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
 import com.cocosh.shmstore.newhome.adapter.CreateOrderListAdapter
+import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.CreateGoodsBean
 import com.cocosh.shmstore.newhome.model.CreateOrder
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_goods_create_order.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -250,6 +252,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
                     }
                     numberSb.deleteCharAt(numberSb.lastIndex)
                     PayActivity.start(this@GoodsCreateOrderActivity,numberSb.toString(),data.message?.actual?:"0.00","3")
+                    EventBus.getDefault().post(AddCar())
                     finish()
                 }
             }

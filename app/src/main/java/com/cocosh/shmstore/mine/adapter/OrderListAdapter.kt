@@ -77,7 +77,8 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             }
             "101" -> {
                 holder.itemView.tvStatus.text = "交易取消"
-                select(holder.itemView.txt_right, position)
+                delete(holder.itemView.txt_right,position)
+                select(holder.itemView.txt_mid, position)
             }
             else -> {
                 select(holder.itemView.txt_right, position)
@@ -123,6 +124,20 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
         }
 
     }
+
+    private fun delete(textView: TextView, position: Int) {
+        textView.apply {
+            text = "删除订单"
+            showGrayBg(this)
+            setOnClickListener { _ ->
+                showRealDialog("您确定删除订单吗？")
+                        .OnClickListener = View.OnClickListener {
+                    option("3", getData(position).order_sn)
+                }
+            }
+        }
+    }
+
 
     private fun cancel(textView: TextView, position: Int) {
         textView.apply {
@@ -185,6 +200,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
                 if (isDesc) {
                     baseActivity.finish()
                 }
+                EventBus.getDefault().post(Order("","","","","","","", arrayListOf()))
                 ToastUtil.show("操作成功！")
             }
 
