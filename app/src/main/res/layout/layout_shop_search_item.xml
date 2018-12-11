@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_marginBottom="@dimen/w30">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -78,7 +79,8 @@
             android:layout_width="@dimen/w360"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:paddingBottom="@dimen/w20"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/ivPhoto1"
@@ -106,6 +108,7 @@
             android:layout_width="@dimen/w360"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/w20"
             android:visibility="gone">
 
             <ImageView

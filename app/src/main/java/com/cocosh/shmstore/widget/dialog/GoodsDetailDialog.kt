@@ -18,6 +18,8 @@ import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.UserManager2
+import com.cocosh.shmstore.utils.UserManager2.isLogin
 import kotlinx.android.synthetic.main.dialog_goods_detail_format.*
 import kotlinx.android.synthetic.main.item_goods_detail_label.view.*
 import org.greenrobot.eventbus.EventBus
@@ -100,6 +102,12 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
                 dismiss()
             }
             btnBuy.id -> {
+
+                if (!UserManager2.isLogin()) {
+                    SmediaDialog(context).showLogin()
+                    return
+                }
+
                 SmApplication.getApp().setData(DataCode.GOODS_DETAIL, goodsDetail)
                 GoodsCreateOrderActivity.start(context,skuid,tvDesc.text.toString(),tvMoney.text.toString(),tvCount.text.toString()) //单个商品创建订单
                 dismiss()
@@ -156,6 +164,12 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
     }
 
     private fun addCar() {
+
+        if (!UserManager2.isLogin()) {
+            SmediaDialog(context).showLogin()
+            return
+        }
+
         val params = HashMap<String, String>()
         params["sku_id"] = resultList?.last()?.id ?: skuid
         params["shop_num"] = tvCount.text.toString()

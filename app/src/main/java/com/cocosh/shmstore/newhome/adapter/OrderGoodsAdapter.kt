@@ -13,7 +13,7 @@ import com.cocosh.shmstore.mine.model.Order
 import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import kotlinx.android.synthetic.main.item_order_goods.view.*
 
-class OrderGoodsAdapter(list: ArrayList<Order.Goods>) : BaseRecycleAdapter<Order.Goods>(list) {
+class OrderGoodsAdapter(list: ArrayList<Order.Goods>,var isDesc:Boolean) : BaseRecycleAdapter<Order.Goods>(list) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
         holder.itemView.tvGoodsName.text = getData(position).goods_name
 
@@ -33,8 +33,10 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>) : BaseRecycleAdapter<Order
                 .placeholder(ColorDrawable(ContextCompat.getColor(context,R.color.activity_bg)))
                 .into(holder.itemView.ivPhoto)
 
-        holder.itemView.setOnClickListener {
-            GoodsDetailActivity.start(context,getData(position).goods_name,getData(position).goods_id)
+        if (!isDesc){
+            holder.itemView.setOnClickListener {
+                GoodsDetailActivity.start(context,getData(position).goods_name,getData(position).goods_id)
+            }
         }
     }
 

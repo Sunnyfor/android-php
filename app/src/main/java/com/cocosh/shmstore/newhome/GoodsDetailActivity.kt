@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
@@ -24,9 +25,11 @@ import com.cocosh.shmstore.newhome.adapter.GoodsDetailShopAdapter
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.newhome.model.GoodsFavEvent
 import com.cocosh.shmstore.newhome.model.Shop
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.GoodsDetailActivityManager
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.GoodsDetailDialog
+import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -49,7 +52,8 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     override fun getAddress(result: BaseBean<ArrayList<Address>>) {
         result.message?.let { it ->
             if (it.isNotEmpty()) {
-                txt_address.text = it.last { it.default == "1" }.district
+                val address = it.last { it.default == "1" }
+                txt_address.text = (address.district + " "+address.addr)
             }
         }
     }
@@ -89,7 +93,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         when (view.id) {
             R.id.llAddress -> {
                 if (UserManager2.isLogin()) {
-                    startActivity(Intent(this, AddressMangerActivity::class.java))
+                    startActivity(Intent(this, AddressMangerActivity::class.java).putExtra("type","buy"))
                 } else {
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
@@ -170,7 +174,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
                     recyclerView.adapter = GoodsDetailShopAdapter(it.store.goods ?: arrayListOf())
 
-                    val content = it.detail + it.exts + it.service
+                    val content = it.detail
 
                     val html = "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no\">" + "<meta http-equiv=Content-Type content=\"text/html; charset=gb2312\">" + "</head>" + "<body style=\"margin:0;padding:0\">" +
                             content.replace("<img", "<img width=100%") + "</body></html>"
@@ -219,6 +223,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun onDestroy() {
         super.onDestroy()
+        SmApplication.getApp().removeData(DataCode.ADDRESS)
         GoodsDetailActivityManager.removeActivity(this)
         EventBus.getDefault().unregister(this)
     }
@@ -236,12 +241,23 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun onResume() {
         super.onResume()
-        mPresenter.requestGetAddress(0)
+        val address = SmApplication.getApp().getData<Address>(DataCode.ADDRESS,false)
+        if (address == null){
+            mPresenter.requestGetAddress(0)
+        }else{
+            txt_address.text = (address.district + " "+address.addr)
+        }
     }
 
 
     //收藏商品方法
     private fun favGoods() {
+
+        if (!UserManager2.isLogin()){
+            SmediaDialog(this@GoodsDetailActivity).showLogin()
+            return
+        }
+
         val params = hashMapOf<String, String>()
         params["goods_id"] = goodsId
         params["op"] = if (goodsDetail?.goods?.fav == "1") "2" else "1"
@@ -267,6 +283,11 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
     private fun favShop() {
+
+        if (!UserManager2.isLogin()){
+            SmediaDialog(this@GoodsDetailActivity).showLogin()
+            return
+        }
         val params = hashMapOf<String, String>()
         params["store_id"] = goodsDetail?.store?.id ?: ""
         params["op"] = if (goodsDetail?.store?.attention == "0") "1" else "2"

@@ -175,7 +175,7 @@
                         android:layout_marginEnd="@dimen/w88"
                         android:layout_marginRight="@dimen/w88"
                         android:layout_marginBottom="@dimen/w39"
-                        tools:text="北京市 朝阳区 青年路 万达大厦T1 13层B区 1306"
+                        android:text="点击选择配送地址"
                         android:textColor="@color/blackText"
                         android:textSize="@dimen/w43" />
                 </LinearLayout>

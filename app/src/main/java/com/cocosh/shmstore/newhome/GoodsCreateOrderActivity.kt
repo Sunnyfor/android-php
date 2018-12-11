@@ -29,7 +29,7 @@ import org.json.JSONObject
 
 class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
     private val shopList = ArrayList<CreateGoodsBean>()
-    private var address:Address? = null
+    private var address: Address? = null
     private var deduction = true
     private var skuid = "0"
     private var skustr = ""
@@ -65,10 +65,10 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
         }
 
 
-        skuid = intent.getStringExtra("skuid")?:""
-        skustr = intent.getStringExtra("skustr")?:""
-        price = intent.getStringExtra("price")?:""
-        number = intent.getStringExtra("number")?:""
+        skuid = intent.getStringExtra("skuid") ?: ""
+        skustr = intent.getStringExtra("skustr") ?: ""
+        price = intent.getStringExtra("price") ?: ""
+        number = intent.getStringExtra("number") ?: ""
 
 
         intent.getStringExtra("type")?.let { type ->
@@ -81,7 +81,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
                 }
             }
 
-            if (type =="2"){
+            if (type == "2") {
                 SmApplication.getApp().getData<ArrayList<CreateGoodsBean>>(DataCode.GOODS_DETAIL, true)?.let {
                     shopList.addAll(it)
                     recyclerView.adapter = CreateOrderListAdapter(it)
@@ -108,7 +108,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
         }
 
         //购物车跳转
-        fun start(context: Context,price:String){
+        fun start(context: Context, price: String) {
             val intent = Intent(context, GoodsCreateOrderActivity::class.java)
             intent.putExtra("type", "2")
             intent.putExtra("price", price)
@@ -118,14 +118,23 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun onResume() {
         super.onResume()
-        mPresenter.requestGetAddress(0) //加载地址
+        address = SmApplication.getApp().getData<Address>(DataCode.ADDRESS, false)
+        if (address == null) {
+            mPresenter.requestGetAddress(0) //加载地址
+        } else {
+            ll_address_empty.visibility = View.GONE
+            ll_address.visibility = View.VISIBLE
+            txt_name.text = address?.receiver
+            txt_phone.text = address?.phone
+            txt_address.text = ("${address?.district} ${address?.addr}")
+        }
         loadRedMoney() //加载红包余额
     }
 
     override fun onListener(view: View) {
-        when(view.id){
-            ll_address_empty.id,ll_address.id -> {
-                startActivity(Intent(this,AddressMangerActivity::class.java))
+        when (view.id) {
+            ll_address_empty.id, ll_address.id -> {
+                startActivity(Intent(this, AddressMangerActivity::class.java))
             }
             R.id.btnCommit -> {
                 createOrder()
@@ -144,8 +153,6 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
 
         result.message?.let { it ->
             if (it.isNotEmpty()) {
-
-
                 ll_address_empty.visibility = View.GONE
                 ll_address.visibility = View.VISIBLE
                 address = it.last { it.default == "1" }.apply {
@@ -165,11 +172,10 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
 
-
-    private fun loadRedMoney(){
-        ApiManager2.get(this,null,Constant.RP_REMAINS,object :ApiManager2.OnResult<BaseBean<String>>(){
+    private fun loadRedMoney() {
+        ApiManager2.get(this, null, Constant.RP_REMAINS, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
-                txt_red_money.text = ("¥ "+ data.message)
+                txt_red_money.text = ("¥ " + data.message)
                 data.message?.let {
                     redMoney = it
                     countPayMoney(deduction)
@@ -185,73 +191,75 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
         })
     }
 
-    private fun countPayMoney(boolean: Boolean){
-        if (boolean){
-            if (price.toFloat() <= redMoney.toFloat()){
+    private fun countPayMoney(boolean: Boolean) {
+        if (boolean) {
+            if (price.toFloat() <= redMoney.toFloat()) {
                 txt_pay_money.text = ("0.00")
-            }else{
+            } else {
                 val payMoney = price.toFloat() - redMoney.toFloat()
                 txt_pay_money.text = (payMoney.toString())
             }
 
-        }else{
+        } else {
             txt_pay_money.text = (price)
         }
     }
 
 
-    private fun createOrder(){
+    private fun createOrder() {
 
-        if (address == null){
+        if (address == null) {
             ToastUtil.show("请选择收货地址！")
             return
         }
 
         var deductionMoney = 0f
 
-        val params = hashMapOf<String,String>()
+        val params = hashMapOf<String, String>()
         val parentArray = JSONArray()
 
         shopList.forEach { shop ->
             val shopObj = JSONObject()
             val goodsArray = JSONArray()
-            shopObj.put("store_id",shop.store_id)
+            shopObj.put("store_id", shop.store_id)
             shop.goodsList?.forEach {
                 val goodsObj = JSONObject()
-                goodsObj.put("stock_id",it.goods_id)
-                goodsObj.put("sku_id",it.sku_id)
-                goodsObj.put("num",it.num)
+                goodsObj.put("stock_id", it.goods_id)
+                goodsObj.put("sku_id", it.sku_id)
+                goodsObj.put("num", it.num)
                 goodsArray.put(goodsObj)
             }
-            shopObj.put("goods",goodsArray)
+            shopObj.put("goods", goodsArray)
 
-            if (deduction){
-                shopObj.put("discount_type","1")
+            if (deduction) {
+                shopObj.put("discount_type", "1")
                 deductionMoney += shop.price.toFloat()
-                val price = if (redMoney.toFloat() > deductionMoney){
+                val price = if (redMoney.toFloat() > deductionMoney) {
                     shop.price
-                }else (shop.price.toFloat() - redMoney.toFloat()).toString()
-                shopObj.put("discount",price)
+                } else (shop.price.toFloat() - redMoney.toFloat()).toString()
+                shopObj.put("discount", price)
             }
             parentArray.put(shopObj)
         }
 
         val addressObj = JSONObject()
-        addressObj.put("name",address?.receiver)
-        addressObj.put("phone",address?.phone)
-        addressObj.put("address",address?.id)
+        addressObj.put("name", address?.receiver)
+        addressObj.put("phone", address?.phone)
+        addressObj.put("address", address?.id)
 
         params["receive"] = addressObj.toString()
         params["data"] = parentArray.toString()
-        ApiManager2.post(this,params,Constant.ESHOP_ORDER_CREATE,object :ApiManager2.OnResult<BaseBean<CreateOrder>>(){
+        ApiManager2.post(this, params, Constant.ESHOP_ORDER_CREATE, object : ApiManager2.OnResult<BaseBean<CreateOrder>>() {
             override fun onSuccess(data: BaseBean<CreateOrder>) {
                 data.message?.let { createOrder ->
                     val numberSb = StringBuilder()
-                            createOrder.order_sn.forEach {
+                    createOrder.order_sn.forEach {
                         numberSb.append(it).append(",")
                     }
                     numberSb.deleteCharAt(numberSb.lastIndex)
-                    PayActivity.start(this@GoodsCreateOrderActivity,numberSb.toString(),data.message?.actual?:"0.00","3")
+                    PayActivity.start(this@GoodsCreateOrderActivity, numberSb.toString(), data.message?.actual
+                            ?: "0.00", "3")
+                    SmApplication.getApp().removeData(DataCode.ADDRESS)
                     EventBus.getDefault().post(AddCar())
                     finish()
                 }

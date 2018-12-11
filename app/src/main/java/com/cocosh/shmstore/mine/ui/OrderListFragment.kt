@@ -57,32 +57,11 @@ class OrderListFragment : BaseFragment() {
             }
 
         }
-        initListener()
+
         loadData()
     }
 
-    private fun initListener() {
-        adapter.setOnBtnClickListener(object : OrderListAdapter.OnBtnClickListener {
-            override fun payBtn(data: String, position: Int) {
-                PayActivity.start(activity, "222", "120", "")
-            }
-            override fun deleteBtn(data: String, position: Int) {
-                showRealDialog("您确定删除订单吗？")
-            }
 
-            override fun realBtn(data: String, position: Int) {
-                showRealDialog("您确定已收到商品？")
-            }
-
-            override fun serviceBtn(data: String, position: Int) {
-                ContactServiceActivity.start(activity)
-            }
-
-            override fun lookBtn(data: String, position: Int) {
-
-            }
-        })
-    }
 
     override fun close() {
         EventBus.getDefault().unregister(this)
@@ -92,11 +71,7 @@ class OrderListFragment : BaseFragment() {
 
     }
 
-    fun showRealDialog(content: String) {
-        val dialog = SmediaDialog(activity)
-        dialog.setTitle(content)
-        dialog.show()
-    }
+
 
     fun loadData() {
         val params = hashMapOf<String, String>()
@@ -113,7 +88,7 @@ class OrderListFragment : BaseFragment() {
             "待收货" -> {
                 "2"
             }
-            else -> "100"  //交易完成
+            else -> "3"  //交易完成
         }
         if (status != "") {
             params["status"] = status

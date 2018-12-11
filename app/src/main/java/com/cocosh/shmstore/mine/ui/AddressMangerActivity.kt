@@ -6,6 +6,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.application.SmApplication
 import com.cocosh.shmstore.base.BaseActivity
 import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.mine.adapter.AddressListAdapter
@@ -13,6 +14,7 @@ import com.cocosh.shmstore.mine.adapter.SpaceVItem
 import com.cocosh.shmstore.mine.contrat.MineContrat
 import com.cocosh.shmstore.mine.model.Address
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
+import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.IntentCode
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_address_manger.*
@@ -96,13 +98,13 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 
         type = intent.getStringExtra("type")
 
-
         adapter?.setOnSelectItemListener(object : AddressListAdapter.OnSelectItemListener {
             override fun itemSelect(index: Int) {
-                val data = Intent()
-                if (type != null && type == "web") {
-                    SmediaDialog(this@AddressMangerActivity).let {
-                        it.setTitle("当前选择的收货地址")
+                if (type != null) {
+                    when(type){
+                        "web" -> { SmediaDialog(this@AddressMangerActivity).let {
+                            it.setTitle("当前选择的收货地址")
+//                            val data = Intent()
 //                        it.setDesc(list[index].areaName + "-" + list[index].mAddress)
 //                        it.OnClickListener = View.OnClickListener {
 //                            data.putExtra("idUserAddressInfo", list[index].idUserAddressInfo)
@@ -113,9 +115,25 @@ class AddressMangerActivity : BaseActivity(), MineContrat.IAddressView {
 //                            setResult(Activity.RESULT_OK, data)
 //                            finish()
 //                        }
-                        it.show()
+                            it.show()
+                        }}
+
+                        "buy" -> {
+                            SmediaDialog(this@AddressMangerActivity).let { dialog ->
+                                dialog.setTitle("当前选择的收货地址")
+                                dialog.setDesc(list[index].district + "-" + list[index].addr)
+                                dialog.OnClickListener = View.OnClickListener {
+                                    SmApplication.getApp().setData(DataCode.ADDRESS,list[index])
+                                    finish()
+                                }
+                                dialog.show()
+                            }
+
+                        }
                     }
+
                 }
+
             }
 
             override fun checkedChange(index: Int) {

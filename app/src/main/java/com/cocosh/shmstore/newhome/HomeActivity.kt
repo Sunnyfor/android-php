@@ -81,6 +81,9 @@ class HomeActivity : BaseActivity() {
                 showFragment(shoumeiFragment)
             }
             rlMessage.id -> {
+                if (!isLogin()){
+                    return
+                }
                 showFragment(shoppingFragment)
             }
             rlMine.id -> {

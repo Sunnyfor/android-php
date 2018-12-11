@@ -23,7 +23,7 @@ class GoodsSearchActivity : BaseActivity() {
     }
 
     private val titleList = arrayListOf(
-            "全部",
+            "商品",
             "店铺")
 
 

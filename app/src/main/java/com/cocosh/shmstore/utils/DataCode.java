@@ -58,4 +58,6 @@ public class DataCode {
     public static final String GOODS_DETAIL = "goods_detail"; //商品尸体
 
     public static final String ORDER_GOODS = "order_goods"; //订单商品
+
+    public static final String ADDRESS = "address"; //选择收货地址
 }

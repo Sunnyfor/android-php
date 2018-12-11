@@ -74,7 +74,7 @@ class CollectionGoodsFragment : BaseFragment() {
             override fun onSuccess(data: BaseBean<ArrayList<CollectionGoods>>) {
                 swipeRefreshLayout.isRefreshing = false
                 data.message?.let {
-                    if (pageNumber == "1") {
+                    if (pageNumber == "0") {
                         collectList.clear()
                         swipeRefreshLayout.update(it)
                         collectList.addAll(it)
@@ -86,8 +86,10 @@ class CollectionGoodsFragment : BaseFragment() {
             }
 
             override fun onFailed(code: String, message: String) {
-                if (pageNumber == "1") {
+                if (pageNumber == "0") {
                     swipeRefreshLayout.isRefreshing = false
+                    collectList.clear()
+                    collectionGoodsAdapter.notifyDataSetChanged()
                 }
             }
 
