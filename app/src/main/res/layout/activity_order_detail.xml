@@ -420,7 +420,7 @@
 
                     <TextView
                         style="@style/text_nomal_small"
-                        android:text="卖家联系人：      "
+                        android:text="卖家联系人：     "
                         android:textColor="@color/grayText" />
 
                     <TextView

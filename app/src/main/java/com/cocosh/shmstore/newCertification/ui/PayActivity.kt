@@ -67,14 +67,17 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     override fun payConfirmResult(result: BaseBean<PayResultModel>) {
         if (payOperatStatus == "1") {
-            if (result.message?.status == "2") {
+            if (result.message?.detail?.status == "1") {
                 AuthActivity.start(this@PayActivity)
                 SuccessActivity.start(this@PayActivity)
+                finish()
+            }else{
+                ToastUtil.show("交易失败！")
             }
         }
 
         if (payOperatStatus == "2") {
-            if (result.message?.status == "2") {
+            if (result.message?.detail?.status == "1") {
                 setResult(IntentCode.IS_INPUT)
                 SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
                 startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "0"))
@@ -85,6 +88,15 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             }
         }
 
+        if (payOperatStatus == "3") {
+            if (result.message?.detail?.status == "1") {
+                OrderListActivity.start(this@PayActivity)
+                ToastUtil.show("交易成功！")
+                finish()
+            }else{
+                ToastUtil.show("交易失败！")
+            }
+        }
     }
 
     override fun localPay(result: BaseBean<String>) {
@@ -232,8 +244,6 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                         SuccessActivity.start(this@PayActivity)
                     }
 
-                    finish()
-
                     //红包类型
                     if (payOperatStatus == "2") {
                         SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
@@ -245,6 +255,8 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                     if (payOperatStatus == "3") {
                         OrderListActivity.start(this@PayActivity)
                     }
+
+                    finish()
 
                 } else {
                     //失败
