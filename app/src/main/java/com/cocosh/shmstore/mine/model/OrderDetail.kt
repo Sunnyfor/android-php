@@ -7,7 +7,8 @@ package com.cocosh.shmstore.mine.model
 data class OrderDetail(
         var recive: Recive,
         var body: Body,
-        var order: Order
+        var order: Order,
+        var seller:Seller
 ) {
     data class Recive(
             var name: String,
@@ -31,7 +32,9 @@ data class OrderDetail(
             var pay_time: String,
             var remain: Long,
             var delivery_time: String,
-            var trans_time: String
+            var trans_time: String)
 
-    )
+    data class Seller(
+            var linker:String,
+            var tel:String)
 }

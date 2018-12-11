@@ -20,6 +20,7 @@
             android:layout_marginTop="@dimen/h56"
             android:layout_marginBottom="@dimen/h56"
             android:src="@drawable/default_head"
+            android:scaleType="centerCrop"
             app:riv_oval="true" />
 
         <TextView

@@ -167,6 +167,9 @@ class OrderDetailActivity : BaseActivity() {
                     txt_time.text = it.order.time
                     showStartTime.text = it.order.delivery_time
 
+                    txt_seller_name.text = it.seller.linker
+                    txt_seller_phone.text = it.seller.tel
+
                     if (status == "0"){
                         countdown = it.order.remain
                         timer.schedule(timerTask,0,1000)
@@ -194,8 +197,7 @@ class OrderDetailActivity : BaseActivity() {
         ApiManager2.post(this, params, Constant.ESHOP_ORDER_SHIPPING, object : ApiManager2.OnResult<BaseBean<ExpressDelivery>>() {
             override fun onSuccess(data: BaseBean<ExpressDelivery>) {
                 data.message?.let {
-                    logisticsWay.text = it.company
-                    logisticsName.text = it.com
+                    logisticsName.text = it.company
                     logisticsNumber.text = it.no
                     logisticsRecyclerView.setHasFixedSize(true)
                     logisticsRecyclerView.isNestedScrollingEnabled = false

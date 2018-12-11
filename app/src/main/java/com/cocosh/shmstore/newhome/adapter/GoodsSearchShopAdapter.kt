@@ -7,12 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
+import com.cocosh.shmstore.base.BaseActivity
+import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.base.BaseRecycleAdapter
 import com.cocosh.shmstore.base.BaseRecycleViewHolder
+import com.cocosh.shmstore.http.ApiManager2
+import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.model.Shop
+import kotlinx.android.synthetic.main.activity_goods_shopping.*
 import kotlinx.android.synthetic.main.layout_shop_search_item.view.*
+import org.greenrobot.eventbus.EventBus
 
-class GoodsSearchShopAdapter(mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(mList) {
+class GoodsSearchShopAdapter(var baseActivity: BaseActivity,mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(mList) {
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
 
         val moneyList = arrayListOf(
@@ -49,6 +55,10 @@ class GoodsSearchShopAdapter(mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(
             holder.itemView.btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
         }
 
+        holder.itemView.btnFollow.setOnClickListener {
+            collectionShop(position)
+        }
+
 
         getData(position).goods?.forEachIndexed { index, goods ->
 
@@ -68,4 +78,31 @@ class GoodsSearchShopAdapter(mList: ArrayList<Shop>) : BaseRecycleAdapter<Shop>(
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(context).inflate(R.layout.layout_shop_search_item, parent, false)
+
+
+    private fun collectionShop(position: Int) {
+        val params = hashMapOf<String, String>()
+        params["store_id"] = getData(position).id
+        params["op"] = if (getData(position).attention == "0") "1" else "2"
+        ApiManager2.post(baseActivity, params, Constant.ESHOP_FAV_STORE, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                if (getData(position).attention == "0") {
+                    getData(position).attention = "1"
+                } else {
+                    getData(position).attention = "0"
+                }
+                notifyDataSetChanged()
+                EventBus.getDefault().post(getData(position))
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
+    }
 }

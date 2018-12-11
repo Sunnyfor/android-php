@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.GoodsDetailActivity
+import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsSearchGoodsAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsSearchShopAdapter
 import com.cocosh.shmstore.newhome.model.Goods
@@ -29,7 +30,7 @@ class GoodsSearchFragment : BaseFragment() {
     }
 
     private val shopSearchAdapter: GoodsSearchShopAdapter by lazy {
-        GoodsSearchShopAdapter(shopsList)
+        GoodsSearchShopAdapter(getBaseActivity(),shopsList)
     }
 
     override fun setLayout(): Int = R.layout.fragment_search
@@ -61,6 +62,13 @@ class GoodsSearchFragment : BaseFragment() {
             override fun onItemClick(v: View, index: Int) {
                 GoodsDetailActivity.start(context, goodsList[index].name, goodsList[index].id)
             }
+        })
+
+        shopSearchAdapter.setOnItemClickListener(object :OnItemClickListener{
+            override fun onItemClick(v: View, index: Int) {
+                GoodsShoppingActivity.start(context,shopsList[index].name,shopsList[index].id)
+            }
+
         })
 
 

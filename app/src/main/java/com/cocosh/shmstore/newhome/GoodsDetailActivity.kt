@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -22,6 +23,7 @@ import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsBannerAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsDetailShopAdapter
+import com.cocosh.shmstore.newhome.adapter.GoodsParamsAdapter
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.newhome.model.GoodsFavEvent
 import com.cocosh.shmstore.newhome.model.Shop
@@ -76,6 +78,10 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        recyclerView_params.layoutManager = LinearLayoutManager(this)
+        recyclerView_params.setHasFixedSize(true)
+        recyclerView_params.isNestedScrollingEnabled = false
 
         text_add_car.setOnClickListener(this)
         llFormat.setOnClickListener(this)
@@ -175,11 +181,11 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     recyclerView.adapter = GoodsDetailShopAdapter(it.store.goods ?: arrayListOf())
 
                     val content = it.detail
-
                     val html = "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no\">" + "<meta http-equiv=Content-Type content=\"text/html; charset=gb2312\">" + "</head>" + "<body style=\"margin:0;padding:0\">" +
                             content.replace("<img", "<img width=100%") + "</body></html>"
                     webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
+                    recyclerView_params.adapter = GoodsParamsAdapter(it.goods.params)
                 }
             }
 

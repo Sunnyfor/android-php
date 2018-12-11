@@ -43,8 +43,9 @@
                     android:id="@+id/time"
                     style="@style/text_nomal_small"
                     android:layout_marginBottom="@dimen/w30"
-                    tools:text="23小时59分钟"
-                    android:textSize="@dimen/w35" />
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/w35"
+                    tools:text="23小时59分钟" />
             </LinearLayout>
         </LinearLayout>
 
@@ -96,6 +97,7 @@
                     <TextView
                         android:id="@+id/address"
                         style="@style/text_nomal_small"
+                        android:textColor="@color/blackText"
                         tools:text="北京市海淀区北清路100号" />
                 </LinearLayout>
             </LinearLayout>
@@ -124,8 +126,8 @@
                 <TextView
                     android:id="@+id/logisticsWay"
                     style="@style/text_nomal_small"
-                    android:textColor="@color/blackText"
-                    tools:text="物流" />
+                    android:text="物流"
+                    android:textColor="@color/blackText" />
 
             </LinearLayout>
 
@@ -139,7 +141,7 @@
 
                 <TextView
                     style="@style/text_nomal_small"
-                    android:text="发货方式："
+                    android:text="物流公司："
                     android:textColor="@color/grayText" />
 
                 <TextView
@@ -211,7 +213,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h30"
-            android:background="@color/white"></android.support.v7.widget.RecyclerView>
+            android:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/orderInfoShowLl"
@@ -394,6 +396,60 @@
                     android:id="@+id/showTime"
                     style="@style/text_nomal_small"
                     tools:text="2017-11-11  00:00:00" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h30"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w66"
+                    android:layout_marginTop="@dimen/h58"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_nomal_small"
+                        android:text="卖家联系人：      "
+                        android:textColor="@color/grayText" />
+
+                    <TextView
+                        android:id="@+id/txt_seller_name"
+                        style="@style/text_nomal_small"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/blackText"
+                        tools:text="张三" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/w66"
+                    android:layout_marginTop="@dimen/h35"
+                    android:layout_marginBottom="@dimen/w35"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_nomal_small"
+                        android:text="卖家联系方式："
+                        android:textColor="@color/grayText" />
+
+                    <TextView
+                        android:id="@+id/txt_seller_phone"
+                        style="@style/text_nomal_small"
+                        android:textColor="@color/blackText"
+                        tools:text="13111111111" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
