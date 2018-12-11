@@ -405,7 +405,9 @@
         <!--收藏-->
         <activity android:name=".mine.ui.CollectionActivity" />
         <!--订单-->
-        <activity android:name=".mine.ui.OrderListActivity" />
+        <activity
+            android:name=".mine.ui.OrderListActivity"
+            android:launchMode="singleTask" />
 
         <!--扫描二维码-->
         <activity android:name=".zxing.QrCodeActivity" />
@@ -518,8 +520,7 @@
             android:launchMode="singleTask" />
 
         <!--商品详情页-->
-        <activity
-            android:name=".newhome.GoodsDetailActivity"/>
+        <activity android:name=".newhome.GoodsDetailActivity" />
 
         <!--商品列表页-->
         <activity
@@ -547,8 +548,9 @@
             android:launchMode="singleTop" />
 
         <!--创建订单-->
-        <activity android:name=".newhome.GoodsCreateOrderActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".newhome.GoodsCreateOrderActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

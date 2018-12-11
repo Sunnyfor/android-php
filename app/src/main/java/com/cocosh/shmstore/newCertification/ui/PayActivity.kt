@@ -14,6 +14,8 @@ import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.ui.AuthActivity
 import com.cocosh.shmstore.mine.ui.CheckPayPwdMessage
+import com.cocosh.shmstore.mine.ui.OrderDetailActivity
+import com.cocosh.shmstore.mine.ui.OrderListActivity
 import com.cocosh.shmstore.mine.ui.mywallet.ReChargeActivity
 import com.cocosh.shmstore.newCertification.CertifimInforPresenter
 import com.cocosh.shmstore.newCertification.ConfirmlnforContrat
@@ -96,7 +98,11 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
     override fun setLayout(): Int = R.layout.certifitacation_pay_activity
 
     override fun initView() {
-        titleManager.defaultTitle("支付")
+        titleManager.defaultTitle("支付").setLeftOnClickListener(
+                View.OnClickListener {
+                    onBackPressed()
+                }
+        )
         runningNumber = intent.getStringExtra("runningNumber")
         amount = intent.getStringExtra("amount")
         payOperatStatus = intent.getStringExtra("payOperatStatus")
@@ -107,6 +113,11 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         btnSure.setOnClickListener(this)
         tvCharge.setOnClickListener(this)
         tv_money.text = ("￥${StringUtils.insertComma(amount?.toFloat() ?: 0f)}")
+
+        if (amount == "0") {
+            llWechat.visibility = View.GONE
+            llAlipay.visibility = View.GONE
+        }
     }
 
     override fun onListener(view: View) {}
@@ -231,8 +242,8 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                     }
 
                     //购买商品
-                    if (payOperatStatus == "3"){
-
+                    if (payOperatStatus == "3") {
+                        OrderListActivity.start(this@PayActivity)
                     }
 
                 } else {
@@ -240,6 +251,10 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                     if (payOperatStatus == "2") {
                         SmApplication.getApp().addActivity(DataCode.BONUS_SEND_ACTIVITYS, this@PayActivity)
                         startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
+                    }
+
+                    if (payOperatStatus == "3") {
+                        OrderListActivity.start(this@PayActivity)
                     }
                 }
             }
@@ -256,6 +271,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        if (payOperatStatus == "3") {
+            OrderListActivity.start(this)
+        }
         mDialog?.clearNum()
     }
 

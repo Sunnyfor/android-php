@@ -67,13 +67,12 @@ class GoodsSearchActivity : BaseActivity() {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 type = tab.position != 0
-                if (keyWord.isNotEmpty()){
+                goodsSearchFragment.pager = "0"
                     if (type) {
                         goodsSearchFragment.searchShop(keyWord)
                     } else {
                         goodsSearchFragment.searchGoods(keyWord)
                     }
-                }
             }
 
         })

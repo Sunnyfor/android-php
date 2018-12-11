@@ -175,6 +175,7 @@ object Constant {
 
     const val SMPAY = "$VERSION/smpay" //本地支付
 
+    const val SMPAY_RP = "$VERSION/smpay/rp" //红包支付
     /**
      * 银行卡
      * */
@@ -258,9 +259,10 @@ object Constant {
 
     //创建订单
     const val ESHOP_ORDER_CREATE = "$VERSION/eshop/order/create"
-
+    //修改订单状态
     const val ESHOP_ORDER_UPDA = "$VERSION/eshop/order/upda"
-
+    //查询物流信息
+    const val ESHOP_ORDER_SHIPPING = "$VERSION/eshop/order/shipping"
     /**
      * 首页
      * */

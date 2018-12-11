@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/activity_bg"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,18 +24,29 @@
                 android:layout_marginLeft="@dimen/w66"
                 android:layout_marginTop="@dimen/h63"
                 android:layout_marginBottom="@dimen/w30"
-                tools:text="等待买家付款"
-                android:textSize="@dimen/w52" />
+                android:textSize="@dimen/w52"
+                tools:text="等待买家付款" />
 
-            <TextView
-                android:id="@+id/time"
-                style="@style/text_nomal_small"
-                android:layout_marginLeft="@dimen/w66"
-                android:layout_marginBottom="@dimen/w30"
-                android:text="付款剩余时间23小时59分钟"
-                android:textSize="@dimen/w35" />
+            <LinearLayout
+                android:id="@+id/ll_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/w30">
+
+                <TextView
+                    style="@style/text_nomal_small"
+                    android:layout_marginLeft="@dimen/w66"
+                    android:text="付款剩余时间"
+                    android:textSize="@dimen/w35" />
+
+                <TextView
+                    android:id="@+id/time"
+                    style="@style/text_nomal_small"
+                    android:layout_marginBottom="@dimen/w30"
+                    tools:text="23小时59分钟"
+                    android:textSize="@dimen/w35" />
+            </LinearLayout>
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -64,16 +76,16 @@
                     <TextView
                         android:id="@+id/text_user_name"
                         style="@style/text_nomal_small"
-                        tools:text="张三  13800000000"
-                        android:textColor="@color/blackText" />
+                        android:textColor="@color/blackText"
+                        tools:text="张三  13800000000" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/w35"
                     android:layout_marginLeft="@dimen/w66"
                     android:layout_marginTop="@dimen/h35"
+                    android:layout_marginBottom="@dimen/w35"
                     android:orientation="horizontal">
 
                     <TextView
@@ -112,8 +124,8 @@
                 <TextView
                     android:id="@+id/logisticsWay"
                     style="@style/text_nomal_small"
-                    tools:text="物流"
-                    android:textColor="@color/blackText" />
+                    android:textColor="@color/blackText"
+                    tools:text="物流" />
 
             </LinearLayout>
 
@@ -153,8 +165,8 @@
                 <TextView
                     android:id="@+id/logisticsNumber"
                     style="@style/text_nomal_small"
-                    tools:text="00098087652"
-                    android:textColor="@color/blackText" />
+                    android:textColor="@color/blackText"
+                    tools:text="00098087652" />
 
             </LinearLayout>
 
@@ -188,8 +200,8 @@
                 android:id="@+id/showLogisticsInfo"
                 style="@style/text_nomal_small"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/h30"
                 android:layout_marginTop="@dimen/h55"
+                android:layout_marginBottom="@dimen/h30"
                 android:text="展开物流信息" />
 
         </LinearLayout>
@@ -199,8 +211,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h30"
-            android:background="@color/white">
-        </android.support.v7.widget.RecyclerView>
+            android:background="@color/white"></android.support.v7.widget.RecyclerView>
 
         <LinearLayout
             android:id="@+id/orderInfoShowLl"
@@ -262,8 +273,8 @@
                 <TextView
                     android:id="@+id/showPayWay"
                     style="@style/text_nomal_small"
-                    tools:text="0.00元"
-                    android:textColor="@color/blackText" />
+                    android:textColor="@color/blackText"
+                    tools:text="0.00元" />
 
             </LinearLayout>
 
@@ -350,8 +361,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/w66"
-                android:layout_marginBottom="@dimen/h30"
-                android:layout_marginTop="@dimen/h30">
+                android:layout_marginTop="@dimen/h30"
+                android:layout_marginBottom="@dimen/h30">
 
                 <TextView
                     style="@style/text_nomal_small"
@@ -369,9 +380,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/h30"
                 android:layout_marginLeft="@dimen/w66"
                 android:layout_marginTop="@dimen/h30"
+                android:layout_marginBottom="@dimen/h30"
                 android:visibility="gone">
 
                 <TextView
@@ -386,4 +397,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

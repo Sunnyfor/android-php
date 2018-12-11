@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.EventBus
  * 订单
  * Created by lmg on 2018/3/13.
  */
-class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, private var isDesc: Boolean = false) : BaseRecycleAdapter<Order>(list) {
+class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, private var isDesc: Boolean = false) : BaseRecycleAdapter<Order>(list) {
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
 
@@ -48,10 +48,10 @@ class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, pr
         holder.itemView.txt_money.text = ("¥ " + getData(position).sum)
 
         holder.itemView.ll_shop.setOnClickListener {
-            if (isDesc){
+            if (isDesc) {
                 GoodsShoppingActivity.start(context, getData(position).store_name, getData(position).store_id)
-            }else{
-                OrderDetailActivity.start(context,getData(position).order_sn,getData(position).status)
+            } else {
+                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
             }
         }
 
@@ -60,13 +60,24 @@ class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, pr
                 select(holder.itemView.txt_let, position)
                 cancel(holder.itemView.txt_mid, position)
                 goPay(holder.itemView.txt_right, position)
+                holder.itemView.tvStatus.text = "待付款"
             }
             "1" -> { //待发货
                 select(holder.itemView.txt_right, position)
+                holder.itemView.tvStatus.text = "待发货"
             }
             "2" -> { //待收货
                 select(holder.itemView.txt_mid, position)
                 confirmReceipt(holder.itemView.txt_right, position)
+                holder.itemView.tvStatus.text = "待收货"
+            }
+            "3" -> {
+                holder.itemView.tvStatus.text = "交易完成"
+                select(holder.itemView.txt_right, position)
+            }
+            "101" -> {
+                holder.itemView.tvStatus.text = "交易取消"
+                select(holder.itemView.txt_right, position)
             }
             else -> {
                 select(holder.itemView.txt_right, position)
@@ -120,7 +131,7 @@ class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, pr
             setOnClickListener { _ ->
                 showRealDialog("您确定取消订单吗？")
                         .OnClickListener = View.OnClickListener {
-                    option("2",getData(position).order_sn)
+                    option("2", getData(position).order_sn)
                 }
             }
         }
@@ -148,7 +159,7 @@ class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, pr
             showRedBg(this)
             setOnClickListener { _ ->
                 showRealDialog("您确定已收到商品？").OnClickListener = View.OnClickListener {
-                    option("1",getData(position).order_sn)
+                    option("1", getData(position).order_sn)
                 }
             }
         }
@@ -170,8 +181,8 @@ class OrderListAdapter(var baseActivity: BaseActivity,list: ArrayList<Order>, pr
         ApiManager2.post(baseActivity, params, Constant.ESHOP_ORDER_UPDA, object : ApiManager2.OnResult<BaseBean<String>>() {
 
             override fun onSuccess(data: BaseBean<String>) {
-                EventBus.getDefault().post(Order("","","","","","","", arrayListOf()))
-                if (isDesc){
+                EventBus.getDefault().post(Order("", "", "", "", "", "", "", arrayListOf()))
+                if (isDesc) {
                     baseActivity.finish()
                 }
                 ToastUtil.show("操作成功！")

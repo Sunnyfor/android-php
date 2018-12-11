@@ -57,11 +57,14 @@ class GoodsSearchFragment : BaseFragment() {
             }
         }
 
-        goodsSearchAdapter.setOnItemClickListener(object :OnItemClickListener{
+        goodsSearchAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(v: View, index: Int) {
-                GoodsDetailActivity.start(context,goodsList[index].name,goodsList[index].id)
+                GoodsDetailActivity.start(context, goodsList[index].name, goodsList[index].id)
             }
         })
+
+
+        searchGoods("")
 
     }
 
@@ -78,7 +81,9 @@ class GoodsSearchFragment : BaseFragment() {
         this.type = true
         this.keyword = keyword
         val params = hashMapOf<String, String>()
-        params["words"] = keyword
+        if (keyword.isNotEmpty()) {
+            params["words"] = keyword
+        }
         if (pager != "0") {
             params["store_id"] = pager
         }
@@ -96,7 +101,7 @@ class GoodsSearchFragment : BaseFragment() {
                     getLayoutView().refreshLayout.recyclerView.adapter.notifyDataSetChanged()
                     getLayoutView().refreshLayout.update(shopsList)
                 } else {
-                    getLayoutView().refreshLayout.loadMore(shopsList)
+                    getLayoutView().refreshLayout.loadMore(data.message)
                 }
 
             }
@@ -104,9 +109,9 @@ class GoodsSearchFragment : BaseFragment() {
             override fun onFailed(code: String, message: String) {
                 if (pager == "0") {
                     getLayoutView().refreshLayout.isRefreshing = false
-                    getLayoutView().refreshLayout.update(shopsList)
+                    getLayoutView().refreshLayout.update(arrayListOf<Shop>())
                 } else {
-                    getLayoutView().refreshLayout.loadMore(shopsList)
+                    getLayoutView().refreshLayout.loadMore(arrayListOf<Shop>())
                 }
             }
 
@@ -121,7 +126,9 @@ class GoodsSearchFragment : BaseFragment() {
         this.type = false
         this.keyword = keyword
         val params = hashMapOf<String, String>()
-        params["words"] = keyword
+        if (keyword != ""){
+            params["words"] = keyword
+        }
         if (pager != "0") {
             params["goods_id"] = pager
         }
@@ -136,9 +143,9 @@ class GoodsSearchFragment : BaseFragment() {
                     goodsList.clear()
                     goodsList.addAll(data.message ?: arrayListOf())
                     getLayoutView().refreshLayout.recyclerView.adapter.notifyDataSetChanged()
-                    getLayoutView().refreshLayout.update(goodsList)
+                    getLayoutView().refreshLayout.update(data.message)
                 } else {
-                    getLayoutView().refreshLayout.loadMore(goodsList)
+                    getLayoutView().refreshLayout.loadMore(data.message)
                 }
 
             }
@@ -146,9 +153,9 @@ class GoodsSearchFragment : BaseFragment() {
             override fun onFailed(code: String, message: String) {
                 if (pager == "0") {
                     getLayoutView().refreshLayout.isRefreshing = false
-                    getLayoutView().refreshLayout.update(goodsList)
+                    getLayoutView().refreshLayout.update(arrayListOf<Goods>())
                 } else {
-                    getLayoutView().refreshLayout.loadMore(goodsList)
+                    getLayoutView().refreshLayout.loadMore(arrayListOf<Goods>())
                 }
             }
 

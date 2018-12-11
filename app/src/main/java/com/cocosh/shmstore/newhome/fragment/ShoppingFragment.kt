@@ -144,7 +144,7 @@ class ShoppingFragment : BaseFragment() {
                 if (data.message == null || data.message?.size == 0) {
                     rlSelect.visibility = View.GONE
                     titleFragment.getRightText().visibility = View.GONE
-                    showReTryLayout("购物车还是空的，赶紧行动吧！")
+                    showReTryLayout("购物车还是空的，赶紧行动吧！",true)
 
                 } else {
                     titleFragment.getRightText().visibility = View.VISIBLE
@@ -177,7 +177,7 @@ class ShoppingFragment : BaseFragment() {
                 if (code == "200") {
                     rlSelect.visibility = View.GONE
                     titleFragment.getRightText().visibility = View.GONE
-                    showReTryLayout("购物车还是空的，赶紧行动吧！")
+                    showReTryLayout("购物车还是空的，赶紧行动吧！",true)
                 } else {
                     titleFragment.getRightText().visibility = View.VISIBLE
                     rlSelect.visibility = View.VISIBLE
@@ -276,7 +276,19 @@ class ShoppingFragment : BaseFragment() {
             }
         }
 
+        if (shopList.isEmpty()){
+            ToastUtil.show("请选择商品！")
+            return
+        }
+
         SmApplication.getApp().setData(DataCode.GOODS_DETAIL,shopList)
         GoodsCreateOrderActivity.start(context,money.toString())
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && mData.isEmpty()) {
+            loadData()
+        }
     }
 }

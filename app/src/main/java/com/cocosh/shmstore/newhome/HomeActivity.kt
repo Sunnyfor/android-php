@@ -1,6 +1,7 @@
 package com.cocosh.shmstore.newhome
 
 import android.content.Intent
+import android.os.SystemClock
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
@@ -14,6 +15,7 @@ import com.cocosh.shmstore.login.ui.activity.LoginActivity
 import com.cocosh.shmstore.mine.ui.LoginBusinessHelpActivity
 import com.cocosh.shmstore.newhome.fragment.GoodsClazzFragment
 import com.cocosh.shmstore.newhome.fragment.ShoppingFragment
+import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.utils.UserManager2
 import com.cocosh.shmstore.widget.dialog.CertificationDialog
 import kotlinx.android.synthetic.main.activity_new_home.*
@@ -153,5 +155,27 @@ class HomeActivity : BaseActivity() {
             val mDialog = CertificationDialog(this)
             mDialog.show(it)
         }
+    }
+
+
+
+    override fun onBackPressed() {
+        if (doubleClick()) {
+            super.onBackPressed()
+            System.exit(0)
+        }
+    }
+
+
+    private var mHits = LongArray(2)
+    private fun doubleClick(): Boolean {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.size - 1)
+        mHits[mHits.size - 1] = SystemClock.uptimeMillis()
+        if (mHits[0] >= SystemClock.uptimeMillis() - 800) {
+            return true
+        } else {
+            ToastUtil.show("再按一次退出程序")
+        }
+        return false
     }
 }

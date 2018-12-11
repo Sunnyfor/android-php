@@ -102,6 +102,7 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
             btnBuy.id -> {
                 SmApplication.getApp().setData(DataCode.GOODS_DETAIL, goodsDetail)
                 GoodsCreateOrderActivity.start(context,skuid,tvDesc.text.toString(),tvMoney.text.toString(),tvCount.text.toString()) //单个商品创建订单
+                dismiss()
             }
 
         }

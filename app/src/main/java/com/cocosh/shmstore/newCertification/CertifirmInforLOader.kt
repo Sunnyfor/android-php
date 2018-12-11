@@ -71,7 +71,10 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
         //订单编号 非必传字段
         map["data"] = runningNumber
         map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
-        ApiManager2.post(activity, map, Constant.SMPAY, object : ApiManager2.OnResult<BaseBean<String>>() {
+
+        val url = if(amount =="0") Constant.SMPAY_RP else Constant.SMPAY
+
+        ApiManager2.post(activity, map, url, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {
                 val baseBean = BaseBean<String>()
                 baseBean.status = code

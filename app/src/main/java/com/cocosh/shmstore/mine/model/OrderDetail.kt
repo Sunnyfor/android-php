@@ -29,7 +29,7 @@ data class OrderDetail(
             var flowno: String,
             var time: String,
             var pay_time: String,
-            var remain: String,
+            var remain: Long,
             var delivery_time: String,
             var trans_time: String
 

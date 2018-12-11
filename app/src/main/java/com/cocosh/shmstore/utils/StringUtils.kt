@@ -56,7 +56,7 @@ object StringUtils {
 
 
     //时间戳格式化时间
-    fun timeStampFormatDateYYMMdd(date: String,format:String): String {
+    fun timeStampFormatDateYYMMdd(date: String, format: String): String {
         if (date.isEmpty()) {
             return ""
         }
@@ -66,7 +66,7 @@ object StringUtils {
 
     //时间戳格式化时间
     fun timeStampFormatDateYYMMdd(date: String): String {
-       return timeStampFormatDateYYMMdd(date,"yyyy-MM-dd")
+        return timeStampFormatDateYYMMdd(date, "yyyy-MM-dd")
     }
 
     fun timeStampFormatDateYYMMddHHssmm(date: String): String {
@@ -94,7 +94,6 @@ object StringUtils {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:ss:mm", Locale.getDefault())
         return (dateFormat.parse(date).time / 1000).toString()
     }
-
 
 
     fun getTimeStamp(): String = (System.currentTimeMillis() / 1000).toString()
@@ -137,5 +136,28 @@ object StringUtils {
         val mHtml = pHtml.matcher(result)
         result = mHtml.replaceAll("") //过滤html标签
         return result.trim { it <= ' ' } //返回文本字符串
+    }
+
+
+    /**
+     * 通过秒格式化时间
+     * @param time
+     * @return
+     */
+    fun countdownFormatTime(time: Long):String {
+        var hour = 0L
+        var minute = 0L
+        var second = time
+
+        if (second > 60) {
+            minute = second / 60
+            second %= 60
+        }
+        if (minute > 60) {
+            hour = minute / 60
+            minute %= 60
+        }
+
+        return hour.toString() + "小时" + minute + "分" + second + "秒"
     }
 }
