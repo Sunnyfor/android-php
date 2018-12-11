@@ -134,7 +134,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
     override fun onListener(view: View) {
         when (view.id) {
             ll_address_empty.id, ll_address.id -> {
-                startActivity(Intent(this, AddressMangerActivity::class.java))
+                startActivity(Intent(this, AddressMangerActivity::class.java).putExtra("type","buy"))
             }
             R.id.btnCommit -> {
                 createOrder()
