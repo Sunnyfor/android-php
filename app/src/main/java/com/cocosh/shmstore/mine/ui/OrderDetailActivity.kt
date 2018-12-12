@@ -165,7 +165,6 @@ class OrderDetailActivity : BaseActivity() {
 
                     text_pay_money.text = (it.body.actual + "元")
                     txt_time.text = it.order.time
-                    showStartTime.text = it.order.delivery_time
 
                     txt_seller_name.text = it.seller.linker
                     txt_seller_phone.text = it.seller.tel

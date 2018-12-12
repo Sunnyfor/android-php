@@ -10,6 +10,7 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.home.SendBonusResultActivity
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
+import com.cocosh.shmstore.mine.model.Order
 import com.cocosh.shmstore.mine.model.PayResultModel
 import com.cocosh.shmstore.mine.model.WalletModel
 import com.cocosh.shmstore.mine.ui.AuthActivity
@@ -28,6 +29,7 @@ import com.pingplusplus.android.Pingpp
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.certifitacation_pay_activity.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
 /**
@@ -88,8 +90,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             }
         }
 
-        if (payOperatStatus == "3") {
+        if (payOperatStatus == "6") {
             if (result.message?.detail?.status == "1") {
+                EventBus.getDefault().post(Order("","","","","","","", arrayListOf()))
                 OrderListActivity.start(this@PayActivity)
                 ToastUtil.show("交易成功！")
                 finish()
@@ -129,6 +132,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
         if (amount == "0") {
             llWechat.visibility = View.GONE
             llAlipay.visibility = View.GONE
+            llShoumei.performClick()
         }
     }
 
@@ -136,6 +140,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
 
 
     override fun onClick(view: View) {
+
+        super.onClick(view)
+
         when (view.id) {
             R.id.llShoumei ->
                 if ((amount ?: "0").toDouble() <= (accountMoney ?: "0").toDouble()) {
@@ -252,7 +259,8 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                     }
 
                     //购买商品
-                    if (payOperatStatus == "3") {
+                    if (payOperatStatus == "6") {
+                        EventBus.getDefault().post(Order("","","","","","","", arrayListOf()))
                         OrderListActivity.start(this@PayActivity)
                     }
 
@@ -265,8 +273,9 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
                         startActivity(Intent(this@PayActivity, SendBonusResultActivity::class.java).putExtra("type", "2"))
                     }
 
-                    if (payOperatStatus == "3") {
+                    if (payOperatStatus == "6") {
                         OrderListActivity.start(this@PayActivity)
+                        ToastUtil.show(data)
                     }
                 }
             }
@@ -321,7 +330,7 @@ class PayActivity : BaseActivity(), ConfirmlnforContrat.IView {
             override fun onSuccess(data: BaseBean<WalletModel>) {
                 hideReTryLayout()
                 accountMoney = data.message?.p?.balance?.total
-                tvCount.text = ("账户余额: ￥" + accountMoney)
+                tvCount.text = ("账户余额: ￥$accountMoney")
                 if ((amount ?: "0").toDouble() > (accountMoney ?: "0").toDouble()) {
                     ivCheck.visibility = View.GONE
                     tvCount.setTextColor(resources.getColor(R.color.red))

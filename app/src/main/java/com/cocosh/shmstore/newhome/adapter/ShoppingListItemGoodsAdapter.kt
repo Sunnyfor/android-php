@@ -13,7 +13,7 @@ import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import kotlinx.android.synthetic.main.layout_shopping_goods_item.view.*
 
-class ShoppingListItemGoodsAdapter(mList: ArrayList<ShoppingCarts>, var notifyData: () -> Unit) : BaseRecycleAdapter<ShoppingCarts>(mList) {
+class ShoppingListItemGoodsAdapter(mList: ArrayList<ShoppingCarts.Shopping>, var notifyData: () -> Unit) : BaseRecycleAdapter<ShoppingCarts.Shopping>(mList) {
 
     var isEdit: Boolean = false
 
@@ -22,10 +22,13 @@ class ShoppingListItemGoodsAdapter(mList: ArrayList<ShoppingCarts>, var notifyDa
         holder.itemView.tvMoney.text = getData(position).sku_price
 
         val descSb = StringBuilder()
-        getData(position).sku_attrs.values.forEach {
+        getData(position).sku_attrs?.values?.forEach {
             descSb.append("$it，")
         }
-        descSb.deleteCharAt(descSb.lastIndex)
+        if (descSb.isNotEmpty()){
+            descSb.deleteCharAt(descSb.lastIndex)
+        }
+
         holder.itemView.tvDesc.text = descSb.toString()
 
 

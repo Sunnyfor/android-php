@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h300"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:layout_width="@dimen/w140"
+            android:layout_height="@dimen/h58"
+            android:background="@drawable/shape_btn_gray"
+            android:textSize="@dimen/w26"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/w25"
+            android:layout_marginRight="@dimen/w25"
+            android:textColor="@color/grayText"
+            android:text="库存不足"/>
+
+
+        <ImageView
+            android:id="@id/ivPhoto"
+            android:layout_width="@dimen/w228"
+            android:layout_height="@dimen/h228"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/txt_status"
+            android:scaleType="centerCrop"
+            android:src="@color/activity_bg"
+            android:layout_toEndOf="@id/txt_status" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w39"
+            android:layout_marginLeft="@dimen/w39"
+            android:layout_marginTop="@dimen/h40"
+            android:layout_toEndOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/ivPhoto"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGoodsName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w43"
+                tools:text="非常美味的咖啡" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w36"
+                android:layout_marginTop="@dimen/w100"
+                android:text="商品已不能购买" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h72"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/w50"
+            android:layout_marginRight="@dimen/w50"
+            android:layout_marginBottom="@dimen/h39"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h1"
+            android:layout_alignParentBottom="true"
+            android:background="#FFE3E3E3" />
+    </RelativeLayout>
+</LinearLayout>

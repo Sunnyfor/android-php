@@ -128,7 +128,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             text = "付款"
             showRedBg(this)
             setOnClickListener {
-                PayActivity.start(context, getData(position).order_sn, getData(position).sum, "3")
+                PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
             }
         }
 

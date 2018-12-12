@@ -263,6 +263,9 @@ object Constant {
     const val ESHOP_ORDER_UPDA = "$VERSION/eshop/order/upda"
     //查询物流信息
     const val ESHOP_ORDER_SHIPPING = "$VERSION/eshop/order/shipping"
+
+    //清理失效商品
+    const val ESHOP_CART_CLEAN = "$VERSION/eshop/cart/clean"
     /**
      * 首页
      * */

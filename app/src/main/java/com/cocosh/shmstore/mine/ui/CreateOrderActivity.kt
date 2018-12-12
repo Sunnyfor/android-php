@@ -28,7 +28,6 @@ class CreateOrderActivity : BaseActivity() {
                 AddressMangerActivity.start(this)
             }
             pay.id -> {
-                PayActivity.start(this,"343","100","")
             }
             else -> {
             }

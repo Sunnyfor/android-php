@@ -199,7 +199,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/h22"
                         android:layout_marginBottom="@dimen/h56"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@id/btnFollow"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/btnFollow">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@id/ivPhoto"
@@ -260,11 +264,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_goods_params"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h120"
                 android:orientation="horizontal"
                 android:background="@color/white"
-                android:layout_marginTop="@dimen/h29">
+                android:layout_marginTop="@dimen/h29"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

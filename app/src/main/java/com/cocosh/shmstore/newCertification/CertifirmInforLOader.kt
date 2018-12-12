@@ -67,12 +67,12 @@ class CertifirmInforLoader(val activity: BaseActivity, val view: ConfirmlnforCon
         map["ts"] = StringUtils.getTimeStamp()
         map["amount"] = DecimalFormat("0.00").format(amount.toFloat())
         //业务种类 (必填,'1'-新媒人认证,'2'-发红包支付,'3'-余额充值支付,'4'-购买支付)
-        map["kind"] = payOperatStatus
+        map["kind"] = if (amount.toFloat() == 0f )"1" else payOperatStatus
         //订单编号 非必传字段
         map["data"] = runningNumber
         map["paypass"] = DigestUtils.sha1(DigestUtils.md5(paymentPassword) + map["ts"])
 
-        val url = if(amount =="0") Constant.SMPAY_RP else Constant.SMPAY
+        val url = if(amount.toFloat() == 0f) Constant.SMPAY_RP else Constant.SMPAY
 
         ApiManager2.post(activity, map, url, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onFailed(code: String, message: String) {

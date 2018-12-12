@@ -17,7 +17,7 @@ data class GoodsDetail(
             var storage: String, // 商品总库存, 注意:当总库存量 = 0时,客户端显示已售罄,不能sku选购
             var image: ArrayList<String>, // 商品主图
             var sku: Sku,  // 仅限总库存量 > 0时,显示此域
-            var params:ArrayList<Params>, //参数
+            var params:ArrayList<Params>?, //参数
             var fav:String
     ) {
         data class Sku(

@@ -12,7 +12,7 @@ import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import kotlinx.android.synthetic.main.layout_shopping_shop_item.view.*
 
-class ShoppingListAdapter(mList: ArrayList<ShoppingCarts>, var action: () -> Unit) : BaseRecycleAdapter<ShoppingCarts>(mList) {
+class ShoppingListAdapter(mList: ArrayList<ShoppingCarts.Shopping>, var action: () -> Unit) : BaseRecycleAdapter<ShoppingCarts.Shopping>(mList) {
 
     var isEdit: Boolean = false
 

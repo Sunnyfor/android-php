@@ -10,11 +10,63 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/recyclerView"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_invalid"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/h120"
+                    android:layout_marginTop="@dimen/w30"
+                    android:background="@color/white"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/txt_invalid_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/w36"
+                        android:layout_marginLeft="@dimen/w36"
+                        android:text="失效商品0件"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w42" />
+
+
+                    <TextView
+                        android:id="@+id/txt_invalid_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/w36"
+                        android:layout_marginRight="@dimen/w36"
+                        android:gravity="center_vertical"
+                        android:text="清空失效商品"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/w42" />
+
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@id/recyclerView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
@@ -73,14 +125,14 @@
                 android:id="@+id/btn_buy"
                 android:layout_width="@dimen/w202"
                 android:layout_height="@dimen/h89"
+                android:layout_marginStart="@dimen/w33"
                 android:layout_marginLeft="@dimen/w33"
+                android:layout_marginEnd="@dimen/w46"
                 android:layout_marginRight="@dimen/w46"
                 android:background="@drawable/red_corner_btn_bg"
                 android:text="结算"
                 android:textColor="@color/white"
-                android:textSize="@dimen/w46"
-                android:layout_marginStart="@dimen/w33"
-                android:layout_marginEnd="@dimen/w46" />
+                android:textSize="@dimen/w46" />
         </LinearLayout>
 
         <LinearLayout

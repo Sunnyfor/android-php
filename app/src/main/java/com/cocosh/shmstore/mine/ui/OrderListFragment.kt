@@ -113,6 +113,8 @@ class OrderListFragment : BaseFragment() {
 
             override fun onFailed(code: String, message: String) {
                 if (pageindex == "0" ){
+                    dataList.clear()
+                    adapter.notifyDataSetChanged()
                     getLayoutView().swipeRefreshLayout.update(null)
                 }else{
                     getLayoutView().swipeRefreshLayout.loadMore<Order>(arrayListOf())

@@ -9,6 +9,7 @@ import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.GoodsCreateOrderActivity
+import com.cocosh.shmstore.newhome.adapter.InvalidGoodsAdapter
 import com.cocosh.shmstore.newhome.adapter.ShoppingListAdapter
 import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.CreateGoodsBean
@@ -17,6 +18,7 @@ import com.cocosh.shmstore.title.LeftRightTitleFragment
 import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.fragment_shopping_car.*
 import kotlinx.android.synthetic.main.layout_left_right_title.*
 import org.greenrobot.eventbus.EventBus
@@ -28,7 +30,8 @@ import org.json.JSONObject
 class ShoppingFragment : BaseFragment() {
     private var isAll = false
     private var money = 0f
-    private var mData = ArrayList<ShoppingCarts>()
+    private var mData = ArrayList<ShoppingCarts.Shopping>()
+    private var invalidList = arrayListOf<ShoppingCarts.Shopping>()
     private var isEdit = false
     private val titleFragment = LeftRightTitleFragment()
     private val shoppingListAdapter: ShoppingListAdapter by lazy {
@@ -55,6 +58,10 @@ class ShoppingFragment : BaseFragment() {
         }
     }
 
+    private val invalidGoodsAdapter:InvalidGoodsAdapter by lazy {
+        InvalidGoodsAdapter(invalidList)
+    }
+
     override fun setLayout(): Int = R.layout.fragment_shopping_car
 
     override fun initView() {
@@ -72,12 +79,16 @@ class ShoppingFragment : BaseFragment() {
                         llResult.visibility = View.VISIBLE
                         refreshLayout.isEnabled = true
                         modifyCount()
+                        rl_invalid.visibility = View.VISIBLE
+                        recyclerView2.visibility = View.VISIBLE
                     } else {
                         isEdit = true
                         titleFragment.tvRight.text = ("保存")
                         rlDelete.visibility = View.VISIBLE
                         llResult.visibility = View.GONE
                         refreshLayout.isEnabled = false
+                        rl_invalid.visibility = View.GONE
+                        recyclerView2.visibility = View.GONE
                     }
                     shoppingListAdapter.isEdit = isEdit
                     shoppingListAdapter.notifyDataSetChanged()
@@ -85,7 +96,15 @@ class ShoppingFragment : BaseFragment() {
         showTitle(titleFragment)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.adapter = shoppingListAdapter
+
+        recyclerView2.layoutManager = LinearLayoutManager(context)
+        recyclerView2.setHasFixedSize(true)
+        recyclerView2.isNestedScrollingEnabled = false
+        recyclerView2.adapter = invalidGoodsAdapter
+
 
         refreshLayout.setColorSchemeResources(R.color.red)
         refreshLayout.setOnRefreshListener {
@@ -103,6 +122,8 @@ class ShoppingFragment : BaseFragment() {
             delete()
         }
 
+        txt_invalid_clear.setOnClickListener(this)
+
         btn_buy.setOnClickListener(this)
     }
 
@@ -115,6 +136,16 @@ class ShoppingFragment : BaseFragment() {
             R.id.btn_buy -> {
                 createOrder()
             }
+
+            R.id.txt_invalid_clear -> {
+                val dialog = SmediaDialog(context)
+                dialog.setTitle("是否清空失效商品")
+                dialog.OnClickListener = View.OnClickListener {
+                    clearInvalid()
+                }
+                dialog.show()
+            }
+
         }
     }
 
@@ -131,8 +162,8 @@ class ShoppingFragment : BaseFragment() {
 
         view_select.setBackgroundResource(R.drawable.bg_select_round_gray_no)
         mData.clear()
-        ApiManager2.post(getBaseActivity(), hashMapOf(), Constant.ESHOP_CARTS, object : ApiManager2.OnResult<BaseBean<ArrayList<ShoppingCarts>>>() {
-            override fun onSuccess(data: BaseBean<ArrayList<ShoppingCarts>>) {
+        ApiManager2.post(getBaseActivity(), hashMapOf(), Constant.ESHOP_CARTS, object : ApiManager2.OnResult<BaseBean<ShoppingCarts>>() {
+            override fun onSuccess(data: BaseBean<ShoppingCarts>) {
                 isEdit = false
                 shoppingListAdapter.isEdit = isEdit
                 titleFragment.tvRight?.text = ("编辑")
@@ -140,8 +171,10 @@ class ShoppingFragment : BaseFragment() {
                 llResult.visibility = View.VISIBLE
                 refreshLayout.isEnabled = true
                 refreshLayout.isRefreshing = false
+                rl_invalid.visibility = View.VISIBLE
+                recyclerView2.visibility = View.VISIBLE
 
-                if (data.message == null || data.message?.size == 0) {
+                if (data.message == null || data.message?.list?.size == 0) {
                     rlSelect.visibility = View.GONE
                     titleFragment.getRightText().visibility = View.GONE
                     showReTryLayout("购物车还是空的，赶紧行动吧！",true)
@@ -152,16 +185,29 @@ class ShoppingFragment : BaseFragment() {
                     hideReTryLayout()
                 }
 
-                data.message?.let { it ->
-                    it.forEach { carts ->
+                data.message?.list.let { it ->
+                    it?.forEach { carts ->
                         if (!mData.contains(carts)) {
                             val goodsList = it.filter { it.store_name == carts.store_name } as ArrayList
-                            mData.add(ShoppingCarts(carts.store_id, carts.store_name, "", "", "", "", "", linkedMapOf(), "", false, goodsList))
+                            mData.add(ShoppingCarts.Shopping(carts.store_id, carts.store_name, "", "", "", "", "", linkedMapOf(), "", false,"", goodsList))
                         }
                     }
                 }
 
                 shoppingListAdapter.notifyDataSetChanged()
+
+                //失效商品
+
+                invalidList.clear()
+
+                if (data.message?.valid == null || (data.message?.valid?: arrayListOf()).isEmpty()){
+                    rl_invalid.visibility = View.GONE
+                }else{
+                    rl_invalid.visibility = View.VISIBLE
+                    invalidList.addAll(data.message?.valid?: arrayListOf())
+                    invalidGoodsAdapter.notifyDataSetChanged()
+                }
+
             }
 
             override fun onFailed(code: String, message: String) {
@@ -174,6 +220,9 @@ class ShoppingFragment : BaseFragment() {
                 refreshLayout.isRefreshing = false
                 shoppingListAdapter.notifyDataSetChanged()
 
+                invalidList.clear()
+                invalidGoodsAdapter.notifyDataSetChanged()
+
                 if (code == "200") {
                     rlSelect.visibility = View.GONE
                     titleFragment.getRightText().visibility = View.GONE
@@ -185,7 +234,7 @@ class ShoppingFragment : BaseFragment() {
                 }
             }
 
-            override fun onCatch(data: BaseBean<ArrayList<ShoppingCarts>>) {
+            override fun onCatch(data: BaseBean<ShoppingCarts>) {
             }
 
         })
@@ -264,7 +313,7 @@ class ShoppingFragment : BaseFragment() {
             childList.forEach { it ->
                 shopPrice+= (it.sku_price.toFloat() * it.num.toFloat())
                 val skuSb = StringBuilder()
-                it.sku_attrs.forEach {
+                it.sku_attrs?.forEach {
                     skuSb.append(it.value).append(",")
                 }
                 skuSb.deleteCharAt(skuSb.lastIndex)
@@ -283,6 +332,30 @@ class ShoppingFragment : BaseFragment() {
 
         SmApplication.getApp().setData(DataCode.GOODS_DETAIL,shopList)
         GoodsCreateOrderActivity.start(context,money.toString())
+    }
+
+
+    //清理失效商品
+    fun clearInvalid(){
+        ApiManager2.post(getBaseActivity(), hashMapOf(),Constant.ESHOP_CART_CLEAN,object :ApiManager2.OnResult<BaseBean<String>>(){
+            override fun onSuccess(data: BaseBean<String>) {
+               if (data.status == "200"){
+                   loadData()
+                   ToastUtil.show("清理成功！")
+               }else{
+                   ToastUtil.show(data.message)
+               }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

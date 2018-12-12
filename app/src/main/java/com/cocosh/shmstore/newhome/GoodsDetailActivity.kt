@@ -185,7 +185,16 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                             content.replace("<img", "<img width=100%") + "</body></html>"
                     webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
-                    recyclerView_params.adapter = GoodsParamsAdapter(it.goods.params)
+
+                    it.goods.params?.let {
+                        if (it.isNotEmpty()){
+                            ll_goods_params.visibility  =View.VISIBLE
+                            recyclerView_params.adapter = GoodsParamsAdapter(it)
+                        }
+
+                    }
+
+
                 }
             }
 

@@ -39,6 +39,14 @@ class GoodsClazzFragment : BaseFragment() {
         getLayoutView().recyclerView.adapter = oneGoodsClazzAdapter
 
         getLayoutView().recyclerView2.layoutManager = LinearLayoutManager(context)
+
+        getLayoutView().refreshLayout.setOnRefreshListener {
+            oneGoodsClazzAdapter.index = 0
+            oneGoodsClazzAdapter.notifyDataSetChanged()
+            loadData()
+
+        }
+
         loadData()
     }
 
@@ -58,6 +66,8 @@ class GoodsClazzFragment : BaseFragment() {
 
         ApiManager2.get(getBaseActivity(), params, Constant.ESHOP_CLASSES, object : ApiManager2.OnResult<BaseBean<GoodsClazz>>() {
             override fun onSuccess(data: BaseBean<GoodsClazz>) {
+
+                getLayoutView().refreshLayout.isRefreshing = false
                 data.message?.data?.let { arrayList ->
                     oneList.clear()
                     oneList.addAll(arrayList.filter { it.deep == "1" })
@@ -81,7 +91,9 @@ class GoodsClazzFragment : BaseFragment() {
             }
 
             override fun onFailed(code: String, message: String) {
-
+                getLayoutView().refreshLayout.isRefreshing = false
+                oneList.clear()
+                getLayoutView().recyclerView.adapter.notifyDataSetChanged()
             }
 
             override fun onCatch(data: BaseBean<GoodsClazz>) {
