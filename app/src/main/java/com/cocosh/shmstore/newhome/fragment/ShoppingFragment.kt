@@ -175,9 +175,11 @@ class ShoppingFragment : BaseFragment() {
                 recyclerView2.visibility = View.VISIBLE
 
                 if (data.message == null || data.message?.list?.size == 0) {
-                    rlSelect.visibility = View.GONE
-                    titleFragment.getRightText().visibility = View.GONE
-                    showReTryLayout("购物车还是空的，赶紧行动吧！",true)
+                    if (data.message?.valid == null || data.message?.valid?.size == 0){
+                        rlSelect.visibility = View.GONE
+                        titleFragment.getRightText().visibility = View.GONE
+                        showReTryLayout("购物车还是空的，赶紧行动吧！",true)
+                    }
 
                 } else {
                     titleFragment.getRightText().visibility = View.VISIBLE
@@ -204,6 +206,7 @@ class ShoppingFragment : BaseFragment() {
                     rl_invalid.visibility = View.GONE
                 }else{
                     rl_invalid.visibility = View.VISIBLE
+                    txt_invalid_count.text = ("失效商品${data.message?.valid?.size}件")
                     invalidList.addAll(data.message?.valid?: arrayListOf())
                     invalidGoodsAdapter.notifyDataSetChanged()
                 }

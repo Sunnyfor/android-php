@@ -16,13 +16,13 @@
             android:layout_width="@dimen/w140"
             android:layout_height="@dimen/h58"
             android:background="@drawable/shape_btn_gray"
-            android:textSize="@dimen/w26"
+            android:textSize="@dimen/w36"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/w25"
             android:layout_marginRight="@dimen/w25"
             android:textColor="@color/grayText"
-            android:text="库存不足"/>
+            android:text="失效"/>
 
 
         <ImageView
@@ -58,6 +58,7 @@
                 tools:text="非常美味的咖啡" />
 
             <TextView
+                android:id="@+id/txt_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/w50"
