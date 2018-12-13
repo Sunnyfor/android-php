@@ -25,7 +25,7 @@ class InvalidGoodsAdapter(list:ArrayList<ShoppingCarts.Shopping>): BaseRecycleAd
         holder.itemView.tvGoodsName.text = getData(position).goods_name
 
         val status = when(getData(position).status){
-            "1" -> "该商品已下架"
+            "2" -> "该商品已下架"
             else -> "商品库存不足"
         }
 

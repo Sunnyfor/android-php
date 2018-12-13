@@ -16,7 +16,6 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.model.AddCar
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
-import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.layout_shopping_goods_item.view.*
 import org.greenrobot.eventbus.EventBus
 

@@ -317,7 +317,7 @@ class ShoppingFragment : BaseFragment() {
 
 
     //清理失效商品
-    fun clearInvalid(){
+    private fun clearInvalid(){
         ApiManager2.post(getBaseActivity(), hashMapOf(),Constant.ESHOP_CART_CLEAN,object :ApiManager2.OnResult<BaseBean<String>>(){
             override fun onSuccess(data: BaseBean<String>) {
                if (data.status == "200"){

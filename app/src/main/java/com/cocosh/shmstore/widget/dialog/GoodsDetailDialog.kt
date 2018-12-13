@@ -136,9 +136,11 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
 
     private fun add() {
         val count = tvCount.text.toString().toInt()
-        if (count < 999) {
+        if (count < (resultList?.last()?.num?:"0").toInt()) {
             tvCount.text = (count + 1).toString()
             countDesc()
+        }else{
+            ToastUtil.show("库存不足！")
         }
     }
 
@@ -193,8 +195,13 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
         params["shop_num"] = tvCount.text.toString()
         ApiManager2.post(context, params, Constant.ESHOP_CART_ADD, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
-                ToastUtil.show("成功添加到购物车！")
-                EventBus.getDefault().post(AddCar())
+                if (data.message?.isEmpty() == true){
+                    ToastUtil.show("成功添加到购物车！")
+                    EventBus.getDefault().post(AddCar())
+                }else{
+                    ToastUtil.show("成功添加到购物车！")
+                }
+
             }
 
             override fun onFailed(code: String, message: String) {
