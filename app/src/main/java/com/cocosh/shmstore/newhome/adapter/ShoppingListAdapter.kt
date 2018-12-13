@@ -12,7 +12,7 @@ import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.model.ShoppingCarts
 import kotlinx.android.synthetic.main.layout_shopping_shop_item.view.*
 
-class ShoppingListAdapter(mList: ArrayList<ShoppingCarts.Shopping>, var action: () -> Unit) : BaseRecycleAdapter<ShoppingCarts.Shopping>(mList) {
+class ShoppingListAdapter(var baseActivity: BaseActivity,mList: ArrayList<ShoppingCarts.Shopping>, var action: () -> Unit) : BaseRecycleAdapter<ShoppingCarts.Shopping>(mList) {
 
     var isEdit: Boolean = false
 
@@ -22,7 +22,7 @@ class ShoppingListAdapter(mList: ArrayList<ShoppingCarts.Shopping>, var action: 
         holder.itemView.recyclerView.isNestedScrollingEnabled = false
         holder.itemView.recyclerView.isFocusableInTouchMode = false
 
-        val adapter = ShoppingListItemGoodsAdapter(getData(position).goodsList) {
+        val adapter = ShoppingListItemGoodsAdapter(baseActivity,getData(position).goodsList) {
             action()
             list.removeAll(list.filter { it.goodsList.size == 0 })
             notifyDataSetChanged()

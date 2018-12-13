@@ -244,7 +244,11 @@ object Constant {
     const val ESHOP_CARTS = "$VERSION/eshop/carts"
 
     //保存购物车
-    const val ESHOP_CART_SAVE = "$VERSION/eshop/cart/save"
+    const val ESHOP_CART_SELLNUM = "$VERSION/eshop/cart/sellnum"
+
+    //保存购物车
+    const val ESHOP_CART_DELETE = "$VERSION/eshop/cart/delete"
+
     //收藏商品
     const val ESHOP_FAV_GOODS = "$VERSION/eshop/fav/goods"
     //收藏商品列表

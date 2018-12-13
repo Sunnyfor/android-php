@@ -35,7 +35,7 @@ class ShoppingFragment : BaseFragment() {
     private var isEdit = false
     private val titleFragment = LeftRightTitleFragment()
     private val shoppingListAdapter: ShoppingListAdapter by lazy {
-        ShoppingListAdapter(mData) {
+        ShoppingListAdapter(getBaseActivity(),mData) {
             money = 0f
             isAll = true
             mData.forEach { list ->
@@ -78,12 +78,11 @@ class ShoppingFragment : BaseFragment() {
                         rlDelete.visibility = View.GONE
                         llResult.visibility = View.VISIBLE
                         refreshLayout.isEnabled = true
-                        modifyCount()
                         rl_invalid.visibility = View.VISIBLE
                         recyclerView2.visibility = View.VISIBLE
                     } else {
                         isEdit = true
-                        titleFragment.tvRight.text = ("保存")
+                        titleFragment.tvRight.text = ("取消")
                         rlDelete.visibility = View.VISIBLE
                         llResult.visibility = View.GONE
                         refreshLayout.isEnabled = false
@@ -244,58 +243,37 @@ class ShoppingFragment : BaseFragment() {
 
     }
 
-    //修改购物车数量
-    private fun modifyCount() {
-        val jsonArray = JSONArray()
-        mData.forEach { shopList ->
-            shopList.goodsList.forEach {
-                jsonArray.put(JSONObject().put(it.sku_id, it.num))
-            }
-        }
-        val params = hashMapOf<String, String>()
-        params["data"] = jsonArray.toString()
-        ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
-            override fun onSuccess(data: BaseBean<String>) {
-                ToastUtil.show("保存成功！")
-            }
-
-            override fun onFailed(code: String, message: String) {
-
-            }
-
-            override fun onCatch(data: BaseBean<String>) {
-
-            }
-
-        })
-    }
 
 
     //从删除购物车
     private fun delete() {
-        val jsonArray = JSONArray()
+        val skuSb = StringBuilder()
         mData.forEach { shoppingCarts ->
             shoppingCarts.goodsList.filter { it.isChecked }.forEach {
-                jsonArray.put(JSONObject().put(it.sku_id, "0"))
+                skuSb.append(it.sku_id).append(",")
             }
         }
 
-        val params = hashMapOf<String, String>()
-        params["data"] = jsonArray.toString()
-        ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_SAVE, object : ApiManager2.OnResult<BaseBean<String>>() {
-            override fun onSuccess(data: BaseBean<String>) {
-                ToastUtil.show("删除成功！")
-                loadData()
-            }
+        if (skuSb.isNotEmpty()){
+            skuSb.deleteCharAt(skuSb.lastIndex)
 
-            override fun onFailed(code: String, message: String) {
+            val params = hashMapOf<String, String>()
+            params["data"] = skuSb.toString()
+            ApiManager2.post(getBaseActivity(), params, Constant.ESHOP_CART_DELETE, object : ApiManager2.OnResult<BaseBean<String>>() {
+                override fun onSuccess(data: BaseBean<String>) {
+                    ToastUtil.show("删除成功！")
+                    loadData()
+                }
 
-            }
+                override fun onFailed(code: String, message: String) {
 
-            override fun onCatch(data: BaseBean<String>) {
+                }
 
-            }
-        })
+                override fun onCatch(data: BaseBean<String>) {
+
+                }
+            })
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
