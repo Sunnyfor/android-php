@@ -147,7 +147,7 @@ class OrderDetailActivity : BaseActivity() {
                     text_user_name.text = ("${it.recive.name}  ${it.recive.phone}")
                     address.text = (it.recive.province + it.recive.city + it.recive.town + it.recive.more)
 
-                    txt_money.text = ("￥${it.body.price}")
+                    txt_money.text = ("￥${it.body.price?:"0.00"}")
                     showStartTime.text = it.order.pay_time
 //
 

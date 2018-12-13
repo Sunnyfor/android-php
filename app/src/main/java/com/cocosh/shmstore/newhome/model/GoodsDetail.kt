@@ -2,7 +2,7 @@ package com.cocosh.shmstore.newhome.model
 
 
 data class GoodsDetail(
-        var goods: Goods,
+        var goods: Goods?,
         var addr: Addr, // --- 此域待定
         var comment: ArrayList<Comment>,//评论
         var store: Shop,
@@ -16,13 +16,13 @@ data class GoodsDetail(
             var price: String, // 商品价格
             var storage: String, // 商品总库存, 注意:当总库存量 = 0时,客户端显示已售罄,不能sku选购
             var image: ArrayList<String>, // 商品主图
-            var sku: Sku,  // 仅限总库存量 > 0时,显示此域
+            var sku: Sku?,  // 仅限总库存量 > 0时,显示此域
             var params:ArrayList<Params>?, //参数
             var fav:String
     ) {
         data class Sku(
-                var attrs: ArrayList<Attrs>, //属性
-                var desc: ArrayList<Desc> //属性
+                var attrs: ArrayList<Attrs>?, //属性
+                var desc: ArrayList<Desc>? //属性
 
         ) {
             data class Attrs(

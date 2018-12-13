@@ -45,21 +45,25 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
         btnBuy.setOnClickListener(this)
 
         initData()
+
         setOnDismissListener {
             updateButton()
         }
     }
 
     fun initData() {
+        goodsDetail.goods?.image?.let {
+            if (it.isNotEmpty()){
+                Glide.with(context)
+                        .load(it[0])
+                        .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.activity_bg)))
+                        .into(ivPhoto)
+            }
+        }
 
-        Glide.with(context)
-                .load(goodsDetail.goods.image[0])
-                .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.activity_bg)))
-                .into(ivPhoto)
-        tvMoney.text = goodsDetail.goods.price
+        tvMoney.text = goodsDetail.goods?.price
 
-
-        goodsDetail.goods.sku.attrs.forEach {
+        goodsDetail.goods?.sku?.attrs?.forEach {
             val view = LayoutInflater.from(context).inflate(R.layout.item_goods_detail_label, llLabel, false)
             view.tvName.text = it.name
             val values = it.vals.split(",")
@@ -73,21 +77,35 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
             llLabel.addView(view)
         }
 
-        goodsDetail.goods.sku.desc.last { it.id == skuid }.ele.forEach {
-            selectFlag[it.key] = it.value
+        goodsDetail.goods?.sku?.let { sku ->
+            sku.desc?.last { it.id == skuid }?.ele?.forEach {
+                selectFlag[it.key] = it.value
+            }
+
+            for (i in 0 until selectFlag.size) {
+                sku.attrs?.let { list ->
+                    llLabel.getChildAt(i)?.let { it ->
+                        val values = list[i].vals.split(",")
+                        if (values.isNotEmpty()){
+                            val select =  values.indexOf(selectFlag[it.tvName.text.toString()])
+                            if (select != -1){
+                                (llLabel.getChildAt(i)).labView?.setSelects(select)
+                            }
+                        }
+                    }
+                }
+            }
+
+            val ele = StringBuilder()
+            sku.desc?.let { it ->
+                it[0].ele.forEach {
+                    ele.append(it.value).append("，")
+                }
+            }
+            updateButton()
         }
 
-        for (i in 0 until selectFlag.size) {
-            val select = goodsDetail.goods.sku.attrs[i].vals.split(",").indexOf(selectFlag[(llLabel.getChildAt(i)).tvName.text.toString()])
-            (llLabel.getChildAt(i)).labView.setSelects(select)
-        }
 
-        val ele = StringBuilder()
-        goodsDetail.goods.sku.desc[0].ele.forEach {
-            ele.append(it.value).append("，")
-        }
-
-        updateButton()
 //        tvDesc.text = (ele.toString() + count + "件")
 
     }
@@ -138,7 +156,7 @@ class GoodsDetailDialog(private var skuid: String, var count: String, var contex
     private fun updateButton() {
         var lastEntry: Map.Entry<String, String>? = null
         selectFlag.forEach { entry ->
-            resultList = goodsDetail.goods.sku.desc.filter { it.ele[entry.key] == entry.value } as ArrayList<GoodsDetail.Goods.Sku.Desc>
+            resultList = goodsDetail.goods?.sku?.desc?.filter { it.ele[entry.key] == entry.value } as ArrayList<GoodsDetail.Goods.Sku.Desc>
             lastEntry?.let { lastEntry ->
                 resultList = resultList?.filter { it.ele[entry.key] == entry.value && it.ele[lastEntry.key] == lastEntry.value } as ArrayList<GoodsDetail.Goods.Sku.Desc>
             }

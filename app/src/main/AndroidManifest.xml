@@ -551,6 +551,10 @@
         <activity
             android:name=".newhome.GoodsCreateOrderActivity"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".newhome.GoodsErrorActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

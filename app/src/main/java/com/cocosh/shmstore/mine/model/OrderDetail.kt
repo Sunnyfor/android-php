@@ -20,11 +20,11 @@ data class OrderDetail(
     )
 
     data class Body(
-            var price: String,
-            var postage: String,
-            var discount_type: String,
-            var discount: String,
-            var actual: String)
+            var price: String?,
+            var postage: String?,
+            var discount_type: String?,
+            var discount: String?,
+            var actual: String?)
 
     data class Order(
             var flowno: String,

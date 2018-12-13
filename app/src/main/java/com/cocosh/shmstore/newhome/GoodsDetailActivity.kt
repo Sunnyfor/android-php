@@ -147,17 +147,21 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
             override fun onSuccess(data: BaseBean<GoodsDetail>) {
                 data.message?.let { it ->
                     goodsDetail = it
-                    initBanner(it.goods.image)
-                    text_goods_name.text = it.goods.name
-                    text_goods_price.text = ("¥ " + it.goods.price)
+                    it.goods?.image?.let {
+                        initBanner(it)
+                    }
+                    text_goods_name.text = it.goods?.name
+                    text_goods_price.text = ("¥ " + it.goods?.price)
 
-                    it.goods.sku.let { sku ->
-                        val ele = StringBuilder()
-                        sku.desc[0].ele.forEach {
-                            ele.append(it.value).append("，")
+                    it.goods?.sku?.let { sku ->
+                        if (sku.desc?.isNotEmpty() == true){
+                            val ele = StringBuilder()
+                            sku.desc!![0].ele.forEach {
+                                ele.append(it.value).append("，")
+                            }
+                            tvEle.text = (ele.toString() + "1件")
+                            skuid = sku.desc!![0].id
                         }
-                        tvEle.text = (ele.toString() + "1件")
-                        skuid = sku.desc[0].id
                     }
 
                     Glide.with(this@GoodsDetailActivity).load(it.store.logo)
@@ -166,13 +170,14 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                             .into(ivPhoto)
                     tvName.text = it.store.name
                     tvCount.text = (it.store.total + "件在售商品")
+
                     if (it.store.attention == "1") {
                         btnFollow.setBackgroundResource(R.mipmap.ic_shop_cancel_follow)
                     } else {
                         btnFollow.setBackgroundResource(R.mipmap.ic_shop_follow)
                     }
 
-                    if (it.goods.fav == "1") {
+                    if (it.goods?.fav == "1") {
                         view_collect.setBackgroundResource(R.mipmap.ic_goods_collect_red)
                     } else {
                         view_collect.setBackgroundResource(R.mipmap.ic_goods_collect)
@@ -186,7 +191,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
 
-                    it.goods.params?.let {
+                    it.goods?.params?.let {
                         if (it.isNotEmpty()){
                             ll_goods_params.visibility  =View.VISIBLE
                             recyclerView_params.adapter = GoodsParamsAdapter(it)
@@ -298,7 +303,6 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
     private fun favShop() {
-
         if (!UserManager2.isLogin()){
             SmediaDialog(this@GoodsDetailActivity).showLogin()
             return

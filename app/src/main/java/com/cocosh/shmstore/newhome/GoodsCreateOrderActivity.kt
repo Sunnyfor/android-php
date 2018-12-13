@@ -75,7 +75,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
             if (type == "1") {
                 SmApplication.getApp().getData<GoodsDetail>(DataCode.GOODS_DETAIL, true)?.let {
                     val goodsList = arrayListOf<CreateGoodsBean>()
-                    goodsList.add(CreateGoodsBean(it.store.id, it.store.name, it.goods.id, it.goods.name, it.goods.image[0], skuid, skustr, price, number, null))
+                    goodsList.add(CreateGoodsBean(it.store.id, it.store.name, it.goods?.id?:"", it.goods?.name?:"", (it.goods?.image?: arrayListOf(""))[0], skuid, skustr, price, number, null))
                     shopList.add(CreateGoodsBean(it.store.id, it.store.name, "", "", "", "", "", price, "", goodsList))
                     recyclerView.adapter = CreateOrderListAdapter(shopList)
                 }

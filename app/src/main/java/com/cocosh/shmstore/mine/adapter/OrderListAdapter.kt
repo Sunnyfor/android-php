@@ -17,7 +17,6 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.Order
 import com.cocosh.shmstore.mine.ui.OrderDetailActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
-import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.adapter.OrderGoodsAdapter
 import com.cocosh.shmstore.utils.DataCode
@@ -44,7 +43,9 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
         holder.itemView.recyclerView.layoutManager = LinearLayoutManager(context)
         holder.itemView.recyclerView.setHasFixedSize(true)
         holder.itemView.recyclerView.isNestedScrollingEnabled = false
-        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list,isDesc)
+        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list, isDesc).apply {
+            order = this@OrderListAdapter.getData(position)
+        }
 
         holder.itemView.txt_money.text = ("¥ " + getData(position).sum)
 
@@ -52,12 +53,6 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             if (isDesc) {
                 GoodsShoppingActivity.start(context, getData(position).store_name, getData(position).store_id)
             } else {
-                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
-            }
-        }
-
-        if (isDesc) {
-            holder.itemView.setOnClickListener {
                 SmApplication.getApp().setData(DataCode.ORDER_GOODS, getData(position))
                 OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
             }
@@ -86,7 +81,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             }
             "101" -> {
                 holder.itemView.tvStatus.text = "交易取消"
-                delete(holder.itemView.txt_right,position)
+                delete(holder.itemView.txt_right, position)
                 select(holder.itemView.txt_mid, position)
             }
             else -> {
@@ -209,7 +204,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
                 if (isDesc) {
                     baseActivity.finish()
                 }
-                EventBus.getDefault().post(Order("","","","","","","", arrayListOf()))
+                EventBus.getDefault().post(Order("", "", "", "", "", "", "", arrayListOf()))
                 ToastUtil.show("操作成功！")
             }
 
