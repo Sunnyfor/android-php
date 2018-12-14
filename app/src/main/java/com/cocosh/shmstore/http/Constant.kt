@@ -270,6 +270,9 @@ object Constant {
 
     //清理失效商品
     const val ESHOP_CART_CLEAN = "$VERSION/eshop/cart/clean"
+
+    const val ESHOP_RP_BALANCE = "$VERSION/eshop/rp/balance" //电商订单-查看红包或余额
+
     /**
      * 首页
      * */

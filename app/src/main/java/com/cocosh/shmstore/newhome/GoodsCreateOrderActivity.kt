@@ -236,7 +236,8 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
                 deductionMoney += shop.price.toFloat()
                 val price = if (redMoney.toFloat() >= deductionMoney) {
                     shop.price
-                } else (shop.price.toFloat() - (redMoney.toFloat() - deductionMoney - shop.price.toFloat())).toString()
+//                } else (shop.price.toFloat() - (redMoney.toFloat() - (deductionMoney - shop.price.toFloat()))).toString()
+                } else (redMoney.toFloat() - (deductionMoney - shop.price.toFloat())).toString()
                 shopObj.put("discount", price)
             }
             parentArray.put(shopObj)

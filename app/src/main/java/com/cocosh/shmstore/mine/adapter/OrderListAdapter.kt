@@ -17,6 +17,7 @@ import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.Order
 import com.cocosh.shmstore.mine.ui.OrderDetailActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
+import com.cocosh.shmstore.newhome.Balance
 import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.adapter.OrderGoodsAdapter
 import com.cocosh.shmstore.utils.DataCode
@@ -123,7 +124,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             text = "付款"
             showRedBg(this)
             setOnClickListener {
-                PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
+                pay(position)
             }
         }
 
@@ -213,6 +214,34 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             }
 
             override fun onCatch(data: BaseBean<String>) {
+
+            }
+
+        })
+    }
+
+
+    private fun pay(position: Int){
+        val params = HashMap<String, String>()
+        params["order_sn"] = getData(position).order_sn
+        ApiManager2.get(baseActivity,params,Constant.ESHOP_RP_BALANCE,object : ApiManager2.OnResult<BaseBean<Balance>>(){
+            override fun onSuccess(data: BaseBean<Balance>) {
+               if (data.message?.is_rp == "0"){
+                   val smediaDialog = SmediaDialog(context)
+                   smediaDialog.setTitle("红包金额不足，需支付${data.message?.actual}")
+                   smediaDialog.OnClickListener = View.OnClickListener {
+                       PayActivity.start(context, getData(position).order_sn,data.message?.actual?:"0.00", "6")
+                   }
+               }else{
+                   PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
+               }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<Balance>) {
 
             }
 
