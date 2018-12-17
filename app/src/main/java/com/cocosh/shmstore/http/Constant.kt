@@ -273,6 +273,7 @@ object Constant {
 
     const val ESHOP_RP_BALANCE = "$VERSION/eshop/rp/balance" //电商订单-查看红包或余额
 
+    const val ESHOP_RP_UPDA = "$VERSION/eshop/rp/upda" //更新红包订单
     /**
      * 首页
      * */

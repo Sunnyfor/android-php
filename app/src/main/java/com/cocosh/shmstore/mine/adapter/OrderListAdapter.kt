@@ -228,10 +228,14 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             override fun onSuccess(data: BaseBean<Balance>) {
                if (data.message?.is_rp == "0"){
                    val smediaDialog = SmediaDialog(context)
-                   smediaDialog.setTitle("红包金额不足，需支付${data.message?.actual}")
+                   val actual = (data.message?.actual?:"0").toFloat()
+                   val discount = (data.message?.discount?:"0").toFloat()
+                   val rp = (data.message?.rp?:"0").toFloat()
+                   smediaDialog.setTitle("红包金额不足，需支付${actual + discount - rp}元")
                    smediaDialog.OnClickListener = View.OnClickListener {
-                       PayActivity.start(context, getData(position).order_sn,data.message?.actual?:"0.00", "6")
+                       update(position,(actual + discount - rp).toString())
                    }
+                   smediaDialog.show()
                }else{
                    PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
                }
@@ -242,6 +246,34 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             }
 
             override fun onCatch(data: BaseBean<Balance>) {
+
+            }
+
+        })
+    }
+
+    //更新红包订单
+    private fun update(position: Int,money:String){
+        baseActivity.showLoading()
+        val params = HashMap<String, String>()
+        params["order_sn"] = getData(position).order_sn
+        ApiManager2.post(baseActivity,params,Constant.ESHOP_RP_UPDA,object :ApiManager2.OnResult<BaseBean<String>>(){
+            override fun onSuccess(data: BaseBean<String>) {
+                baseActivity.hideLoading()
+                if (data.status == "200"){
+                    getData(position).sum = money
+                    notifyDataSetChanged()
+                    PayActivity.start(context, getData(position).order_sn,money, "6")
+                }else{
+                    ToastUtil.show(data.message)
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+                baseActivity.hideLoading()
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
 
             }
 

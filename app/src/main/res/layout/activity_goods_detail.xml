@@ -247,14 +247,23 @@
                         android:id="@+id/btnFollow"
                         android:layout_width="@dimen/w210"
                         android:layout_height="@dimen/h101"
+                        android:layout_marginTop="@dimen/h50"
+                        android:background="@mipmap/ic_shop_follow"
+                        android:layout_toLeftOf="@id/txt_go_shop"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/w43"
+                        android:layout_toStartOf="@id/txt_go_shop" />
+
+                    <TextView
+                        android:id="@+id/txt_go_shop"
+                        android:layout_width="@dimen/w210"
+                        android:layout_height="@dimen/h101"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/h50"
                         android:layout_marginEnd="@dimen/w29"
                         android:layout_marginRight="@dimen/w29"
-                        android:background="@mipmap/ic_shop_follow"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/w43" />
+                        android:background="@mipmap/ic_go_shop"/>
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
