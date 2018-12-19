@@ -102,7 +102,10 @@ class OrderDetailActivity : BaseActivity() {
                 logisticsLL.visibility = View.GONE
             }
             else -> {
-
+                statusStr = "交易完成"
+                ll_time.visibility = View.GONE
+                logisticsLL.visibility = View.VISIBLE
+                loadExpressDelivery()
             }
         }
 

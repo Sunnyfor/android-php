@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.application.SmApplication
@@ -55,7 +54,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         result.message?.let { it ->
             if (it.isNotEmpty()) {
                 val address = it.last { it.default == "1" }
-                txt_address.text = (address.district + " "+address.addr)
+                txt_address.text = (address.district + " " + address.addr)
             }
         }
     }
@@ -100,7 +99,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         when (view.id) {
             R.id.llAddress -> {
                 if (UserManager2.isLogin()) {
-                    startActivity(Intent(this, AddressMangerActivity::class.java).putExtra("type","buy"))
+                    startActivity(Intent(this, AddressMangerActivity::class.java).putExtra("type", "buy"))
                 } else {
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
@@ -161,7 +160,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     text_goods_price.text = ("¥ " + it.goods?.price)
 
                     it.goods?.sku?.let { sku ->
-                        if (sku.desc?.isNotEmpty() == true){
+                        if (sku.desc?.isNotEmpty() == true) {
                             val ele = StringBuilder()
                             sku.desc!![0].ele.forEach {
                                 ele.append(it.value).append("，")
@@ -192,15 +191,28 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
                     recyclerView.adapter = GoodsDetailShopAdapter(it.store.goods ?: arrayListOf())
 
-                    val content = it.detail
-                    val html = "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no\">" + "<meta http-equiv=Content-Type content=\"text/html; charset=gb2312\">" + "</head>" + "<body style=\"margin:0;padding:0\">" +
-                            content.replace("<img", "<img width=100%") + "</body></html>"
+
+                    val contentSb = StringBuilder()
+
+                    val source = it.detail.split("</p>")
+                    source.forEach {
+
+                        if (it.contains("<img")) {
+                            contentSb.append(it.replace("&nbsp;", "").replace("<br>", ""))
+                        } else {
+                            contentSb.append(it)
+                        }
+                        contentSb.append("</p>")
+                    }
+
+                    val style = "<style>img{display:block;vertical-align:bottom;float:left;width:100%;}*{padding:0;margin:0;}</style>"
+                    val html = "<html><head><meta http-equiv=Content-Type content=\"text/html; charset=gb2312\"></head>$style<body>$contentSb</body></html>"
                     webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
 
                     it.goods?.params?.let {
-                        if (it.isNotEmpty()){
-                            ll_goods_params.visibility  =View.VISIBLE
+                        if (it.isNotEmpty()) {
+                            ll_goods_params.visibility = View.VISIBLE
                             recyclerView_params.adapter = GoodsParamsAdapter(it)
                         }
 
@@ -268,11 +280,11 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
     override fun onResume() {
         super.onResume()
-        val address = SmApplication.getApp().getData<Address>(DataCode.ADDRESS,false)
-        if (address == null){
+        val address = SmApplication.getApp().getData<Address>(DataCode.ADDRESS, false)
+        if (address == null) {
             mPresenter.requestGetAddress(0)
-        }else{
-            txt_address.text = (address.district + " "+address.addr)
+        } else {
+            txt_address.text = (address.district + " " + address.addr)
         }
     }
 
@@ -280,7 +292,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     //收藏商品方法
     private fun favGoods() {
 
-        if (!UserManager2.isLogin()){
+        if (!UserManager2.isLogin()) {
             SmediaDialog(this@GoodsDetailActivity).showLogin()
             return
         }
@@ -295,7 +307,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                 } else {
                     goodsDetail?.goods?.fav = "1"
                 }
-                EventBus.getDefault().post(GoodsFavEvent(goodsId,goodsDetail?.goods?.fav?:"0"))
+                EventBus.getDefault().post(GoodsFavEvent(goodsId, goodsDetail?.goods?.fav ?: "0"))
             }
 
             override fun onFailed(code: String, message: String) {
@@ -310,7 +322,7 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
     }
 
     private fun favShop() {
-        if (!UserManager2.isLogin()){
+        if (!UserManager2.isLogin()) {
             SmediaDialog(this@GoodsDetailActivity).showLogin()
             return
         }
