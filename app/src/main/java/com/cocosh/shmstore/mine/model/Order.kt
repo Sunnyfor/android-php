@@ -23,7 +23,11 @@ class Order(
             var price: String, // sku单价
             var attr: LinkedHashMap<String, String>, // sku属性
             var salenum: String,  // 购买数量
-            var off:String // 是否已下架:'0'-正常售卖,'1'-已下架
-    )
+            var off:String, // 是否已下架:'0'-正常售卖,'1'-已下架
+            var comment:Int // 是否已评论:'1'-已评
+    ){
+        var ratingNum = 0
+        var commentStr = "" //评价内容
+    }
 
 }

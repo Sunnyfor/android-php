@@ -63,7 +63,7 @@ class OrderDetailActivity : BaseActivity() {
         status = intent.getStringExtra("status")
         id = intent.getStringExtra("id")
 
-        SmApplication.getApp().getData<Order>(DataCode.ORDER_GOODS, true)?.let {
+        SmApplication.getApp().getData<Order>(DataCode.ORDER, true)?.let {
             val adapter = OrderListAdapter(this, arrayListOf(it), true)
             recyclerView.setHasFixedSize(false)
             recyclerView.isNestedScrollingEnabled = false

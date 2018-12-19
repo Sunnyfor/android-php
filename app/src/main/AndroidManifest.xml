@@ -555,6 +555,10 @@
         <activity
             android:name=".newhome.GoodsErrorActivity"
             android:launchMode="singleTop" />
+
+        <!--商品评价页面-->
+        <activity android:name=".newhome.GoodsCommentActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

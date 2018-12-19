@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgPhoto"
+            android:layout_width="@dimen/w140"
+            android:layout_height="@dimen/h140"
+            android:layout_marginStart="@dimen/w30"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginTop="@dimen/w30"
+            android:layout_marginBottom="@dimen/h30"
+            android:src="@color/activity_bg" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/w30"
+            android:layout_marginEnd="@dimen/w30"
+            android:layout_marginRight="@dimen/w30"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@string/app_name"
+            android:textColor="@color/blackText"
+            android:textSize="@dimen/w34" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/w114"
+            android:layout_marginLeft="@dimen/w114"
+            hedgehog:halfstart="false"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/ic_star_gray"
+            hedgehog:starFill="@mipmap/ic_star_red"
+            hedgehog:starImageHeight="@dimen/h104"
+            hedgehog:starImagePadding="@dimen/w40"
+            hedgehog:starImageWidth="@dimen/w104" />
+
+        <TextView
+            android:id="@+id/txt_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/w40"
+            android:layout_marginLeft="@dimen/w40"
+            android:text="非常好"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/w34" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w2"
+        android:background="@color/gray_line"/>
+
+    <EditText
+        android:id="@+id/edit_commit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h350"
+        android:padding="@dimen/w30"
+        android:hint="宝贝满足你的期待吗？说说它的优点和美中不足的地方吧"
+        android:textSize="@dimen/w34"
+        android:gravity="top"
+        android:background="@color/transparent"/>
+</LinearLayout>

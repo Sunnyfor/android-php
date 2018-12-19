@@ -52,7 +52,7 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean) : Bas
             }
         } else {
             holder.itemView.setOnClickListener {
-                SmApplication.getApp().setData(DataCode.ORDER_GOODS, order)
+                SmApplication.getApp().setData(DataCode.ORDER, order)
                 OrderDetailActivity.start(context, order?.order_sn ?: "", order?.status ?: "")
             }
         }

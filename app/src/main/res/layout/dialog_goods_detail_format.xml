@@ -89,7 +89,8 @@
             android:layout_marginStart="@dimen/w46"
             android:layout_marginLeft="@dimen/w46"
             android:contentDescription="@null"
-            android:src="@color/activity_bg" />
+            android:src="@color/activity_bg"
+            android:background="@color/white"/>
     </RelativeLayout>
 
     <View

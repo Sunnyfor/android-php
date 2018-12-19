@@ -1,5 +1,6 @@
 package com.cocosh.shmstore.mine.adapter
 
+import android.content.Intent
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.cocosh.shmstore.mine.model.Order
 import com.cocosh.shmstore.mine.ui.OrderDetailActivity
 import com.cocosh.shmstore.newCertification.ui.PayActivity
 import com.cocosh.shmstore.newhome.Balance
+import com.cocosh.shmstore.newhome.GoodsCommentActivity
 import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.adapter.OrderGoodsAdapter
 import com.cocosh.shmstore.utils.DataCode
@@ -54,7 +56,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             if (isDesc) {
                 GoodsShoppingActivity.start(context, getData(position).store_name, getData(position).store_id)
             } else {
-                SmApplication.getApp().setData(DataCode.ORDER_GOODS, getData(position))
+                SmApplication.getApp().setData(DataCode.ORDER, getData(position))
                 OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
             }
         }
@@ -78,6 +80,9 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             }
             "3" -> {
                 holder.itemView.tvStatus.text = "交易完成"
+                if (getData(position).list[0].comment == 0){
+                    comment(holder.itemView.txt_mid, position)
+                }
                 select(holder.itemView.txt_right, position)
             }
             "101" -> {
@@ -144,6 +149,18 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
     }
 
 
+    private fun comment(textView: TextView, position: Int) {
+        textView.apply {
+            text = "评价"
+            showGrayBg(this)
+            setOnClickListener { _ ->
+                SmApplication.getApp().setData(DataCode.ORDER_GOODS, getData(position).list)
+                GoodsCommentActivity.start(context,getData(position).order_sn)
+            }
+        }
+    }
+
+
     private fun cancel(textView: TextView, position: Int) {
         textView.apply {
             text = "取消订单"
@@ -166,7 +183,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             text = "查看订单"
             showGrayBg(this)
             setOnClickListener {
-                SmApplication.getApp().setData(DataCode.ORDER_GOODS, getData(position))
+                SmApplication.getApp().setData(DataCode.ORDER, getData(position))
                 OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
             }
         }
@@ -221,24 +238,24 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
     }
 
 
-    private fun pay(position: Int){
+    private fun pay(position: Int) {
         val params = HashMap<String, String>()
         params["order_sn"] = getData(position).order_sn
-        ApiManager2.get(baseActivity,params,Constant.ESHOP_RP_BALANCE,object : ApiManager2.OnResult<BaseBean<Balance>>(){
+        ApiManager2.get(baseActivity, params, Constant.ESHOP_RP_BALANCE, object : ApiManager2.OnResult<BaseBean<Balance>>() {
             override fun onSuccess(data: BaseBean<Balance>) {
-               if (data.message?.is_rp == "0"){
-                   val smediaDialog = SmediaDialog(context)
-                   val actual = (data.message?.actual?:"0").toFloat()
-                   val discount = (data.message?.discount?:"0").toFloat()
-                   val rp = (data.message?.rp?:"0").toFloat()
-                   smediaDialog.setTitle("红包金额不足，需支付${actual + discount - rp}元")
-                   smediaDialog.OnClickListener = View.OnClickListener {
-                       update(position,(actual + discount - rp).toString())
-                   }
-                   smediaDialog.show()
-               }else{
-                   PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
-               }
+                if (data.message?.is_rp == "0") {
+                    val smediaDialog = SmediaDialog(context)
+                    val actual = (data.message?.actual ?: "0").toFloat()
+                    val discount = (data.message?.discount ?: "0").toFloat()
+                    val rp = (data.message?.rp ?: "0").toFloat()
+                    smediaDialog.setTitle("红包金额不足，需支付${actual + discount - rp}元")
+                    smediaDialog.OnClickListener = View.OnClickListener {
+                        update(position, (actual + discount - rp).toString())
+                    }
+                    smediaDialog.show()
+                } else {
+                    PayActivity.start(context, getData(position).order_sn, getData(position).sum, "6")
+                }
             }
 
             override fun onFailed(code: String, message: String) {
@@ -253,18 +270,18 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
     }
 
     //更新红包订单
-    private fun update(position: Int,money:String){
+    private fun update(position: Int, money: String) {
         baseActivity.showLoading()
         val params = HashMap<String, String>()
         params["order_sn"] = getData(position).order_sn
-        ApiManager2.post(baseActivity,params,Constant.ESHOP_RP_UPDA,object :ApiManager2.OnResult<BaseBean<String>>(){
+        ApiManager2.post(baseActivity, params, Constant.ESHOP_RP_UPDA, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
                 baseActivity.hideLoading()
-                if (data.status == "200"){
+                if (data.status == "200") {
                     getData(position).sum = money
                     notifyDataSetChanged()
-                    PayActivity.start(context, getData(position).order_sn,money, "6")
-                }else{
+                    PayActivity.start(context, getData(position).order_sn, money, "6")
+                } else {
                     ToastUtil.show(data.message)
                 }
             }
