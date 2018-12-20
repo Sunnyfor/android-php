@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseBean
@@ -13,12 +12,12 @@ import com.cocosh.shmstore.base.BaseFragment
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.home.BonusListActivity
 import com.cocosh.shmstore.home.BonusPoolActivity
+import com.cocosh.shmstore.home.model.Bonus2
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newhome.GoodsDetailActivity
 import com.cocosh.shmstore.newhome.adapter.RecommendAdapter
 import com.cocosh.shmstore.newhome.model.Goods
-import com.cocosh.shmstore.newhome.model.NewHomeBanner
 import com.cocosh.shmstore.newhome.model.RankListActivity
 import com.cocosh.shmstore.newhome.model.Recommend
 import com.cocosh.shmstore.widget.view.MarketView
@@ -118,20 +117,32 @@ class RecommendFragment : BaseFragment() {
 
     private fun loadBanner() {
         val params = hashMapOf<String, String>()
-        ApiManager2.get(0, getBaseActivity(), params, Constant.RP_HOME, object : ApiManager2.OnResult<BaseBean<NewHomeBanner>>() {
+        ApiManager2.get(0, getBaseActivity(), params, Constant.RP_HOME, object : ApiManager2.OnResult<BaseBean<ArrayList<Bonus2>>>() {
             override fun onFailed(code: String, message: String) {
                 refreshLayout.isRefreshing = false
             }
 
-            override fun onSuccess(data: BaseBean<NewHomeBanner>) {
+            override fun onSuccess(data: BaseBean<ArrayList<Bonus2>>) {
                 refreshLayout.isRefreshing = false
                 data.message?.let {
-                    getLayoutView().tvMoney.text = it.total
-                    getLayoutView().homeAdView.loadData(it.data)
+                    getLayoutView().homeAdView.loadData(it)
                 }
             }
 
-            override fun onCatch(data: BaseBean<NewHomeBanner>) {
+            override fun onCatch(data: BaseBean<ArrayList<Bonus2>>) {
+            }
+
+        })
+
+        ApiManager2.get(getBaseActivity(), null, Constant.HOME_TOTALSUM, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                getLayoutView().tvMoney.text = data.message?:"0"
+            }
+
+            override fun onFailed(code: String, message: String) {
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
             }
 
         })

@@ -277,6 +277,7 @@ object Constant {
 
     const val ESHOP_COMMENT_ADD = "$VERSION/eshop/comment/add" //评价商品
 
+    const val HOME_TOTALSUM = "$VERSION/home/totalsum" //红包资金池金额
     /**
      * 首页
      * */

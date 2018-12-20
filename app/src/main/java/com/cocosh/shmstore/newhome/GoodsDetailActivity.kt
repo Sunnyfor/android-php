@@ -378,4 +378,5 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         }
     }
 
+
 }
