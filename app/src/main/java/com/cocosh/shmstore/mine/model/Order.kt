@@ -27,7 +27,7 @@ class Order(
             var comment:Int // 是否已评论:'1'-已评
     ){
         var ratingNum = 0
-        var commentStr = "" //评价内容
+        var commentStr:String? = "" //评价内容
     }
 
 }

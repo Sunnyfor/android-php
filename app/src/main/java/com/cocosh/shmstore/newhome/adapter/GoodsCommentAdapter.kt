@@ -2,6 +2,8 @@ package com.cocosh.shmstore.newhome.adapter
 
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,22 @@ class GoodsCommentAdapter(list: ArrayList<Order.Goods>) : BaseRecycleAdapter<Ord
             getData(position).ratingNum = it.toInt()
             notifyDataSetChanged()
         }
+
+        holder.itemView.edit_commit.setText(getData(position).commentStr)
+
+        holder.itemView.edit_commit.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                getData(position).commentStr = s.toString()
+            }
+
+        })
     }
 
     override fun setLayout(parent: ViewGroup, viewType: Int): View {

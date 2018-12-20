@@ -62,10 +62,11 @@ class GoodsCommentActivity : BaseActivity() {
 
         val jsonArray = JSONArray()
         goodsList.forEach {
+            val keyWords = if (it.commentStr == null || it.commentStr?.isEmpty() == true)"这个人很懒，啥也没写。" else it.commentStr
             jsonArray.put(JSONObject()
                     .put("goods_id",it.goods_id)
                     .put("stars",it.ratingNum)
-                    .put("words",it.commentStr))
+                    .put("words",keyWords))
         }
         params["data"] = jsonArray.toString()
 

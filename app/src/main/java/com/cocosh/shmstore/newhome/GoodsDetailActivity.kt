@@ -21,8 +21,10 @@ import com.cocosh.shmstore.mine.model.Address
 import com.cocosh.shmstore.mine.presenter.AddRessPresenter
 import com.cocosh.shmstore.mine.ui.AddressMangerActivity
 import com.cocosh.shmstore.newhome.adapter.GoodsBannerAdapter
+import com.cocosh.shmstore.newhome.adapter.GoodsCommentListAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsDetailShopAdapter
 import com.cocosh.shmstore.newhome.adapter.GoodsParamsAdapter
+import com.cocosh.shmstore.newhome.model.CommentBean
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.newhome.model.GoodsFavEvent
 import com.cocosh.shmstore.newhome.model.Shop
@@ -92,7 +94,11 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
         btn_buy.setOnClickListener(this)
         EventBus.getDefault().register(this)
         txt_go_shop.setOnClickListener(this)
+
+        rl_commend_more.setOnClickListener(this)
+
         loadData()
+        loadComment()
     }
 
     override fun onListener(view: View) {
@@ -137,6 +143,10 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
             R.id.txt_go_shop -> {
                 GoodsShoppingActivity.start(this, goodsDetail?.store?.name
                         ?: "", goodsDetail?.store?.id ?: "")
+            }
+
+            R.id.rl_commend_more -> {
+                GoodsCommentListActivity.start(this,goodsId)
             }
 
         }
@@ -350,6 +360,35 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
         })
     }
+
+
+    private fun loadComment(){
+        val params = HashMap<String,String>()
+        params["goods_id"] = goodsId
+        params["num"] = "1"
+
+        ApiManager2.post(this,params,Constant.ESHOP_COMMENTS,object : ApiManager2.OnResult<BaseBean<ArrayList<CommentBean>>>(){
+            override fun onSuccess(data: BaseBean<ArrayList<CommentBean>>) {
+                if (data.message != null && data.message?.isNotEmpty() == true){
+                    ll_comment.visibility = View.VISIBLE
+                    recycler_comment.layoutManager = LinearLayoutManager(this@GoodsDetailActivity)
+                    recycler_comment.adapter = GoodsCommentListAdapter(data.message?: arrayListOf())
+                }else{
+                    ll_comment.visibility = View.GONE
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<CommentBean>>) {
+
+            }
+
+        })
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onShopEvent(shop: Shop) {
