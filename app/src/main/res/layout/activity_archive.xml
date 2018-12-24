@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h30"
             app:nameText="头像"
-            app:valueText="">
+            app:iconText="">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@id/ivHead"

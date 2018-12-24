@@ -151,21 +151,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:nameText="对公账号"
-                app:valueText="@string/account" />
+                app:iconText="@string/account" />
 
             <com.cocosh.shmstore.widget.view.ItemShowView
                 android:id="@+id/isvBankName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:nameText="开户银行"
-                app:valueText="@string/bank" />
+                app:iconText="@string/bank" />
 
             <com.cocosh.shmstore.widget.view.ItemShowView
                 android:id="@+id/bank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:nameText="手机号"
-                app:valueText="@string/mobile" />
+                app:iconText="@string/mobile" />
         </LinearLayout>
     </ScrollView>
 

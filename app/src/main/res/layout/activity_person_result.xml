@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:nameText="认证状态"
-            app:valueText="已认证" />
+            app:iconText="已认证" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/isv_time"
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:nameText="证件类型"
-            app:valueText="身份证"/>
+            app:iconText="身份证"/>
 
 
         <com.cocosh.shmstore.widget.view.ItemShowView
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h30"
             app:nameText="人脸识别"
-            app:valueText="已完善" />
+            app:iconText="已完善" />
 
     </LinearLayout>
 </ScrollView>

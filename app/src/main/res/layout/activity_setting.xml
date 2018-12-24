@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:nameText="手机号"
-            app:valueText="" />
+            app:iconText="" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/isvResetLoginPass"
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:nameText="清理缓存"
-            app:valueText="0.00MB" />
+            app:iconText="0.00MB" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/isvAbout"

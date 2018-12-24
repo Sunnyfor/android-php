@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w60"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginTop="@dimen/w105"
+                android:text="申请退款"
+                android:textColor="@color/blackText"
+                android:textSize="@dimen/w76" />
+
+            <TextView
+                android:id="@+id/txt_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w60"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginTop="@dimen/w100"
+                android:text="等待买家同意"
+                android:textColor="@color/red"
+                android:textSize="@dimen/w32" />
+
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/w60"
+                android:layout_marginLeft="@dimen/w60"
+                android:layout_marginTop="@dimen/w30"
+                android:text="2018.12.20"
+                android:textColor="@color/grayText"
+                android:textSize="@dimen/w32" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h300"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@id/ivPhoto"
+                    android:layout_width="@dimen/w228"
+                    android:layout_height="@dimen/h228"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/w45"
+                    android:layout_marginLeft="@dimen/w45"
+                    android:scaleType="centerCrop"
+                    android:src="@color/activity_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/w39"
+                    android:layout_marginLeft="@dimen/w39"
+                    android:layout_marginTop="@dimen/h40"
+                    android:layout_toEndOf="@id/ivPhoto"
+                    android:layout_toRightOf="@id/ivPhoto"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvGoodsName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/w50"
+                        android:layout_marginRight="@dimen/w50"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="@color/blackText"
+                        android:textSize="@dimen/w43"
+                        tools:text="非常美味的咖啡" />
+
+                    <TextView
+                        android:id="@id/tvDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/h23"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/w40"
+                        tools:text="2*227g" />
+
+                    <TextView
+                        android:id="@id/tvMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/h20"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/w46"
+                        tools:text="¥68" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/h72"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/w50"
+                    android:layout_marginRight="@dimen/w50"
+                    android:layout_marginBottom="@dimen/h39"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvShowCount"
+                        android:layout_width="@dimen/w118"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="x1"
+                        android:textColor="@color/textGray" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h1"
+                android:layout_alignParentBottom="true"
+                android:background="#FFE3E3E3" />
+        </LinearLayout>
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h25"
+            app:nameText="请选择理由"
+            app:valueText="请选择" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w25"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h330"
+                android:layout_margin="@dimen/w50"
+                android:background="@color/activity_bg"
+                android:gravity="top"
+                android:hint="请输入理由"
+                android:padding="@dimen/w25"
+                android:textSize="@dimen/w40" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h115"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginBottom="@dimen/w50"
+                android:background="@color/activity_bg"
+                android:gravity="top"
+                android:hint="请输入物流单号"
+                android:padding="@dimen/w25"
+                android:textSize="@dimen/w40" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/w48"
+                android:layout_margin="@dimen/w50"
+                android:text="上传凭证"/>
+
+
+            <com.cocosh.shmstore.widget.view.UpPhotoVideoView
+                android:id="@+id/view_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                style="@style/ButtonStyle"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/red"
+                android:layout_marginBottom="@dimen/w50"
+                android:text="提交" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

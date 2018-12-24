@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.cocosh.shmstore.R
 import kotlinx.android.synthetic.main.layout_item_show.view.*
@@ -24,16 +23,25 @@ class ItemShowView : RelativeLayout {
     fun initView(attrs: AttributeSet?) {
         LayoutInflater.from(context).inflate(R.layout.layout_item_show, this, true)
         attrs?.let {
-            val typedarray = context.obtainStyledAttributes(it, R.styleable.ItemShowView)
-            val name = typedarray.getString(R.styleable.ItemShowView_nameText)
-            val value = typedarray.getString(R.styleable.ItemShowView_valueText)
-            typedarray.recycle()
+            val typedArray = context.obtainStyledAttributes(it, R.styleable.ItemShowView)
+            val name = typedArray.getString(R.styleable.ItemShowView_nameText)
+            val icon = typedArray.getString(R.styleable.ItemShowView_iconText)
+            val text = typedArray.getString(R.styleable.ItemShowView_valueText)
+
+            typedArray.recycle()
+
             if (name != null) {
                 tvName.text = name
             }
-            if (value != null) {
-                tvIcon.text = value
+            if (icon != null) {
+                tvIcon.text = icon
             }
+
+            if (text != null) {
+                tvValue.text = text
+                tvValue.visibility = View.VISIBLE
+            }
+
         }
     }
 

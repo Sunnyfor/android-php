@@ -24,6 +24,7 @@ import com.cocosh.shmstore.mine.ui.authentication.SendPackageActivity
 import com.cocosh.shmstore.mine.ui.enterprisewallet.EnterPriseWalletActivity
 import com.cocosh.shmstore.mine.ui.mywallet.MyWalletActivity
 import com.cocosh.shmstore.model.CommonData
+import com.cocosh.shmstore.newhome.RefundActivity
 import com.cocosh.shmstore.term.ServiceTermActivity
 import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.vouchers.VouchersActivity

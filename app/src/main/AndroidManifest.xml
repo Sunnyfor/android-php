@@ -565,6 +565,9 @@
         <activity
             android:name=".newhome.GoodsCommentListActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".newhome.RefundActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>
