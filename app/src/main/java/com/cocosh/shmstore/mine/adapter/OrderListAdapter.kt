@@ -46,7 +46,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
         holder.itemView.recyclerView.layoutManager = LinearLayoutManager(context)
         holder.itemView.recyclerView.setHasFixedSize(true)
         holder.itemView.recyclerView.isNestedScrollingEnabled = false
-        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list, isDesc).apply {
+        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list, isDesc,list[position].status).apply {
             order = this@OrderListAdapter.getData(position)
         }
 

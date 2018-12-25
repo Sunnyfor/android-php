@@ -19,6 +19,9 @@ import com.cocosh.shmstore.utils.DataCode
 import com.cocosh.shmstore.utils.StringUtils
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import kotlinx.android.synthetic.main.item_order_list.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -110,6 +113,8 @@ class OrderDetailActivity : BaseActivity() {
         }
 
         txt_status.text = statusStr
+
+        EventBus.getDefault().register(this)
 
         loadData()
     }
@@ -220,5 +225,16 @@ class OrderDetailActivity : BaseActivity() {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun OrderEnvent(order: Order){
+        recyclerView.adapter.notifyDataSetChanged()
+    }
+
+
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
 
 }

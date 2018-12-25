@@ -8,6 +8,8 @@ import android.view.Window
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.OnItemClickListener
 import com.cocosh.shmstore.mine.model.IndustryModel
+import com.cocosh.shmstore.newhome.adapter.SelectReasonAdapter
+import com.cocosh.shmstore.newhome.model.Reason
 import com.cocosh.shmstore.widget.dialog.adapter.SelectDialogAdapter
 import kotlinx.android.synthetic.main.layout_select_dialog.*
 
@@ -37,6 +39,19 @@ class SelectDialog(context: Context?) : Dialog(context) {
         recyclerView.adapter = adapter
     }
 
+
+    fun setReason(datas: ArrayList<Reason>){
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = SelectReasonAdapter(datas)
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View, index: Int) {
+                adapter.index = index
+                adapter.notifyDataSetChanged()
+                onDialogResult?.onResult(adapter.getData(index))
+            }
+        })
+        recyclerView.adapter = adapter
+    }
 
 
 }

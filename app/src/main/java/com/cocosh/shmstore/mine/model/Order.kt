@@ -24,6 +24,8 @@ class Order(
             var attr: LinkedHashMap<String, String>, // sku属性
             var salenum: String,  // 购买数量
             var off:String, // 是否已下架:'0'-正常售卖,'1'-已下架
+            var style:Int,// 退款状态：0：正常交易；1：正在退款；2：正在退货并退款；3：退款/货成功；4：退款/货关闭; 5：同意退款/货
+            var sku_id:String,
             var comment:Int // 是否已评论:'1'-已评
     ){
         var ratingNum = 0

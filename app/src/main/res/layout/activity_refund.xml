@@ -34,7 +34,6 @@
                 android:layout_marginStart="@dimen/w60"
                 android:layout_marginLeft="@dimen/w60"
                 android:layout_marginTop="@dimen/w100"
-                android:text="等待买家同意"
                 android:textColor="@color/red"
                 android:textSize="@dimen/w32" />
 
@@ -136,11 +135,27 @@
         </LinearLayout>
 
         <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/txt_reason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h25"
-            app:nameText="请选择理由"
+            app:nameText="选择理由"
             app:valueText="请选择" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/txt_refund_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h25"
+            app:nameText="退款金额"
+            app:iconText="0.00" />
+
+        <com.cocosh.shmstore.widget.view.ItemShowView
+            android:id="@+id/txt_refund_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:nameText="退款红包"
+            app:iconText="0.00" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,6 +165,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/edit_reason"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h330"
                 android:layout_margin="@dimen/w50"
@@ -169,27 +185,37 @@
                 android:gravity="top"
                 android:hint="请输入物流单号"
                 android:padding="@dimen/w25"
-                android:textSize="@dimen/w40" />
+                android:textSize="@dimen/w40"
+                android:visibility="gone" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/w48"
-                android:layout_margin="@dimen/w50"
-                android:text="上传凭证"/>
-
-
-            <com.cocosh.shmstore.widget.view.UpPhotoVideoView
-                android:id="@+id/view_up"
+            <LinearLayout
+                android:id="@+id/ll_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/w50"
+                    android:text="上传凭证"
+                    android:textSize="@dimen/w48" />
+
+
+                <com.cocosh.shmstore.widget.view.UpPhotoVideoView
+                    android:id="@+id/view_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
 
             <Button
+                android:id="@+id/btn_commit"
                 style="@style/ButtonStyle"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/red"
                 android:layout_marginBottom="@dimen/w50"
+                android:background="@color/red"
                 android:text="提交" />
         </LinearLayout>
     </LinearLayout>

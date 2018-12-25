@@ -60,6 +60,7 @@ public class DataCode {
     public static final String ORDER = "order"; //订单商品
 
     public static final String ORDER_GOODS = "order_goods"; //订单商品
+    public static final String ORDER_GOODS_ITEM = "order_goods_item"; //订单商品
 
     public static final String ADDRESS = "address"; //选择收货地址
 }

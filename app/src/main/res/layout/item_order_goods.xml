@@ -62,7 +62,56 @@
                 android:textSize="@dimen/w46"
                 tools:text="¥68" />
         </LinearLayout>
+        
+        <TextView
+            android:id="@+id/txt_refund"
+            android:layout_width="@dimen/w220"
+            android:layout_height="@dimen/h90"
+            android:layout_marginEnd="@dimen/w46"
+            android:layout_marginRight="@dimen/w46"
+            android:background="@drawable/shape_rectangle_gray_to_white"
+            android:gravity="center"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/h40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="申请退款"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/txt_return"
+            android:layout_width="@dimen/w220"
+            android:layout_height="@dimen/h90"
+            android:layout_marginEnd="@dimen/w46"
+            android:layout_marginRight="@dimen/w46"
+            android:background="@drawable/shape_rectangle_gray_to_white"
+            android:gravity="center"
+            android:textColor="@color/grayText"
+            android:textSize="@dimen/h40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="申请退货"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h90"
+            android:layout_marginEnd="@dimen/w46"
+            android:layout_marginRight="@dimen/w46"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/h40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/w30"
+            android:paddingEnd="@dimen/w30"
+            android:text="正在退款"
+            android:layout_alignParentEnd="true"
+            android:visibility="visible"/>
+        
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/h72"

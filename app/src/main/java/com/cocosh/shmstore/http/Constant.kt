@@ -280,6 +280,12 @@ object Constant {
     const val HOME_TOTALSUM = "$VERSION/home/totalsum" //红包资金池金额
 
     const val ESHOP_COMMENTS = "$VERSION/eshop/comments" //商品评论列表
+
+    const val ESHOP_RETURN_DETAIL = "$VERSION/eshop/return/detail" //退款金额查询
+
+    const val ESHOP_RETURN_REASON = "$VERSION/eshop/return/reason" //退货理由
+
+    const val ESHOP_RETURN_APPLY = "$VERSION/eshop/return/apply" //申请退款\退货
     /**
      * 首页
      * */
