@@ -13,8 +13,10 @@ import kotlinx.android.synthetic.main.item_update_img_video.view.*
 
 class UpPhotoVideoAdapter(list: ArrayList<String>,var bottomPhotoDialog: BottomPhotoDialog) : BaseRecycleAdapter<String>(list) {
 
+    var isPreView = false
+
     override fun getItemCount(): Int {
-        if (list.size < 3) {
+        if (list.size < 3 && !isPreView) {
             return list.size + 1
         }
 
@@ -24,14 +26,18 @@ class UpPhotoVideoAdapter(list: ArrayList<String>,var bottomPhotoDialog: BottomP
     override fun setLayout(parent: ViewGroup, viewType: Int): View = LayoutInflater.from(context).inflate(R.layout.item_update_img_video, parent, false)
 
     override fun onBindViewHolder(holder: BaseRecycleViewHolder, position: Int) {
-        if (position == list.size && list.size < 3) {
+        if (position == list.size && list.size < 3 && !isPreView) {
             holder.itemView.view_delete.visibility = View.GONE
             holder.itemView.img_photo.setImageResource(R.mipmap.ic_update_refund)
             holder.itemView.setOnClickListener {
                 bottomPhotoDialog.show()
             }
         } else {
-            holder.itemView.view_delete.visibility = View.VISIBLE
+            if (isPreView){
+                holder.itemView.view_delete.visibility = View.GONE
+            }else{
+                holder.itemView.view_delete.visibility = View.VISIBLE
+            }
             holder.itemView.setOnClickListener(null)
             Glide.with(context)
                     .load(getData(position))

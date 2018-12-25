@@ -104,13 +104,14 @@
             android:gravity="center"
             android:textColor="@color/red"
             android:textSize="@dimen/h40"
+            android:background="@drawable/shape_btn_border_red"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/w30"
             android:paddingEnd="@dimen/w30"
             android:text="正在退款"
             android:layout_alignParentEnd="true"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
         
         <LinearLayout
             android:layout_width="wrap_content"

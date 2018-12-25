@@ -106,4 +106,9 @@ class UpPhotoVideoView : FrameLayout, BottomPhotoDialog.OnItemClickListener, Cam
         }
 
     }
+
+    fun preViewModel(){
+        upPhotoVideoAdapter.isPreView = true
+        upPhotoVideoAdapter.notifyDataSetChanged()
+    }
 }

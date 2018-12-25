@@ -178,7 +178,7 @@ object ApiManager2 {
     /**
      *  Post请求
      */
-    fun <T> post(baseActivity: BaseActivity, params: Map<String, String>, url: String, onResult: OnResult<T>) {
+    fun <T> post(baseActivity: BaseActivity, params: Map<String, Any>, url: String, onResult: OnResult<T>) {
         post(0, baseActivity, params, url, onResult)
     }
 
@@ -186,7 +186,7 @@ object ApiManager2 {
     /**
      *  Post请求
      */
-    fun <T> post(flag: Int, baseActivity: BaseActivity, params: Map<String, String>, url: String, onResult: OnResult<T>) {
+    fun <T> post(flag: Int, baseActivity: BaseActivity, params: Map<String, Any>, url: String, onResult: OnResult<T>) {
         val jsonObject = JSONObject(params)
         val requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         request(flag, baseActivity, apiService.post(requestBody, url), onResult)

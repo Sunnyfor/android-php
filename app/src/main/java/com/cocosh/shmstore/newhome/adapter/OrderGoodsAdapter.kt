@@ -52,12 +52,14 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                     if (orderStatus == "1" || orderStatus == "2") {
                         holder.itemView.txt_refund.visibility = View.VISIBLE
                         holder.itemView.txt_refund.setOnClickListener {
-                            RefundActivity.start(context,1,getData(position),order?.order_sn?:"")
+                            RefundActivity.start(context, 1, getData(position), order?.order_sn
+                                    ?: "")
                         }
                     } else if (orderStatus == "3") {
                         holder.itemView.txt_return.visibility = View.VISIBLE
                         holder.itemView.txt_return.setOnClickListener {
-                            RefundActivity.start(context,2,getData(position),order?.order_sn?:"")
+                            RefundActivity.start(context, 2, getData(position), order?.order_sn
+                                    ?: "")
                         }
                     }
                 }
@@ -71,15 +73,41 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                 }
                 3 -> {
                     holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "退款/货成功"
+                    holder.itemView.txt_desc.text = "拒绝退款"
                 }
                 4 -> {
                     holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "退款/货关闭"
+                    if (orderStatus == "1") {
+                        holder.itemView.txt_desc.text = "同意退款"
+                    } else {
+                        holder.itemView.txt_desc.text = "同意退货"
+                    }
                 }
                 5 -> {
                     holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "同意退款/货"
+                    if (orderStatus == "1") {
+                        holder.itemView.txt_desc.text = "拒绝退款"
+                    } else {
+                        holder.itemView.txt_desc.text = "拒绝退货"
+                    }
+                }
+                6 -> {
+                    holder.itemView.txt_desc.visibility = View.VISIBLE
+                    if (orderStatus == "1") {
+                        holder.itemView.txt_desc.text = "退款成功"
+                    } else {
+                        holder.itemView.txt_desc.text = "退货成功"
+                    }
+                }
+            }
+
+            holder.itemView.txt_desc.setOnClickListener {
+                if (getData(position).style == 1) {
+                    RefundActivity.start(context, 3, getData(position), order?.order_sn
+                            ?: "",holder.itemView.txt_desc.text.toString())
+                }else{
+                    RefundActivity.start(context, 4, getData(position), order?.order_sn
+                            ?: "",holder.itemView.txt_desc.text.toString())
                 }
             }
 

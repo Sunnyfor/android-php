@@ -286,6 +286,11 @@ object Constant {
     const val ESHOP_RETURN_REASON = "$VERSION/eshop/return/reason" //退货理由
 
     const val ESHOP_RETURN_APPLY = "$VERSION/eshop/return/apply" //申请退款\退货
+
+    const val ESHOP_RETURN_SHOW = "$VERSION/eshop/return/show" //退款回显
+
+    const val ESHOP_RETURN_SHIPPING = "$VERSION/eshop/return/shipping" //填写物流
+
     /**
      * 首页
      * */
