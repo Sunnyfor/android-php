@@ -46,7 +46,52 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
         holder.itemView.txt_return.visibility = View.GONE
         holder.itemView.txt_desc.visibility = View.GONE
 
-        if (isDesc) {
+        val desc = when (getData(position).style) {
+            1 -> {
+
+                "退款中，等待卖家处理"
+            }
+            2 -> {
+                "退货中，等待卖家处理"
+            }
+            3 -> {
+                "卖家拒绝退款"
+            }
+            4 -> {
+                if (orderStatus == "1") {
+                    "已退款"
+                } else {
+                    "同意退货，等待买家发货"
+                }
+            }
+            5 -> {
+                if (orderStatus == "1") {
+                    "卖家拒绝退款"
+                } else {
+                    "卖家拒绝退货"
+                }
+            }
+            6 -> {
+                "已退款"
+            }
+            7 -> {
+                "等待卖家收货"
+            }
+            else -> ""
+
+        }
+
+        if (!isDesc) {
+            holder.itemView.txt_desc.visibility = View.VISIBLE
+            holder.itemView.txt_desc.text = desc
+
+            holder.itemView.setOnClickListener {
+                SmApplication.getApp().setData(DataCode.ORDER, order)
+                OrderDetailActivity.start(context, order?.order_sn ?: "", order?.status ?: "")
+            }
+
+        } else {
+
             when (getData(position).style) {
                 0 -> {
                     if (orderStatus == "1" || orderStatus == "2") {
@@ -63,66 +108,33 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                         }
                     }
                 }
-                1 -> {
+                else -> {
+
                     holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "正在退款"
-                }
-                2 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "正在退货"
-                }
-                3 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "拒绝退款"
-                }
-                4 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    if (orderStatus == "1") {
-                        holder.itemView.txt_desc.text = "同意退款"
-                    } else {
-                        holder.itemView.txt_desc.text = "同意退货"
-                    }
-                }
-                5 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    if (orderStatus == "1") {
-                        holder.itemView.txt_desc.text = "拒绝退款"
-                    } else {
-                        holder.itemView.txt_desc.text = "拒绝退货"
-                    }
-                }
-                6 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    if (orderStatus == "1") {
-                        holder.itemView.txt_desc.text = "退款成功"
-                    } else {
-                        holder.itemView.txt_desc.text = "退货成功"
-                    }
-                }
-                7 -> {
-                    holder.itemView.txt_desc.visibility = View.VISIBLE
-                    holder.itemView.txt_desc.text = "等待卖家收货"
+                    holder.itemView.txt_desc.setBackgroundResource(R.drawable.shape_rectangle_red_to_white)
+                    holder.itemView.txt_desc.text = "查看详情"
                 }
 
             }
 
             holder.itemView.txt_desc.setOnClickListener {
-                if (getData(position).style == 1) {
+                if (getData(position).style == 1 || getData(position).style == 6) {
                     RefundActivity.start(context, 3, getData(position), order?.order_sn
-                            ?: "",holder.itemView.txt_desc.text.toString())
-                }else if(getData(position).style == 2){
+                            ?: "", desc)
+                } else if (getData(position).style == 2) {
                     RefundActivity.start(context, 4, getData(position), order?.order_sn
-                            ?: "",holder.itemView.txt_desc.text.toString())
-                }else if(getData(position).style == 4){
-                    if (orderStatus != "1"){
+                            ?: "", desc)
+                } else if (getData(position).style == 4) {
+                    if (orderStatus != "1") {
                         RefundActivity.start(context, 5, getData(position), order?.order_sn
-                                ?: "",holder.itemView.txt_desc.text.toString())
+                                ?: "", desc)
                     }
-                }else{
+                } else {
                     RefundActivity.start(context, getData(position).style, getData(position), order?.order_sn
-                            ?: "",holder.itemView.txt_desc.text.toString())
+                            ?: "", desc)
                 }
             }
+
 
             holder.itemView.setOnClickListener {
                 if (getData(position).off == "0") {
@@ -131,11 +143,7 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                     context.startActivity(Intent(context, GoodsErrorActivity::class.java))
                 }
             }
-        } else {
-            holder.itemView.setOnClickListener {
-                SmApplication.getApp().setData(DataCode.ORDER, order)
-                OrderDetailActivity.start(context, order?.order_sn ?: "", order?.status ?: "")
-            }
+
         }
     }
 
