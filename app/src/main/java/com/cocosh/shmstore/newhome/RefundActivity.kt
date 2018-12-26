@@ -1,8 +1,10 @@
 package com.cocosh.shmstore.newhome
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.bumptech.glide.Glide
@@ -13,18 +15,17 @@ import com.cocosh.shmstore.base.BaseBean
 import com.cocosh.shmstore.http.ApiManager2
 import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.mine.model.Order
+import com.cocosh.shmstore.newhome.model.Courier
 import com.cocosh.shmstore.newhome.model.Reason
 import com.cocosh.shmstore.newhome.model.RefundMoney
 import com.cocosh.shmstore.newhome.model.RefundShow
-import com.cocosh.shmstore.utils.DataCode
-import com.cocosh.shmstore.utils.StringUtils
-import com.cocosh.shmstore.utils.ToastUtil
+import com.cocosh.shmstore.utils.*
 import com.cocosh.shmstore.widget.dialog.OnDialogResult
 import com.cocosh.shmstore.widget.dialog.SelectDialog
+import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.activity_refund.*
 import kotlinx.android.synthetic.main.layout_item_show.view.*
 import org.greenrobot.eventbus.EventBus
-import org.json.JSONArray
 
 class RefundActivity : BaseActivity() {
 
@@ -33,10 +34,14 @@ class RefundActivity : BaseActivity() {
     var order_sn = ""
     var reason = ""
     var codeType = ""
-    var code = ""
     var goods: Order.Goods? = null
 
     val reasonList = ArrayList<Reason>()
+    val courierList = ArrayList<Courier>()
+
+    val permissionUtil: PermissionUtil by lazy {
+        PermissionUtil(this)
+    }
 
     override fun setLayout(): Int = R.layout.activity_refund
 
@@ -103,16 +108,22 @@ class RefundActivity : BaseActivity() {
                 txt_reason.setOnClickListener(this)
 
             }
-            3, 4, 5 -> {
+            3, 4, 5, 7-> {
                 edit_reason.isEnabled = false
                 edit_reason.isFocusable = false
                 btn_commit.visibility = View.GONE
+
+                if (type == 5){
+                 loadCourier()
+                }
                 show()
             }
         }
-
+        txt_number.setOnClickListener(this)
         btn_commit.setOnClickListener(this)
+        btn_service.setOnClickListener(this)
     }
+
 
     override fun onListener(view: View) {
         when (view.id) {
@@ -136,6 +147,33 @@ class RefundActivity : BaseActivity() {
                 selectDialog.setReason(reasonList)
                 selectDialog.show()
             }
+
+            R.id.txt_number -> {
+                val selectDialog = SelectDialog(this)
+                selectDialog.onDialogResult = object : OnDialogResult {
+                    override fun onResult(result: Any) {
+                        val courierData = result as Courier
+                        txt_number.setValue(courierData.com)
+                        codeType = courierData.no
+                        selectDialog.dismiss()
+                    }
+                }
+                selectDialog.setCourier(courierList)
+                selectDialog.show()
+            }
+
+            R.id.btn_service -> {
+                val dialog = SmediaDialog(this)
+                dialog.setTitle("小红娘客服：01078334322")
+                dialog.setPositiveText("拨打")
+                dialog.OnClickListener = View.OnClickListener {
+                    if (permissionUtil.callPermission()) {
+                        callPhone()
+                    }
+                }
+                dialog.show()
+
+            }
         }
     }
 
@@ -146,6 +184,7 @@ class RefundActivity : BaseActivity() {
         view_up.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
+
 
     companion object {
         fun start(context: Context, type: Int, goods: Order.Goods, order_sn: String) {
@@ -229,11 +268,14 @@ class RefundActivity : BaseActivity() {
         params["reason"] = reason
         params["explain"] = edit_reason.text.toString()
         if (type == 2) {
-            val jsonArray = JSONArray()
+            val imageSb = StringBuilder()
             view_up.list.forEach {
-                jsonArray.put(it)
+                imageSb.append(it).append(",")
             }
-            params["image"] = jsonArray
+            if (imageSb.isNotEmpty()) {
+                imageSb.deleteCharAt(imageSb.lastIndex)
+                params["image"] = imageSb.toString()
+            }
         }
         showLoading()
         ApiManager2.post(this, params, Constant.ESHOP_RETURN_APPLY, object : ApiManager2.OnResult<BaseBean<String>>() {
@@ -266,7 +308,7 @@ class RefundActivity : BaseActivity() {
         ApiManager2.post(this, params, Constant.ESHOP_RETURN_SHOW, object : ApiManager2.OnResult<BaseBean<RefundShow>>() {
             override fun onSuccess(data: BaseBean<RefundShow>) {
                 data.message?.let { it ->
-                    edit_reason.setText(it.explain)
+                    edit_reason.setText(it.explain ?: " ")
                     if (type == 3) {
                         //退款金额
                         txt_refund_money.tvIcon.setTextColor(ContextCompat.getColor(this@RefundActivity, R.color.red))
@@ -276,26 +318,37 @@ class RefundActivity : BaseActivity() {
                         txt_refund_money.visibility = View.VISIBLE
                         txt_refund_red.visibility = View.VISIBLE
                     }
-                    if (type == 4) {
+                    if (type == 4 || type == 5 || type == 7) {
                         ll_up.visibility = View.VISIBLE
                         view_up.preViewModel()
+                        view_up.setData(it.refund_image ?: arrayListOf())
 
-                        val photoList = arrayListOf<String>()
+                        if (type == 5 || type == 7){
+                            txt_number.visibility = View.VISIBLE
+                            edit_number.visibility = View.VISIBLE
 
-                        it.refund_image?.forEach {
-                            photoList.add(JSONArray(it).opt(0).toString())
+                            if (type == 5){
+                                btn_commit.visibility = View.VISIBLE
+                            }
+
+                            if (type == 7){
+                                txt_number.setOnClickListener(null)
+                                edit_number.isEnabled = false
+                                edit_number.isFocusable = false
+                                txt_number.setNoValueIcon(it.express_type)
+                                edit_number.setText(it.express_code)
+                            }
                         }
-                        view_up.setData(photoList)
-                    }
-
-                    if (type == 5) {
-                        edit_number.visibility = View.VISIBLE
-                        btn_commit.visibility = View.VISIBLE
                     }
 
                     txt_time.visibility = View.VISIBLE
                     txt_time.text = StringUtils.timeStampFormatDateYYMMddHHssmm(it.addtime)
                     txt_reason.setNoValueIcon(it.reason ?: "")
+                    txt_desc.text = (it.refuse_reason + it.refuse_explain)
+
+                    if (it.status == "2") {
+                        btn_service.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -311,11 +364,22 @@ class RefundActivity : BaseActivity() {
 
     //提交物流
     private fun logistics() {
+
+        if (codeType.isEmpty()){
+            ToastUtil.show("请选择物流公司!")
+            return
+        }
+
+        if (edit_number.text.isEmpty()){
+            ToastUtil.show("请输入物流单号")
+            return
+        }
+
         val params = HashMap<String, Any>()
         params["order_sn"] = order_sn
         params["sku_id"] = sku_id
         params["type"] = codeType //(必填) 物流公司编号
-        params["code"] = code //(必填) 发货单号
+        params["code"] = edit_number.text.toString() //(必填) 发货单号
         showLoading()
         ApiManager2.post(this, params, Constant.ESHOP_RETURN_SHIPPING, object : ApiManager2.OnResult<BaseBean<String>>() {
             override fun onSuccess(data: BaseBean<String>) {
@@ -337,5 +401,42 @@ class RefundActivity : BaseActivity() {
 
             }
         })
+    }
+
+    //加载物流公司
+    private fun loadCourier() {
+        ApiManager2.post(this, hashMapOf(), Constant.ESHOP_RETURN_SHIPPING_LIST, object : ApiManager2.OnResult<BaseBean<ArrayList<Courier>>>() {
+            override fun onSuccess(data: BaseBean<ArrayList<Courier>>) {
+                courierList.clear()
+                courierList.addAll(data.message ?: arrayListOf())
+            }
+
+            override fun onFailed(code: String, message: String) {
+
+            }
+
+            override fun onCatch(data: BaseBean<ArrayList<Courier>>) {
+
+            }
+
+        })
+
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun callPhone() {
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:01078334322"))
+        startActivity(intent)
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PermissionCode.PHONE.type) {
+            if (permissionUtil.checkPermission(permissions)) {
+                callPhone()
+            }
+        }
     }
 }

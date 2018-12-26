@@ -8,7 +8,7 @@ data class RefundShow(
         var pay_type: String,//支付类型
         var actual: String, //退款金额
         var discount: String,//退款红包金额
-        var explain: String, //退款说明
+        var explain: String?, //退款说明
         var refund_image: ArrayList<String>?, //退款凭证
         var express_status: String,//退货状态 0：申请发货；1：等待买家发货；2：买家已发货；3：商家已收货；4：商家拒绝收货
         var express_code: String, //发货单号

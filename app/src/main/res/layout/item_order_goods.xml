@@ -104,7 +104,6 @@
             android:gravity="center"
             android:textColor="@color/red"
             android:textSize="@dimen/h40"
-            android:background="@drawable/shape_btn_border_red"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/w30"

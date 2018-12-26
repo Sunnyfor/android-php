@@ -99,14 +99,27 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                         holder.itemView.txt_desc.text = "退货成功"
                     }
                 }
+                7 -> {
+                    holder.itemView.txt_desc.visibility = View.VISIBLE
+                    holder.itemView.txt_desc.text = "等待卖家收货"
+                }
+
             }
 
             holder.itemView.txt_desc.setOnClickListener {
                 if (getData(position).style == 1) {
                     RefundActivity.start(context, 3, getData(position), order?.order_sn
                             ?: "",holder.itemView.txt_desc.text.toString())
-                }else{
+                }else if(getData(position).style == 2){
                     RefundActivity.start(context, 4, getData(position), order?.order_sn
+                            ?: "",holder.itemView.txt_desc.text.toString())
+                }else if(getData(position).style == 4){
+                    if (orderStatus != "1"){
+                        RefundActivity.start(context, 5, getData(position), order?.order_sn
+                                ?: "",holder.itemView.txt_desc.text.toString())
+                    }
+                }else{
+                    RefundActivity.start(context, getData(position).style, getData(position), order?.order_sn
                             ?: "",holder.itemView.txt_desc.text.toString())
                 }
             }

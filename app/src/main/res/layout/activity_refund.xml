@@ -45,8 +45,8 @@
                 android:layout_marginTop="@dimen/w30"
                 android:text="2018.12.20"
                 android:textColor="@color/grayText"
-                android:visibility="gone"
-                android:textSize="@dimen/w32" />
+                android:textSize="@dimen/w32"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -147,17 +147,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h25"
-            app:nameText="退款金额"
+            android:visibility="gone"
             app:iconText="0.00"
-            android:visibility="gone"/>
+            app:nameText="退款金额" />
 
         <com.cocosh.shmstore.widget.view.ItemShowView
             android:id="@+id/txt_refund_red"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:nameText="退款红包"
+            android:visibility="gone"
             app:iconText="0.00"
-            android:visibility="gone"/>
+            app:nameText="退款红包" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,11 +178,20 @@
                 android:textColor="@color/blackText"
                 android:textSize="@dimen/w40" />
 
+            <com.cocosh.shmstore.widget.view.ItemShowView
+                android:id="@+id/txt_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:nameText="选择物流公司"
+                app:valueText="请选择" />
+
             <EditText
                 android:id="@+id/edit_number"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h115"
                 android:layout_marginLeft="@dimen/w50"
+                android:layout_marginTop="@dimen/w25"
                 android:layout_marginRight="@dimen/w50"
                 android:layout_marginBottom="@dimen/w50"
                 android:background="@color/activity_bg"
@@ -221,6 +230,15 @@
                 android:layout_marginBottom="@dimen/w50"
                 android:background="@color/red"
                 android:text="提交" />
+
+            <Button
+                android:id="@+id/btn_service"
+                style="@style/ButtonStyle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/w50"
+                android:background="@color/red"
+                android:text="申请平台介入"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

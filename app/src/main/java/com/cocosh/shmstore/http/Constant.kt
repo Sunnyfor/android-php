@@ -291,6 +291,8 @@ object Constant {
 
     const val ESHOP_RETURN_SHIPPING = "$VERSION/eshop/return/shipping" //填写物流
 
+    const val ESHOP_RETURN_SHIPPING_LIST = "$VERSION/eshop/return/shipping_list" //物流公司列表
+
     /**
      * 首页
      * */

@@ -55,8 +55,8 @@ class OrderDetailActivity : BaseActivity() {
 
     override fun initView() {
         titleManager.defaultTitle("订单详情")
+        EventBus.getDefault().register(this)
         showLogisticsInfo.setOnClickListener(this)
-
         initData()
     }
 
@@ -66,7 +66,7 @@ class OrderDetailActivity : BaseActivity() {
         status = intent.getStringExtra("status")
         id = intent.getStringExtra("id")
 
-        SmApplication.getApp().getData<Order>(DataCode.ORDER, true)?.let {
+        SmApplication.getApp().getData<Order>(DataCode.ORDER, false)?.let {
             val adapter = OrderListAdapter(this, arrayListOf(it), true)
             recyclerView.setHasFixedSize(false)
             recyclerView.isNestedScrollingEnabled = false
@@ -113,9 +113,6 @@ class OrderDetailActivity : BaseActivity() {
         }
 
         txt_status.text = statusStr
-
-        EventBus.getDefault().register(this)
-
         loadData()
     }
 
@@ -134,7 +131,8 @@ class OrderDetailActivity : BaseActivity() {
     }
 
     override fun reTryGetData() {
-
+        hideReTryLayout()
+        initData()
     }
 
     companion object {
@@ -233,6 +231,7 @@ class OrderDetailActivity : BaseActivity() {
 
 
     override fun onDestroy() {
+        SmApplication.getApp().removeData(DataCode.ORDER)
         EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
