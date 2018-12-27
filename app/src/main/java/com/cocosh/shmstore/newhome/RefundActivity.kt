@@ -385,7 +385,7 @@ class RefundActivity : BaseActivity() {
             override fun onSuccess(data: BaseBean<String>) {
                 hideLoading()
                 if (data.status == "200") {
-                    goods?.style = type
+                    goods?.style = 7
                     EventBus.getDefault().post(Order("", "", "", "", "", "", "", arrayListOf()))
                     finish()
                 } else {
