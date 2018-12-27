@@ -116,7 +116,8 @@ class GoodsSearchFragment : BaseFragment() {
 
             override fun onFailed(code: String, message: String) {
                 if (pager == "0") {
-                    getLayoutView().refreshLayout.isRefreshing = false
+                    shopsList.clear()
+                    getLayoutView().refreshLayout.recyclerView.adapter.notifyDataSetChanged()
                     getLayoutView().refreshLayout.update(arrayListOf<Shop>())
                 } else {
                     getLayoutView().refreshLayout.loadMore(arrayListOf<Shop>())
@@ -160,7 +161,8 @@ class GoodsSearchFragment : BaseFragment() {
 
             override fun onFailed(code: String, message: String) {
                 if (pager == "0") {
-                    getLayoutView().refreshLayout.isRefreshing = false
+                    goodsList.clear()
+                    getLayoutView().refreshLayout.recyclerView.adapter.notifyDataSetChanged()
                     getLayoutView().refreshLayout.update(arrayListOf<Goods>())
                 } else {
                     getLayoutView().refreshLayout.loadMore(arrayListOf<Goods>())
