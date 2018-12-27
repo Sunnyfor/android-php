@@ -100,12 +100,14 @@ class RefundActivity : BaseActivity() {
                 queryMoney()
                 loadReason()  //加载理由
                 txt_reason.setOnClickListener(this)
+                btn_commit.visibility = View.VISIBLE
             }
             2 -> {
                 txt_status.text = "申请退货"
                 ll_up.visibility = View.VISIBLE
                 loadReason()  //加载理由
                 txt_reason.setOnClickListener(this)
+                btn_commit.visibility = View.VISIBLE
 
             }
             3, 4, 5, 6 ,7 -> {
@@ -314,7 +316,12 @@ class RefundActivity : BaseActivity() {
         ApiManager2.post(this, params, Constant.ESHOP_RETURN_SHOW, object : ApiManager2.OnResult<BaseBean<RefundShow>>() {
             override fun onSuccess(data: BaseBean<RefundShow>) {
                 data.message?.let { it ->
-                    edit_reason.setText(it.explain ?: " ")
+                    if (it.explain == null || (it.explain?:"").isEmpty()){
+                        edit_reason.visibility =View.GONE
+                    }else{
+                        edit_reason.setText(it.explain)
+                    }
+
                     if (type == 3) {
                         //退款金额
                         txt_refund_money.tvIcon.setTextColor(ContextCompat.getColor(this@RefundActivity, R.color.red))
