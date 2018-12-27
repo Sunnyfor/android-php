@@ -293,6 +293,8 @@ object Constant {
 
     const val ESHOP_RETURN_SHIPPING_LIST = "$VERSION/eshop/return/shipping_list" //物流公司列表
 
+    const val ESHOP_RETURN_CANCEL = "$VERSION/eshop/return/cancel" //取消退换货申请
+
     /**
      * 首页
      * */

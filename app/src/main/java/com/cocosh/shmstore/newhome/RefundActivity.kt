@@ -108,13 +108,19 @@ class RefundActivity : BaseActivity() {
                 txt_reason.setOnClickListener(this)
 
             }
-            3, 4, 5, 7-> {
+            3, 4, 5, 7 -> {
                 edit_reason.isEnabled = false
                 edit_reason.isFocusable = false
-                btn_commit.visibility = View.GONE
 
-                if (type == 5){
-                 loadCourier()
+                if (type == 3 || type == 4) {
+                    btn_commit.text = "取消申请"
+                    btn_commit.visibility = View.VISIBLE
+                } else {
+                    btn_commit.visibility = View.GONE
+                }
+
+                if (type == 5) {
+                    loadCourier()
                 }
                 show()
             }
@@ -130,6 +136,8 @@ class RefundActivity : BaseActivity() {
             R.id.btn_commit -> {
                 if (type == 5) {
                     logistics()
+                } else if (type == 3 || type == 4) {
+                    cancel()
                 } else {
                     request()
                 }
@@ -323,15 +331,15 @@ class RefundActivity : BaseActivity() {
                         view_up.preViewModel()
                         view_up.setData(it.refund_image ?: arrayListOf())
 
-                        if (type == 5 || type == 7){
+                        if (type == 5 || type == 7) {
                             txt_number.visibility = View.VISIBLE
                             edit_number.visibility = View.VISIBLE
 
-                            if (type == 5){
+                            if (type == 5) {
                                 btn_commit.visibility = View.VISIBLE
                             }
 
-                            if (type == 7){
+                            if (type == 7) {
                                 txt_number.setOnClickListener(null)
                                 edit_number.isEnabled = false
                                 edit_number.isFocusable = false
@@ -365,12 +373,12 @@ class RefundActivity : BaseActivity() {
     //提交物流
     private fun logistics() {
 
-        if (codeType.isEmpty()){
+        if (codeType.isEmpty()) {
             ToastUtil.show("请选择物流公司!")
             return
         }
 
-        if (edit_number.text.isEmpty()){
+        if (edit_number.text.isEmpty()) {
             ToastUtil.show("请输入物流单号")
             return
         }
@@ -438,5 +446,33 @@ class RefundActivity : BaseActivity() {
                 callPhone()
             }
         }
+    }
+
+    //取消申请
+    fun cancel() {
+        val params = HashMap<String, Any>()
+        params["order_sn"] = order_sn
+        params["sku_id"] = sku_id
+        showLoading()
+        ApiManager2.post(this, params, Constant.ESHOP_RETURN_CANCEL, object : ApiManager2.OnResult<BaseBean<String>>() {
+            override fun onSuccess(data: BaseBean<String>) {
+                hideLoading()
+                if (data.status == "200") {
+                    goods?.style = 0
+                    EventBus.getDefault().post(Order("", "", "", "", "", "", "", arrayListOf()))
+                    finish()
+                } else {
+                    ToastUtil.show(data.message)
+                }
+            }
+
+            override fun onFailed(code: String, message: String) {
+                hideLoading()
+            }
+
+            override fun onCatch(data: BaseBean<String>) {
+
+            }
+        })
     }
 }
