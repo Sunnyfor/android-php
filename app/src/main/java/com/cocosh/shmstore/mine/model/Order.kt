@@ -18,6 +18,7 @@ class Order(
 ) {
     data class Goods(
             var goods_id: String, // 商品id
+            var detail_id:String, //订单详情ID
             var goods_name: String, // 商品名称
             var image: String, // sku图片
             var price: String, // sku单价

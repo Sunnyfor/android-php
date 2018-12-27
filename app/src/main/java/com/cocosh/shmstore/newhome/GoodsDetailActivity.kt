@@ -38,6 +38,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+
 class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
     private var goodsId = "1"
@@ -97,9 +98,14 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
 
         rl_commend_more.setOnClickListener(this)
 
+        webView.settings.defaultTextEncodingName ="UTF-8"
+
         loadData()
         loadComment()
     }
+
+
+
 
     override fun onListener(view: View) {
         when (view.id) {
@@ -113,7 +119,6 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
             R.id.llShop -> {
                 GoodsShoppingActivity.start(this, goodsDetail?.store?.name
                         ?: "", goodsDetail?.store?.id ?: "")
-//                startActivity(Intent(this, GoodsShoppingActivity::class.java))
             }
             R.id.llFormat -> {
                 showAddCar()
@@ -215,9 +220,9 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                         contentSb.append("</p>")
                     }
 
-                    val style = "<style>img{display:block;vertical-align:bottom;float:left;width:100%;}*{padding:0;margin:0;}</style>"
-                    val html = "<html><head><meta http-equiv=Content-Type content=\"text/html; charset=gb2312\"></head>$style<body>$contentSb</body></html>"
-                    webView.loadDataWithBaseURL(null, html, "text/html", "gb2312", null)
+                    val style = "<style>img{vertical-align:bottom;float:left;width:100%;}</style>"
+                    val html = "<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head>$style<body>$contentSb</body></html>"
+                    webView.loadData( html, "text/html", "UTF-8")
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
 
                     it.goods?.params?.let {
