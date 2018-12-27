@@ -322,7 +322,7 @@ class RefundActivity : BaseActivity() {
                         edit_reason.setText(it.explain)
                     }
 
-                    if (type == 3) {
+                    if (type == 3 || type == 6) {
                         //退款金额
                         txt_refund_money.tvIcon.setTextColor(ContextCompat.getColor(this@RefundActivity, R.color.red))
                         txt_refund_money.setIcon(StringUtils.insertComma(it.actual, 2))
