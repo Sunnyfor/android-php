@@ -156,7 +156,7 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
 
     private void showDialog() {
         SmediaDialog dialog = new SmediaDialog(IdentifyMobileActivity.this);
-        dialog.setTitle("客服：01078334322");
+        dialog.setTitle("客服：4009661168");
         dialog.setPositiveText("拨打");
         dialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +206,7 @@ public class IdentifyMobileActivity extends BaseActivity implements IdentifyMobi
 
     @SuppressLint("MissingPermission")
     public void callPhone() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:01078334322"));
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:4009661168"));
         startActivity(intent);
     }
 

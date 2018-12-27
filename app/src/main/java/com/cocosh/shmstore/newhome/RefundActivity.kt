@@ -172,7 +172,7 @@ class RefundActivity : BaseActivity() {
 
             R.id.btn_service -> {
                 val dialog = SmediaDialog(this)
-                dialog.setTitle("小红娘客服：01078334322")
+                dialog.setTitle("小红娘客服：4009661168")
                 dialog.setPositiveText("拨打")
                 dialog.OnClickListener = View.OnClickListener {
                     if (permissionUtil.callPermission()) {
@@ -439,7 +439,7 @@ class RefundActivity : BaseActivity() {
 
     @SuppressLint("MissingPermission")
     private fun callPhone() {
-        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:01078334322"))
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:4009661168"))
         startActivity(intent)
     }
 
