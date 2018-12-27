@@ -94,7 +94,7 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
 
             when (getData(position).style) {
                 0 -> {
-                    if (orderStatus == "1" || orderStatus == "2") {
+                    if (orderStatus == "1") {
                         holder.itemView.txt_refund.visibility = View.VISIBLE
                         holder.itemView.txt_refund.setOnClickListener {
                             RefundActivity.start(context, 1, getData(position), order?.order_sn
@@ -118,7 +118,7 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
             }
 
             holder.itemView.txt_desc.setOnClickListener {
-                if (getData(position).style == 1 || getData(position).style == 6) {
+                if (getData(position).style == 1) {
                     RefundActivity.start(context, 3, getData(position), order?.order_sn
                             ?: "", desc)
                 } else if (getData(position).style == 2) {
@@ -129,8 +129,11 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
                         RefundActivity.start(context, 5, getData(position), order?.order_sn
                                 ?: "", desc)
                     }
-                } else {
-                    RefundActivity.start(context, getData(position).style, getData(position), order?.order_sn
+                } else if(getData(position).style == 5) {
+                    RefundActivity.start(context,6, getData(position), order?.order_sn
+                            ?: "", desc)
+                }else {
+                    RefundActivity.start(context,getData(position).style, getData(position), order?.order_sn
                             ?: "", desc)
                 }
             }

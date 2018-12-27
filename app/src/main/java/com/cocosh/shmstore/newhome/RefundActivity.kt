@@ -108,15 +108,13 @@ class RefundActivity : BaseActivity() {
                 txt_reason.setOnClickListener(this)
 
             }
-            3, 4, 5, 7 -> {
+            3, 4, 5, 6 ,7 -> {
                 edit_reason.isEnabled = false
                 edit_reason.isFocusable = false
 
                 if (type == 3 || type == 4) {
                     btn_commit.text = "取消申请"
                     btn_commit.visibility = View.VISIBLE
-                } else {
-                    btn_commit.visibility = View.GONE
                 }
 
                 if (type == 5) {
@@ -352,7 +350,7 @@ class RefundActivity : BaseActivity() {
                     txt_time.visibility = View.VISIBLE
                     txt_time.text = StringUtils.timeStampFormatDateYYMMddHHssmm(it.addtime)
                     txt_reason.setNoValueIcon(it.reason ?: "")
-                    txt_desc.text = (it.refuse_reason + it.refuse_explain)
+                    txt_desc.text = (it.refuse_reason + "\n"+it.refuse_explain)
 
                     if (it.status == "2") {
                         btn_service.visibility = View.VISIBLE

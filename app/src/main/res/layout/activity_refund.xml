@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/w60"
                 android:layout_marginLeft="@dimen/w60"
-                android:layout_marginTop="@dimen/w100"
+                android:layout_marginTop="@dimen/w60"
                 android:textColor="@color/red"
                 android:textSize="@dimen/w32" />
 
@@ -229,6 +229,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/w50"
                 android:background="@color/red"
+                android:visibility="gone"
                 android:text="提交" />
 
             <Button
