@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/w22"
-                        android:text="添加收获地址"
+                        android:text="添加收货地址"
                         android:textColor="@color/grayText"
                         android:textSize="@dimen/w40" />
                 </LinearLayout>
