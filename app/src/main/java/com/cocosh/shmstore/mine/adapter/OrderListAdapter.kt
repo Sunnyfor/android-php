@@ -1,6 +1,5 @@
 package com.cocosh.shmstore.mine.adapter
 
-import android.content.Intent
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import com.cocosh.shmstore.newhome.GoodsCommentActivity
 import com.cocosh.shmstore.newhome.GoodsShoppingActivity
 import com.cocosh.shmstore.newhome.adapter.OrderGoodsAdapter
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import com.cocosh.shmstore.widget.dialog.SmediaDialog
 import kotlinx.android.synthetic.main.item_create_order_shop.view.*
@@ -46,18 +46,18 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
         holder.itemView.recyclerView.layoutManager = LinearLayoutManager(context)
         holder.itemView.recyclerView.setHasFixedSize(true)
         holder.itemView.recyclerView.isNestedScrollingEnabled = false
-        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list, isDesc,list[position].status).apply {
+        holder.itemView.recyclerView.adapter = OrderGoodsAdapter(getData(position).list, isDesc,list[position].status,getData(position).sum).apply {
             order = this@OrderListAdapter.getData(position)
         }
 
-        holder.itemView.txt_money.text = ("¥ " + getData(position).sum)
+        holder.itemView.txt_all_money.text = ("¥ " + StringUtils.insertComma(getData(position).sum,2))
 
         holder.itemView.ll_shop.setOnClickListener {
             if (isDesc) {
                 GoodsShoppingActivity.start(context, getData(position).store_name, getData(position).store_id)
             } else {
                 SmApplication.getApp().setData(DataCode.ORDER, getData(position))
-                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
+                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status,getData(position).sum)
             }
         }
 
@@ -184,7 +184,7 @@ class OrderListAdapter(var baseActivity: BaseActivity, list: ArrayList<Order>, p
             showGrayBg(this)
             setOnClickListener {
                 SmApplication.getApp().setData(DataCode.ORDER, getData(position))
-                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status)
+                OrderDetailActivity.start(context, getData(position).order_sn, getData(position).status,getData(position).sum)
             }
         }
     }

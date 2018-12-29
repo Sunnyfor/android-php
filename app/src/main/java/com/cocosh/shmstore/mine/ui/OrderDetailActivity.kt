@@ -30,7 +30,7 @@ import java.util.*
  */
 class OrderDetailActivity : BaseActivity() {
     private var countdown = 0L
-
+    private var sum = "0"
 
 
     private val timer: Timer by lazy {
@@ -65,6 +65,7 @@ class OrderDetailActivity : BaseActivity() {
     private fun initData() {
         status = intent.getStringExtra("status")
         id = intent.getStringExtra("id")
+        sum = intent.getStringExtra("sum")
 
         SmApplication.getApp().getData<Order>(DataCode.ORDER, false)?.let {
             val adapter = OrderListAdapter(this, arrayListOf(it), true)
@@ -136,10 +137,11 @@ class OrderDetailActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(mContext: Context, id: String, status: String) {
+        fun start(mContext: Context, id: String, status: String,sum:String) {
             mContext.startActivity(Intent(mContext, OrderDetailActivity::class.java)
                     .putExtra("status", status)
-                    .putExtra("id", id))
+                    .putExtra("id", id)
+                    .putExtra("sum",sum))
         }
     }
 
@@ -153,7 +155,7 @@ class OrderDetailActivity : BaseActivity() {
                     text_user_name.text = ("${it.recive.name}  ${it.recive.phone}")
                     address.text = (it.recive.province + it.recive.city + it.recive.town + it.recive.more)
 
-                    txt_money.text = ("￥${it.body.price?:"0.00"}")
+                    txt_all_money.text = ("￥${StringUtils.insertComma(sum,2)}")
                     showStartTime.text = it.order.pay_time
 //
 
@@ -169,7 +171,7 @@ class OrderDetailActivity : BaseActivity() {
 
                     text_deduction_money.text = (it.body.discount + "元")
 
-                    text_pay_money.text = (it.body.actual + "元")
+                    text_pay_money.text = (StringUtils.insertComma(sum,2) + "元")
                     txt_time.text = it.order.time
 
                     txt_seller_name.text = it.seller.linker

@@ -6,9 +6,9 @@ package com.cocosh.shmstore.http
  */
 object Constant {
 
-    fun isDebug(): Boolean = true
+    fun isDebug(): Boolean = false
 
-    var SHOWLOG = true //是否打印LOG
+    var SHOWLOG = false //是否打印LOG
 
     const val APPSECRET = "SM_ANDROID" //接口SECRET
     const val VERSION = "v1"  //接口版本
@@ -33,6 +33,7 @@ object Constant {
     const val REGISTER_SEND_CODE = "$VERSION/common/sms" //注册发送验证码
 
     const val REGISTER = "$VERSION/portal/register" //注册
+
 
     const val LOGIN = "$VERSION/portal/login"//登录
 

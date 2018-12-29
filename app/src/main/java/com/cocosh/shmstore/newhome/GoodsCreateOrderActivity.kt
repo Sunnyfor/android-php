@@ -21,6 +21,7 @@ import com.cocosh.shmstore.newhome.model.CreateGoodsBean
 import com.cocosh.shmstore.newhome.model.CreateOrder
 import com.cocosh.shmstore.newhome.model.GoodsDetail
 import com.cocosh.shmstore.utils.DataCode
+import com.cocosh.shmstore.utils.StringUtils
 import com.cocosh.shmstore.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_goods_create_order.*
 import org.greenrobot.eventbus.EventBus
@@ -197,7 +198,7 @@ class GoodsCreateOrderActivity : BaseActivity(), MineContrat.IAddressView {
                 txt_pay_money.text = ("0.00")
             } else {
                 val payMoney = price.toFloat() - redMoney.toFloat()
-                txt_pay_money.text = (payMoney.toString())
+                txt_pay_money.text = (StringUtils.insertComma(payMoney.toString(),2))
             }
 
         } else {

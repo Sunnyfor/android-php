@@ -19,7 +19,7 @@ import com.cocosh.shmstore.newhome.RefundActivity
 import com.cocosh.shmstore.utils.DataCode
 import kotlinx.android.synthetic.main.item_order_goods.view.*
 
-class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var orderStatus: String) : BaseRecycleAdapter<Order.Goods>(list) {
+class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var orderStatus: String,var sum:String) : BaseRecycleAdapter<Order.Goods>(list) {
 
     var order: Order? = null
 
@@ -87,7 +87,7 @@ class OrderGoodsAdapter(list: ArrayList<Order.Goods>, var isDesc: Boolean, var o
 
             holder.itemView.setOnClickListener {
                 SmApplication.getApp().setData(DataCode.ORDER, order)
-                OrderDetailActivity.start(context, order?.order_sn ?: "", order?.status ?: "")
+                OrderDetailActivity.start(context, order?.order_sn ?: "", order?.status ?: "",sum)
             }
 
         } else {

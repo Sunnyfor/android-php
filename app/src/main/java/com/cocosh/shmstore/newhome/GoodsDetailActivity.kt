@@ -221,8 +221,8 @@ class GoodsDetailActivity : BaseActivity(), MineContrat.IAddressView {
                     }
 
                     val style = "<style>img{vertical-align:bottom;float:left;width:100%;}</style>"
-                    val html = "<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head>$style<body>$contentSb</body></html>"
-                    webView.loadData( html, "text/html", "UTF-8")
+                    val html = "<html><head><meta http-equiv=Content-Type content=\"text/html; charset=UTF-8\"></head>$style<body>$contentSb</body></html>"
+                    webView.loadDataWithBaseURL(null,html, "text/html", "UTF-8",null)
 //                    recyclerView2.adapter = GoodsDetailPhotoAdapter(it.detail)
 
                     it.goods?.params?.let {
