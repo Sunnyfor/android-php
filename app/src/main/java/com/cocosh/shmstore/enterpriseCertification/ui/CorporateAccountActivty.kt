@@ -107,21 +107,23 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
     override fun setLayout(): Int = R.layout.activity_public_account
 
     override fun initView() {
-        val filter2 = InputFilter { source, _, _, _, _, _ ->
-            val speChat = "[`~!@#$%^&*+=|{}':;',\\[\\].<>/?~！@#￥%……&*——+|{}【】‘；：”“'。，、？]"
-            val pattern = Pattern.compile(speChat)
-            val matcher = pattern.matcher(source.toString())
-            if (matcher.find()) "" else null;
-        }
+//        val filter2 = InputFilter { source, _, _, _, _, _ ->
+//            val speChat = "[`~!@#$%^&*+=|{}':;',\\[\\].<>/?~！@#￥%……&*——+|{}【】‘；：”“'。，、？]"
+//            val pattern = Pattern.compile(speChat)
+//            val matcher = pattern.matcher(source.toString())
+//            if (matcher.find()) "" else null;
+//        }
         //保留布局内的过滤条件
-        val mFilters = arrayOfNulls<InputFilter>(tvName.filters.size)
-        tvName.filters.forEachIndexed<InputFilter?> { i: Int, inputFilter: InputFilter? ->
-            if (inputFilter != null) {
-                mFilters[i] = inputFilter
-            }
-        }
-        mFilters[tvName.filters.size - 2] = filter2
-        tvName.filters = mFilters
+//        val mFilters = arrayOfNulls<InputFilter>(tvName.filters.size)
+//        tvName.filters.forEachIndexed<InputFilter?> { i: Int, inputFilter: InputFilter? ->
+//            if (inputFilter != null) {
+//                mFilters[i] = inputFilter
+//            }
+//        }
+//        if (mFilters.size > tvName.filters.size - 2){
+//            mFilters[tvName.filters.size - 2] = filter2
+//            tvName.filters = mFilters
+//        }
 
         titleManager.defaultTitle("填写企业对公账户")
         openType = intent.getIntExtra("ACCOUNT_TYPE", -1)
