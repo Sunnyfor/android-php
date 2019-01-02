@@ -174,7 +174,7 @@ class CorporateAccountActivty : BaseActivity(), EntCertificationContrat.IBankVie
                             && edtPhoneNumber.text.length == 11
                             && !TextUtils.isEmpty(edtBankAccount.text)
                             && !TextUtils.isEmpty(edtBankName.text)) {
-                        presenter.pushData(tvBank.text.toString(), edtBankAccount.text.toString(), edtPhoneNumber.text.toString(), edtPerson.text.toString())
+                        presenter.pushData(edtBankName.text.toString(), edtBankAccount.text.toString(), edtPhoneNumber.text.toString(), edtPerson.text.toString())
                     }
                 }
             }

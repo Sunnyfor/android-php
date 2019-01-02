@@ -6,9 +6,9 @@ package com.cocosh.shmstore.http
  */
 object Constant {
 
-    fun isDebug(): Boolean = false
+    fun isDebug(): Boolean = true
 
-    var SHOWLOG = false //是否打印LOG
+    var SHOWLOG = true //是否打印LOG
 
     const val APPSECRET = "SM_ANDROID" //接口SECRET
     const val VERSION = "v1"  //接口版本
