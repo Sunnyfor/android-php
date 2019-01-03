@@ -16,17 +16,40 @@
 5. pingpp (P++支付SDK)
 
 
->## APP目录结构
-> * base 存储父类用户减少重复代码
->   1. [BaseActivity.kt](app/src/main/java/com/cocosh/shmstore/base/BaseActivity.kt)
->   2. [BaseFragment.kt](app/src/main/java/com/cocosh/shmstore/base/BaseFragment.kt)
->   3. [BaseModel.kt](app/src/main/java/com/cocosh/shmstore/base/BaseModel.kt)
->   4. [BaseRecyclerAdapter.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerAdapter.kt)
->   5. [BaseRecyclerViewHolder.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerViewHolder.kt)
->   6. [IBasePresenter.kt](app/src/main/java/com/cocosh/shmstore/base/IBasePresenter.kt)
->   7. [IBaseView.kt](app/src/main/java/com/cocosh/shmstore/base/IBaseView.kt)
->   8. [NoDoubleClickListener.kt](app/src/main/java/com/cocosh/shmstore/base/NoDoubleClickListener.kt)
->   9. [OnitemClickListener.kt](app/src/main/java/com/cocosh/shmstore/base/OnitemClickListener.kt)
+## APP目录结构
+### BASE
+#### [BaseActivity.kt](app/src/main/java/com/cocosh/shmstore/base/BaseActivity.kt)
+> 所有Activity的父类，用于管理并统一Activity的操作和规范
+
+abstract fun <font color="#ff0000">setLayout()</font>: Int 
+>返回layout资源ID，用户初始化布局
+
+abstract fun <font color="#ff0000">initView() </font>
+>初始化组件操作
+
+abstract fun <font color="#ff0000">onListener(view: View)</font>
+>响应组件的点击事件
+
+abstract fun <font color="#ff0000">reTryGetData() </font> 
+>重新加载数据方法
+
+fun <T : ViewDataBinding> <font color="#ff0000">getDataBinding()</font>: T = viewDataBinding as T  
+>获取MVVM架构的DataBinding对象
+
+fun <font color="#ff0000">showKeyboard</font>(token: IBinder) 
+>强制弹出输入法
+
+fun <font color="#ff0000">hideKeyboard</font>(token: IBinder) 
+>强制隐藏输入法
+
+2. [BaseFragment.kt](app/src/main/java/com/cocosh/shmstore/base/BaseFragment.kt)
+3. [BaseModel.kt](app/src/main/java/com/cocosh/shmstore/base/BaseModel.kt)
+4. [BaseRecyclerAdapter.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerAdapter.kt)
+5. [BaseRecyclerViewHolder.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerViewHolder.kt)
+6. [IBasePresenter.kt](app/src/main/java/com/cocosh/shmstore/base/IBasePresenter.kt)
+7. [IBaseView.kt](app/src/main/java/com/cocosh/shmstore/base/IBaseView.kt)
+8. [NoDoubleClickListener.kt](app/src/main/java/com/cocosh/shmstore/base/NoDoubleClickListener.kt)
+9. [OnitemClickListener.kt](app/src/main/java/com/cocosh/shmstore/base/OnitemClickListener.kt)
 
 
 
