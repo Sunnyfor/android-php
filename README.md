@@ -36,13 +36,43 @@ abstract fun <font color="#ff0000">reTryGetData() </font>
 fun <T : ViewDataBinding> <font color="#ff0000">getDataBinding()</font>: T = viewDataBinding as T  
 >获取MVVM架构的DataBinding对象
 
-fun <font color="#ff0000">showKeyboard</font>(token: IBinder) 
+fun <font color="#ff0000">showKeyboard(token: IBinder) </font>
 >强制弹出输入法
 
-fun <font color="#ff0000">hideKeyboard</font>(token: IBinder) 
+fun <font color="#ff0000">hideKeyboard(token: IBinder) </font>
 >强制隐藏输入法
 
-2. [BaseFragment.kt](app/src/main/java/com/cocosh/shmstore/base/BaseFragment.kt)
+abstract fun <font color="#ff0000">close()</font>
+>关闭回调方法用于回收资源
+
+
+#### [BaseFragment.kt](app/src/main/java/com/cocosh/shmstore/base/BaseFragment.kt)
+> 所有Fragment的父类，用于管理并统一Fragment的操作和规范
+
+abstract fun <font color="#ff0000">setLayout()</font>: Int 
+>返回layout资源ID，用户初始化布局
+
+abstract fun <font color="#ff0000">initView() </font>
+>初始化组件操作
+
+abstract fun <font color="#ff0000">onListener(view: View)</font>
+>响应组件的点击事件
+
+abstract fun <font color="#ff0000">reTryGetData() </font> 
+>重新加载数据方法
+
+fun <T : ViewDataBinding> <font color="#ff0000">getDataBinding()</font>: T = viewDataBinding as T  
+>获取MVVM架构的DataBinding对象
+
+fun <font color="#ff0000">showKeyboard(token: IBinder) </font>
+>强制弹出输入法
+
+fun <font color="#ff0000">hideKeyboard(token: IBinder) </font>
+>强制隐藏输入法
+
+abstract fun <font color="#ff0000">close()</font>
+>关闭回调方法用于回收资源
+
 3. [BaseModel.kt](app/src/main/java/com/cocosh/shmstore/base/BaseModel.kt)
 4. [BaseRecyclerAdapter.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerAdapter.kt)
 5. [BaseRecyclerViewHolder.kt](app/src/main/java/com/cocosh/shmstore/base/BaseRecyclerViewHolder.kt)
