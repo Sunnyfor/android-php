@@ -120,22 +120,25 @@ public class CheckIdentityInfoActivity extends BaseActivity {
             Word expiryDate = back.getExpiryDate();
 
             dataBinding.etOrganization.setText(issueAuthority == null ? "" : issueAuthority.toString());
-            if (signDate.toString().length() != 8) {
-                dataBinding.etDateStart.setText("");
-            } else {
-                dataBinding.etDateStart.setText((signDate.toString().substring(0, 4) + "-"
-                        + signDate.toString().substring(4, 6) + "-"
-                        + signDate.toString().substring(6)));
+            if (signDate != null){
+                if (signDate.toString().length() != 8) {
+                    dataBinding.etDateStart.setText("");
+                } else {
+                    dataBinding.etDateStart.setText((signDate.toString().substring(0, 4) + "-"
+                            + signDate.toString().substring(4, 6) + "-"
+                            + signDate.toString().substring(6)));
+                }
             }
 
-            if (expiryDate.toString().length() != 8) {
-                dataBinding.etDateEnd.setText("");
-            } else {
-                dataBinding.etDateEnd.setText((expiryDate.toString().substring(0, 4) + "-"
-                        + expiryDate.toString().substring(4, 6) + "-"
-                        + expiryDate.toString().substring(6)));
+            if (expiryDate != null){
+                if (expiryDate.toString().length() != 8) {
+                    dataBinding.etDateEnd.setText("");
+                } else {
+                    dataBinding.etDateEnd.setText((expiryDate.toString().substring(0, 4) + "-"
+                            + expiryDate.toString().substring(4, 6) + "-"
+                            + expiryDate.toString().substring(6)));
+                }
             }
-
         }
     }
 

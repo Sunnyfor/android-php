@@ -56,7 +56,6 @@ class PersonRsultActivity : BaseActivity() {
                     isv_validityPeriodTime.setNoIconValue(it.base.beg_time + "-" + it.base.end_time)
                     isv_agency.setNoIconValue(it.base.org)
                 }
-
             }
 
 

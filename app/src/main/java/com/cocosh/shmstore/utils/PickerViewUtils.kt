@@ -59,9 +59,8 @@ class PickerViewUtils(val activity: BaseActivity) {
                 ethnicListList?.addAll(
                         ApiManager2.gson.fromJson<java.util.ArrayList<Ethnic>>(GetJsonDataUtil.getJson("ethnic.json"),
                                 object : TypeToken<java.util.ArrayList<Ethnic>>() {}.type))
-                it.onNext("ok")
             }
-
+            it.onNext("ok")
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

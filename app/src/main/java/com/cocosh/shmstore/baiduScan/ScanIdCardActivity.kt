@@ -51,7 +51,6 @@ class ScanIdCardActivity : BaseActivity(), CertificationContrat.IView {
     private var backScanOk = false
     private var type = ""
 
-    private val uploadManager = UploadManager()
 
     private val handler = Handler(Handler.Callback {
 

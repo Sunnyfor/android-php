@@ -1,6 +1,5 @@
 package com.cocosh.shmstore.newCertification.data
 
-import android.text.TextUtils
 import com.baidu.ocr.sdk.OCR
 import com.baidu.ocr.sdk.OnResultListener
 import com.baidu.ocr.sdk.exception.OCRError
@@ -8,16 +7,11 @@ import com.baidu.ocr.sdk.model.IDCardParams
 import com.baidu.ocr.sdk.model.IDCardResult
 import com.cocosh.shmstore.R
 import com.cocosh.shmstore.base.BaseActivity
-import com.cocosh.shmstore.http.ApiManager
-import com.cocosh.shmstore.http.Constant
 import com.cocosh.shmstore.newCertification.contrat.CertificationContrat
 import com.cocosh.shmstore.utils.LogUtil
 import com.cocosh.shmstore.utils.NetworkUtils
 import com.cocosh.shmstore.utils.ToastUtil
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.File
-import java.util.HashMap
 
 
 class CertifitionLoader(var activity: BaseActivity, var loginView: CertificationContrat.IView) {
@@ -42,6 +36,18 @@ class CertifitionLoader(var activity: BaseActivity, var loginView: Certification
                     override fun onResult(result: IDCardResult?) {
                         activity.hideLoading()
                         if (result != null) {
+                            if (idCardSide == IDCardParams.ID_CARD_SIDE_FRONT){
+                                if (result.name == null || result.name.words.isNullOrEmpty() || result.idNumber == null || result.idNumber.words.isNullOrEmpty()){
+                                    loginView.idCardResult(idCardSide, null)
+                                    return
+                                }
+                            }else{
+                                if (result.issueAuthority == null || result.issueAuthority.words.isNullOrEmpty()){
+                                    loginView.idCardResult(idCardSide, null)
+                                    return
+                                }
+                            }
+
                             loginView.idCardResult(idCardSide, result)
                         }
                     }
